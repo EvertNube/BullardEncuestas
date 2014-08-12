@@ -76,6 +76,9 @@
     <Compile Include="Respuestas.cs">
       <DependentUpon>SISEncuestas.tt</DependentUpon>
     </Compile>
+    <Compile Include="Rol.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Seccion.cs">
       <DependentUpon>SISEncuestas.tt</DependentUpon>
     </Compile>
@@ -95,6 +98,9 @@
       <DependentUpon>SISEncuestas.edmx</DependentUpon>
     </Compile>
     <Compile Include="TipoRespuesta.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario.cs">
       <DependentUpon>SISEncuestas.tt</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -84,6 +84,14 @@
     <Property Name="IdPregunta" Type="int" Nullable="false" />
     <Property Name="Valor" Type="nvarchar" MaxLength="500" />
   </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DescripcionRol" Type="varchar" MaxLength="255" />
+  </EntityType>
   <EntityType Name="Seccion">
     <Key>
       <PropertyRef Name="IdSeccion" />
@@ -102,6 +110,21 @@
     </Key>
     <Property Name="IdTipoRespuesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="InicialesNombre" Type="nvarchar" MaxLength="10" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Cuenta" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="Pass" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+    <Property Name="FechaRegistro" Type="datetime" />
+    <Property Name="IdRol" Type="int" Nullable="false" />
+    <Property Name="IdCargo" Type="int" />
   </EntityType>
   <Association Name="FK_Encuesta_GrupoTrabajo">
     <End Role="GrupoTrabajo" Type="Self.GrupoTrabajo" Multiplicity="0..1" />
@@ -271,6 +294,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Usuario_Rol">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="SISEncuestasModelStoreContainer">
     <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Encuesta" EntityType="Self.Encuesta" Schema="dbo" store:Type="Tables" />
@@ -281,8 +316,10 @@
     <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pregunta" EntityType="Self.Pregunta" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Respuestas" EntityType="Self.Respuestas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Seccion" EntityType="Self.Seccion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoRespuesta" EntityType="Self.TipoRespuesta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Encuesta_GrupoTrabajo" Association="Self.FK_Encuesta_GrupoTrabajo">
       <End Role="GrupoTrabajo" EntitySet="GrupoTrabajo" />
       <End Role="Encuesta" EntitySet="Encuesta" />
@@ -338,6 +375,10 @@
     <AssociationSet Name="FK_Seccion_Seccion" Association="Self.FK_Seccion_Seccion">
       <End Role="Seccion" EntitySet="Seccion" />
       <End Role="Seccion1" EntitySet="Seccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="Usuario" EntitySet="Usuario" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

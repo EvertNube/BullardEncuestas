@@ -7,4 +7,3 @@ D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuest
 D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Data\bin\Debug\EntityFramework.SqlServer.xml
 D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Data\obj\Debug\BullardEncuestas.Data.dll
 D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Data\obj\Debug\BullardEncuestas.Data.pdb
-D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Data\obj\Debug\BullardEncuestas.Data.csprojResolveAssemblyReference.cache

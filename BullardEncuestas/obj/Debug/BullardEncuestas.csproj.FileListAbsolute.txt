@@ -53,3 +53,15 @@ D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuest
 D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\obj\Debug\BullardEncuestas.dll
 D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\obj\Debug\BullardEncuestas.pdb
 D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\obj\Debug\BullardEncuestas.csprojResolveAssemblyReference.cache
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\bin\BullardEncuestas.Core.dll
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\bin\BullardEncuestas.Helpers.dll
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\bin\BullardEncuestas.Helpers.Razor.dll
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\bin\BullardEncuestas.Data.dll
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\bin\BullardEncuestas.Core.pdb
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\bin\BullardEncuestas.Helpers.Razor.pdb
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\bin\BullardEncuestas.Helpers.pdb
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\bin\BullardEncuestas.Data.pdb
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\bin\System.Web.Http.dll
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\bin\System.Net.Http.Formatting.dll
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\bin\System.Web.Http.xml
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas\bin\System.Net.Http.Formatting.xml

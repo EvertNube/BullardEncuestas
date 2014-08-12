@@ -30,6 +30,9 @@
         <AssociationConnector Association="SISEncuestasModel.FK_Pregunta_TipoRespuesta" />
         <AssociationConnector Association="SISEncuestasModel.FK_Respuestas_Pregunta" />
         <AssociationConnector Association="SISEncuestasModel.FK_Seccion_Seccion" />
+        <EntityTypeShape EntityType="SISEncuestasModel.Rol" Width="1.5" PointX="0.75" PointY="10.625" />
+        <EntityTypeShape EntityType="SISEncuestasModel.Usuario" Width="1.5" PointX="3" PointY="10" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Usuario_Rol" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
