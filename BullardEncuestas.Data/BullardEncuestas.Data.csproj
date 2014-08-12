@@ -30,8 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,8 +48,84 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Empresa.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Encuesta.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EncuestaEvaluador.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GrupoTrabajo.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OpcionesRespuesta.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Periodo.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persona.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pregunta.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Respuestas.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Seccion.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SISEncuestas.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SISEncuestas.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SISEncuestas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SISEncuestas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SISEncuestas.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoRespuesta.cs">
+      <DependentUpon>SISEncuestas.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="SISEncuestas.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SISEncuestas.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <None Include="SISEncuestas.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SISEncuestas.edmx</DependentUpon>
+      <LastGenOutput>SISEncuestas.Context.cs</LastGenOutput>
+    </None>
+    <None Include="SISEncuestas.edmx.diagram">
+      <DependentUpon>SISEncuestas.edmx</DependentUpon>
+    </None>
+    <None Include="SISEncuestas.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SISEncuestas.edmx</DependentUpon>
+      <LastGenOutput>SISEncuestas.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
