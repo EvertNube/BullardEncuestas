@@ -1,0 +1,4 @@
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Core\bin\Debug\BullardEncuestas.Core.dll
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Core\bin\Debug\BullardEncuestas.Core.pdb
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.dll
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.pdb

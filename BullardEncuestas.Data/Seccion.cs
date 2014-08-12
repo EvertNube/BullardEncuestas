@@ -22,10 +22,13 @@ namespace BullardEncuestas.Data
     
         public int IdSeccion { get; set; }
         public string Nombre { get; set; }
-        public Nullable<int> IdEncuesta { get; set; }
+        public int IdEncuesta { get; set; }
         public Nullable<int> IdSeccionPadre { get; set; }
-        public Nullable<int> Orden { get; set; }
+        public int Orden { get; set; }
+        public bool EsSocio { get; set; }
+        public bool Estado { get; set; }
     
+        public virtual Encuesta Encuesta { get; set; }
         public virtual ICollection<Pregunta> Pregunta { get; set; }
         public virtual ICollection<Seccion> Seccion1 { get; set; }
         public virtual Seccion Seccion2 { get; set; }

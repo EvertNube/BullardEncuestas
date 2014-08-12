@@ -94,9 +94,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SISEncuestas.edmx</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
-    </Compile>
     <Compile Include="TipoRespuesta.cs">
       <DependentUpon>SISEncuestas.tt</DependentUpon>
     </Compile>

@@ -21,6 +21,7 @@ namespace BullardEncuestas.Data
     
         public int IdEmpresa { get; set; }
         public string Nombre { get; set; }
+        public bool Estado { get; set; }
     
         public virtual ICollection<Persona> Persona { get; set; }
     }

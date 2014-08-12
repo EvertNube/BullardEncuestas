@@ -15,8 +15,8 @@ namespace BullardEncuestas.Data
     public partial class Respuestas
     {
         public int IdRespuestas { get; set; }
-        public Nullable<int> IdEncuestaEvaluador { get; set; }
-        public Nullable<int> IdPregunta { get; set; }
+        public int IdEncuestaEvaluador { get; set; }
+        public int IdPregunta { get; set; }
         public string Valor { get; set; }
     
         public virtual EncuestaEvaluador EncuestaEvaluador { get; set; }

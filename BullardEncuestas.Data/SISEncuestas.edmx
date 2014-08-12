@@ -4,13 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SISEncuestasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SISEncuestasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Empresa">
           <Key>
             <PropertyRef Name="IdEmpresa" />
           </Key>
           <Property Name="IdEmpresa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Encuesta">
           <Key>
@@ -18,19 +19,20 @@
           </Key>
           <Property Name="IdEncuesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="IdPeriodo" Type="int" />
-          <Property Name="IdGrupoEncuestado" Type="int" />
+          <Property Name="IdPeriodo" Type="int" Nullable="false" />
+          <Property Name="IdGrupoTrabajo" Type="int" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="EncuestaEvaluador">
           <Key>
             <PropertyRef Name="IdEncuestaEvaluador" />
           </Key>
           <Property Name="IdEncuestaEvaluador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdEncuesta" Type="int" />
-          <Property Name="IdEvaluador" Type="int" />
-          <Property Name="CodEvaluador" Type="int" />
-          <Property Name="EstadoEncuesta" Type="bit" />
+          <Property Name="IdEncuesta" Type="int" Nullable="false" />
+          <Property Name="IdEvaluador" Type="int" Nullable="false" />
+          <Property Name="CodEvaluador" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="IdEvaluado" Type="int" />
+          <Property Name="EstadoEncuesta" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="GrupoTrabajo">
           <Key>
@@ -38,14 +40,16 @@
           </Key>
           <Property Name="IdGrupoTrabajo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="OpcionesRespuesta">
           <Key>
             <PropertyRef Name="IdOpcion" />
           </Key>
           <Property Name="IdOpcion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Valor" Type="int" />
-          <Property Name="IdTipoRespuesta" Type="int" />
+          <Property Name="Valor" Type="int" Nullable="false" />
+          <Property Name="IdTipoRespuesta" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Periodo">
           <Key>
@@ -63,6 +67,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="150" />
           <Property Name="IdEmpresa" Type="int" />
           <Property Name="IdGrupoTrabajo" Type="int" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Pregunta">
           <Key>
@@ -70,16 +75,18 @@
           </Key>
           <Property Name="IdPregunta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="350" Nullable="false" />
-          <Property Name="IdSeccion" Type="int" />
-          <Property Name="Orden" Type="int" />
+          <Property Name="IdSeccion" Type="int" Nullable="false" />
+          <Property Name="Orden" Type="int" Nullable="false" />
+          <Property Name="IdTipoRespuesta" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Respuestas">
           <Key>
             <PropertyRef Name="IdRespuestas" />
           </Key>
           <Property Name="IdRespuestas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdEncuestaEvaluador" Type="int" />
-          <Property Name="IdPregunta" Type="int" />
+          <Property Name="IdEncuestaEvaluador" Type="int" Nullable="false" />
+          <Property Name="IdPregunta" Type="int" Nullable="false" />
           <Property Name="Valor" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Seccion">
@@ -88,27 +95,18 @@
           </Key>
           <Property Name="IdSeccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="IdEncuesta" Type="int" />
+          <Property Name="IdEncuesta" Type="int" Nullable="false" />
           <Property Name="IdSeccionPadre" Type="int" />
-          <Property Name="Orden" Type="int" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
+          <Property Name="Orden" Type="int" Nullable="false" />
+          <Property Name="EsSocio" Type="bit" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TipoRespuesta">
           <Key>
             <PropertyRef Name="IdTipoRespuesta" />
           </Key>
           <Property Name="IdTipoRespuesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="nvarchar" MaxLength="150" />
-          <Property Name="IdPregunta" Type="int" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <Association Name="FK_Encuesta_GrupoTrabajo">
           <End Role="GrupoTrabajo" Type="Self.GrupoTrabajo" Multiplicity="0..1" />
@@ -118,12 +116,12 @@
               <PropertyRef Name="IdGrupoTrabajo" />
             </Principal>
             <Dependent Role="Encuesta">
-              <PropertyRef Name="IdGrupoEncuestado" />
+              <PropertyRef Name="IdGrupoTrabajo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Encuesta_Periodo">
-          <End Role="Periodo" Type="Self.Periodo" Multiplicity="0..1" />
+          <End Role="Periodo" Type="Self.Periodo" Multiplicity="1" />
           <End Role="Encuesta" Type="Self.Encuesta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Periodo">
@@ -135,7 +133,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EncuestaEvaluador_Encuesta">
-          <End Role="Encuesta" Type="Self.Encuesta" Multiplicity="0..1" />
+          <End Role="Encuesta" Type="Self.Encuesta" Multiplicity="1" />
           <End Role="EncuestaEvaluador" Type="Self.EncuestaEvaluador" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Encuesta">
@@ -147,7 +145,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EncuestaEvaluador_Persona">
-          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
           <End Role="EncuestaEvaluador" Type="Self.EncuestaEvaluador" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Persona">
@@ -171,7 +169,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OpcionesRespuesta_TipoRespuesta">
-          <End Role="TipoRespuesta" Type="Self.TipoRespuesta" Multiplicity="0..1" />
+          <End Role="TipoRespuesta" Type="Self.TipoRespuesta" Multiplicity="1" />
           <End Role="OpcionesRespuesta" Type="Self.OpcionesRespuesta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoRespuesta">
@@ -207,7 +205,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pregunta_Seccion">
-          <End Role="Seccion" Type="Self.Seccion" Multiplicity="0..1" />
+          <End Role="Seccion" Type="Self.Seccion" Multiplicity="1" />
           <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Seccion">
@@ -218,8 +216,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Pregunta_TipoRespuesta">
+          <End Role="TipoRespuesta" Type="Self.TipoRespuesta" Multiplicity="1" />
+          <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoRespuesta">
+              <PropertyRef Name="IdTipoRespuesta" />
+            </Principal>
+            <Dependent Role="Pregunta">
+              <PropertyRef Name="IdTipoRespuesta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Respuestas_EncuestaEvaluador">
-          <End Role="EncuestaEvaluador" Type="Self.EncuestaEvaluador" Multiplicity="0..1" />
+          <End Role="EncuestaEvaluador" Type="Self.EncuestaEvaluador" Multiplicity="1" />
           <End Role="Respuestas" Type="Self.Respuestas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EncuestaEvaluador">
@@ -231,7 +241,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Respuestas_Pregunta">
-          <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="0..1" />
+          <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="1" />
           <End Role="Respuestas" Type="Self.Respuestas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pregunta">
@@ -239,6 +249,18 @@
             </Principal>
             <Dependent Role="Respuestas">
               <PropertyRef Name="IdPregunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seccion_Encuesta">
+          <End Role="Encuesta" Type="Self.Encuesta" Multiplicity="1" />
+          <End Role="Seccion" Type="Self.Seccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Encuesta">
+              <PropertyRef Name="IdEncuesta" />
+            </Principal>
+            <Dependent Role="Seccion">
+              <PropertyRef Name="IdEncuesta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -254,18 +276,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TipoRespuesta_Pregunta">
-          <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="0..1" />
-          <End Role="TipoRespuesta" Type="Self.TipoRespuesta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pregunta">
-              <PropertyRef Name="IdPregunta" />
-            </Principal>
-            <Dependent Role="TipoRespuesta">
-              <PropertyRef Name="IdPregunta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SISEncuestasModelStoreContainer">
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Encuesta" EntityType="Self.Encuesta" Schema="dbo" store:Type="Tables" />
@@ -277,7 +287,6 @@
           <EntitySet Name="Pregunta" EntityType="Self.Pregunta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Respuestas" EntityType="Self.Respuestas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Seccion" EntityType="Self.Seccion" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoRespuesta" EntityType="Self.TipoRespuesta" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Encuesta_GrupoTrabajo" Association="Self.FK_Encuesta_GrupoTrabajo">
             <End Role="GrupoTrabajo" EntitySet="GrupoTrabajo" />
@@ -315,6 +324,10 @@
             <End Role="Seccion" EntitySet="Seccion" />
             <End Role="Pregunta" EntitySet="Pregunta" />
           </AssociationSet>
+          <AssociationSet Name="FK_Pregunta_TipoRespuesta" Association="Self.FK_Pregunta_TipoRespuesta">
+            <End Role="TipoRespuesta" EntitySet="TipoRespuesta" />
+            <End Role="Pregunta" EntitySet="Pregunta" />
+          </AssociationSet>
           <AssociationSet Name="FK_Respuestas_EncuestaEvaluador" Association="Self.FK_Respuestas_EncuestaEvaluador">
             <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
             <End Role="Respuestas" EntitySet="Respuestas" />
@@ -323,154 +336,222 @@
             <End Role="Pregunta" EntitySet="Pregunta" />
             <End Role="Respuestas" EntitySet="Respuestas" />
           </AssociationSet>
+          <AssociationSet Name="FK_Seccion_Encuesta" Association="Self.FK_Seccion_Encuesta">
+            <End Role="Encuesta" EntitySet="Encuesta" />
+            <End Role="Seccion" EntitySet="Seccion" />
+          </AssociationSet>
           <AssociationSet Name="FK_Seccion_Seccion" Association="Self.FK_Seccion_Seccion">
             <End Role="Seccion" EntitySet="Seccion" />
             <End Role="Seccion1" EntitySet="Seccion" />
           </AssociationSet>
-          <AssociationSet Name="FK_TipoRespuesta_Pregunta" Association="Self.FK_TipoRespuesta_Pregunta">
-            <End Role="Pregunta" EntitySet="Pregunta" />
-            <End Role="TipoRespuesta" EntitySet="TipoRespuesta" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SISEncuestasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SISEncuestasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Empresa" EntityType="SISEncuestasModel.Empresa" />
+          <EntitySet Name="Encuesta" EntityType="SISEncuestasModel.Encuesta" />
+          <EntitySet Name="EncuestaEvaluador" EntityType="SISEncuestasModel.EncuestaEvaluador" />
+          <EntitySet Name="GrupoTrabajo" EntityType="SISEncuestasModel.GrupoTrabajo" />
+          <EntitySet Name="OpcionesRespuesta" EntityType="SISEncuestasModel.OpcionesRespuesta" />
+          <EntitySet Name="Periodo" EntityType="SISEncuestasModel.Periodo" />
+          <EntitySet Name="Persona" EntityType="SISEncuestasModel.Persona" />
+          <EntitySet Name="Pregunta" EntityType="SISEncuestasModel.Pregunta" />
+          <EntitySet Name="Respuestas" EntityType="SISEncuestasModel.Respuestas" />
+          <EntitySet Name="Seccion" EntityType="SISEncuestasModel.Seccion" />
+          <EntitySet Name="TipoRespuesta" EntityType="SISEncuestasModel.TipoRespuesta" />
+          <AssociationSet Name="FK_Persona_Empresa" Association="SISEncuestasModel.FK_Persona_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Encuesta_GrupoTrabajo" Association="SISEncuestasModel.FK_Encuesta_GrupoTrabajo">
+            <End Role="GrupoTrabajo" EntitySet="GrupoTrabajo" />
+            <End Role="Encuesta" EntitySet="Encuesta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Encuesta_Periodo" Association="SISEncuestasModel.FK_Encuesta_Periodo">
+            <End Role="Periodo" EntitySet="Periodo" />
+            <End Role="Encuesta" EntitySet="Encuesta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EncuestaEvaluador_Encuesta" Association="SISEncuestasModel.FK_EncuestaEvaluador_Encuesta">
+            <End Role="Encuesta" EntitySet="Encuesta" />
+            <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seccion_Encuesta" Association="SISEncuestasModel.FK_Seccion_Encuesta">
+            <End Role="Encuesta" EntitySet="Encuesta" />
+            <End Role="Seccion" EntitySet="Seccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EncuestaEvaluador_Persona" Association="SISEncuestasModel.FK_EncuestaEvaluador_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EncuestaEvaluador_Persona1" Association="SISEncuestasModel.FK_EncuestaEvaluador_Persona1">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuestas_EncuestaEvaluador" Association="SISEncuestasModel.FK_Respuestas_EncuestaEvaluador">
+            <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
+            <End Role="Respuestas" EntitySet="Respuestas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Persona_GrupoTrabajo" Association="SISEncuestasModel.FK_Persona_GrupoTrabajo">
+            <End Role="GrupoTrabajo" EntitySet="GrupoTrabajo" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpcionesRespuesta_TipoRespuesta" Association="SISEncuestasModel.FK_OpcionesRespuesta_TipoRespuesta">
+            <End Role="TipoRespuesta" EntitySet="TipoRespuesta" />
+            <End Role="OpcionesRespuesta" EntitySet="OpcionesRespuesta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pregunta_Seccion" Association="SISEncuestasModel.FK_Pregunta_Seccion">
+            <End Role="Seccion" EntitySet="Seccion" />
+            <End Role="Pregunta" EntitySet="Pregunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pregunta_TipoRespuesta" Association="SISEncuestasModel.FK_Pregunta_TipoRespuesta">
+            <End Role="TipoRespuesta" EntitySet="TipoRespuesta" />
+            <End Role="Pregunta" EntitySet="Pregunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuestas_Pregunta" Association="SISEncuestasModel.FK_Respuestas_Pregunta">
+            <End Role="Pregunta" EntitySet="Pregunta" />
+            <End Role="Respuestas" EntitySet="Respuestas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seccion_Seccion" Association="SISEncuestasModel.FK_Seccion_Seccion">
+            <End Role="Seccion" EntitySet="Seccion" />
+            <End Role="Seccion1" EntitySet="Seccion" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Empresa">
           <Key>
             <PropertyRef Name="IdEmpresa" />
           </Key>
           <Property Name="IdEmpresa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Persona" Relationship="Self.FK_Persona_Empresa" FromRole="Empresa" ToRole="Persona" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="SISEncuestasModel.FK_Persona_Empresa" FromRole="Empresa" ToRole="Persona" />
         </EntityType>
         <EntityType Name="Encuesta">
           <Key>
             <PropertyRef Name="IdEncuesta" />
           </Key>
           <Property Name="IdEncuesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdPeriodo" Type="Int32" />
-          <Property Name="IdGrupoEncuestado" Type="Int32" />
-          <NavigationProperty Name="GrupoTrabajo" Relationship="Self.FK_Encuesta_GrupoTrabajo" FromRole="Encuesta" ToRole="GrupoTrabajo" />
-          <NavigationProperty Name="Periodo" Relationship="Self.FK_Encuesta_Periodo" FromRole="Encuesta" ToRole="Periodo" />
-          <NavigationProperty Name="EncuestaEvaluador" Relationship="Self.FK_EncuestaEvaluador_Encuesta" FromRole="Encuesta" ToRole="EncuestaEvaluador" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="IdGrupoTrabajo" Type="Int32" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="GrupoTrabajo" Relationship="SISEncuestasModel.FK_Encuesta_GrupoTrabajo" FromRole="Encuesta" ToRole="GrupoTrabajo" />
+          <NavigationProperty Name="Periodo" Relationship="SISEncuestasModel.FK_Encuesta_Periodo" FromRole="Encuesta" ToRole="Periodo" />
+          <NavigationProperty Name="EncuestaEvaluador" Relationship="SISEncuestasModel.FK_EncuestaEvaluador_Encuesta" FromRole="Encuesta" ToRole="EncuestaEvaluador" />
+          <NavigationProperty Name="Seccion" Relationship="SISEncuestasModel.FK_Seccion_Encuesta" FromRole="Encuesta" ToRole="Seccion" />
         </EntityType>
         <EntityType Name="EncuestaEvaluador">
           <Key>
             <PropertyRef Name="IdEncuestaEvaluador" />
           </Key>
           <Property Name="IdEncuestaEvaluador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdEncuesta" Type="Int32" />
-          <Property Name="IdEvaluador" Type="Int32" />
-          <Property Name="CodEvaluador" Type="Int32" />
-          <Property Name="EstadoEncuesta" Type="Boolean" />
+          <Property Name="IdEncuesta" Type="Int32" Nullable="false" />
+          <Property Name="IdEvaluador" Type="Int32" Nullable="false" />
+          <Property Name="CodEvaluador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="IdEvaluado" Type="Int32" />
-          <NavigationProperty Name="Encuesta" Relationship="Self.FK_EncuestaEvaluador_Encuesta" FromRole="EncuestaEvaluador" ToRole="Encuesta" />
-          <NavigationProperty Name="Persona" Relationship="Self.FK_EncuestaEvaluador_Persona" FromRole="EncuestaEvaluador" ToRole="Persona" />
-          <NavigationProperty Name="Persona1" Relationship="Self.FK_EncuestaEvaluador_Persona1" FromRole="EncuestaEvaluador" ToRole="Persona" />
-          <NavigationProperty Name="Respuestas" Relationship="Self.FK_Respuestas_EncuestaEvaluador" FromRole="EncuestaEvaluador" ToRole="Respuestas" />
+          <Property Name="EstadoEncuesta" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Encuesta" Relationship="SISEncuestasModel.FK_EncuestaEvaluador_Encuesta" FromRole="EncuestaEvaluador" ToRole="Encuesta" />
+          <NavigationProperty Name="Persona" Relationship="SISEncuestasModel.FK_EncuestaEvaluador_Persona" FromRole="EncuestaEvaluador" ToRole="Persona" />
+          <NavigationProperty Name="Persona1" Relationship="SISEncuestasModel.FK_EncuestaEvaluador_Persona1" FromRole="EncuestaEvaluador" ToRole="Persona" />
+          <NavigationProperty Name="Respuestas" Relationship="SISEncuestasModel.FK_Respuestas_EncuestaEvaluador" FromRole="EncuestaEvaluador" ToRole="Respuestas" />
         </EntityType>
         <EntityType Name="GrupoTrabajo">
           <Key>
             <PropertyRef Name="IdGrupoTrabajo" />
           </Key>
           <Property Name="IdGrupoTrabajo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Encuesta" Relationship="Self.FK_Encuesta_GrupoTrabajo" FromRole="GrupoTrabajo" ToRole="Encuesta" />
-          <NavigationProperty Name="Persona" Relationship="Self.FK_Persona_GrupoTrabajo" FromRole="GrupoTrabajo" ToRole="Persona" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Encuesta" Relationship="SISEncuestasModel.FK_Encuesta_GrupoTrabajo" FromRole="GrupoTrabajo" ToRole="Encuesta" />
+          <NavigationProperty Name="Persona" Relationship="SISEncuestasModel.FK_Persona_GrupoTrabajo" FromRole="GrupoTrabajo" ToRole="Persona" />
         </EntityType>
         <EntityType Name="OpcionesRespuesta">
           <Key>
             <PropertyRef Name="IdOpcion" />
           </Key>
           <Property Name="IdOpcion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Valor" Type="Int32" />
-          <Property Name="IdTipoRespuesta" Type="Int32" />
-          <NavigationProperty Name="TipoRespuesta" Relationship="Self.FK_OpcionesRespuesta_TipoRespuesta" FromRole="OpcionesRespuesta" ToRole="TipoRespuesta" />
+          <Property Name="Valor" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoRespuesta" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TipoRespuesta" Relationship="SISEncuestasModel.FK_OpcionesRespuesta_TipoRespuesta" FromRole="OpcionesRespuesta" ToRole="TipoRespuesta" />
         </EntityType>
         <EntityType Name="Periodo">
           <Key>
             <PropertyRef Name="IdPeriodo" />
           </Key>
           <Property Name="IdPeriodo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Encuesta" Relationship="Self.FK_Encuesta_Periodo" FromRole="Periodo" ToRole="Encuesta" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Encuesta" Relationship="SISEncuestasModel.FK_Encuesta_Periodo" FromRole="Periodo" ToRole="Encuesta" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
             <PropertyRef Name="IdPersona" />
           </Key>
           <Property Name="IdPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="IdEmpresa" Type="Int32" />
           <Property Name="IdGrupoTrabajo" Type="Int32" />
-          <NavigationProperty Name="Empresa" Relationship="Self.FK_Persona_Empresa" FromRole="Persona" ToRole="Empresa" />
-          <NavigationProperty Name="EncuestaEvaluador" Relationship="Self.FK_EncuestaEvaluador_Persona" FromRole="Persona" ToRole="EncuestaEvaluador" />
-          <NavigationProperty Name="EncuestaEvaluador1" Relationship="Self.FK_EncuestaEvaluador_Persona1" FromRole="Persona" ToRole="EncuestaEvaluador" />
-          <NavigationProperty Name="GrupoTrabajo" Relationship="Self.FK_Persona_GrupoTrabajo" FromRole="Persona" ToRole="GrupoTrabajo" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Empresa" Relationship="SISEncuestasModel.FK_Persona_Empresa" FromRole="Persona" ToRole="Empresa" />
+          <NavigationProperty Name="EncuestaEvaluador" Relationship="SISEncuestasModel.FK_EncuestaEvaluador_Persona" FromRole="Persona" ToRole="EncuestaEvaluador" />
+          <NavigationProperty Name="EncuestaEvaluador1" Relationship="SISEncuestasModel.FK_EncuestaEvaluador_Persona1" FromRole="Persona" ToRole="EncuestaEvaluador" />
+          <NavigationProperty Name="GrupoTrabajo" Relationship="SISEncuestasModel.FK_Persona_GrupoTrabajo" FromRole="Persona" ToRole="GrupoTrabajo" />
         </EntityType>
         <EntityType Name="Pregunta">
           <Key>
             <PropertyRef Name="IdPregunta" />
           </Key>
           <Property Name="IdPregunta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="String" MaxLength="350" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdSeccion" Type="Int32" />
-          <Property Name="Orden" Type="Int32" />
-          <NavigationProperty Name="Seccion" Relationship="Self.FK_Pregunta_Seccion" FromRole="Pregunta" ToRole="Seccion" />
-          <NavigationProperty Name="Respuestas" Relationship="Self.FK_Respuestas_Pregunta" FromRole="Pregunta" ToRole="Respuestas" />
-          <NavigationProperty Name="TipoRespuesta" Relationship="Self.FK_TipoRespuesta_Pregunta" FromRole="Pregunta" ToRole="TipoRespuesta" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="IdSeccion" Type="Int32" Nullable="false" />
+          <Property Name="Orden" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoRespuesta" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Seccion" Relationship="SISEncuestasModel.FK_Pregunta_Seccion" FromRole="Pregunta" ToRole="Seccion" />
+          <NavigationProperty Name="TipoRespuesta" Relationship="SISEncuestasModel.FK_Pregunta_TipoRespuesta" FromRole="Pregunta" ToRole="TipoRespuesta" />
+          <NavigationProperty Name="Respuestas" Relationship="SISEncuestasModel.FK_Respuestas_Pregunta" FromRole="Pregunta" ToRole="Respuestas" />
         </EntityType>
         <EntityType Name="Respuestas">
           <Key>
             <PropertyRef Name="IdRespuestas" />
           </Key>
           <Property Name="IdRespuestas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdEncuestaEvaluador" Type="Int32" />
-          <Property Name="IdPregunta" Type="Int32" />
+          <Property Name="IdEncuestaEvaluador" Type="Int32" Nullable="false" />
+          <Property Name="IdPregunta" Type="Int32" Nullable="false" />
           <Property Name="Valor" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="EncuestaEvaluador" Relationship="Self.FK_Respuestas_EncuestaEvaluador" FromRole="Respuestas" ToRole="EncuestaEvaluador" />
-          <NavigationProperty Name="Pregunta" Relationship="Self.FK_Respuestas_Pregunta" FromRole="Respuestas" ToRole="Pregunta" />
+          <NavigationProperty Name="EncuestaEvaluador" Relationship="SISEncuestasModel.FK_Respuestas_EncuestaEvaluador" FromRole="Respuestas" ToRole="EncuestaEvaluador" />
+          <NavigationProperty Name="Pregunta" Relationship="SISEncuestasModel.FK_Respuestas_Pregunta" FromRole="Respuestas" ToRole="Pregunta" />
         </EntityType>
         <EntityType Name="Seccion">
           <Key>
             <PropertyRef Name="IdSeccion" />
           </Key>
           <Property Name="IdSeccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdEncuesta" Type="Int32" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IdEncuesta" Type="Int32" Nullable="false" />
           <Property Name="IdSeccionPadre" Type="Int32" />
-          <Property Name="Orden" Type="Int32" />
-          <NavigationProperty Name="Pregunta" Relationship="Self.FK_Pregunta_Seccion" FromRole="Seccion" ToRole="Pregunta" />
-          <NavigationProperty Name="Seccion1" Relationship="Self.FK_Seccion_Seccion" FromRole="Seccion" ToRole="Seccion1" />
-          <NavigationProperty Name="Seccion2" Relationship="Self.FK_Seccion_Seccion" FromRole="Seccion1" ToRole="Seccion" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Orden" Type="Int32" Nullable="false" />
+          <Property Name="EsSocio" Type="Boolean" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Encuesta" Relationship="SISEncuestasModel.FK_Seccion_Encuesta" FromRole="Seccion" ToRole="Encuesta" />
+          <NavigationProperty Name="Pregunta" Relationship="SISEncuestasModel.FK_Pregunta_Seccion" FromRole="Seccion" ToRole="Pregunta" />
+          <NavigationProperty Name="Seccion1" Relationship="SISEncuestasModel.FK_Seccion_Seccion" FromRole="Seccion" ToRole="Seccion1" />
+          <NavigationProperty Name="Seccion2" Relationship="SISEncuestasModel.FK_Seccion_Seccion" FromRole="Seccion1" ToRole="Seccion" />
         </EntityType>
         <EntityType Name="TipoRespuesta">
           <Key>
             <PropertyRef Name="IdTipoRespuesta" />
           </Key>
           <Property Name="IdTipoRespuesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="IdPregunta" Type="Int32" />
-          <NavigationProperty Name="OpcionesRespuesta" Relationship="Self.FK_OpcionesRespuesta_TipoRespuesta" FromRole="TipoRespuesta" ToRole="OpcionesRespuesta" />
-          <NavigationProperty Name="Pregunta" Relationship="Self.FK_TipoRespuesta_Pregunta" FromRole="TipoRespuesta" ToRole="Pregunta" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OpcionesRespuesta" Relationship="SISEncuestasModel.FK_OpcionesRespuesta_TipoRespuesta" FromRole="TipoRespuesta" ToRole="OpcionesRespuesta" />
+          <NavigationProperty Name="Pregunta" Relationship="SISEncuestasModel.FK_Pregunta_TipoRespuesta" FromRole="TipoRespuesta" ToRole="Pregunta" />
         </EntityType>
         <Association Name="FK_Persona_Empresa">
-          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
-          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <End Type="SISEncuestasModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="SISEncuestasModel.Persona" Role="Persona" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Empresa">
               <PropertyRef Name="IdEmpresa" />
@@ -481,20 +562,20 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Encuesta_GrupoTrabajo">
-          <End Role="GrupoTrabajo" Type="Self.GrupoTrabajo" Multiplicity="0..1" />
-          <End Role="Encuesta" Type="Self.Encuesta" Multiplicity="*" />
+          <End Type="SISEncuestasModel.GrupoTrabajo" Role="GrupoTrabajo" Multiplicity="0..1" />
+          <End Type="SISEncuestasModel.Encuesta" Role="Encuesta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GrupoTrabajo">
               <PropertyRef Name="IdGrupoTrabajo" />
             </Principal>
             <Dependent Role="Encuesta">
-              <PropertyRef Name="IdGrupoEncuestado" />
+              <PropertyRef Name="IdGrupoTrabajo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Encuesta_Periodo">
-          <End Role="Periodo" Type="Self.Periodo" Multiplicity="0..1" />
-          <End Role="Encuesta" Type="Self.Encuesta" Multiplicity="*" />
+          <End Type="SISEncuestasModel.Periodo" Role="Periodo" Multiplicity="1" />
+          <End Type="SISEncuestasModel.Encuesta" Role="Encuesta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Periodo">
               <PropertyRef Name="IdPeriodo" />
@@ -505,8 +586,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EncuestaEvaluador_Encuesta">
-          <End Role="Encuesta" Type="Self.Encuesta" Multiplicity="0..1" />
-          <End Role="EncuestaEvaluador" Type="Self.EncuestaEvaluador" Multiplicity="*" />
+          <End Type="SISEncuestasModel.Encuesta" Role="Encuesta" Multiplicity="1" />
+          <End Type="SISEncuestasModel.EncuestaEvaluador" Role="EncuestaEvaluador" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Encuesta">
               <PropertyRef Name="IdEncuesta" />
@@ -516,9 +597,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Seccion_Encuesta">
+          <End Type="SISEncuestasModel.Encuesta" Role="Encuesta" Multiplicity="1" />
+          <End Type="SISEncuestasModel.Seccion" Role="Seccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Encuesta">
+              <PropertyRef Name="IdEncuesta" />
+            </Principal>
+            <Dependent Role="Seccion">
+              <PropertyRef Name="IdEncuesta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EncuestaEvaluador_Persona">
-          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
-          <End Role="EncuestaEvaluador" Type="Self.EncuestaEvaluador" Multiplicity="*" />
+          <End Type="SISEncuestasModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="SISEncuestasModel.EncuestaEvaluador" Role="EncuestaEvaluador" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Persona">
               <PropertyRef Name="IdPersona" />
@@ -529,8 +622,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EncuestaEvaluador_Persona1">
-          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
-          <End Role="EncuestaEvaluador" Type="Self.EncuestaEvaluador" Multiplicity="*" />
+          <End Type="SISEncuestasModel.Persona" Role="Persona" Multiplicity="0..1" />
+          <End Type="SISEncuestasModel.EncuestaEvaluador" Role="EncuestaEvaluador" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Persona">
               <PropertyRef Name="IdPersona" />
@@ -541,8 +634,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Respuestas_EncuestaEvaluador">
-          <End Role="EncuestaEvaluador" Type="Self.EncuestaEvaluador" Multiplicity="0..1" />
-          <End Role="Respuestas" Type="Self.Respuestas" Multiplicity="*" />
+          <End Type="SISEncuestasModel.EncuestaEvaluador" Role="EncuestaEvaluador" Multiplicity="1" />
+          <End Type="SISEncuestasModel.Respuestas" Role="Respuestas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EncuestaEvaluador">
               <PropertyRef Name="IdEncuestaEvaluador" />
@@ -553,8 +646,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Persona_GrupoTrabajo">
-          <End Role="GrupoTrabajo" Type="Self.GrupoTrabajo" Multiplicity="0..1" />
-          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <End Type="SISEncuestasModel.GrupoTrabajo" Role="GrupoTrabajo" Multiplicity="0..1" />
+          <End Type="SISEncuestasModel.Persona" Role="Persona" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GrupoTrabajo">
               <PropertyRef Name="IdGrupoTrabajo" />
@@ -565,8 +658,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OpcionesRespuesta_TipoRespuesta">
-          <End Role="TipoRespuesta" Type="Self.TipoRespuesta" Multiplicity="0..1" />
-          <End Role="OpcionesRespuesta" Type="Self.OpcionesRespuesta" Multiplicity="*" />
+          <End Type="SISEncuestasModel.TipoRespuesta" Role="TipoRespuesta" Multiplicity="1" />
+          <End Type="SISEncuestasModel.OpcionesRespuesta" Role="OpcionesRespuesta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoRespuesta">
               <PropertyRef Name="IdTipoRespuesta" />
@@ -577,8 +670,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pregunta_Seccion">
-          <End Role="Seccion" Type="Self.Seccion" Multiplicity="0..1" />
-          <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="*" />
+          <End Type="SISEncuestasModel.Seccion" Role="Seccion" Multiplicity="1" />
+          <End Type="SISEncuestasModel.Pregunta" Role="Pregunta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Seccion">
               <PropertyRef Name="IdSeccion" />
@@ -588,9 +681,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Pregunta_TipoRespuesta">
+          <End Type="SISEncuestasModel.TipoRespuesta" Role="TipoRespuesta" Multiplicity="1" />
+          <End Type="SISEncuestasModel.Pregunta" Role="Pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoRespuesta">
+              <PropertyRef Name="IdTipoRespuesta" />
+            </Principal>
+            <Dependent Role="Pregunta">
+              <PropertyRef Name="IdTipoRespuesta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Respuestas_Pregunta">
-          <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="0..1" />
-          <End Role="Respuestas" Type="Self.Respuestas" Multiplicity="*" />
+          <End Type="SISEncuestasModel.Pregunta" Role="Pregunta" Multiplicity="1" />
+          <End Type="SISEncuestasModel.Respuestas" Role="Respuestas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pregunta">
               <PropertyRef Name="IdPregunta" />
@@ -600,21 +705,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TipoRespuesta_Pregunta">
-          <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="0..1" />
-          <End Role="TipoRespuesta" Type="Self.TipoRespuesta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pregunta">
-              <PropertyRef Name="IdPregunta" />
-            </Principal>
-            <Dependent Role="TipoRespuesta">
-              <PropertyRef Name="IdPregunta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Seccion_Seccion">
-          <End Role="Seccion" Type="Self.Seccion" Multiplicity="0..1" />
-          <End Role="Seccion1" Type="Self.Seccion" Multiplicity="*" />
+          <End Type="SISEncuestasModel.Seccion" Role="Seccion" Multiplicity="0..1" />
+          <End Type="SISEncuestasModel.Seccion" Role="Seccion1" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Seccion">
               <PropertyRef Name="IdSeccion" />
@@ -624,72 +717,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SISEncuestasEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Empresa" EntityType="Self.Empresa" />
-          <EntitySet Name="Encuesta" EntityType="Self.Encuesta" />
-          <EntitySet Name="EncuestaEvaluador" EntityType="Self.EncuestaEvaluador" />
-          <EntitySet Name="GrupoTrabajo" EntityType="Self.GrupoTrabajo" />
-          <EntitySet Name="OpcionesRespuesta" EntityType="Self.OpcionesRespuesta" />
-          <EntitySet Name="Periodo" EntityType="Self.Periodo" />
-          <EntitySet Name="Persona" EntityType="Self.Persona" />
-          <EntitySet Name="Pregunta" EntityType="Self.Pregunta" />
-          <EntitySet Name="Respuestas" EntityType="Self.Respuestas" />
-          <EntitySet Name="Seccion" EntityType="Self.Seccion" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="TipoRespuesta" EntityType="Self.TipoRespuesta" />
-          <AssociationSet Name="FK_Persona_Empresa" Association="Self.FK_Persona_Empresa">
-            <End Role="Empresa" EntitySet="Empresa" />
-            <End Role="Persona" EntitySet="Persona" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Encuesta_GrupoTrabajo" Association="Self.FK_Encuesta_GrupoTrabajo">
-            <End Role="GrupoTrabajo" EntitySet="GrupoTrabajo" />
-            <End Role="Encuesta" EntitySet="Encuesta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Encuesta_Periodo" Association="Self.FK_Encuesta_Periodo">
-            <End Role="Periodo" EntitySet="Periodo" />
-            <End Role="Encuesta" EntitySet="Encuesta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EncuestaEvaluador_Encuesta" Association="Self.FK_EncuestaEvaluador_Encuesta">
-            <End Role="Encuesta" EntitySet="Encuesta" />
-            <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EncuestaEvaluador_Persona" Association="Self.FK_EncuestaEvaluador_Persona">
-            <End Role="Persona" EntitySet="Persona" />
-            <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EncuestaEvaluador_Persona1" Association="Self.FK_EncuestaEvaluador_Persona1">
-            <End Role="Persona" EntitySet="Persona" />
-            <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Respuestas_EncuestaEvaluador" Association="Self.FK_Respuestas_EncuestaEvaluador">
-            <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
-            <End Role="Respuestas" EntitySet="Respuestas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Persona_GrupoTrabajo" Association="Self.FK_Persona_GrupoTrabajo">
-            <End Role="GrupoTrabajo" EntitySet="GrupoTrabajo" />
-            <End Role="Persona" EntitySet="Persona" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OpcionesRespuesta_TipoRespuesta" Association="Self.FK_OpcionesRespuesta_TipoRespuesta">
-            <End Role="TipoRespuesta" EntitySet="TipoRespuesta" />
-            <End Role="OpcionesRespuesta" EntitySet="OpcionesRespuesta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pregunta_Seccion" Association="Self.FK_Pregunta_Seccion">
-            <End Role="Seccion" EntitySet="Seccion" />
-            <End Role="Pregunta" EntitySet="Pregunta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Respuestas_Pregunta" Association="Self.FK_Respuestas_Pregunta">
-            <End Role="Pregunta" EntitySet="Pregunta" />
-            <End Role="Respuestas" EntitySet="Respuestas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TipoRespuesta_Pregunta" Association="Self.FK_TipoRespuesta_Pregunta">
-            <End Role="Pregunta" EntitySet="Pregunta" />
-            <End Role="TipoRespuesta" EntitySet="TipoRespuesta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Seccion_Seccion" Association="Self.FK_Seccion_Seccion">
-            <End Role="Seccion" EntitySet="Seccion" />
-            <End Role="Seccion1" EntitySet="Seccion" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -699,117 +726,114 @@
           <EntitySetMapping Name="Empresa">
             <EntityTypeMapping TypeName="SISEncuestasModel.Empresa">
               <MappingFragment StoreEntitySet="Empresa">
-                <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Encuesta">
             <EntityTypeMapping TypeName="SISEncuestasModel.Encuesta">
               <MappingFragment StoreEntitySet="Encuesta">
-                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
                 <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
-                <ScalarProperty Name="IdGrupoEncuestado" ColumnName="IdGrupoEncuestado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EncuestaEvaluador">
             <EntityTypeMapping TypeName="SISEncuestasModel.EncuestaEvaluador">
               <MappingFragment StoreEntitySet="EncuestaEvaluador">
-                <ScalarProperty Name="IdEncuestaEvaluador" ColumnName="IdEncuestaEvaluador" />
-                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
-                <ScalarProperty Name="IdEvaluador" ColumnName="IdEvaluador" />
-                <ScalarProperty Name="CodEvaluador" ColumnName="CodEvaluador" />
                 <ScalarProperty Name="EstadoEncuesta" ColumnName="EstadoEncuesta" />
                 <ScalarProperty Name="IdEvaluado" ColumnName="IdEvaluado" />
+                <ScalarProperty Name="CodEvaluador" ColumnName="CodEvaluador" />
+                <ScalarProperty Name="IdEvaluador" ColumnName="IdEvaluador" />
+                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+                <ScalarProperty Name="IdEncuestaEvaluador" ColumnName="IdEncuestaEvaluador" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GrupoTrabajo">
             <EntityTypeMapping TypeName="SISEncuestasModel.GrupoTrabajo">
               <MappingFragment StoreEntitySet="GrupoTrabajo">
-                <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OpcionesRespuesta">
             <EntityTypeMapping TypeName="SISEncuestasModel.OpcionesRespuesta">
               <MappingFragment StoreEntitySet="OpcionesRespuesta">
-                <ScalarProperty Name="IdOpcion" ColumnName="IdOpcion" />
-                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="IdOpcion" ColumnName="IdOpcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Periodo">
             <EntityTypeMapping TypeName="SISEncuestasModel.Periodo">
               <MappingFragment StoreEntitySet="Periodo">
-                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Persona">
             <EntityTypeMapping TypeName="SISEncuestasModel.Persona">
               <MappingFragment StoreEntitySet="Persona">
-                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
+                <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pregunta">
             <EntityTypeMapping TypeName="SISEncuestasModel.Pregunta">
               <MappingFragment StoreEntitySet="Pregunta">
-                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
                 <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Respuestas">
             <EntityTypeMapping TypeName="SISEncuestasModel.Respuestas">
               <MappingFragment StoreEntitySet="Respuestas">
-                <ScalarProperty Name="IdRespuestas" ColumnName="IdRespuestas" />
-                <ScalarProperty Name="IdEncuestaEvaluador" ColumnName="IdEncuestaEvaluador" />
-                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+                <ScalarProperty Name="IdEncuestaEvaluador" ColumnName="IdEncuestaEvaluador" />
+                <ScalarProperty Name="IdRespuestas" ColumnName="IdRespuestas" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Seccion">
             <EntityTypeMapping TypeName="SISEncuestasModel.Seccion">
               <MappingFragment StoreEntitySet="Seccion">
-                <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
-                <ScalarProperty Name="IdSeccionPadre" ColumnName="IdSeccionPadre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="EsSocio" ColumnName="EsSocio" />
                 <ScalarProperty Name="Orden" ColumnName="Orden" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="SISEncuestasModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="IdSeccionPadre" ColumnName="IdSeccionPadre" />
+                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TipoRespuesta">
             <EntityTypeMapping TypeName="SISEncuestasModel.TipoRespuesta">
               <MappingFragment StoreEntitySet="TipoRespuesta">
-                <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+                <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

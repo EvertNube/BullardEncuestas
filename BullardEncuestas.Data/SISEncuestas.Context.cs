@@ -35,7 +35,6 @@ namespace BullardEncuestas.Data
         public virtual DbSet<Pregunta> Pregunta { get; set; }
         public virtual DbSet<Respuestas> Respuestas { get; set; }
         public virtual DbSet<Seccion> Seccion { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TipoRespuesta> TipoRespuesta { get; set; }
     }
 }

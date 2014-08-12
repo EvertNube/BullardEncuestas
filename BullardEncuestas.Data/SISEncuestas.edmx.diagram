@@ -5,31 +5,31 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2f6e08c3dbec4918b5e0ebbacbe9d400" Name="Diagram1">
-        <EntityTypeShape EntityType="SISEncuestasModel.Empresa" Width="1.5" PointX="3.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISEncuestasModel.Encuesta" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISEncuestasModel.EncuestaEvaluador" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISEncuestasModel.GrupoTrabajo" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISEncuestasModel.OpcionesRespuesta" Width="1.5" PointX="12.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISEncuestasModel.Periodo" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISEncuestasModel.Persona" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISEncuestasModel.Pregunta" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISEncuestasModel.Respuestas" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISEncuestasModel.Seccion" Width="1.5" PointX="6" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISEncuestasModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SISEncuestasModel.TipoRespuesta" Width="1.5" PointX="10.5" PointY="1.625" IsExpanded="true" />
-        <AssociationConnector Association="SISEncuestasModel.FK_Persona_Empresa" ManuallyRouted="false" />
-        <AssociationConnector Association="SISEncuestasModel.FK_Encuesta_GrupoTrabajo" ManuallyRouted="false" />
-        <AssociationConnector Association="SISEncuestasModel.FK_Encuesta_Periodo" ManuallyRouted="false" />
-        <AssociationConnector Association="SISEncuestasModel.FK_EncuestaEvaluador_Encuesta" ManuallyRouted="false" />
-        <AssociationConnector Association="SISEncuestasModel.FK_EncuestaEvaluador_Persona" ManuallyRouted="false" />
-        <AssociationConnector Association="SISEncuestasModel.FK_EncuestaEvaluador_Persona1" ManuallyRouted="false" />
-        <AssociationConnector Association="SISEncuestasModel.FK_Respuestas_EncuestaEvaluador" ManuallyRouted="false" />
-        <AssociationConnector Association="SISEncuestasModel.FK_Persona_GrupoTrabajo" ManuallyRouted="false" />
-        <AssociationConnector Association="SISEncuestasModel.FK_OpcionesRespuesta_TipoRespuesta" ManuallyRouted="false" />
-        <AssociationConnector Association="SISEncuestasModel.FK_Pregunta_Seccion" ManuallyRouted="false" />
-        <AssociationConnector Association="SISEncuestasModel.FK_Respuestas_Pregunta" ManuallyRouted="false" />
-        <AssociationConnector Association="SISEncuestasModel.FK_TipoRespuesta_Pregunta" ManuallyRouted="false" />
-        <AssociationConnector Association="SISEncuestasModel.FK_Seccion_Seccion" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SISEncuestasModel.Empresa" Width="1.5" PointX="0.75" PointY="2.75" />
+        <EntityTypeShape EntityType="SISEncuestasModel.Encuesta" Width="1.5" PointX="6" PointY="5.25" />
+        <EntityTypeShape EntityType="SISEncuestasModel.EncuestaEvaluador" Width="1.5" PointX="8.25" PointY="4.125" />
+        <EntityTypeShape EntityType="SISEncuestasModel.GrupoTrabajo" Width="1.5" PointX="0.75" PointY="5.625" />
+        <EntityTypeShape EntityType="SISEncuestasModel.OpcionesRespuesta" Width="1.5" PointX="10.5" PointY="13.25" />
+        <EntityTypeShape EntityType="SISEncuestasModel.Periodo" Width="1.5" PointX="3.75" PointY="1.75" />
+        <EntityTypeShape EntityType="SISEncuestasModel.Persona" Width="1.5" PointX="3" PointY="5.125" />
+        <EntityTypeShape EntityType="SISEncuestasModel.Pregunta" Width="1.5" PointX="10.5" PointY="8.875" />
+        <EntityTypeShape EntityType="SISEncuestasModel.Respuestas" Width="1.5" PointX="12.75" PointY="6.875" />
+        <EntityTypeShape EntityType="SISEncuestasModel.Seccion" Width="1.5" PointX="8.25" PointY="8.75" />
+        <EntityTypeShape EntityType="SISEncuestasModel.TipoRespuesta" Width="1.5" PointX="8.25" PointY="13.375" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Persona_Empresa" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Encuesta_GrupoTrabajo" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Encuesta_Periodo" />
+        <AssociationConnector Association="SISEncuestasModel.FK_EncuestaEvaluador_Encuesta" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Seccion_Encuesta" />
+        <AssociationConnector Association="SISEncuestasModel.FK_EncuestaEvaluador_Persona" />
+        <AssociationConnector Association="SISEncuestasModel.FK_EncuestaEvaluador_Persona1" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Respuestas_EncuestaEvaluador" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Persona_GrupoTrabajo" />
+        <AssociationConnector Association="SISEncuestasModel.FK_OpcionesRespuesta_TipoRespuesta" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Pregunta_Seccion" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Pregunta_TipoRespuesta" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Respuestas_Pregunta" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Seccion_Seccion" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

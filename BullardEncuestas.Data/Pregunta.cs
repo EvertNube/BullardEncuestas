@@ -17,16 +17,17 @@ namespace BullardEncuestas.Data
         public Pregunta()
         {
             this.Respuestas = new HashSet<Respuestas>();
-            this.TipoRespuesta = new HashSet<TipoRespuesta>();
         }
     
         public int IdPregunta { get; set; }
         public string Descripcion { get; set; }
-        public Nullable<int> IdSeccion { get; set; }
-        public Nullable<int> Orden { get; set; }
+        public int IdSeccion { get; set; }
+        public int Orden { get; set; }
+        public int IdTipoRespuesta { get; set; }
+        public bool Estado { get; set; }
     
         public virtual Seccion Seccion { get; set; }
+        public virtual TipoRespuesta TipoRespuesta { get; set; }
         public virtual ICollection<Respuestas> Respuestas { get; set; }
-        public virtual ICollection<TipoRespuesta> TipoRespuesta { get; set; }
     }
 }

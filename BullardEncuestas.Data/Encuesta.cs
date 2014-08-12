@@ -17,15 +17,18 @@ namespace BullardEncuestas.Data
         public Encuesta()
         {
             this.EncuestaEvaluador = new HashSet<EncuestaEvaluador>();
+            this.Seccion = new HashSet<Seccion>();
         }
     
         public int IdEncuesta { get; set; }
         public string Nombre { get; set; }
-        public Nullable<int> IdPeriodo { get; set; }
-        public Nullable<int> IdGrupoEncuestado { get; set; }
+        public int IdPeriodo { get; set; }
+        public Nullable<int> IdGrupoTrabajo { get; set; }
+        public bool Estado { get; set; }
     
         public virtual GrupoTrabajo GrupoTrabajo { get; set; }
         public virtual Periodo Periodo { get; set; }
         public virtual ICollection<EncuestaEvaluador> EncuestaEvaluador { get; set; }
+        public virtual ICollection<Seccion> Seccion { get; set; }
     }
 }

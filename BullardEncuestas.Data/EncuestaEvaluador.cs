@@ -20,11 +20,11 @@ namespace BullardEncuestas.Data
         }
     
         public int IdEncuestaEvaluador { get; set; }
-        public Nullable<int> IdEncuesta { get; set; }
-        public Nullable<int> IdEvaluador { get; set; }
-        public Nullable<int> CodEvaluador { get; set; }
-        public Nullable<bool> EstadoEncuesta { get; set; }
+        public int IdEncuesta { get; set; }
+        public int IdEvaluador { get; set; }
+        public string CodEvaluador { get; set; }
         public Nullable<int> IdEvaluado { get; set; }
+        public bool EstadoEncuesta { get; set; }
     
         public virtual Encuesta Encuesta { get; set; }
         public virtual Persona Persona { get; set; }
