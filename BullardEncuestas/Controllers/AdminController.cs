@@ -67,6 +67,12 @@ namespace BullardEncuestas.Controllers
             return View();
         }
 
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+
         //public ActionResult Index(int? searchResponsable)
         //{
         //    if (!this.currentUser()) { return RedirectToAction("Ingresar"); }

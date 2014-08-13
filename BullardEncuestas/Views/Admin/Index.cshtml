@@ -1,0 +1,31 @@
+﻿@using BullardEncuestas.Helpers
+@using BullardEncuestas.Core.DTO
+
+@{
+    ViewBag.Title = "Encuestas";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model IList<EncuestaDTO>
+<section class="hbox stretch">
+    <aside>
+        <section class="vbox">
+            <section class="scrollable padder">
+                <div class="panel-body row m-b">
+                    <div class="col-xs-12 col-md-12">
+                        <section class="panel panel-default">
+                            <div class="row wrapper">
+                                <div class="col-sm-8 m-b-xs">
+                                    <h2>Encuestas</h2>
+                                </div>
+                                <div class="col-sm-4">
+                                    <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Crear nueva Encuesta</a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </aside>
+</section>
