@@ -32,11 +32,11 @@ namespace BullardEncuestas.Data
         public virtual DbSet<OpcionesRespuesta> OpcionesRespuesta { get; set; }
         public virtual DbSet<Periodo> Periodo { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
-        public virtual DbSet<Pregunta> Pregunta { get; set; }
         public virtual DbSet<Respuestas> Respuestas { get; set; }
         public virtual DbSet<Seccion> Seccion { get; set; }
         public virtual DbSet<TipoRespuesta> TipoRespuesta { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Pregunta> Pregunta { get; set; }
     }
 }

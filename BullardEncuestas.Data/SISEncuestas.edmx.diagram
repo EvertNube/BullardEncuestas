@@ -12,7 +12,6 @@
         <EntityTypeShape EntityType="SISEncuestasModel.OpcionesRespuesta" Width="1.5" PointX="10.5" PointY="13.25" />
         <EntityTypeShape EntityType="SISEncuestasModel.Periodo" Width="1.5" PointX="3.75" PointY="1.75" />
         <EntityTypeShape EntityType="SISEncuestasModel.Persona" Width="1.5" PointX="3" PointY="5.125" />
-        <EntityTypeShape EntityType="SISEncuestasModel.Pregunta" Width="1.5" PointX="10.5" PointY="8.875" />
         <EntityTypeShape EntityType="SISEncuestasModel.Respuestas" Width="1.5" PointX="12.75" PointY="6.875" />
         <EntityTypeShape EntityType="SISEncuestasModel.Seccion" Width="1.5" PointX="8.25" PointY="8.75" />
         <EntityTypeShape EntityType="SISEncuestasModel.TipoRespuesta" Width="1.5" PointX="8.25" PointY="13.375" />
@@ -26,13 +25,14 @@
         <AssociationConnector Association="SISEncuestasModel.FK_Respuestas_EncuestaEvaluador" />
         <AssociationConnector Association="SISEncuestasModel.FK_Persona_GrupoTrabajo" />
         <AssociationConnector Association="SISEncuestasModel.FK_OpcionesRespuesta_TipoRespuesta" />
-        <AssociationConnector Association="SISEncuestasModel.FK_Pregunta_Seccion" />
-        <AssociationConnector Association="SISEncuestasModel.FK_Pregunta_TipoRespuesta" />
-        <AssociationConnector Association="SISEncuestasModel.FK_Respuestas_Pregunta" />
         <AssociationConnector Association="SISEncuestasModel.FK_Seccion_Seccion" />
         <EntityTypeShape EntityType="SISEncuestasModel.Rol" Width="1.5" PointX="0.75" PointY="10.625" />
         <EntityTypeShape EntityType="SISEncuestasModel.Usuario" Width="1.5" PointX="3" PointY="10" />
         <AssociationConnector Association="SISEncuestasModel.FK_Usuario_Rol" />
+        <EntityTypeShape EntityType="SISEncuestasModel.Pregunta" Width="1.5" PointX="10.5" PointY="9.5" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Pregunta_Seccion" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Pregunta_TipoRespuesta" />
+        <AssociationConnector Association="SISEncuestasModel.FK_Respuestas_Pregunta" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

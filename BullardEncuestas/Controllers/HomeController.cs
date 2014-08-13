@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ESSACInspecciones.Controllers
+namespace BullardEncuestas.Controllers
 {
     public class HomeController : Controller
     {
@@ -15,5 +15,6 @@ namespace ESSACInspecciones.Controllers
         {
             return RedirectToAction("Ingresar", "Admin");
         }
+
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BullardEncuestas.Core.DTO
 {
     [Serializable]
-    class PersonaDTO
+    public class PersonaDTO
     {
         public int IdPersona { get; set; }
         public string Nombre { get; set; }

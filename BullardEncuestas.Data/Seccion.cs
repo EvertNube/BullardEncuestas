@@ -16,8 +16,8 @@ namespace BullardEncuestas.Data
     {
         public Seccion()
         {
-            this.Pregunta = new HashSet<Pregunta>();
             this.Seccion1 = new HashSet<Seccion>();
+            this.Pregunta = new HashSet<Pregunta>();
         }
     
         public int IdSeccion { get; set; }
@@ -29,8 +29,8 @@ namespace BullardEncuestas.Data
         public bool Estado { get; set; }
     
         public virtual Encuesta Encuesta { get; set; }
-        public virtual ICollection<Pregunta> Pregunta { get; set; }
         public virtual ICollection<Seccion> Seccion1 { get; set; }
         public virtual Seccion Seccion2 { get; set; }
+        public virtual ICollection<Pregunta> Pregunta { get; set; }
     }
 }

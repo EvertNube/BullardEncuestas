@@ -72,18 +72,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Pregunta">
-      <EntityTypeMapping TypeName="SISEncuestasModel.Pregunta">
-        <MappingFragment StoreEntitySet="Pregunta">
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
-          <ScalarProperty Name="Orden" ColumnName="Orden" />
-          <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Respuestas">
       <EntityTypeMapping TypeName="SISEncuestasModel.Respuestas">
         <MappingFragment StoreEntitySet="Respuestas">
@@ -137,6 +125,19 @@
           <ScalarProperty Name="InicialesNombre" ColumnName="InicialesNombre" />
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pregunta">
+      <EntityTypeMapping TypeName="SISEncuestasModel.Pregunta">
+        <MappingFragment StoreEntitySet="Pregunta">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
+          <ScalarProperty Name="Orden" ColumnName="Orden" />
+          <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
+          <ScalarProperty Name="Span" ColumnName="Span" />
+          <ScalarProperty Name="Texto" ColumnName="Texto" />
+          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

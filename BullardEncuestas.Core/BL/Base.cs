@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BullardEncuestas.Core
+namespace BullardEncuestas.Core.BL
 {
-    class Base
+    public class Base
     {
         protected SISEncuestasEntities getContext()
         {

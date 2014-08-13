@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BullardEncuestas.Core.DTO
 {
     [Serializable]
-    class UsuarioDTO
+    public class UsuarioDTO
     {
         public int IdUsuario { get; set; }
         //[Required]

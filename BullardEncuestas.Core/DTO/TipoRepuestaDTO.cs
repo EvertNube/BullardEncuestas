@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BullardEncuestas.Core.DTO
 {
-    class TipoRepuestaDTO
+    public class TipoRepuestaDTO
     {
         public int IdTipoRespuesta { get; set; }
         public string Nombre { get; set; }

@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.ServiceModel.DomainServices.EntityFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\Base.cs" />
+    <Compile Include="BL\UsuariosBL.cs" />
     <Compile Include="DTO\EncuestaDTO.cs" />
     <Compile Include="DTO\EncuestaEvaluadorDTO.cs" />
     <Compile Include="DTO\GrupoTrabajoDTO.cs" />
