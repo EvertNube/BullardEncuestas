@@ -165,6 +165,7 @@
     <Content Include="Content\themes\admin\images\circle_Green.png" />
     <Content Include="Content\themes\admin\images\circle_Orange.png" />
     <Content Include="Content\themes\admin\images\circle_Red.png" />
+    <Content Include="Content\themes\admin\images\edit.png" />
     <Content Include="Content\themes\admin\images\logo-essac.png" />
     <Content Include="Content\themes\admin\images\Logo-rpd.png" />
     <Content Include="Content\themes\admin\images\logo.jpg" />
@@ -172,6 +173,7 @@
     <Content Include="Content\themes\admin\images\phone-1.png" />
     <Content Include="Content\themes\admin\images\phone-2.png" />
     <Content Include="Content\themes\admin\images\render-1.png" />
+    <Content Include="Content\themes\admin\images\send.png" />
     <Content Include="Content\themes\admin\images\thumb_1.png" />
     <Content Include="Content\themes\admin\images\thumb_2.png" />
     <Content Include="Content\themes\admin\images\thumb_3.png" />

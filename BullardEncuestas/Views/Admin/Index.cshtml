@@ -8,7 +8,6 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-@*@model IList<EncuestaDTO>*@
 <section class="hbox stretch">
     <aside>
         <section class="vbox">
@@ -43,7 +42,8 @@
                                                     <td>@obj.Nombre</td>
                                                     <td>@obj.Periodo.Descripcion</td>
                                                     <td align="center">
-                                                        <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })"><i class="fa fa-pencil"></i></a>
+                                                        <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })"><i class="fa edit"></i></a>
+                                                        <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })"><i class="fa send"></i></a>
                                                         @*<a href="#@obj.IdTarea" class="AddTaskToBagTasks"><i class="fa fa-plus"></i></a>*@
                                                     </td>
                                                 </tr>
