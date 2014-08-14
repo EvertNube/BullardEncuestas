@@ -1,12 +1,14 @@
 ﻿@using BullardEncuestas.Helpers
 @using BullardEncuestas.Core.DTO
+@using PagedList;
+@model IPagedList<EncuestaDTO>
 
 @{
     ViewBag.Title = "Encuestas";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-@model IList<EncuestaDTO>
+@*@model IList<EncuestaDTO>*@
 <section class="hbox stretch">
     <aside>
         <section class="vbox">
@@ -21,6 +23,34 @@
                                 <div class="col-sm-4">
                                     <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Crear nueva Encuesta</a>
                                 </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light" id="tableEncuestas">
+                                    <thead>
+                                        <tr>
+                                            <th width="15%">Periodo</th>
+                                            <th width="35%">Encuesta</th>
+                                            <th width="25%">Resultados</th>
+                                            <th width="25%">Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model != null)
+                                        {
+                                            foreach(var obj in Model)
+                                            {
+                                                <tr>
+                                                    <td>@obj.Nombre</td>
+                                                    <td>@obj.Periodo.Descripcion</td>
+                                                    <td align="center">
+                                                        <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })"><i class="fa fa-pencil"></i></a>
+                                                        @*<a href="#@obj.IdTarea" class="AddTaskToBagTasks"><i class="fa fa-plus"></i></a>*@
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
                         </section>
                     </div>

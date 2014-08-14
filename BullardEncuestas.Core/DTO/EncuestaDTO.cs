@@ -12,6 +12,7 @@ namespace BullardEncuestas.Core.DTO
         public string Nombre { get; set; }
         public int IdPeriodo { get; set; }
         public int IdGrupoEncuestado { get; set; }
+        public PeriodoDTO Periodo { get; set; }
 
         public List<EncuestaEvaluadorDTO> listaEncuestaEvaluador { get; set; }
 
