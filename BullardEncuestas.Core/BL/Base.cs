@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BullardEncuestas.Core.BL
+namespace BullardEncuestas.Core
 {
     public class Base
     {
