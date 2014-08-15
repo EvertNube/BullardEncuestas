@@ -30,10 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -48,90 +50,90 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BULLARDEncuestasModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BULLARDEncuestasModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BULLARDEncuestasModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BULLARDEncuestasModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BULLARDEncuestasModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Empresa.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Encuesta.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EncuestaEvaluador.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="GrupoTrabajo.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OpcionesRespuesta.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Periodo.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persona.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Pregunta.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Respuestas.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Rol.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Seccion.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SISEncuestas.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SISEncuestas.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SISEncuestas.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SISEncuestas.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SISEncuestas.edmx</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SP_GetEncuestas_Result.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoRespuesta.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Usuario.cs">
-      <DependentUpon>SISEncuestas.tt</DependentUpon>
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="SISEncuestas.edmx">
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="BULLARDEncuestasModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SISEncuestas.Designer.cs</LastGenOutput>
+      <LastGenOutput>BULLARDEncuestasModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="BULLARDEncuestasModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BULLARDEncuestasModel.edmx</DependentUpon>
+      <LastGenOutput>BULLARDEncuestasModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="BULLARDEncuestasModel.edmx.diagram">
+      <DependentUpon>BULLARDEncuestasModel.edmx</DependentUpon>
+    </None>
+    <None Include="BULLARDEncuestasModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BULLARDEncuestasModel.edmx</DependentUpon>
+      <LastGenOutput>BULLARDEncuestasModel.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
-    <None Include="SISEncuestas.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SISEncuestas.edmx</DependentUpon>
-      <LastGenOutput>SISEncuestas.Context.cs</LastGenOutput>
-    </None>
-    <None Include="SISEncuestas.edmx.diagram">
-      <DependentUpon>SISEncuestas.edmx</DependentUpon>
-    </None>
-    <None Include="SISEncuestas.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SISEncuestas.edmx</DependentUpon>
-      <LastGenOutput>SISEncuestas.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,9 +9,9 @@ namespace BullardEncuestas.Core
 {
     public class Base
     {
-        protected SISEncuestasEntities getContext()
+        protected BULLARDEncuestasEntities getContext()
         {
-            return new SISEncuestasEntities();
+            return new BULLARDEncuestasEntities();
         }
     }
 }
