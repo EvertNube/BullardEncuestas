@@ -57,6 +57,7 @@
           </Key>
           <Property Name="IdPeriodo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -312,6 +313,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_GetEncuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="SISEncuestasModelStoreContainer">
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Encuesta" EntityType="Self.Encuesta" Schema="dbo" store:Type="Tables" />
@@ -465,6 +467,7 @@
             <End Role="Pregunta" EntitySet="Pregunta" />
             <End Role="Respuestas" EntitySet="Respuestas" />
           </AssociationSet>
+          <FunctionImport Name="SP_GetEncuestas" ReturnType="Collection(SISEncuestasModel.SP_GetEncuestas_Result)" />
         </EntityContainer>
         <EntityType Name="Empresa">
           <Key>
@@ -531,6 +534,7 @@
           <Property Name="IdPeriodo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Encuesta" Relationship="SISEncuestasModel.FK_Encuesta_Periodo" FromRole="Periodo" ToRole="Encuesta" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -803,6 +807,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="SP_GetEncuestas_Result">
+          <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
+          <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -863,6 +873,7 @@
           <EntitySetMapping Name="Periodo">
             <EntityTypeMapping TypeName="SISEncuestasModel.Periodo">
               <MappingFragment StoreEntitySet="Periodo">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
               </MappingFragment>
@@ -949,6 +960,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetEncuestas" FunctionName="SISEncuestasModel.Store.SP_GetEncuestas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SISEncuestasModel.SP_GetEncuestas_Result">
+                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+                <ScalarProperty Name="NombreEncuesta" ColumnName="NombreEncuesta" />
+                <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
+                <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

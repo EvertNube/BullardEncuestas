@@ -12,6 +12,8 @@ namespace BullardEncuestas.Data
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class SISEncuestasEntities : DbContext
     {
@@ -38,5 +40,10 @@ namespace BullardEncuestas.Data
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Pregunta> Pregunta { get; set; }
+    
+        public virtual ObjectResult<SP_GetEncuestas_Result> SP_GetEncuestas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestas_Result>("SP_GetEncuestas");
+        }
     }
 }

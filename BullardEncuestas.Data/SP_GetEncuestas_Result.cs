@@ -10,19 +10,12 @@
 namespace BullardEncuestas.Data
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Periodo
+    public partial class SP_GetEncuestas_Result
     {
-        public Periodo()
-        {
-            this.Encuesta = new HashSet<Encuesta>();
-        }
-    
-        public int IdPeriodo { get; set; }
-        public string Descripcion { get; set; }
-        public bool Estado { get; set; }
-    
-        public virtual ICollection<Encuesta> Encuesta { get; set; }
+        public int IdEncuesta { get; set; }
+        public string NombreEncuesta { get; set; }
+        public string NombrePeriodo { get; set; }
+        public string NombreGrupo { get; set; }
     }
 }
