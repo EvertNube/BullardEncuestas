@@ -20,7 +20,7 @@ namespace BullardEncuestas.Core.BL
                 var result = context.SP_GetEncuestas().Select(r => new EncuestaDTO
                 {
                     IdEncuesta = r.IdEncuesta,
-                    Nombre = r.NombreEncuesta,
+                    NombreEncuesta = r.NombreEncuesta,
                     Periodo = new PeriodoDTO { Descripcion = r.NombrePeriodo }
                     //GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.NombreGrupo }
                 }).ToList();
