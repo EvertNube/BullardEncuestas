@@ -91,7 +91,31 @@ namespace BullardEncuestas.Controllers
             return View(model.ToPagedList(pageNumber, pageSize));
         }
 
+        public ActionResult Encuesta(int? id = null)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            //-EncuestaBL objBL = new EncuestaBL();
+            ViewBag.IdEncuesta = id;
+            //-var objSent = TempData["Encuesta"];
+            //-if (objSent != null) { TempData["Encuesta"] = null; return View(objSent); }
+            if (id != null)
+            {
+                //-ViewBag.listaEncuestaEvaluador = objBL.getEncuestasEvaluador((int)id);
+                //-EncuestaDTO obj = objBL.getEncuesta((int)id);
+                EncuestaDTO nuevo = new EncuestaDTO();
+                nuevo.IdEncuesta = 1;
+                nuevo.IdPeriodo = 201401;
+                nuevo.Nombre = "Profesional1";
+                PeriodoDTO nuevop = new PeriodoDTO();
+                nuevop.IdPeriodo = 1;
+                nuevop.Descripcion = "2014-1";
+                nuevo.Periodo = nuevop;
+                return View(nuevo);
+            }
 
+            return View();
+        }
         //public ActionResult Index(int? searchResponsable)
         //{
         //    if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
