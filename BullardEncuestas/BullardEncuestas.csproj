@@ -794,6 +794,7 @@
     <Content Include="Views\Admin\Encuestas.cshtml" />
     <Content Include="Views\Admin\Encuesta.cshtml" />
     <Content Include="Views\Admin\LlenarEncuesta.cshtml" />
+    <Content Include="Views\Admin\EncuestaEditar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

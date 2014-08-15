@@ -1,0 +1,35 @@
+﻿@model BullardEncuestas.Core.DTO.EncuestaDTO
+@{
+    if (Model == null || Model.IdEncuesta == 0)
+    {
+        ViewBag.Title = "Tarea";
+    }
+    else { ViewBag.Title = Model.Nombre; }
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>EncuestaEditar</h2>
+
+<section class="vbox">
+    <section class="scrollable padder">
+        <div class="row m-b">
+            <div class="col-xs-12 col-md-10 col-md-offset-1">
+                <h2>Editar Tarea</h2>
+                @Html.ValidationSummary(true)
+                <div class="row m-b">
+                    <div class="col-xs-12 col-md-12">
+                        @Html.Partial("_showAlertMessages")
+                        <section class="panel panel-default">
+                            <header class="panel-heading font-bold">Formulario de Registro</header>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label>Nombre</label>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>

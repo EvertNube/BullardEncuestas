@@ -79,7 +79,7 @@ namespace BullardEncuestas.Controllers
                 EncuestaDTO nuevo = new EncuestaDTO();
                 nuevo.IdEncuesta = i;
                 nuevo.IdPeriodo = 201400 + i;
-                nuevo.Nombre = "Profesional";
+                nuevo.Nombre = "Profesional" + i.ToString();
                 PeriodoDTO nuevop = new PeriodoDTO();
                 nuevop.IdPeriodo = i;
                 nuevop.Descripcion = "2014";

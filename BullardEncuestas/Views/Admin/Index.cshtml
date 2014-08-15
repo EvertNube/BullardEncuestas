@@ -6,65 +6,61 @@
 @{
     ViewBag.Title = "Encuestas";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    string imgEditar = "../../Content/themes/admin/images/edit.png";
-    string imgEnviar = "../../Content/themes/admin/images/send.png";
 }
-
-
-
 <section class="hbox stretch">
     <aside>
         <section class="vbox">
             <section class="scrollable padder">
-                <div class="panel-body row m-b">
-                    <div class="col-xs-12 col-md-12">
-                        <section class="panel panel-default">
-                            <div class="row wrapper">
-                                <div class="col-sm-8 m-b-xs">
-                                    <h2>Encuestas</h2>
-                                </div>
-                                <div class="col-sm-4 v-middle">
-                                    <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Nueva Encuesta</a>
-                                </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-striped b-t b-light" id="tableEncuestas">
-                                    <thead>
-                                        <tr>
-                                            <th width="15%">Periodo</th>
-                                            <th width="35%">Encuesta</th>
-                                            <th width="25%" style="text-align:center">Resultados</th>
-                                            <th width="25%" style="text-align:center">Opciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (Model != null)
-                                        {
-                                            foreach(var obj in Model)
+                <div class="col-xs-12 col-md-12">
+                    <h2>Encuestas</h2>
+                    <div class="row m-b">
+                        <div class="col-xs-12 col-md-12">
+                            <section class="panel panel-default">
+                                <header class="panel-heading font-bold">
+                                    <div class="col-sm-12 m-b-lg">
+                                        <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Nueva Encuesta</a>
+                                    </div>
+                                </header>
+                                <div class="table-responsive">
+                                    <table class="table table-striped b-t b-light" id="tableEncuestas">
+                                        <thead>
+                                            <tr>
+                                                <th width="20%">Periodo</th>
+                                                <th width="30%">Encuesta</th>
+                                                <th width="25%" style="text-align:center">Resultados</th>
+                                                <th width="25%" style="text-align:center">Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null)
                                             {
-                                                <tr>
-                                                    <td>@obj.Nombre</td>
-                                                    <td>@obj.Periodo.Descripcion</td>
-                                                    <td align="center">
-                                                        <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">Ver</a>
-                                                    </td>
-                                                    <td align="center">
-                                                        <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">
-                                                            <i class="fa fa-pencil"></i>
-                                                        </a>
-                                                        <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">
-                                                            <i class="fa fa-envelope"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                                foreach (var obj in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@obj.Nombre</td>
+                                                        <td>@obj.Periodo.Descripcion</td>
+                                                        <td align="center">
+                                                            <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">Ver</a>
+                                                        </td>
+                                                        <td align="center">
+                                                            <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                            <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">
+                                                                <i class="fa fa-envelope"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
                                             }
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
                     </div>
                 </div>
+
             </section>
         </section>
     </aside>
