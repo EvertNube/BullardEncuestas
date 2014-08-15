@@ -37,7 +37,7 @@
                                                 foreach (var obj in Model)
                                                 {
                                                     <tr>
-                                                        <td>@obj.Nombre</td>
+                                                        <td>@obj.NombreEncuesta</td>
                                                         <td>@obj.Periodo.Descripcion</td>
                                                         <td align="center">
                                                             <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">Ver</a>
