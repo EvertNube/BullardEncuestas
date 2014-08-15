@@ -46,9 +46,12 @@
                                                             <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                            <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">
-                                                                <i class="fa fa-envelope"></i>
-                                                            </a>
+                                                            @if (ViewBag.EsAdmin)
+                                                            {
+                                                                <a href="@Url.Action("EncuestaEditar", new { id = obj.IdEncuesta })">
+                                                                    <i class="fa fa-envelope"></i>
+                                                                </a>
+                                                            }
                                                         </td>
                                                     </tr>
                                                 }
