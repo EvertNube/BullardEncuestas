@@ -23,7 +23,7 @@
                                 <div class="col-sm-8 m-b-xs">
                                     <h2>Encuestas</h2>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-4 v-middle">
                                     <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Nueva Encuesta</a>
                                 </div>
                             </div>
@@ -33,8 +33,8 @@
                                         <tr>
                                             <th width="15%">Periodo</th>
                                             <th width="35%">Encuesta</th>
-                                            <th width="25%">Resultados</th>
-                                            <th width="25%">Opciones</th>
+                                            <th width="25%" style="text-align:center">Resultados</th>
+                                            <th width="25%" style="text-align:center">Opciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -50,11 +50,10 @@
                                                     </td>
                                                     <td align="center">
                                                         <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">
-                                                            <img src="@imgEditar" />
+                                                            <i class="fa fa-pencil"></i>
                                                         </a>
-                                                        /
                                                         <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">
-                                                            <img src="@imgEnviar" />
+                                                            <i class="fa fa-envelope"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
