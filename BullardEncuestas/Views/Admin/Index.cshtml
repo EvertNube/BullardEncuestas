@@ -6,7 +6,11 @@
 @{
     ViewBag.Title = "Encuestas";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    string imgEditar = "../../Content/themes/admin/images/edit.png";
+    string imgEnviar = "../../Content/themes/admin/images/send.png";
 }
+
+
 
 <section class="hbox stretch">
     <aside>
@@ -20,7 +24,7 @@
                                     <h2>Encuestas</h2>
                                 </div>
                                 <div class="col-sm-4">
-                                    <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Crear nueva Encuesta</a>
+                                    <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Nueva Encuesta</a>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -42,9 +46,16 @@
                                                     <td>@obj.Nombre</td>
                                                     <td>@obj.Periodo.Descripcion</td>
                                                     <td align="center">
-                                                        <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })"><i class="fa edit"></i></a>
-                                                        <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })"><i class="fa send"></i></a>
-                                                        @*<a href="#@obj.IdTarea" class="AddTaskToBagTasks"><i class="fa fa-plus"></i></a>*@
+                                                        <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">Ver</a>
+                                                    </td>
+                                                    <td align="center">
+                                                        <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">
+                                                            <img src="@imgEditar" />
+                                                        </a>
+                                                        /
+                                                        <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">
+                                                            <img src="@imgEnviar" />
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             }

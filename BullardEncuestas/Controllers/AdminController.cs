@@ -67,18 +67,25 @@ namespace BullardEncuestas.Controllers
             return View();
         }
 
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
         public ActionResult Index(int? page)
         {
             List<EncuestaDTO> model = new List<EncuestaDTO>();
-            for(int i=0;i<3;i++)
+            for (int i = 0; i < 3; i++)
             {
                 EncuestaDTO nuevo = new EncuestaDTO();
-                nuevo.Periodo = ;
-
-
-
+                nuevo.IdEncuesta = i;
+                nuevo.IdPeriodo = 201400 + i;
+                nuevo.Nombre = "Profesional";
+                PeriodoDTO nuevop = new PeriodoDTO();
+                nuevop.IdPeriodo = i;
+                nuevop.Descripcion = "2014";
+                nuevo.Periodo = nuevop;
+                model.Add(nuevo);
             }
-
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(model.ToPagedList(pageNumber, pageSize));
