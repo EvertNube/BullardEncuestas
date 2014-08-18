@@ -76,5 +76,17 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
+        public void SendMailGrupo(int idGrupo)
+        {
+            string to = string.Empty, copy = string.Empty, subject = string.Empty, body = string.Empty;
+            PersonaBL oBL = new PersonaBL();
+            var personas = oBL.getPersonasPorGrupo(idGrupo);
+            foreach (var item in personas)
+            {
+                var link = "http://localhost:12871/Admin/EncuestaEncuestador/" + item.IdPersona;
+                MailHandler.Send(to, copy, subject, body);
+            }
+        }
+
     }
 }
