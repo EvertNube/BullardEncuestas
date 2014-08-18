@@ -71,7 +71,7 @@
     </Key>
     <Property Name="IdPregunta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Texto" Type="nvarchar" MaxLength="350" Nullable="false" />
-    <Property Name="Span" Type="nvarchar" MaxLength="100" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
     <Property Name="IdSeccion" Type="int" Nullable="false" />
     <Property Name="Orden" Type="int" Nullable="false" />
     <Property Name="IdTipoRespuesta" Type="int" Nullable="false" />

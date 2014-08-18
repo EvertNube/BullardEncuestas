@@ -1,11 +1,13 @@
-﻿@model BullardEncuestas.Core.DTO.EncuestaDTO
+﻿@model IList<BullardEncuestas.Core.DTO.SeccionDTO>
 @{
-    if (Model == null || Model.IdEncuesta == 0)
+    if (Model == null)
     {
-        ViewBag.Title = "Tarea";
+        ViewBag.Title = "Encuesta";
     }
-    else { ViewBag.Title = Model.NombreEncuesta; }
+    else { ViewBag.Title = ViewBag.EncuestaNombre; }
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+
 }
 
 <section class="vbox">
@@ -18,7 +20,19 @@
                     <div class="col-xs-12 col-md-12">
                         @Html.Partial("_showAlertMessages")
                         <section class="panel panel-default">
-                            <header class="panel-heading font-bold">Formulario de Registro</header>
+                            <header class="panel-heading font-bold">
+
+                                <div class="col-md-4">
+                                    @ViewBag.EncuestaPeriodo / @ViewBag.EncuestaNombre
+                                </div>
+                                <div class="col-md-4">
+                                    <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Configuración</a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Nueva Encuesta</a>
+                                </div>
+
+                            </header>
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label>Información de la Encuesta</label>

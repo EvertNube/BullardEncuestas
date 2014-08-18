@@ -96,6 +96,7 @@
     <NavigationProperty Name="Seccion" Relationship="Self.FK_Pregunta_Seccion" FromRole="Pregunta" ToRole="Seccion" />
     <NavigationProperty Name="TipoRespuesta" Relationship="Self.FK_Pregunta_TipoRespuesta" FromRole="Pregunta" ToRole="TipoRespuesta" />
     <NavigationProperty Name="Respuestas" Relationship="Self.FK_Respuestas_Pregunta" FromRole="Pregunta" ToRole="Respuestas" />
+    <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Respuestas">
     <Key>

@@ -76,9 +76,9 @@
     <EntitySetMapping Name="Pregunta">
       <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Pregunta">
         <MappingFragment StoreEntitySet="Pregunta">
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
           <ScalarProperty Name="Texto" ColumnName="Texto" />
-          <ScalarProperty Name="Span" ColumnName="Span" />
           <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
           <ScalarProperty Name="Orden" ColumnName="Orden" />
           <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />

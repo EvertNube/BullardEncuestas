@@ -25,10 +25,11 @@
                                     <table class="table table-striped b-t b-light" id="tableEncuestas">
                                         <thead>
                                             <tr>
-                                                <th width="20%">Periodo</th>
-                                                <th width="30%">Encuesta</th>
-                                                <th width="25%" style="text-align:center">Resultados</th>
-                                                <th width="25%" style="text-align:center">Opciones</th>
+                                                <th width="26%">Encuesta</th>
+                                                <th width="21%" style="text-align:center">Periodo</th>
+                                                <th width="21%" style="text-align:center">Estado</th>
+                                                <th width="21%" style="text-align:center">Resultados</th>
+                                                <th width="21%" style="text-align:center">Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -38,17 +39,24 @@
                                                 {
                                                     <tr>
                                                         <td>@obj.NombreEncuesta</td>
-                                                        <td>@obj.Periodo.Descripcion</td>
+                                                        <td align="center">@obj.Periodo.Descripcion</td>
+                                                        @if (obj.Estado)
+                                                        {
+                                                            <td align="center">Activo</td>}
+                                                        else
+                                                        {
+                                                            <td align="center">Inactivo</td>}
                                                         <td align="center">
                                                             <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">Ver</a>
                                                         </td>
+
                                                         <td align="center">
-                                                            <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">
+                                                            <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" title="Editar">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
                                                             @if (ViewBag.EsAdmin)
                                                             {
-                                                                <a href="@Url.Action("EncuestaEditar", new { id = obj.IdEncuesta })">
+                                                                <a href="@Url.Action("EncuestaEditar", new { id = obj.IdEncuesta })" title="Publicar">
                                                                     <i class="fa fa-envelope"></i>
                                                                 </a>
                                                             }
