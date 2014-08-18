@@ -27,5 +27,26 @@ namespace BullardEncuestas.Core.BL
                 return result;
             }
         }
+
+        public EncuestaDTO getEncuesta(int id)//bool activeOnly = false
+        {
+            using (var context = getContext())
+            {
+                var result = context.Encuesta.Where(x => x.IdEncuesta == id)
+                    .Select(r => new EncuestaDTO
+                    {
+                        IdEncuesta = r.IdEncuesta,
+                        NombreEncuesta = r.Nombre,
+                        IdPeriodo = r.IdPeriodo,
+                        IdGrupoTrabajo = r.IdGrupoTrabajo,
+                        Estado = r.Estado,
+                        Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
+                        GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.Nombre },
+                        //Secciones 
+                    }).SingleOrDefault();
+                return result;
+            }
+        }
+
     }
 }
