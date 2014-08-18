@@ -88,7 +88,6 @@
     </Key>
     <Property Name="IdPregunta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Texto" Type="String" MaxLength="350" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Span" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="IdSeccion" Type="Int32" Nullable="false" />
     <Property Name="Orden" Type="Int32" Nullable="false" />
     <Property Name="IdTipoRespuesta" Type="Int32" Nullable="false" />
