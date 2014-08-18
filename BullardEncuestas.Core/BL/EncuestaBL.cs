@@ -57,7 +57,18 @@ namespace BullardEncuestas.Core.BL
                                 Estado = y.Estado
                             }).OrderBy(y => y.Orden).ToList(),
                             SubSecciones = r.Seccion.Where(y => y.IdSeccionPadre == x.IdSeccion).Select(y => new SeccionDTO {
-
+                                IdSeccion = y.IdSeccion,
+                                Nombre = y.Nombre,
+                                Orden = y.Orden,
+                                EsSocio = y.EsSocio,
+                                Estado = y.Estado,
+                                Preguntas = y.Pregunta.Select(z => new PreguntaDTO {
+                                    IdPregunta = z.IdPregunta,
+                                    Texto = z.Texto,
+                                    Descripcion = z.Descripcion,
+                                    Orden = z.Orden,
+                                    Estado = z.Estado
+                                }).OrderBy(z => z.Orden).ToList()
                             }).OrderBy(y => y.Orden).ToList(),
                         }).OrderBy(x => x.Orden).ToList(),
                     }).SingleOrDefault();
