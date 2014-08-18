@@ -42,7 +42,20 @@ namespace BullardEncuestas.Core.BL
                         Estado = r.Estado,
                         Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
                         GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.Nombre },
-                        Secciones = 
+                        Secciones = r.Seccion.Where(x => x.IdSeccionPadre == null).Select(x => new SeccionDTO
+                        {
+                            IdSeccion = x.IdSeccion,
+                            Nombre = x.Nombre,
+                            Orden = x.Orden,
+                            EsSocio = x.EsSocio,
+                            Estado = x.Estado,
+                            Preguntas = x.Pregunta.Select(y => new PreguntaDTO {
+                                IdPregunta = y.IdPregunta,
+                                Texto = y.Texto,
+                                Descripcion = y.Descripcion
+                            }).OrderBy(y => y.Orden).ToList()
+                            //SubSecciones = 
+                        }).OrderBy(x => x.Orden).ToList(),
                     }).SingleOrDefault();
                 return result;
             }
