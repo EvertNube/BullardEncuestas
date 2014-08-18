@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BULLARD.EncuestasDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BULLARD.EncuestasDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Empresa">
           <Key>
             <PropertyRef Name="IdEmpresa" />
@@ -76,7 +76,7 @@
           </Key>
           <Property Name="IdPregunta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Texto" Type="nvarchar" MaxLength="350" Nullable="false" />
-          <Property Name="Span" Type="nvarchar" MaxLength="100" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
           <Property Name="IdSeccion" Type="int" Nullable="false" />
           <Property Name="Orden" Type="int" Nullable="false" />
           <Property Name="IdTipoRespuesta" Type="int" Nullable="false" />
@@ -389,8 +389,7 @@
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BULLARD.EncuestasDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -490,6 +489,7 @@
           <NavigationProperty Name="Seccion" Relationship="Self.FK_Pregunta_Seccion" FromRole="Pregunta" ToRole="Seccion" />
           <NavigationProperty Name="TipoRespuesta" Relationship="Self.FK_Pregunta_TipoRespuesta" FromRole="Pregunta" ToRole="TipoRespuesta" />
           <NavigationProperty Name="Respuestas" Relationship="Self.FK_Respuestas_Pregunta" FromRole="Pregunta" ToRole="Respuestas" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Respuestas">
           <Key>
@@ -895,9 +895,9 @@
           <EntitySetMapping Name="Pregunta">
             <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Pregunta">
               <MappingFragment StoreEntitySet="Pregunta">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
                 <ScalarProperty Name="Texto" ColumnName="Texto" />
-                <ScalarProperty Name="Span" ColumnName="Span" />
                 <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
                 <ScalarProperty Name="Orden" ColumnName="Orden" />
                 <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />

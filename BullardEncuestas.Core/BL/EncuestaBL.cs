@@ -52,9 +52,13 @@ namespace BullardEncuestas.Core.BL
                             Preguntas = x.Pregunta.Select(y => new PreguntaDTO {
                                 IdPregunta = y.IdPregunta,
                                 Texto = y.Texto,
-                                Descripcion = y.Descripcion
-                            }).OrderBy(y => y.Orden).ToList()
-                            //SubSecciones = 
+                                Descripcion = y.Descripcion,
+                                Orden = y.Orden,
+                                Estado = y.Estado
+                            }).OrderBy(y => y.Orden).ToList(),
+                            SubSecciones = r.Seccion.Where(y => y.IdSeccionPadre == x.IdSeccion).Select(y => new SeccionDTO {
+
+                            }).OrderBy(y => y.Orden).ToList(),
                         }).OrderBy(x => x.Orden).ToList(),
                     }).SingleOrDefault();
                 return result;
