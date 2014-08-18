@@ -21,7 +21,6 @@ namespace BullardEncuestas.Data
     
         public int IdPregunta { get; set; }
         public string Texto { get; set; }
-        public string Span { get; set; }
         public int IdSeccion { get; set; }
         public int Orden { get; set; }
         public int IdTipoRespuesta { get; set; }
