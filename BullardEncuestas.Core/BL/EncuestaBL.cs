@@ -42,7 +42,7 @@ namespace BullardEncuestas.Core.BL
                         Estado = r.Estado,
                         Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
                         GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.Nombre },
-                        //Secciones 
+                        Secciones = 
                     }).SingleOrDefault();
                 return result;
             }

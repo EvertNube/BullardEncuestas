@@ -13,7 +13,7 @@ namespace BullardEncuestas.Core.DTO
         public int IdEncuesta { get; set; }
         public int IdSeccionPadre { get; set; }
         public int Orden { get; set; }
-        public List<SeccionDTO> listaSeccion { get; set; }
-        public List<PreguntaDTO> listaPregunta { get; set; }
+        public List<PreguntaDTO> Preguntas { get; set; }
+        public List<SeccionDTO> SubSecciones { get; set; }
     }
 }
