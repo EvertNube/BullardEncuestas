@@ -21,17 +21,9 @@
                         @Html.Partial("_showAlertMessages")
                         <section class="panel panel-default">
                             <header class="panel-heading font-bold">
-
-                                <div class="col-md-4">
-                                    @ViewBag.EncuestaPeriodo / @ViewBag.EncuestaNombre
-                                </div>
-                                <div class="col-md-4">
-                                    <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Configuración</a>
-                                </div>
-                                <div class="col-md-4">
-                                    <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Nueva Encuesta</a>
-                                </div>
-
+                                @ViewBag.EncuestaPeriodo / @ViewBag.EncuestaNombre
+                                <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Nueva Encuesta</a> 
+                                <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Configuración</a>
                             </header>
                             <div class="panel-body">
                                 <div class="form-group">
