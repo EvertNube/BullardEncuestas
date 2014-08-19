@@ -13,5 +13,11 @@ namespace BullardEncuestas.Core
         {
             return new BULLARDEncuestasEntities();
         }
+        protected string getHost()
+        {
+            Uri uri = System.Web.HttpContext.Current.Request.Url;
+            string host = uri.GetLeftPart(UriPartial.Authority);
+            return host;
+        }
     }
 }
