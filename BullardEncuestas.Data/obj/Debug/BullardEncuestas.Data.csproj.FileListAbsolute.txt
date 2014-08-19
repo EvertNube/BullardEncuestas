@@ -17,3 +17,4 @@ D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\bin\Debug\Entity
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\obj\Debug\BullardEncuestas.Data.csprojResolveAssemblyReference.cache
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\obj\Debug\BullardEncuestas.Data.dll
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\obj\Debug\BullardEncuestas.Data.pdb
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Data\obj\Debug\BullardEncuestas.Data.csprojResolveAssemblyReference.cache

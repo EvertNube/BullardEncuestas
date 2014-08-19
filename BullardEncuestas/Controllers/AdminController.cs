@@ -117,8 +117,8 @@ namespace BullardEncuestas.Controllers
             List<SeccionDTO> listSeccion = GenerarEncuestaPrueba();
             ViewBag.EncuestaPeriodo = "2014-1";
             ViewBag.EncuestaNombre = "Satisfaccion al cliente";
-            if (id != null)
-            {
+            //if (id != null)
+            //{
                 //-ViewBag.listaEncuestaEvaluador = objBL.getEncuestasEvaluador((int)id);
                 //-EncuestaDTO obj = objBL.getEncuesta((int)id);
                 EncuestaDTO nuevo = new EncuestaDTO();
@@ -130,12 +130,13 @@ namespace BullardEncuestas.Controllers
                 nuevop.IdPeriodo = 1;
                 nuevop.Descripcion = "2014-1";
                 nuevo.Periodo = nuevop;
+                nuevo.Secciones = listSeccion;
 
-                return View(listSeccion);
-            }
+                return View(nuevo);
+            //}
 
 
-            return View(listSeccion);
+            //return View(listSeccion);
         }
         public ActionResult SendCorreo(int idEncuesta) {
             EncuestaBL oBL = new EncuestaBL();
@@ -198,7 +199,21 @@ namespace BullardEncuestas.Controllers
                     nuevaP.Orden = j;
                     listaPregunta.Add(nuevaP);
                 }
+                List<SeccionDTO> listaSecciones = new List<SeccionDTO>();
+                for (int k = 0; k < 4; k++)
+                {
+                    SeccionDTO auxSec = new SeccionDTO();
+
+                    auxSec.IdSeccionPadre = i;
+                    auxSec.IdSeccion = k;
+                    auxSec.Nombre = "SeccionAux" + k.ToString();
+                    auxSec.Orden = k;
+
+                    listaSecciones.Add(auxSec);
+                }
+
                 nuevoS.Preguntas = listaPregunta;
+                nuevoS.SubSecciones = listaSecciones;
                 listaSeccion.Add(nuevoS);
             }
             return listaSeccion;

@@ -1,4 +1,4 @@
-﻿@model IList<BullardEncuestas.Core.DTO.SeccionDTO>
+﻿@model BullardEncuestas.Core.DTO.EncuestaDTO
 @{
     if (Model == null)
     {
@@ -9,6 +9,9 @@
 
 
 }
+
+@section scripts{@Scripts.Render("~/Content/js/Encuesta.js")}
+
 
 <section class="vbox">
     <section class="scrollable padder">
@@ -22,13 +25,36 @@
                         <section class="panel panel-default">
                             <header class="panel-heading font-bold">
                                 @ViewBag.EncuestaPeriodo / @ViewBag.EncuestaNombre
-                                <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Nueva Encuesta</a> 
-                                <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Configuración</a>
+                                <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-save"></i>&nbsp;&nbsp;Guardar</a>
+                                <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i>&nbsp;&nbsp;Configuración</a>
                             </header>
                             <div class="panel-body">
-                                <div class="form-group">
-                                    <label>Información de la Encuesta</label>
-                                </div>
+                                <section class="panel panel-default scrollable padder">
+                                    <div class="dd" id="nestable1">
+                                        <ol class="dd-list">
+                                            @*<li class="dd-item" data-id="1"> <div class="dd-handle">Item 1</div> </li>*@
+                                            @foreach (var item in Model.Secciones)
+                                            {
+                                                <li class="dd-item dd-collapsed" data-id="@item.Orden.ToString()">
+                                                    <button data-action="collapse" type="button" style="display: block;">"Collapse"</button>
+                                                    <button data-action="expand" type="button" style="display: none;">"Expand"</button>
+                                                    <div class="dd-handle">@item.Nombre</div>
+                                                    <ol class="dd-list">
+                                                        @if (item.SubSecciones != null)
+                                                        {
+                                                            foreach (var subItem in item.SubSecciones)
+                                                            {
+                                                                <li class="dd-item" data-id="@subItem.Orden.ToString()">
+                                                                    <div class="dd-handle">@subItem.Nombre</div>
+                                                                </li>
+                                                            }
+                                                        }
+                                                    </ol>
+                                                </li>
+                                            }
+                                        </ol>
+                                    </div>
+                                </section>
                             </div>
                         </section>
                     </div>
