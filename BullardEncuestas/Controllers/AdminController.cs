@@ -138,9 +138,9 @@ namespace BullardEncuestas.Controllers
 
             //return View(listSeccion);
         }
-        public ActionResult SendCorreo(int idEncuesta) {
+        public ActionResult SendCorreo(int idEncuesta, string nombreEncuesta) {
             EncuestaBL oBL = new EncuestaBL();
-            oBL.SendMailGrupo(idEncuesta);
+            oBL.SendMailGrupo(idEncuesta, nombreEncuesta);
             return RedirectToAction("Index");
         }
 

@@ -76,7 +76,7 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
-        public void SendMailGrupo(string nombreEncuesta, int idGrupo)
+        public void SendMailGrupo(int idGrupo, string nombreEncuesta)
         {
             string to = string.Empty, copy = string.Empty, subject = string.Empty, body = string.Empty;
             PersonaBL oBL = new PersonaBL();
