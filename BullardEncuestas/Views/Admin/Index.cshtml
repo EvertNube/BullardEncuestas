@@ -56,7 +56,7 @@
                                                             </a>
                                                             @if (ViewBag.EsAdmin)
                                                             {
-                                                                <a href="@Url.Action("EncuestaEditar", new { id = obj.IdEncuesta })" title="Publicar">
+                                                                <a href="@Url.Action("SendCorreo", new { idGrupo = obj.IdGrupoTrabajo, nombreEncuesta = obj.NombreEncuesta })" title="Publicar">
                                                                     <i class="fa fa-envelope"></i>
                                                                 </a>
                                                             }

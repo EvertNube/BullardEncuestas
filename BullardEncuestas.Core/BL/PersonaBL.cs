@@ -20,7 +20,8 @@ namespace BullardEncuestas.Core.BL
                 var result = context.Persona.Where(x => x.IdGrupoTrabajo == idGrupo).Select(x => new PersonaDTO
                 {
                     IdPersona = x.IdPersona,
-                    Nombre = x.Nombre
+                    Nombre = x.Nombre,
+                    Email = x.Email
                 }).ToList();
                 return result;
             }

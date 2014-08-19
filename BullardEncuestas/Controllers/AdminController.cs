@@ -99,6 +99,7 @@ namespace BullardEncuestas.Controllers
                 nuevop.IdPeriodo = i;
                 nuevop.Descripcion = "2014";
                 nuevo.Periodo = nuevop;
+                nuevo.IdGrupoTrabajo = 1;
                 model.Add(nuevo);
             }
             int pageSize = 10;
@@ -138,9 +139,10 @@ namespace BullardEncuestas.Controllers
 
             //return View(listSeccion);
         }
-        public ActionResult SendCorreo(int idEncuesta, string nombreEncuesta) {
+        public ActionResult SendCorreo(int idGrupo, string nombreEncuesta)
+        {
             EncuestaBL oBL = new EncuestaBL();
-            oBL.SendMailGrupo(idEncuesta, nombreEncuesta);
+            oBL.SendMailGrupo(idGrupo, nombreEncuesta);
             return RedirectToAction("Index");
         }
 
