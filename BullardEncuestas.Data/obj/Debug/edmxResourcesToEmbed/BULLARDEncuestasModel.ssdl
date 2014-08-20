@@ -14,8 +14,10 @@
     </Key>
     <Property Name="IdEncuesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Instrucciones" Type="nvarchar" MaxLength="250" />
+    <Property Name="Leyenda" Type="nvarchar" MaxLength="250" />
     <Property Name="IdPeriodo" Type="int" Nullable="false" />
-    <Property Name="IdGrupoTrabajo" Type="int" />
+    <Property Name="IdGrupoEvaluado" Type="int" />
     <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="EncuestaEvaluador">
@@ -26,8 +28,15 @@
     <Property Name="IdEncuesta" Type="int" Nullable="false" />
     <Property Name="IdEvaluador" Type="int" Nullable="false" />
     <Property Name="CodEvaluador" Type="nvarchar" MaxLength="10" Nullable="false" />
-    <Property Name="IdEvaluado" Type="int" />
     <Property Name="EstadoEncuesta" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Evaluador">
+    <Key>
+      <PropertyRef Name="IdEncuesta" />
+      <PropertyRef Name="IdGrupoTrabajo" />
+    </Key>
+    <Property Name="IdEncuesta" Type="int" Nullable="false" />
+    <Property Name="IdGrupoTrabajo" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="GrupoTrabajo">
     <Key>
@@ -136,7 +145,7 @@
         <PropertyRef Name="IdGrupoTrabajo" />
       </Principal>
       <Dependent Role="Encuesta">
-        <PropertyRef Name="IdGrupoTrabajo" />
+        <PropertyRef Name="IdGrupoEvaluado" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -176,15 +185,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_EncuestaEvaluador_Persona1">
-    <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
-    <End Role="EncuestaEvaluador" Type="Self.EncuestaEvaluador" Multiplicity="*" />
+  <Association Name="FK_Evaluador_Encuesta">
+    <End Role="Encuesta" Type="Self.Encuesta" Multiplicity="1" />
+    <End Role="Evaluador" Type="Self.Evaluador" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Persona">
-        <PropertyRef Name="IdPersona" />
+      <Principal Role="Encuesta">
+        <PropertyRef Name="IdEncuesta" />
       </Principal>
-      <Dependent Role="EncuestaEvaluador">
-        <PropertyRef Name="IdEvaluado" />
+      <Dependent Role="Evaluador">
+        <PropertyRef Name="IdEncuesta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Evaluador_GrupoTrabajo">
+    <End Role="GrupoTrabajo" Type="Self.GrupoTrabajo" Multiplicity="1" />
+    <End Role="Evaluador" Type="Self.Evaluador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GrupoTrabajo">
+        <PropertyRef Name="IdGrupoTrabajo" />
+      </Principal>
+      <Dependent Role="Evaluador">
+        <PropertyRef Name="IdGrupoTrabajo" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -313,6 +334,7 @@
     <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Encuesta" EntityType="Self.Encuesta" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EncuestaEvaluador" EntityType="Self.EncuestaEvaluador" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Evaluador" EntityType="Self.Evaluador" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GrupoTrabajo" EntityType="Self.GrupoTrabajo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OpcionesRespuesta" EntityType="Self.OpcionesRespuesta" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Periodo" EntityType="Self.Periodo" Schema="dbo" store:Type="Tables" />
@@ -339,9 +361,13 @@
       <End Role="Persona" EntitySet="Persona" />
       <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
     </AssociationSet>
-    <AssociationSet Name="FK_EncuestaEvaluador_Persona1" Association="Self.FK_EncuestaEvaluador_Persona1">
-      <End Role="Persona" EntitySet="Persona" />
-      <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
+    <AssociationSet Name="FK_Evaluador_Encuesta" Association="Self.FK_Evaluador_Encuesta">
+      <End Role="Encuesta" EntitySet="Encuesta" />
+      <End Role="Evaluador" EntitySet="Evaluador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Evaluador_GrupoTrabajo" Association="Self.FK_Evaluador_GrupoTrabajo">
+      <End Role="GrupoTrabajo" EntitySet="GrupoTrabajo" />
+      <End Role="Evaluador" EntitySet="Evaluador" />
     </AssociationSet>
     <AssociationSet Name="FK_OpcionesRespuesta_TipoRespuesta" Association="Self.FK_OpcionesRespuesta_TipoRespuesta">
       <End Role="TipoRespuesta" EntitySet="TipoRespuesta" />

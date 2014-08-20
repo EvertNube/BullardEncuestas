@@ -17,7 +17,6 @@ namespace BullardEncuestas.Data
         public Persona()
         {
             this.EncuestaEvaluador = new HashSet<EncuestaEvaluador>();
-            this.EncuestaEvaluador1 = new HashSet<EncuestaEvaluador>();
         }
     
         public int IdPersona { get; set; }
@@ -29,7 +28,6 @@ namespace BullardEncuestas.Data
     
         public virtual Empresa Empresa { get; set; }
         public virtual ICollection<EncuestaEvaluador> EncuestaEvaluador { get; set; }
-        public virtual ICollection<EncuestaEvaluador> EncuestaEvaluador1 { get; set; }
         public virtual GrupoTrabajo GrupoTrabajo { get; set; }
     }
 }

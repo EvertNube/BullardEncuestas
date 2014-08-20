@@ -73,35 +73,37 @@ namespace BullardEncuestas.Controllers
         //}
         public ActionResult Index(int? page)
         {
-            List<EncuestaDTO> model = new List<EncuestaDTO>();
-            for (int i = 0; i < 3; i++)
-            {
-                EncuestaDTO nuevo = new EncuestaDTO();
-                nuevo.IdEncuesta = i;
-                nuevo.IdPeriodo = 201400 + i;
-                //nuevo.NombreEncuesta = "Profesional" + i.ToString();
-                switch (i)
-                {
-                    case 0:
-                        nuevo.NombreEncuesta = "Profesional";
-                        break;
-                    case 1:
-                        nuevo.NombreEncuesta = "Practicante";
-                        break;
-                    case 2:
-                        nuevo.NombreEncuesta = "Satisfaccion al cliente";
-                        break;
-                }
-                /*Profesional - practicante - satisfaccion al cliente
-                 */
-                nuevo.Estado = true;
-                PeriodoDTO nuevop = new PeriodoDTO();
-                nuevop.IdPeriodo = i;
-                nuevop.Descripcion = "2014";
-                nuevo.Periodo = nuevop;
-                nuevo.IdGrupoTrabajo = 1;
-                model.Add(nuevo);
-            }
+            EncuestaBL oBL = new EncuestaBL();
+            var model = oBL.getEncuestas();
+            //List<EncuestaDTO> model = new List<EncuestaDTO>();
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    EncuestaDTO nuevo = new EncuestaDTO();
+            //    nuevo.IdEncuesta = i;
+            //    nuevo.IdPeriodo = 201400 + i;
+            //    //nuevo.NombreEncuesta = "Profesional" + i.ToString();
+            //    switch (i)
+            //    {
+            //        case 0:
+            //            nuevo.NombreEncuesta = "Profesional";
+            //            break;
+            //        case 1:
+            //            nuevo.NombreEncuesta = "Practicante";
+            //            break;
+            //        case 2:
+            //            nuevo.NombreEncuesta = "Satisfaccion al cliente";
+            //            break;
+            //    }
+            //    /*Profesional - practicante - satisfaccion al cliente
+            //     */
+            //    nuevo.Estado = true;
+            //    PeriodoDTO nuevop = new PeriodoDTO();
+            //    nuevop.IdPeriodo = i;
+            //    nuevop.Descripcion = "2014";
+            //    nuevo.Periodo = nuevop;
+            //    nuevo.IdGrupoTrabajo = 1;
+            //    model.Add(nuevo);
+            //}
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(model.ToPagedList(pageNumber, pageSize));
@@ -109,35 +111,44 @@ namespace BullardEncuestas.Controllers
 
         public ActionResult Encuesta(int? id = null)
         {
-            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
-            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
-            //-EncuestaBL objBL = new EncuestaBL();
-            ViewBag.IdEncuesta = id;
-            //-var objSent = TempData["Encuesta"];
-            //-if (objSent != null) { TempData["Encuesta"] = null; return View(objSent); }
-            List<SeccionDTO> listSeccion = GenerarEncuestaPrueba();
-            ViewBag.EncuestaPeriodo = "2014-1";
-            ViewBag.EncuestaNombre = "Satisfaccion al cliente";
-            //if (id != null)
-            //{
-                //-ViewBag.listaEncuestaEvaluador = objBL.getEncuestasEvaluador((int)id);
-                //-EncuestaDTO obj = objBL.getEncuesta((int)id);
-                EncuestaDTO nuevo = new EncuestaDTO();
-                nuevo.IdEncuesta = 1;
-                nuevo.IdPeriodo = 201401;
-                nuevo.NombreEncuesta = "Satisfaccion al cliente";
-                nuevo.Estado = true;
-                PeriodoDTO nuevop = new PeriodoDTO();
-                nuevop.IdPeriodo = 1;
-                nuevop.Descripcion = "2014-1";
-                nuevo.Periodo = nuevop;
-                nuevo.Secciones = listSeccion;
-
-                return View(nuevo);
-            //}
-
-
-            //return View(listSeccion);
+            EncuestaBL objBL = new EncuestaBL();
+            var objSent = (EncuestaDTO)TempData["Tarea"];
+            if (objSent != null)
+            {
+                TempData["Encuesta"] = null;
+                return View(objSent);
+            }
+            if (id != null)
+            {
+                EncuestaDTO obj = objBL.getEncuesta((int)id);
+                return View(obj);
+            }
+            return View();
+            //if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            //if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            ////-EncuestaBL objBL = new EncuestaBL();
+            //ViewBag.IdEncuesta = id;
+            ////-var objSent = TempData["Encuesta"];
+            ////-if (objSent != null) { TempData["Encuesta"] = null; return View(objSent); }
+            //List<SeccionDTO> listSeccion = GenerarEncuestaPrueba();
+            //ViewBag.EncuestaPeriodo = "2014-1";
+            //ViewBag.EncuestaNombre = "Satisfaccion al cliente";
+            ////if (id != null)
+            ////{
+            //    //-ViewBag.listaEncuestaEvaluador = objBL.getEncuestasEvaluador((int)id);
+            //    //-EncuestaDTO obj = objBL.getEncuesta((int)id);
+            //    EncuestaDTO nuevo = new EncuestaDTO();
+            //    nuevo.IdEncuesta = 1;
+            //    nuevo.IdPeriodo = 201401;
+            //    nuevo.NombreEncuesta = "Satisfaccion al cliente";
+            //    nuevo.Estado = true;
+            //    PeriodoDTO nuevop = new PeriodoDTO();
+            //    nuevop.IdPeriodo = 1;
+            //    nuevop.Descripcion = "2014-1";
+            //    nuevo.Periodo = nuevop;
+            //    nuevo.Secciones = listSeccion;
+            //    return View(nuevo);
+            ////}
         }
         public ActionResult SendCorreo(int idGrupo, string nombreEncuesta, string periodo)
         {

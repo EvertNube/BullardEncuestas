@@ -38,7 +38,7 @@ namespace BullardEncuestas.Core.BL
                         IdEncuesta = r.IdEncuesta,
                         NombreEncuesta = r.Nombre,
                         IdPeriodo = r.IdPeriodo,
-                        IdGrupoTrabajo = r.IdGrupoTrabajo,
+                        IdGrupoEvaluado = r.IdGrupoEvaluado,
                         Estado = r.Estado,
                         Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
                         GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.Nombre },
@@ -76,12 +76,17 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
-        public EncuestaEvaluadorDTO getEncuestaEvaluador(int id)
+        public EncuestaEvaluadorDTO getEncuestaEvaluador(int idEncuesta, int idEnvaluador)
         {
             using (var context = getContext())
             {
-                var result = context.Encuesta;
-                return new EncuestaEvaluadorDTO();
+                var result = context.Encuesta.Where(x => x.IdEncuesta == idEncuesta)
+                    .Select(x => new EncuestaEvaluadorDTO {
+                        IdEncuesta = x.IdEncuesta,
+                        IdEvaluador = idEnvaluador,
+                        
+                    }).SingleOrDefault();
+                return result;
             }
         }
 

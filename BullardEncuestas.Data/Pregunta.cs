@@ -21,11 +21,11 @@ namespace BullardEncuestas.Data
     
         public int IdPregunta { get; set; }
         public string Texto { get; set; }
+        public string Descripcion { get; set; }
         public int IdSeccion { get; set; }
         public int Orden { get; set; }
         public int IdTipoRespuesta { get; set; }
         public bool Estado { get; set; }
-        public string Descripcion { get; set; }
     
         public virtual Seccion Seccion { get; set; }
         public virtual TipoRespuesta TipoRespuesta { get; set; }
