@@ -76,7 +76,7 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
-        public void SendMailGrupo(int idGrupo, string nombreEncuesta)
+        public void SendMailGrupo(int idGrupo, string nombreEncuesta, string periodo, string nombreEncuestado)
         {
             string to = string.Empty, copy = string.Empty, subject = string.Empty, body = string.Empty;
             PersonaBL oBL = new PersonaBL();
@@ -85,10 +85,10 @@ namespace BullardEncuestas.Core.BL
             foreach (var item in personas)
             {
                 var link = host + "/Admin/EncuestaEncuestador/" + item.IdPersona;
-                subject = "Encuesta " + nombreEncuesta;
-                body = "Por contestar la encuesta accediendo al siguiente link:<br/>" + link;
+                subject = "Encuesta : " + nombreEncuesta;
+                body = "Estimado " + nombreEncuestado + ",<br/>se ha abierto la encuesta " + nombreEncuesta + " para el Periodo " + periodo + ", sirvase a contestar la encuesta a traves de este enlace:<br/>" + link;
                 to = item.Email;
-                //MailHandler.Send(to, copy, subject, body);
+                MailHandler.Send(to, copy, subject, body);
             }
         }
 
