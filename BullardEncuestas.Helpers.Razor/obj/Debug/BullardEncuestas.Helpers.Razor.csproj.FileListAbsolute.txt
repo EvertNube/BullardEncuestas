@@ -12,3 +12,5 @@ D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\bin\Deb
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.csprojResolveAssemblyReference.cache
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.dll
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.pdb
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.Razor.dll.CodeAnalysisLog.xml
+D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.Razor.dll.lastcodeanalysissucceeded
