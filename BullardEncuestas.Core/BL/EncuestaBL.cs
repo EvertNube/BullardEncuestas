@@ -76,6 +76,15 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
+        public EncuestaEvaluadorDTO getEncuestaEvaluador(int id)
+        {
+            using (var context = getContext())
+            {
+                var result = context.Encuesta;
+                return new EncuestaEvaluadorDTO();
+            }
+        }
+
         public void SendMailGrupo(int idGrupo, string nombreEncuesta, string periodo)
         {
             string to = string.Empty, copy = string.Empty, subject = string.Empty, body = string.Empty;
