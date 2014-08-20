@@ -25,45 +25,79 @@
                                     <table class="table table-striped b-t b-light" id="tableEncuestas">
                                         <thead>
                                             <tr>
-                                                <th width="26%">Encuesta</th>
-                                                <th width="21%" style="text-align:center">Periodo</th>
-                                                <th width="21%" style="text-align:center">Estado</th>
-                                                <th width="21%" style="text-align:center">Resultados</th>
-                                                <th width="21%" style="text-align:center">Opciones</th>
+                                                <th width="5%">ID</th>
+                                                <th width="45%">Encuesta</th>
+                                                <th width="10%">Periodo</th>
+                                                @*<th width="21%" style="text-align:center">Estado</th>*@
+                                                <th width="10%">Resultados</th>
+                                                <th width="30%" style="text-align:center">Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @if (Model != null)
                                             {
+
+                                                int cont = 1;
                                                 foreach (var obj in Model)
                                                 {
+                                                    var classInactive = (ViewBag.EsAdmin && !obj.Estado) ? "class='inactive'" : "";
                                                     <tr>
-                                                        <td>@obj.NombreEncuesta</td>
-                                                        <td align="center">@obj.Periodo.Descripcion</td>
-                                                        @if (obj.Estado)
-                                                        {
-                                                            <td align="center">Activo</td>}
-                                                        else
-                                                        {
-                                                            <td align="center">Inactivo</td>}
-                                                        <td align="center">
-                                                            <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">Ver</a>
-                                                        </td>
 
                                                         <td align="center">
-                                                            <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" title="Editar">
-                                                                <i class="fa fa-pencil"></i>
-                                                            </a>
-                                                            @if (ViewBag.EsAdmin)
-                                                            {
-                                                                <a href="@Url.Action("SendCorreo", new { idGrupo = obj.IdGrupoTrabajo, nombreEncuesta = obj.NombreEncuesta, periodo = obj.Periodo.Descripcion })" title="Publicar">
+                                                            @if (ViewBag.EsAdmin && !obj.Estado)
+                                                            { <span class="badge bg-danger" data-toggle="tooltip" data-placement="left" data-original-title="Inactivo">@cont</span>}
+                                                            else
+                                                            {@cont}
+                                                        </td>
+                                                        <td>@obj.NombreEncuesta</td>
+                                                        <td>@obj.Periodo.Descripcion</td>
+                                                        <td><a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" data-toggle="tooltip" data-original-title="Mostrar reporte">Ver</a></td>
+                                                        @if (ViewBag.EsAdmin)
+                                                        {
+                                                            <td style="text-align: center;">
+                                                                <a style="text-align: center; padding: 0 15px;" href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" data-toggle="tooltip" data-original-title="Editar encuesta">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <a href="@Url.Action("SendCorreo", new { idGrupo = obj.IdGrupoEvaluado, nombreEncuesta = obj.NombreEncuesta, periodo = obj.Periodo.Descripcion })" data-toggle="tooltip" data-original-title="Enviar encuesta">
                                                                     <i class="fa fa-envelope"></i>
                                                                 </a>
-                                                            }
-                                                        </td>
+                                                            </td>
+                                                        }
                                                     </tr>
+                                                        cont++;
                                                 }
                                             }
+                                            @*@if (Model != null)
+                                                {
+                                                    foreach (var obj in Model)
+                                                    {
+                                                        <tr>
+                                                            <td>@obj.NombreEncuesta</td>
+                                                            <td align="center">@obj.Periodo.Descripcion</td>
+                                                            @if (obj.Estado)
+                                                            {
+                                                                <td align="center">Activo</td>}
+                                                            else
+                                                            {
+                                                                <td align="center">Inactivo</td>}
+                                                            <td align="center">
+                                                                <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })">Ver</a>
+                                                            </td>
+
+                                                            <td align="center">
+                                                                <a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" title="Editar">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                @if (ViewBag.EsAdmin)
+                                                                {
+                                                                    <a href="@Url.Action("SendCorreo", new { idGrupo = obj.IdGrupoEvaluado, nombreEncuesta = obj.NombreEncuesta, periodo = obj.Periodo.Descripcion })" title="Publicar">
+                                                                        <i class="fa fa-envelope"></i>
+                                                                    </a>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }*@
                                         </tbody>
                                     </table>
                                 </div>
