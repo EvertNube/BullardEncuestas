@@ -20,7 +20,7 @@
                 <h2>Editar Encuesta</h2>
                 @Html.ValidationSummary(true)
                 <div class="row m-b">
-                    <div class="col-xs-12 col-md-12">
+                    <div class="col-xs-12 col-md-9">
                         @Html.Partial("_showAlertMessages")
                         <section class="panel panel-default">
                             <header class="panel-heading font-bold">
@@ -29,32 +29,33 @@
                                 <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i>&nbsp;&nbsp;Configuración</a>
                             </header>
                             <div class="panel-body">
-                                <section class="panel panel-default scrollable padder">
-                                    <div class="dd" id="nestable1">
-                                        <ol class="dd-list">
-                                            @*<li class="dd-item" data-id="1"> <div class="dd-handle">Item 1</div> </li>*@
-                                            @foreach (var item in Model.Secciones)
-                                            {
-                                                <li class="dd-item dd-collapsed" data-id="@item.Orden.ToString()">
-                                                    <button data-action="collapse" type="button" style="display: block;">"Collapse"</button>
-                                                    <button data-action="expand" type="button" style="display: none;">"Expand"</button>
-                                                    <div class="dd-handle">@item.Nombre</div>
-                                                    <ol class="dd-list">
-                                                        @if (item.SubSecciones != null)
+                                <div class="dd" id="nestable1">
+                                    <ol class="dd-list">
+                                        @foreach (var item in Model.Secciones)
+                                        {
+                                            <li class="dd-item dd-collapsed" data-id="@item.Orden">
+                                                <div class="dd-handle">@item.Nombre</div>
+                                                @if (item.SubSecciones != null)
+                                                {
+                                                    <ol>
+                                                        @foreach (var subItem in item.SubSecciones)
                                                         {
-                                                            foreach (var subItem in item.SubSecciones)
-                                                            {
-                                                                <li class="dd-item" data-id="@subItem.Orden.ToString()">
-                                                                    <div class="dd-handle">@subItem.Nombre</div>
-                                                                </li>
-                                                            }
+                                                            <li class="dd-item dd-collapsed" data-id="@subItem.Orden.ToString()">
+                                                                <div class="dd-handle">@subItem.Nombre</div>
+                                                            </li>
                                                         }
                                                     </ol>
-                                                </li>
-                                            }
-                                        </ol>
-                                    </div>
-                                </section>
+                                                }
+                                            </li>
+                                        }
+                                    </ol>
+                                </div>
+                                <div class="line line-dashed line-lg pull-in"></div>
+                                <div style="align-items:center">
+                                    <a class="btn btn-sm btn-danger btn-rounded pull-right" href="/Admin/Index">Salir</a>
+                                    &nbsp;
+                                    <button type="submit" id="btnGuardar" class="btn btn-sm btn-primary btn-rounded pull-right">Guardar</button>
+                                </div>
                             </div>
                         </section>
                     </div>
