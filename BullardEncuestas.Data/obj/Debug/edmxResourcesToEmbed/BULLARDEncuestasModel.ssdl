@@ -305,18 +305,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Seccion_Seccion">
-    <End Role="Seccion" Type="Self.Seccion" Multiplicity="0..1" />
-    <End Role="Seccion1" Type="Self.Seccion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Seccion">
-        <PropertyRef Name="IdSeccion" />
-      </Principal>
-      <Dependent Role="Seccion1">
-        <PropertyRef Name="IdSeccionPadre" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Usuario_Rol">
     <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
     <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
@@ -400,10 +388,6 @@
     <AssociationSet Name="FK_Seccion_Encuesta" Association="Self.FK_Seccion_Encuesta">
       <End Role="Encuesta" EntitySet="Encuesta" />
       <End Role="Seccion" EntitySet="Seccion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Seccion_Seccion" Association="Self.FK_Seccion_Seccion">
-      <End Role="Seccion" EntitySet="Seccion" />
-      <End Role="Seccion1" EntitySet="Seccion" />
     </AssociationSet>
     <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
       <End Role="Rol" EntitySet="Rol" />

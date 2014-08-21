@@ -33,7 +33,7 @@ namespace BullardEncuestas.Core.BL
         {
             using (var context = getContext())
             {
-                var result = context.Encuesta.Where(x => x.IdEncuesta == id)
+                var result = context.Encuesta.Where(x => x.IdEncuesta == id).AsEnumerable()
                     .Select(r => new EncuestaDTO
                     {
                         IdEncuesta = r.IdEncuesta,
@@ -50,28 +50,31 @@ namespace BullardEncuestas.Core.BL
                             Orden = x.Orden,
                             EsSocio = x.EsSocio,
                             Estado = x.Estado,
-                            Preguntas = x.Pregunta.Select(y => new PreguntaDTO {
+                            Preguntas = x.Pregunta.Select(y => new PreguntaDTO
+                            {
                                 IdPregunta = y.IdPregunta,
                                 Texto = y.Texto,
                                 Descripcion = y.Descripcion,
                                 Orden = y.Orden,
                                 Estado = y.Estado
                             }).OrderBy(y => y.Orden).ToList(),
-                            SubSecciones = r.Seccion.Where(y => y.IdSeccionPadre == x.IdSeccion).Select(y => new SeccionDTO {
+                            SubSecciones = r.Seccion.Where(y => y.IdSeccionPadre == x.IdSeccion).Select(y => new SeccionDTO
+                            {
                                 IdSeccion = y.IdSeccion,
                                 Nombre = y.Nombre,
                                 Orden = y.Orden,
                                 EsSocio = y.EsSocio,
                                 Estado = y.Estado,
-                                Preguntas = y.Pregunta.Select(z => new PreguntaDTO {
+                                Preguntas = y.Pregunta.Select(z => new PreguntaDTO
+                                {
                                     IdPregunta = z.IdPregunta,
                                     Texto = z.Texto,
                                     Descripcion = z.Descripcion,
                                     Orden = z.Orden,
                                     Estado = z.Estado
                                 }).OrderBy(z => z.Orden).ToList()
-                            }).OrderBy(y => y.Orden).ToList(),
-                        }).OrderBy(x => x.Orden).ToList(),
+                            }).OrderBy(y => y.Orden).ToList()
+                        }).OrderBy(x => x.Orden).ToList()
                     }).SingleOrDefault();
                 return result;
             }
@@ -81,7 +84,7 @@ namespace BullardEncuestas.Core.BL
         {
             using (var context = getContext())
             {
-                var result = context.Encuesta.Where(r => r.IdEncuesta == idEncuesta)
+                var result = context.Encuesta.Where(r => r.IdEncuesta == idEncuesta).AsEnumerable()
                     .Select(r => new EncuestaEvaluadorDTO
                     {
                         IdEncuesta = r.IdEncuesta,
