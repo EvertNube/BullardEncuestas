@@ -232,5 +232,43 @@ namespace BullardEncuestas.Controllers
         {
             return View(new EncuestaEvaluadorDTO());
         }
+
+        public ActionResult AddSeccion(SeccionDTO dto)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            try
+            {
+                SeccionBL objBL = new SeccionBL();
+                if (dto.IdSeccion == 0)
+                {
+                    if (objBL.add(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("Encuesta", new { id = dto.IdEncuesta });
+                    }
+                    else
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                }
+                else if (dto.IdSeccion != 0)
+                {
+                    if (objBL.update(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("Encuesta", new { id = dto.IdEncuesta });
+                    }
+                    else
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                }
+                else
+                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+            }
+            catch
+            {
+                if (dto.IdSeccion != 0) createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                else createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+            }
+            TempData["Seccion"] = dto;
+            return RedirectToAction("Encuesta");
+        }
     }
 }

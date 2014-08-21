@@ -30,10 +30,10 @@
         var essocio = $(this).data('essocio');
         var estado = $(this).data('estado');
         var count = $(this).data('count');
-        $('#ide').val(id);
-        $('#nombre').val(nombre);
-        $('#esSocio').prop("checked", (essocio.toLowerCase() == 'true'));
-        $('#estado').prop("checked", (estado.toLowerCase() == 'true'));
+        $('#IdSeccion').val(id);
+        $('#Orden').val(nombre);
+        $('#EsSocio').prop("checked", (essocio.toLowerCase() == 'true'));
+        $('#Estado').prop("checked", (estado.toLowerCase() == 'true'));
         //$('#estadoSec').prop("checked", true); $('#chx i').addClass("checked");
         setOrden(count, orden);
         $('#modal-form').modal('show');

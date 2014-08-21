@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\Base.cs" />
+    <Compile Include="BL\SeccionBL.cs" />
     <Compile Include="BL\PersonaBL.cs" />
     <Compile Include="BL\EncuestaBL.cs" />
     <Compile Include="BL\UsuariosBL.cs" />

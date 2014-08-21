@@ -111,31 +111,31 @@
                     <div id="registro" class="col-sm-12 form-horizontal">
                         @using (Html.BeginForm("AddSeccion", "Admin", FormMethod.Get))
                         {
-                            <input type="hidden" id="ide" />
+                            <input type="hidden" id="IdSeccion" />
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Nombre</label>
                                 <div class="col-lg-9">
-                                    <input type="text" id="nombre" class="form-control" />
+                                    <input type="text" id="Nombre" name="Nombre" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Orden</label>
                                 <div class="col-lg-9">
-                                    <select id="orden" class="form-control"></select>
+                                    <select id="Orden" name="Orden" class="form-control"></select>
                                 </div>
                             </div>
-                            <div class="form-group edicion">
+                            <div class="form-group">
                                 <label class="col-lg-3 control-label">Visible sólo socio</label>
                                 <div class="col-lg-9">
-                                    <input type="checkbox" id="esSocio" />
+                                    <input type="checkbox" id="EsSocio" name="EsSocio" />
                                 </div>
                             </div>
-                            <div class="form-group edicion">
+                            <div class="form-group">
                                 <label class="col-lg-3 control-label">Estado</label>
                                 <div class="col-lg-9">
                                     @*<label class="checkbox-custom">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="estado"><i class="fa fa-fw fa-square-o"></i></label>*@
                                     @*<label class="checkbox-custom" id="chx">N° DE EXPEDIENTE @Html.CheckBox("estadoSec", new { @type = "checkbox" })<i class="fa fa-fw fa-square-o"></i></label>*@
-                                    <input type="checkbox" id="estado" />
+                                    <input type="checkbox" id="Estado" name="Estado" />
                                 </div>
                             </div>
                         }
