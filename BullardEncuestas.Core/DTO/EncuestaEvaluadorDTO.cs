@@ -13,7 +13,8 @@ namespace BullardEncuestas.Core.DTO
         public int IdEvaluador { get; set; }
         public int CodEvaluador { get; set; }
         public bool EstadoEncuesta { get; set; }
-        public int IdEvaluado { get; set; }
-        public List<RespuestasDTO> listaRespuestas { get; set; }
+        //public int IdEvaluado { get; set; }
+        public List<RespuestasDTO> Respuestas { get; set; }
+        public EncuestaDTO Encuesta { get; set; }
     }
 }
