@@ -12,13 +12,20 @@
     <section class="scrollable padder">
         <div class="row m-b">
             <div class="col-xs-12 col-md-10 col-md-offset-1">
-                <h2>Editar Encuesta</h2>
+                <h2>Periodo / Encuesta</h2>
                 @Html.ValidationSummary(true)
                 <div class="row m-b">
                     <div class="col-xs-12 col-md-9">
                         @Html.Partial("_showAlertMessages")
                         <section class="panel panel-default">
-                            <header class="panel-heading font-bold"></header>
+                            <header class="panel-heading">
+                                <p>
+                                    <div class="font-bold">Instrucciones:</div><div>Estas son las instrucciones base</div>
+                                </p>
+                                <p>
+                                    <div class="font-bold">Leyenda:</div><div>Malo 1 - Deficient 2 - Regular 3 - Bueno 4 - Excelente 5</div>
+                                </p>
+                            </header>
                         </section>
                     </div>
                 </div>
