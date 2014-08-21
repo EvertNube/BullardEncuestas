@@ -27,4 +27,9 @@
         $('#modal-form').modal('show');
     });
 
+    $('.dd').on('change', function () {
+        /* on change event */
+        console.log('event');
+    });
+
 });

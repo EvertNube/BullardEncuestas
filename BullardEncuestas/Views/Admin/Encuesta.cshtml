@@ -39,7 +39,33 @@
                                                         <ol class="dd-list">
                                                             @foreach (var subSeccion in seccion.SubSecciones)
                                                             {
-                                                                <li class="dd-item" data-id="3"><div class="dd-handle">@subSeccion.Nombre</div></li>
+                                                                <li class="dd-item" data-id="@subSeccion.IdSeccion">
+                                                                    <div class="dd-handle">@subSeccion.Nombre</div>
+                                                                </li>
+                                                                <a class='btn-edit btnEditar' href='#'><i class='fa fa-pencil'></i></a>
+                                                                if (subSeccion.Preguntas.Count > 0)
+                                                                {
+                                                                    <ol class="dd-list">
+                                                                        @foreach (var pregunta in subSeccion.Preguntas)
+                                                                        {
+                                                                            <li class="dd-item" data-id="@pregunta.IdPregunta">
+                                                                                <div class="dd-handle">@pregunta.Texto</div>
+                                                                            </li>
+                                                                            <a class='btn-edit btnEditar' href='#'><i class='fa fa-pencil'></i></a>
+                                                                        }
+                                                                    </ol>
+                                                                }
+                                                            }
+                                                        </ol>
+                                                    }
+                                                    @if (seccion.Preguntas.Count > 0)
+                                                    {
+                                                        <ol class="dd-list">
+                                                            @foreach (var pregunta in seccion.Preguntas)
+                                                            {
+                                                                <li class="dd-item" data-id="@pregunta.IdPregunta">
+                                                                    <div class="dd-handle">@pregunta.Texto</div>
+                                                                </li>
                                                                 <a class='btn-edit btnEditar' href='#'><i class='fa fa-pencil'></i></a>
                                                             }
                                                         </ol>
