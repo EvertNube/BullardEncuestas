@@ -31,7 +31,7 @@
         var estado = $(this).data('estado');
         var count = $(this).data('count');
         $('#IdSeccion').val(id);
-        $('#Orden').val(nombre);
+        $('#Nombre').val(nombre);
         $('#EsSocio').prop("checked", (essocio.toLowerCase() == 'true'));
         $('#Estado').prop("checked", (estado.toLowerCase() == 'true'));
         //$('#estadoSec').prop("checked", true); $('#chx i').addClass("checked");
@@ -47,7 +47,7 @@
 });
 
 function setOrden(length, selected) {
-    var select = $('#orden');
+    var select = $('#Orden');
     select.empty();
     for (var i = 1; i <= length; i++) {
         select.append($('<option />', {

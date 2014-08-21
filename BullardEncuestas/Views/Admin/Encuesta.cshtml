@@ -106,12 +106,13 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Modificar Sección</h4>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div id="registro" class="col-sm-12 form-horizontal">
-                        @using (Html.BeginForm("AddSeccion", "Admin", FormMethod.Get))
-                        {
-                            <input type="hidden" id="IdSeccion" />
+            @using (Html.BeginForm("AddSeccion", "Admin", FormMethod.Get))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="registro" class="col-sm-12 form-horizontal">
+
+                            <input type="hidden" id="IdSeccion" name="IdSeccion" />
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Nombre</label>
                                 <div class="col-lg-9">
@@ -138,14 +139,15 @@
                                     <input type="checkbox" id="Estado" name="Estado" />
                                 </div>
                             </div>
-                        }
+
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="savePersona">Guardar</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" id="savePersona">Guardar</button>
+                </div>
+            }
         </div>
     </div>
 </div>

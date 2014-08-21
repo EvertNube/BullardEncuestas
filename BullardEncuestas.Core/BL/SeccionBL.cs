@@ -44,6 +44,7 @@ namespace BullardEncuestas.Core.BL
                     seccion.EsSocio = seccionDTO.EsSocio;
                     seccion.Estado = seccionDTO.Estado;
                     context.SaveChanges();
+                    seccionDTO.IdEncuesta = seccion.IdEncuesta;
                     return true;
                 }
                 catch (Exception e)
