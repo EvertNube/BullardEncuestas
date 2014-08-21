@@ -6,13 +6,8 @@
     }
     else { ViewBag.Title = ViewBag.EncuestaNombre; }
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-
-
 }
-
 @section scripts{@Scripts.Render("~/Content/js/Encuesta.js")}
-
-
 <section class="vbox">
     <section class="scrollable padder">
         <div class="row m-b">
@@ -29,65 +24,33 @@
                                 <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i>&nbsp;&nbsp;Configuración</a>
                             </header>
                             <div class="panel-body">
+
                                 <div class="dd" id="nestable1">
-                                    <ol class="dd-list">
-                                        @foreach (var seccion in Model.Secciones)
-                                        {
-                                            <li class="dd-item dd-collapsed" data-id="@seccion.Orden">
-                                                <div class="dd-handle">@seccion.Nombre <b class='badge bg-warning dot'></b></div>
-                                                <a class='btn-edit' href='#'><i class='fa fa-pencil'></i></a>
-                                                <a class='btn-edit btn-add' href='#' title='Nueva Página Interna'><i class='fa fa-plus'></i></a> @*<a class='btn-edit btn-preview' href='#' title='Vista previa'><i class="fa fa-pencil"></i></a>*@
-                                                
-
-                                                @if (seccion.SubSecciones != null)
-                                                {
-                                                    <ol>
-                                                        @foreach (var subItem in seccion.SubSecciones)
-                                                        {
-                                                            <li class="dd-item dd-collapsed" data-id="@subItem.Orden.ToString()">
-                                                                <div class="dd-handle">
-                                                                    @subItem.Nombre
-                                                                    <span class="pull-right">
-                                                                        <a href="#">
-                                                                            <i class="fa fa-pencil icon-muted fa-fw m-r-xs"></i>
-                                                                        </a>
-                                                                        <a href="#">
-                                                                            <i class="fa fa-times icon-muted fa-fw"></i>
-                                                                        </a>
-                                                                    </span>
-                                                                </div>
-                                                            </li>
-                                                        }
-                                                    </ol>
-                                                }
-                                                @*@if (item.Preguntas.Count != null)
-                                                    {*@
-                                                    @*<ul class="list-group gutter list-group-lg list-group-sp sortable">
-                                                            <li class="list-group-item" draggable="true">
-                                                                <span class="pull-right">
-                                                                    <a href="#">
-                                                                        <i class="fa fa-pencil icon-muted fa-fw m-r-xs"></i>
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <i class="fa fa-plus icon-muted fa-fw m-r-xs"></i>
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <i class="fa fa-times icon-muted fa-fw"></i>
-                                                                    </a>
-                                                                </span>
-                                                                <span class="pull-left media-xs">
-                                                                    <i class="fa fa-sort text-muted fa m-r-sm">
-                                                                    </i> 01
-                                                                </span>
-                                                                <div class="clear"> Respuesta 1</div>
-                                                            </li>
-                                                        </ul>*@
-
-                                                    @*}*@
+                                    @if (Model.Secciones.Count > 0)
+                                    {
+                                        <ol class="dd-list">
+                                            @*<li class="dd-item" data-id="1">
+                                                <div class="dd-handle">Item 1</div>
+                                            </li>*@
+                                            @foreach (var seccion in Model.Secciones)
+                                            {
+                                                <li class="dd-item" data-id="@seccion.IdSeccion">
+                                                    <div class="dd-handle">@seccion.Nombre</div>
+                                                    @if (seccion.SubSecciones.Count > 0)
+                                                    {
+                                                        <ol class="dd-list">
+                                                            @foreach (var subSeccion in seccion.SubSecciones)
+                                                            {
+                                                                <li class="dd-item" data-id="3"><div class="dd-handle">@subSeccion.Nombre</div></li>
+                                                            }
+                                                        </ol>
+                                                    }
                                                 </li>
-                                        }
-                                    </ol>
+                                            }
+                                        </ol>
+                                    }
                                 </div>
+
                                 <div class="line line-dashed line-lg pull-in"></div>
                                 <div style="align-items:center">
                                     <a class="btn btn-sm btn-danger btn-rounded pull-right" href="/Admin/Index">Salir</a>
