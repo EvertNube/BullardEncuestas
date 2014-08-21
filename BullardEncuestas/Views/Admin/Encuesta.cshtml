@@ -29,19 +29,18 @@
                                     @if (Model.Secciones.Count > 0)
                                     {
                                         <ol class="dd-list">
-                                            @*<li class="dd-item" data-id="1">
-                                                <div class="dd-handle">Item 1</div>
-                                            </li>*@
                                             @foreach (var seccion in Model.Secciones)
                                             {
                                                 <li class="dd-item" data-id="@seccion.IdSeccion">
                                                     <div class="dd-handle">@seccion.Nombre</div>
+                                                    <a class='btn-edit btnEditar' href='#'><i class='fa fa-pencil'></i></a>
                                                     @if (seccion.SubSecciones.Count > 0)
                                                     {
                                                         <ol class="dd-list">
                                                             @foreach (var subSeccion in seccion.SubSecciones)
                                                             {
                                                                 <li class="dd-item" data-id="3"><div class="dd-handle">@subSeccion.Nombre</div></li>
+                                                                <a class='btn-edit btnEditar' href='#'><i class='fa fa-pencil'></i></a>
                                                             }
                                                         </ol>
                                                     }
@@ -65,3 +64,36 @@
         </div>
     </section>
 </section>
+
+<div class="modal fade modal-popup" id="modal-form">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Edición de</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div id="registro" class="col-sm-12 form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Nombre</label>
+                            <div class="col-lg-9">
+                                <input type="text" id="nombreTarea" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group edicion">
+                            <label class="col-lg-3 control-label">Estado</label>
+                            <div class="col-lg-9">
+                                <select id="estadoTarea" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="savePersona">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

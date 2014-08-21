@@ -23,4 +23,8 @@
 
     $('#nestable3').nestable();
 
+    $('.btnEditar').click(function () {
+        $('#modal-form').modal('show');
+    });
+
 });
