@@ -226,10 +226,9 @@ namespace BullardEncuestas.Controllers
         public ActionResult Formulario()
         { return View(); }
 
-        public EncuestaEvaluadorDTO LlenarEncuesta()
+        public ActionResult LlenarEncuesta()
         {
-            return new EncuestaEvaluadorDTO();
+            return View(new EncuestaEvaluadorDTO());
         }
-
     }
 }

@@ -26,5 +26,3 @@ D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Core\bin\Debug\Entity
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.csprojResolveAssemblyReference.cache
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.dll
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.pdb
-D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Core\bin\Debug\BullardEncuestas.Core.dll.CodeAnalysisLog.xml
-D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Core\bin\Debug\BullardEncuestas.Core.dll.lastcodeanalysissucceeded
