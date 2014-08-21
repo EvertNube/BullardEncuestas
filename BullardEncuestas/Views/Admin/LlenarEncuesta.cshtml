@@ -1,5 +1,29 @@
-﻿@{
-    ViewBag.Title = "LlenarEncuesta";
+﻿@model BullardEncuestas.Core.DTO.EncuestaEvaluadorDTO
+@{
+    if (Model == null)
+    {
+        ViewBag.Title = "Encuesta Evaluador";
+    }
+    else { ViewBag.Title = ViewBag.EncuestaNombre; }
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>LlenarEncuesta</h2>
+<section class="vbox">
+    <section class="scrollable padder">
+        <div class="row m-b">
+            <div class="col-xs-12 col-md-10 col-md-offset-1">
+                <h2>Editar Encuesta</h2>
+                @Html.ValidationSummary(true)
+                <div class="row m-b">
+                    <div class="col-xs-12 col-md-9">
+                        @Html.Partial("_showAlertMessages")
+                        <section class="panel panel-default">
+                            <header class="panel-heading font-bold"></header>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
