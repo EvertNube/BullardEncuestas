@@ -2,10 +2,9 @@ D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuest
 D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Helpers\bin\Debug\BullardEncuestas.Helpers.pdb
 D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.dll
 D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.pdb
-D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\bin\Debug\BullardEncuestas.Helpers.dll
-D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\bin\Debug\BullardEncuestas.Helpers.pdb
-D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.csprojResolveAssemblyReference.cache
-D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.dll
-D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.pdb
 D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Helpers\bin\Debug\BullardEncuestas.Helpers.dll.CodeAnalysisLog.xml
 D:\Personal_Pro\NubeLabs\Bullard\BullardProyecto\BullardEncuestas\BullardEncuestas.Helpers\bin\Debug\BullardEncuestas.Helpers.dll.lastcodeanalysissucceeded
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\bin\Debug\BullardEncuestas.Helpers.dll
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\bin\Debug\BullardEncuestas.Helpers.pdb
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.dll
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.pdb

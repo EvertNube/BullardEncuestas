@@ -111,35 +111,37 @@ namespace BullardEncuestas.Controllers
 
         public ActionResult Encuesta(int? id = null)
         {
-            //EncuestaBL objBL = new EncuestaBL();
-            //var objSent = (EncuestaDTO)TempData["Encuesta"];
-            //if (objSent != null)
-            //{
-            //    TempData["Encuesta"] = null;
-            //    return View(objSent);
-            //}
-            //if (id != null)
-            //{
-            //    EncuestaDTO obj = objBL.getEncuesta((int)id);
-            //    return View(obj);
-            //}
-            //return View();
-
-            ViewBag.IdEncuesta = id;
-            List<SeccionDTO> listSeccion = GenerarEncuestaPrueba();
+            EncuestaBL objBL = new EncuestaBL();
             ViewBag.EncuestaPeriodo = "2014-1";
             ViewBag.EncuestaNombre = "Satisfaccion al cliente";
-            EncuestaDTO nuevo = new EncuestaDTO();
-            nuevo.IdEncuesta = 1;
-            nuevo.IdPeriodo = 201401;
-            nuevo.NombreEncuesta = "Satisfaccion al cliente";
-            nuevo.Estado = true;
-            PeriodoDTO nuevop = new PeriodoDTO();
-            nuevop.IdPeriodo = 1;
-            nuevop.Descripcion = "2014-1";
-            nuevo.Periodo = nuevop;
-            nuevo.Secciones = listSeccion;
-            return View(nuevo);
+            var objSent = (EncuestaDTO)TempData["Encuesta"];
+            if (objSent != null)
+            {
+                TempData["Encuesta"] = null;
+                return View(objSent);
+            }
+            if (id != null)
+            {
+                EncuestaDTO obj = objBL.getEncuesta((int)id);
+                return View(obj);
+            }
+            return View();
+
+            //ViewBag.IdEncuesta = id;
+            //List<SeccionDTO> listSeccion = GenerarEncuestaPrueba();
+            //ViewBag.EncuestaPeriodo = "2014-1";
+            //ViewBag.EncuestaNombre = "Satisfaccion al cliente";
+            //EncuestaDTO nuevo = new EncuestaDTO();
+            //nuevo.IdEncuesta = 1;
+            //nuevo.IdPeriodo = 201401;
+            //nuevo.NombreEncuesta = "Satisfaccion al cliente";
+            //nuevo.Estado = true;
+            //PeriodoDTO nuevop = new PeriodoDTO();
+            //nuevop.IdPeriodo = 1;
+            //nuevop.Descripcion = "2014-1";
+            //nuevo.Periodo = nuevop;
+            //nuevo.Secciones = listSeccion;
+            //return View(nuevo);
         }
         public ActionResult SendCorreo(int idGrupo, string nombreEncuesta, string periodo)
         {
