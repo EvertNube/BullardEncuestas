@@ -77,15 +77,82 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
-        public EncuestaEvaluadorDTO getEncuestaEvaluador(int idEncuesta, int idEnvaluador)
+        public EncuestaEvaluadorDTO getEncuestaEvaluador(int idEncuesta, int idEvaluador)
         {
             using (var context = getContext())
             {
-                var result = context.Encuesta.Where(x => x.IdEncuesta == idEncuesta)
-                    .Select(x => new EncuestaEvaluadorDTO {
-                        IdEncuesta = x.IdEncuesta,
-                        IdEvaluador = idEnvaluador,
-                        
+                var result = context.Encuesta.Where(r => r.IdEncuesta == idEncuesta)
+                    .Select(r => new EncuestaEvaluadorDTO
+                    {
+                        IdEncuesta = r.IdEncuesta,
+                        IdEvaluador = idEvaluador,
+                        Encuesta = new EncuestaDTO
+                        {
+                            NombreEncuesta = r.Nombre,
+                            Instrucciones = r.Instrucciones,
+                            Leyenda = r.Leyenda,
+                            IdPeriodo = r.IdPeriodo,
+                            IdGrupoEvaluado = r.IdGrupoEvaluado,
+                            Estado = r.Estado,
+                            Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
+                            GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.Nombre },
+                            Secciones = r.Seccion.Where(x => x.IdSeccionPadre == null).Select(x => new SeccionDTO
+                            {
+                                IdSeccion = x.IdSeccion,
+                                Nombre = x.Nombre,
+                                Orden = x.Orden,
+                                EsSocio = x.EsSocio,
+                                Estado = x.Estado,
+                                Preguntas = x.Pregunta.Select(y => new PreguntaDTO
+                                {
+                                    IdPregunta = y.IdPregunta,
+                                    Texto = y.Texto,
+                                    Descripcion = y.Descripcion,
+                                    Orden = y.Orden,
+                                    Estado = y.Estado,
+                                    IdTipoRespuesta = y.IdTipoRespuesta,
+                                    TipoRespuesta = new TipoRepuestaDTO
+                                    {
+                                        Nombre = y.TipoRespuesta.Nombre,
+                                        OpcionesRespuesta = y.TipoRespuesta.OpcionesRespuesta.Select(o => new OpcionesRespuestaDTO
+                                        {
+                                            IdOpcion = o.IdOpcion,
+                                            IdTipoRespuesta = o.IdTipoRespuesta,
+                                            Valor = o.Valor,
+                                            Nombre = o.Nombre
+                                        }).ToList()
+                                    }
+                                }).OrderBy(y => y.Orden).ToList(),
+                                SubSecciones = r.Seccion.Where(y => y.IdSeccionPadre == x.IdSeccion).Select(y => new SeccionDTO
+                                {
+                                    IdSeccion = y.IdSeccion,
+                                    Nombre = y.Nombre,
+                                    Orden = y.Orden,
+                                    EsSocio = y.EsSocio,
+                                    Estado = y.Estado,
+                                    Preguntas = y.Pregunta.Select(z => new PreguntaDTO
+                                    {
+                                        IdPregunta = z.IdPregunta,
+                                        Texto = z.Texto,
+                                        Descripcion = z.Descripcion,
+                                        Orden = z.Orden,
+                                        Estado = z.Estado,
+                                        IdTipoRespuesta = z.IdTipoRespuesta,
+                                        TipoRespuesta = new TipoRepuestaDTO
+                                        {
+                                            Nombre = z.TipoRespuesta.Nombre,
+                                            OpcionesRespuesta = z.TipoRespuesta.OpcionesRespuesta.Select(o => new OpcionesRespuestaDTO
+                                            {
+                                                IdOpcion = o.IdOpcion,
+                                                IdTipoRespuesta = o.IdTipoRespuesta,
+                                                Valor = o.Valor,
+                                                Nombre = o.Nombre
+                                            }).ToList()
+                                        }
+                                    }).OrderBy(z => z.Orden).ToList()
+                                }).OrderBy(y => y.Orden).ToList(),
+                            }).OrderBy(x => x.Orden).ToList(),
+                        }
                     }).SingleOrDefault();
                 return result;
             }
