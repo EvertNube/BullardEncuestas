@@ -42,7 +42,7 @@ namespace BullardEncuestas.Core.BL
                         IdGrupoEvaluado = r.IdGrupoEvaluado,
                         Estado = r.Estado,
                         Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
-                        GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.Nombre },
+                        GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.Nombre },
                         Secciones = r.Seccion.Where(x => x.IdSeccionPadre == null).Select(x => new SeccionDTO
                         {
                             IdSeccion = x.IdSeccion,
