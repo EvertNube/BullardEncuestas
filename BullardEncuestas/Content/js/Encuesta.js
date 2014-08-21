@@ -24,6 +24,18 @@
     $('#nestable3').nestable();
 
     $('.btnEditar').click(function () {
+        var id = $(this).data('idseccion');
+        var nombre = $(this).data('nombre');
+        var orden = $(this).data('orden');
+        var essocio = $(this).data('essocio');
+        var estado = $(this).data('estado');
+        var count = $(this).data('count');
+        $('#ide').val(id);
+        $('#nombre').val(nombre);
+        $('#esSocio').prop("checked", (essocio.toLowerCase() == 'true'));
+        $('#estado').prop("checked", (estado.toLowerCase() == 'true'));
+        //$('#estadoSec').prop("checked", true); $('#chx i').addClass("checked");
+        setOrden(count, orden);
         $('#modal-form').modal('show');
     });
 
@@ -33,3 +45,37 @@
     });
 
 });
+
+function setOrden(length, selected) {
+    var select = $('#orden');
+    select.empty();
+    for (var i = 1; i <= length; i++) {
+        select.append($('<option />', {
+            value: i,
+            text: i
+        }));
+    }
+    select.val(selected);
+}
+
+function setEstado() {
+    $.ajax({
+        url: "/Admin/GetEstado",
+        type: "GET",
+        cache: false,
+        data: { NombreTabla: "TIPOPERSONA" },
+        dataType: "json"
+    }).done(function (data) {
+        var select = $("#tipoPersona");
+        select.empty();
+        $.each(data, function (index, itemData) {
+            select.append($('<option />', {
+                value: itemData.IdGenerica,
+                text: itemData.NombreCampo
+            }));
+        });
+        select.trigger("click");
+    }).fail(function () {
+        alert('Error al intentar obtener el listado de Tipo de Personas. Por favor, actualice la página o presione F5.');
+    });
+}

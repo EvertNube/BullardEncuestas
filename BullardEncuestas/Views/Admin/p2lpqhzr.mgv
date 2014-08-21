@@ -30,16 +30,15 @@
                             <div class="panel-body">
 
                                 <div class="dd" id="nestable1">
-                                    @{ var countSecciones = Model.Secciones.Count;  }
-                                    @if (countSecciones > 0)
+                                    @if (Model.Secciones.Count > 0)
                                     {
                                         <ol class="dd-list">
                                             @foreach (var seccion in Model.Secciones)
                                             {
                                                 <li class="dd-item" data-id="@seccion.IdSeccion">
-
+                                                    @{ var seccionName = "sec" + seccion.IdSeccion;  }
                                                     <div class="dd-handle">@seccion.Nombre</div>
-                                                    <a class='btn-edit btnEditar' href='#' data-idseccion="@seccion.IdSeccion" data-nombre="@seccion.Nombre" data-orden="@seccion.Orden" data-essocio="@seccion.EsSocio" data-estado="@seccion.Estado" data-count="@countSecciones">
+                                                    <a class='btn-edit btnEditar' href='#' data-idseccion="@seccion.IdSeccion" data-nombre="@seccion.Nombre" data-essocio="@seccion.EsSocio" data-estado="@seccion.Estado">
                                                         <i class='fa fa-pencil'></i>
                                                     </a>
                                                     @if (seccion.SubSecciones.Count > 0)
@@ -104,41 +103,24 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Modificar Sección</h4>
+                <h4 class="modal-title">Edición de</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div id="registro" class="col-sm-12 form-horizontal">
-                        @using (Html.BeginForm("AddSeccion", "Admin", FormMethod.Get))
-                        {
-                            <input type="hidden" id="ide" />
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Nombre</label>
-                                <div class="col-lg-9">
-                                    <input type="text" id="nombre" class="form-control" />
-                                </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Nombre</label>
+                            <div class="col-lg-9">
+                                <input type="text" id="nombre" class="form-control" />
                             </div>
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Orden</label>
-                                <div class="col-lg-9">
-                                    <select id="orden" class="form-control"></select>
-                                </div>
+                        </div>
+                        <div class="form-group edicion">
+                            <label class="col-lg-3 control-label">Estado</label>
+                            <div class="col-lg-9">
+                                <label class="checkbox-custom">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="checkboxA" checked="checked"><i class="fa fa-fw fa-square-o checked"></i></label>
                             </div>
-                            <div class="form-group edicion">
-                                <label class="col-lg-3 control-label">Visible sólo socio</label>
-                                <div class="col-lg-9">
-                                    <input type="checkbox" id="esSocio" />
-                                </div>
-                            </div>
-                            <div class="form-group edicion">
-                                <label class="col-lg-3 control-label">Estado</label>
-                                <div class="col-lg-9">
-                                    @*<label class="checkbox-custom">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="estado"><i class="fa fa-fw fa-square-o"></i></label>*@
-                                    @*<label class="checkbox-custom" id="chx">N° DE EXPEDIENTE @Html.CheckBox("estadoSec", new { @type = "checkbox" })<i class="fa fa-fw fa-square-o"></i></label>*@
-                                    <input type="checkbox" id="estado" />
-                                </div>
-                            </div>
-                        }
+                            
+                        </div>
                     </div>
                 </div>
             </div>
