@@ -1,0 +1,5 @@
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\bin\Release\BullardEncuestas.Helpers.dll
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\bin\Release\BullardEncuestas.Helpers.pdb
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Release\BullardEncuestas.Helpers.csprojResolveAssemblyReference.cache
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Release\BullardEncuestas.Helpers.dll
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Release\BullardEncuestas.Helpers.pdb

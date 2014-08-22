@@ -5,19 +5,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2630eaa8aecd40c9ac8a6bd4ae5e858e" Name="Diagram1">
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Empresa" Width="1.5" PointX="5.25" PointY="14" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Encuesta" Width="1.5" PointX="3" PointY="5.125" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.EncuestaEvaluador" Width="1.5" PointX="5.25" PointY="3.5" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.GrupoTrabajo" Width="1.5" PointX="5.25" PointY="10.75" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.OpcionesRespuesta" Width="1.5" PointX="7.5" PointY="15.375" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Periodo" Width="1.5" PointX="0.75" PointY="5.875" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Persona" Width="1.5" PointX="7.5" PointY="11.5" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Pregunta" Width="1.5" PointX="7.5" PointY="7.125" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Respuestas" Width="1.5" PointX="9.75" PointY="5.75" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Rol" Width="1.5" PointX="7.75" PointY="2.25" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Seccion" Width="1.5" PointX="5.25" PointY="7.25" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.TipoRespuesta" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Usuario" Width="1.5" PointX="10" PointY="1.625" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Empresa" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Encuesta" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.EncuestaEvaluador" Width="1.5" PointX="9.75" PointY="4.375" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.GrupoTrabajo" Width="1.5" PointX="5.25" PointY="3.5" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.OpcionesRespuesta" Width="1.5" PointX="7.5" PointY="15.125" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Periodo" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Persona" Width="1.5" PointX="7.5" PointY="3.25" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Pregunta" Width="1.5" PointX="7.5" PointY="9.75" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Respuestas" Width="1.5" PointX="12" PointY="7.375" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Rol" Width="1.5" PointX="9.75" PointY="11.875" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Seccion" Width="1.5" PointX="5.25" PointY="9.75" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.TipoRespuesta" Width="1.5" PointX="5.25" PointY="14.125" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Usuario" Width="1.5" PointX="12" PointY="11.25" />
         <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Persona_Empresa" />
         <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Encuesta_GrupoTrabajo" />
         <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Encuesta_Periodo" />
@@ -31,7 +32,7 @@
         <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Pregunta_TipoRespuesta" />
         <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Respuestas_Pregunta" />
         <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Usuario_Rol" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.Evaluador" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.GrupoEvaluador" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

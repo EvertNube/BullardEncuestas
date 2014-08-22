@@ -755,6 +755,7 @@
     <Content Include="Content\themes\admin\src\less\app.widgets.less" />
     <Content Include="Content\themes\admin\src\less\less.php" />
     <Content Include="Content\themes\admin\src\less\lessc.inc.php" />
+    <None Include="Properties\PublishProfiles\BULLARD.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -771,7 +772,9 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

@@ -10,7 +10,6 @@ namespace BullardEncuestas.Core.DTO
     {
         public int IdPeriodo { get; set; }
         public string Descripcion { get; set; }
-        public List<EncuestaDTO> Encuestas { get; set; }
-
+        public bool Estado { get; set; }
     }
 }

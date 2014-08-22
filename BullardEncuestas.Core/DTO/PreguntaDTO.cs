@@ -13,9 +13,11 @@ namespace BullardEncuestas.Core.DTO
         public int IdTipoRespuesta { get; set; }
         public string Texto { get; set; }
         public string Descripcion { get; set; }
-        public int Orden { get; set; }
-        public bool Estado { get; set; }
+        public int OrdenPregunta { get; set; }
+        public bool EstadoPregunta { get; set; }
+        
+        public int IdEncuesta { get; set; }
         public List<RespuestasDTO> Respuestas { get; set; }
-        public TipoRepuestaDTO TipoRespuesta { get; set; }
+        public TipoRespuestaDTO TipoRespuesta { get; set; }
     }
 }

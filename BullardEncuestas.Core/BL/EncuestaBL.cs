@@ -22,7 +22,7 @@ namespace BullardEncuestas.Core.BL
                     IdEncuesta = r.IdEncuesta,
                     NombreEncuesta = r.NombreEncuesta,
                     Periodo = new PeriodoDTO { Descripcion = r.NombrePeriodo },
-                    Estado = r.Estado
+                    EstadoEncuesta = r.Estado
                     //GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.NombreGrupo }
                 }).ToList();
                 return result;
@@ -38,11 +38,14 @@ namespace BullardEncuestas.Core.BL
                     {
                         IdEncuesta = r.IdEncuesta,
                         NombreEncuesta = r.Nombre,
+                        Instrucciones = r.Instrucciones,
+                        Leyenda = r.Leyenda,
                         IdPeriodo = r.IdPeriodo,
                         IdGrupoEvaluado = r.IdGrupoEvaluado,
-                        Estado = r.Estado,
+                        EstadoEncuesta = r.Estado,
                         Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
                         GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.Nombre },
+                        StrGrupoEvaluador = string.Join(", ", r.GrupoTrabajo1.Select(y => y.IdGrupoTrabajo)),
                         Secciones = r.Seccion.Where(x => x.IdSeccionPadre == null).Select(x => new SeccionDTO
                         {
                             IdSeccion = x.IdSeccion,
@@ -55,9 +58,10 @@ namespace BullardEncuestas.Core.BL
                                 IdPregunta = y.IdPregunta,
                                 Texto = y.Texto,
                                 Descripcion = y.Descripcion,
-                                Orden = y.Orden,
-                                Estado = y.Estado
-                            }).OrderBy(y => y.Orden).ToList(),
+                                OrdenPregunta = y.Orden,
+                                EstadoPregunta = y.Estado,
+                                IdTipoRespuesta = y.IdTipoRespuesta
+                            }).OrderBy(y => y.OrdenPregunta).ToList(),
                             SubSecciones = r.Seccion.Where(y => y.IdSeccionPadre == x.IdSeccion).Select(y => new SeccionDTO
                             {
                                 IdSeccion = y.IdSeccion,
@@ -70,9 +74,10 @@ namespace BullardEncuestas.Core.BL
                                     IdPregunta = z.IdPregunta,
                                     Texto = z.Texto,
                                     Descripcion = z.Descripcion,
-                                    Orden = z.Orden,
-                                    Estado = z.Estado
-                                }).OrderBy(z => z.Orden).ToList()
+                                    OrdenPregunta = z.Orden,
+                                    EstadoPregunta = z.Estado,
+                                    IdTipoRespuesta = z.IdTipoRespuesta
+                                }).OrderBy(z => z.OrdenPregunta).ToList()
                             }).OrderBy(y => y.Orden).ToList()
                         }).OrderBy(x => x.Orden).ToList()
                     }).SingleOrDefault();
@@ -96,7 +101,7 @@ namespace BullardEncuestas.Core.BL
                             Leyenda = r.Leyenda,
                             IdPeriodo = r.IdPeriodo,
                             IdGrupoEvaluado = r.IdGrupoEvaluado,
-                            Estado = r.Estado,
+                            EstadoEncuesta = r.Estado,
                             Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
                             GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.Nombre },
                             Secciones = r.Seccion.Where(x => x.IdSeccionPadre == null).Select(x => new SeccionDTO
@@ -111,10 +116,10 @@ namespace BullardEncuestas.Core.BL
                                     IdPregunta = y.IdPregunta,
                                     Texto = y.Texto,
                                     Descripcion = y.Descripcion,
-                                    Orden = y.Orden,
-                                    Estado = y.Estado,
+                                    OrdenPregunta = y.Orden,
+                                    EstadoPregunta = y.Estado,
                                     IdTipoRespuesta = y.IdTipoRespuesta,
-                                    TipoRespuesta = new TipoRepuestaDTO
+                                    TipoRespuesta = new TipoRespuestaDTO
                                     {
                                         Nombre = y.TipoRespuesta.Nombre,
                                         OpcionesRespuesta = y.TipoRespuesta.OpcionesRespuesta.Select(o => new OpcionesRespuestaDTO
@@ -125,7 +130,7 @@ namespace BullardEncuestas.Core.BL
                                             Nombre = o.Nombre
                                         }).ToList()
                                     }
-                                }).OrderBy(y => y.Orden).ToList(),
+                                }).OrderBy(y => y.OrdenPregunta).ToList(),
                                 SubSecciones = r.Seccion.Where(y => y.IdSeccionPadre == x.IdSeccion).Select(y => new SeccionDTO
                                 {
                                     IdSeccion = y.IdSeccion,
@@ -138,10 +143,10 @@ namespace BullardEncuestas.Core.BL
                                         IdPregunta = z.IdPregunta,
                                         Texto = z.Texto,
                                         Descripcion = z.Descripcion,
-                                        Orden = z.Orden,
-                                        Estado = z.Estado,
+                                        OrdenPregunta = z.Orden,
+                                        EstadoPregunta = z.Estado,
                                         IdTipoRespuesta = z.IdTipoRespuesta,
-                                        TipoRespuesta = new TipoRepuestaDTO
+                                        TipoRespuesta = new TipoRespuestaDTO
                                         {
                                             Nombre = z.TipoRespuesta.Nombre,
                                             OpcionesRespuesta = z.TipoRespuesta.OpcionesRespuesta.Select(o => new OpcionesRespuestaDTO
@@ -152,7 +157,7 @@ namespace BullardEncuestas.Core.BL
                                                 Nombre = o.Nombre
                                             }).ToList()
                                         }
-                                    }).OrderBy(z => z.Orden).ToList()
+                                    }).OrderBy(z => z.OrdenPregunta).ToList()
                                 }).OrderBy(y => y.Orden).ToList(),
                             }).OrderBy(x => x.Orden).ToList(),
                         }
@@ -175,6 +180,63 @@ namespace BullardEncuestas.Core.BL
                     ", sirvase a contestar la encuesta a traves de este enlace:<br/>" + link + "Atentamente,<br/>La Administración.";
                 to = item.Email;
                 MailHandler.Send(to, copy, subject, body);
+            }
+        }
+
+        public bool add(EncuestaDTO encuestaDTO)
+        {
+            using (var context = getContext())
+            {
+                try
+                {
+                    Encuesta encuesta = new Encuesta();
+                    context.Encuesta.Add(encuesta);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                    //return false;
+                }
+            }
+        }
+
+        public bool update(EncuestaDTO encuestaDTO)
+        {
+            using (var context = getContext())
+            {
+                try
+                {
+                    var encuesta = context.Encuesta.Where(x => x.IdEncuesta == encuestaDTO.IdEncuesta).SingleOrDefault();
+                    encuesta.Nombre = encuestaDTO.NombreEncuesta;
+                    encuesta.Instrucciones = encuestaDTO.Instrucciones;
+                    encuesta.Leyenda = encuestaDTO.Leyenda;
+                    encuesta.IdPeriodo = encuestaDTO.IdPeriodo;
+                    encuesta.IdGrupoEvaluado = encuestaDTO.IdGrupoEvaluado;
+                    encuesta.Estado = encuestaDTO.EstadoEncuesta;
+                    var oldGrupos = encuesta.GrupoTrabajo1.Select(x => x.IdGrupoTrabajo).ToList();
+                    var newGrupos = encuestaDTO.GrupoEvaluador.Select(x => x).ToList();
+                    var gruposToRemove = oldGrupos.Except(newGrupos).ToList();
+                    var gruposToAdd = newGrupos.Except(oldGrupos).ToList();
+                    foreach (var group in gruposToRemove)
+                    {
+                        var grupo = context.GrupoTrabajo.Where(x => x.IdGrupoTrabajo == group).SingleOrDefault();
+                        encuesta.GrupoTrabajo1.Remove(grupo);
+                    }
+                    foreach (var group in gruposToAdd)
+                    {
+                        var grupo = context.GrupoTrabajo.Where(x => x.IdGrupoTrabajo == group).SingleOrDefault();
+                        encuesta.GrupoTrabajo1.Add(grupo);
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    //throw e;
+                    return false;
+                }
             }
         }
 

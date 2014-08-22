@@ -35,7 +35,7 @@
           <Property Name="CodEvaluador" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="EstadoEncuesta" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Evaluador">
+        <EntityType Name="GrupoEvaluador">
           <Key>
             <PropertyRef Name="IdEncuesta" />
             <PropertyRef Name="IdGrupoTrabajo" />
@@ -120,12 +120,23 @@
           <Property Name="EsSocio" Type="bit" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="TipoRespuesta">
           <Key>
             <PropertyRef Name="IdTipoRespuesta" />
           </Key>
           <Property Name="IdTipoRespuesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -192,24 +203,24 @@
         </Association>
         <Association Name="FK_Evaluador_Encuesta">
           <End Role="Encuesta" Type="Self.Encuesta" Multiplicity="1" />
-          <End Role="Evaluador" Type="Self.Evaluador" Multiplicity="*" />
+          <End Role="GrupoEvaluador" Type="Self.GrupoEvaluador" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Encuesta">
               <PropertyRef Name="IdEncuesta" />
             </Principal>
-            <Dependent Role="Evaluador">
+            <Dependent Role="GrupoEvaluador">
               <PropertyRef Name="IdEncuesta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Evaluador_GrupoTrabajo">
           <End Role="GrupoTrabajo" Type="Self.GrupoTrabajo" Multiplicity="1" />
-          <End Role="Evaluador" Type="Self.Evaluador" Multiplicity="*" />
+          <End Role="GrupoEvaluador" Type="Self.GrupoEvaluador" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GrupoTrabajo">
               <PropertyRef Name="IdGrupoTrabajo" />
             </Principal>
-            <Dependent Role="Evaluador">
+            <Dependent Role="GrupoEvaluador">
               <PropertyRef Name="IdGrupoTrabajo" />
             </Dependent>
           </ReferentialConstraint>
@@ -327,7 +338,7 @@
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Encuesta" EntityType="Self.Encuesta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EncuestaEvaluador" EntityType="Self.EncuestaEvaluador" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Evaluador" EntityType="Self.Evaluador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GrupoEvaluador" EntityType="Self.GrupoEvaluador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GrupoTrabajo" EntityType="Self.GrupoTrabajo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OpcionesRespuesta" EntityType="Self.OpcionesRespuesta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Periodo" EntityType="Self.Periodo" Schema="dbo" store:Type="Tables" />
@@ -336,6 +347,7 @@
           <EntitySet Name="Respuestas" EntityType="Self.Respuestas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Seccion" EntityType="Self.Seccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoRespuesta" EntityType="Self.TipoRespuesta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Encuesta_GrupoTrabajo" Association="Self.FK_Encuesta_GrupoTrabajo">
@@ -356,11 +368,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_Evaluador_Encuesta" Association="Self.FK_Evaluador_Encuesta">
             <End Role="Encuesta" EntitySet="Encuesta" />
-            <End Role="Evaluador" EntitySet="Evaluador" />
+            <End Role="GrupoEvaluador" EntitySet="GrupoEvaluador" />
           </AssociationSet>
           <AssociationSet Name="FK_Evaluador_GrupoTrabajo" Association="Self.FK_Evaluador_GrupoTrabajo">
             <End Role="GrupoTrabajo" EntitySet="GrupoTrabajo" />
-            <End Role="Evaluador" EntitySet="Evaluador" />
+            <End Role="GrupoEvaluador" EntitySet="GrupoEvaluador" />
           </AssociationSet>
           <AssociationSet Name="FK_OpcionesRespuesta_TipoRespuesta" Association="Self.FK_OpcionesRespuesta_TipoRespuesta">
             <End Role="TipoRespuesta" EntitySet="TipoRespuesta" />
@@ -416,6 +428,7 @@
           <EntitySet Name="Respuestas" EntityType="BULLARD.EncuestasDbModel.Respuestas" />
           <EntitySet Name="Rol" EntityType="BULLARD.EncuestasDbModel.Rol" />
           <EntitySet Name="Seccion" EntityType="BULLARD.EncuestasDbModel.Seccion" />
+          <EntitySet Name="sysdiagrams" EntityType="BULLARD.EncuestasDbModel.sysdiagrams" />
           <EntitySet Name="TipoRespuesta" EntityType="BULLARD.EncuestasDbModel.TipoRespuesta" />
           <EntitySet Name="Usuario" EntityType="BULLARD.EncuestasDbModel.Usuario" />
           <AssociationSet Name="FK_Persona_Empresa" Association="BULLARD.EncuestasDbModel.FK_Persona_Empresa">
@@ -470,11 +483,11 @@
             <End Role="Rol" EntitySet="Rol" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
-          <AssociationSet Name="Evaluador" Association="BULLARD.EncuestasDbModel.Evaluador">
+          <AssociationSet Name="GrupoEvaluador" Association="BULLARD.EncuestasDbModel.GrupoEvaluador">
             <End Role="Encuesta" EntitySet="Encuesta" />
             <End Role="GrupoTrabajo" EntitySet="GrupoTrabajo" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="SP_GetEncuestas_Result">
           <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
           <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
@@ -506,7 +519,7 @@
           <NavigationProperty Name="Periodo" Relationship="BULLARD.EncuestasDbModel.FK_Encuesta_Periodo" FromRole="Encuesta" ToRole="Periodo" />
           <NavigationProperty Name="EncuestaEvaluador" Relationship="BULLARD.EncuestasDbModel.FK_EncuestaEvaluador_Encuesta" FromRole="Encuesta" ToRole="EncuestaEvaluador" />
           <NavigationProperty Name="Seccion" Relationship="BULLARD.EncuestasDbModel.FK_Seccion_Encuesta" FromRole="Encuesta" ToRole="Seccion" />
-          <NavigationProperty Name="GrupoTrabajo1" Relationship="BULLARD.EncuestasDbModel.Evaluador" FromRole="Encuesta" ToRole="GrupoTrabajo" />
+          <NavigationProperty Name="GrupoTrabajo1" Relationship="BULLARD.EncuestasDbModel.GrupoEvaluador" FromRole="Encuesta" ToRole="GrupoTrabajo" />
         </EntityType>
         <EntityType Name="EncuestaEvaluador">
           <Key>
@@ -530,7 +543,7 @@
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Encuesta" Relationship="BULLARD.EncuestasDbModel.FK_Encuesta_GrupoTrabajo" FromRole="GrupoTrabajo" ToRole="Encuesta" />
           <NavigationProperty Name="Persona" Relationship="BULLARD.EncuestasDbModel.FK_Persona_GrupoTrabajo" FromRole="GrupoTrabajo" ToRole="Persona" />
-          <NavigationProperty Name="Encuesta1" Relationship="BULLARD.EncuestasDbModel.Evaluador" FromRole="GrupoTrabajo" ToRole="Encuesta" />
+          <NavigationProperty Name="Encuesta1" Relationship="BULLARD.EncuestasDbModel.GrupoEvaluador" FromRole="GrupoTrabajo" ToRole="Encuesta" />
         </EntityType>
         <EntityType Name="OpcionesRespuesta">
           <Key>
@@ -614,12 +627,23 @@
           <NavigationProperty Name="Encuesta" Relationship="BULLARD.EncuestasDbModel.FK_Seccion_Encuesta" FromRole="Seccion" ToRole="Encuesta" />
           <NavigationProperty Name="Pregunta" Relationship="BULLARD.EncuestasDbModel.FK_Pregunta_Seccion" FromRole="Seccion" ToRole="Pregunta" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="TipoRespuesta">
           <Key>
             <PropertyRef Name="IdTipoRespuesta" />
           </Key>
           <Property Name="IdTipoRespuesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="OpcionesRespuesta" Relationship="BULLARD.EncuestasDbModel.FK_OpcionesRespuesta_TipoRespuesta" FromRole="TipoRespuesta" ToRole="OpcionesRespuesta" />
           <NavigationProperty Name="Pregunta" Relationship="BULLARD.EncuestasDbModel.FK_Pregunta_TipoRespuesta" FromRole="TipoRespuesta" ToRole="Pregunta" />
         </EntityType>
@@ -795,11 +819,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Evaluador">
+        <Association Name="GrupoEvaluador">
           <End Type="BULLARD.EncuestasDbModel.Encuesta" Role="Encuesta" Multiplicity="*" />
           <End Type="BULLARD.EncuestasDbModel.GrupoTrabajo" Role="GrupoTrabajo" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -934,9 +958,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TipoRespuesta">
             <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.TipoRespuesta">
               <MappingFragment StoreEntitySet="TipoRespuesta">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
               </MappingFragment>
@@ -958,7 +994,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Evaluador" TypeName="BULLARD.EncuestasDbModel.Evaluador" StoreEntitySet="Evaluador">
+          <AssociationSetMapping Name="GrupoEvaluador" TypeName="BULLARD.EncuestasDbModel.GrupoEvaluador" StoreEntitySet="GrupoEvaluador">
             <EndProperty Name="GrupoTrabajo">
               <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
             </EndProperty>
@@ -966,7 +1002,7 @@
               <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
             </EndProperty>
           </AssociationSetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

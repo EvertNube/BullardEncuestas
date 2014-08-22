@@ -1,0 +1,10 @@
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\bin\Release\BullardEncuestas.Data.dll.config
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\bin\Release\BullardEncuestas.Data.dll
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\bin\Release\BullardEncuestas.Data.pdb
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\bin\Release\EntityFramework.dll
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\bin\Release\EntityFramework.SqlServer.dll
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\bin\Release\EntityFramework.xml
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\bin\Release\EntityFramework.SqlServer.xml
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\obj\Release\BullardEncuestas.Data.csprojResolveAssemblyReference.cache
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\obj\Release\BullardEncuestas.Data.dll
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Data\obj\Release\BullardEncuestas.Data.pdb

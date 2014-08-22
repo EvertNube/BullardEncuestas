@@ -111,9 +111,6 @@ namespace BullardEncuestas.Controllers
 
         public ActionResult Encuesta(int? id = null)
         {
-            EncuestaBL objBL = new EncuestaBL();
-            ViewBag.EncuestaPeriodo = "2014-1";
-            ViewBag.EncuestaNombre = "Satisfaccion al cliente";
             var objSent = (EncuestaDTO)TempData["Encuesta"];
             if (objSent != null)
             {
@@ -122,26 +119,11 @@ namespace BullardEncuestas.Controllers
             }
             if (id != null)
             {
+                EncuestaBL objBL = new EncuestaBL();
                 EncuestaDTO obj = objBL.getEncuesta((int)id);
                 return View(obj);
             }
             return View();
-
-            //ViewBag.IdEncuesta = id;
-            //List<SeccionDTO> listSeccion = GenerarEncuestaPrueba();
-            //ViewBag.EncuestaPeriodo = "2014-1";
-            //ViewBag.EncuestaNombre = "Satisfaccion al cliente";
-            //EncuestaDTO nuevo = new EncuestaDTO();
-            //nuevo.IdEncuesta = 1;
-            //nuevo.IdPeriodo = 201401;
-            //nuevo.NombreEncuesta = "Satisfaccion al cliente";
-            //nuevo.Estado = true;
-            //PeriodoDTO nuevop = new PeriodoDTO();
-            //nuevop.IdPeriodo = 1;
-            //nuevop.Descripcion = "2014-1";
-            //nuevo.Periodo = nuevop;
-            //nuevo.Secciones = listSeccion;
-            //return View(nuevo);
         }
         public ActionResult SendCorreo(int idGrupo, string nombreEncuesta, string periodo)
         {
@@ -202,7 +184,7 @@ namespace BullardEncuestas.Controllers
                             break;
                     }
                     nuevaP.IdSeccion = i;
-                    nuevaP.Orden = j;
+                    nuevaP.OrdenPregunta = j;
                     listaPregunta.Add(nuevaP);
                 }
                 List<SeccionDTO> listaSecciones = new List<SeccionDTO>();
@@ -231,6 +213,44 @@ namespace BullardEncuestas.Controllers
         public ActionResult LlenarEncuesta()
         {
             return View(new EncuestaEvaluadorDTO());
+        }
+
+        public ActionResult AddEncuesta(EncuestaDTO dto)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            try
+            {
+                EncuestaBL objBL = new EncuestaBL();
+                if (dto.IdEncuesta == 0)
+                {
+                    if (objBL.add(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("Encuesta", new { id = dto.IdEncuesta });
+                    }
+                    else
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                }
+                else if (dto.IdEncuesta != 0)
+                {
+                    if (objBL.update(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("Encuesta", new { id = dto.IdEncuesta });
+                    }
+                    else
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                }
+                else
+                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+            }
+            catch
+            {
+                if (dto.IdEncuesta != 0) createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                else createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+            }
+            TempData["Encuesta"] = dto;
+            return RedirectToAction("Encuesta");
         }
 
         public ActionResult AddSeccion(SeccionDTO dto)
@@ -270,5 +290,86 @@ namespace BullardEncuestas.Controllers
             TempData["Seccion"] = dto;
             return RedirectToAction("Encuesta");
         }
+
+        public ActionResult AddPregunta(PreguntaDTO dto)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            try
+            {
+                PreguntaBL objBL = new PreguntaBL();
+                if (dto.IdPregunta == 0)
+                {
+                    if (objBL.add(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("Encuesta", new { id = dto.IdEncuesta });
+                    }
+                    else
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                }
+                else if (dto.IdPregunta != 0)
+                {
+                    if (objBL.update(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("Encuesta", new { id = dto.IdEncuesta });
+                    }
+                    else
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                }
+                else
+                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+            }
+            catch
+            {
+                if (dto.IdPregunta != 0) createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                else createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+            }
+            TempData["Pregunta"] = dto;
+            return RedirectToAction("Encuesta");
+        }
+
+        #region APIS
+        [HttpGet]
+        public ActionResult GetTiposRespuesta(bool AsSelectList = false)
+        {
+            //if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            TipoRespuestaBL objBL = new TipoRespuestaBL();
+            var lista = objBL.getTiposRespuesta(true);
+            if (AsSelectList)
+                lista.Insert(0, new TipoRespuestaDTO { IdTipoRespuesta = 0, Nombre = "Seleccione un Tipo Respuesta" });
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult GetPeriodos(bool AsSelectList = false)
+        {
+            //if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            PeriodoBL objBL = new PeriodoBL();
+            var lista = objBL.getPeriodos(true);
+            if (AsSelectList)
+                lista.Insert(0, new PeriodoDTO { IdPeriodo = 0, Descripcion = "Seleccione un Periodo" });
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult GetGruposEvaluados(bool AsSelectList = false)
+        {
+            //if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            GrupoTrabajoBL objBL = new GrupoTrabajoBL();
+            var lista = objBL.getGruposEvaluados(true);
+            if (AsSelectList)
+                lista.Insert(0, new GrupoTrabajoDTO { IdGrupoTrabajo = 0, Nombre = "Seleccione un Grupo" });
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+        //[HttpGet]
+        //public ActionResult GetGruposEvaluadores(bool AsSelectList = false)
+        //{
+        //    //if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+        //    GrupoTrabajoBL objBL = new GrupoTrabajoBL();
+        //    var lista = objBL.getGruposEvaluadores(true);
+        //    if (AsSelectList)
+        //        lista.Insert(0, new GrupoTrabajoDTO { IdGrupoTrabajo = 0, Nombre = "Seleccione un Grupo" });
+        //    return Json(lista, JsonRequestBehavior.AllowGet);
+        //}
+        #endregion
     }
 }
