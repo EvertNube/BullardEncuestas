@@ -3240,21 +3240,23 @@ fieldset[disabled] .btn-gplus.active {
     display: inherit !important;
   }
 }
-td.rotate {
+
+div.rotate {
   /* Something you can count on */
-  height: 140px;
+  height: 136px;
   white-space: nowrap;
 }
 
-td.rotate > div {
+div.rotate > div {
   transform: 
     /* Magic Numbers */
-    translate(25px, 51px)
+    translate(25px, 107px)
     /* 45 is really 360 - 45 */
     rotate(-90deg);
   width: 30px;
 }
-td.rotate > div > span {
+div.rotate > div > span {
   border-bottom: 1px solid #ccc;
-  padding: 5px 5px;
+  padding: 3px 3px;
 }
+
