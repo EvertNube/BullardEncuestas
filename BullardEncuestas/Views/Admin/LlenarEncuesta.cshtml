@@ -37,13 +37,16 @@
                                 </p>
                             </header>
                             <div class="panel-body">
-                                
+
                                 @{ var countEva = ViewBag.Evaluados.Count; }
-                                <div class="col-md-4">
-                                </div>
-                                @foreach (var evaluado in ViewBag.Evaluados)
+                                @if (countEva > 0)
                                 {
-                                    <div class="col-md-1 rotate"><div><span>@evaluado.Nombre</span></div></div>
+                                    <div class="col-md-4">
+                                    </div>
+                                    @foreach (var evaluado in ViewBag.Evaluados)
+                                    {
+                                        <div class="col-md-1 rotate"><div><span>@evaluado.Nombre</span></div></div>
+                                    }
                                 }
                                 @if (Model.Encuesta.Secciones.Count > 0)
                                 {
@@ -73,9 +76,9 @@
                                                                         <div id="@subSeccion.IdSeccion" class="panel-collapse collapse">
                                                                             <div class="panel-body">
                                                                                 @*@if (seccion.SubSecciones.Count > 0)
-                                                                                {
+                                                                                    {
 
-                                                                                }*@
+                                                                                    }*@
                                                                             </div>
                                                                         </div>
                                                                     </div>
