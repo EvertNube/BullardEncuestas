@@ -182,15 +182,15 @@ namespace BullardEncuestas.Controllers
         public ActionResult Formulario()
         { return View(); }
 
-        public ActionResult LlenarEncuesta()
+        public ActionResult LlenarEncuesta(int idEncuesta, int idGrupo, int idEvaluador)
         {
             EncuestaBL oBL = new EncuestaBL();
-            PersonaBL pBL = new PersonaBL();
+            PersonaBL oPersonaBL = new PersonaBL();
             //Id por defecto 1
-            ViewBag.Encuesta = oBL.getEncuesta(1);
-            ViewBag.Personas = pBL.getPersonasPorGrupo(1);
-            
-            return View(new EncuestaEvaluadorDTO());
+            //ViewBag.Encuesta = oBL.getEncuesta(1);
+            ViewBag.Evaluados = oPersonaBL.getPersonasPorGrupo(idGrupo);
+            var model = oBL.getEncuestaEvaluador(idEncuesta, idEvaluador);
+            return View(model); //View(new EncuestaEvaluadorDTO());
         }
 
         public ActionResult AddEncuesta(EncuestaDTO dto)

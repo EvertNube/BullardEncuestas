@@ -37,107 +37,58 @@
                                 </p>
                             </header>
                             <div class="panel-body">
-
-                                <div class="panel-header col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-4"></div>
-                                        <div class="col-md-8" style="text-align:center;">Evaluados</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                        </div>
-                                        @{ var countPer = ViewBag.Personas.Count; }
-                                        @foreach (var persona in ViewBag.Personas)
-                                        {
-                                            <div class="col-md-2 rotate"><div><span>@persona.Nombre</span></div></div>
-                                        }
-                                        @*<div class="col-md-2 rotate"><div><span>Antonio Rodriguez</span></div></div>
-                                            <div class="col-md-2 rotate"><div><span>Rodrigo Sarria</span></div></div>
-                                            <div class="col-md-2 rotate"><div><span>Evert Huamani</span></div></div>
-                                            <div class="col-md-2 rotate"><div><span>Wilder Tarazona</span></div></div>*@
-                                    </div>
-                                    <div class="row">
-                                        <button id="nestable-menu" class="btn btn-xs btn-default active" data-toggle="class:show">
-                                            <i class="fa fa-plus text"></i>
-                                            <span class="text">Expand All</span>
-                                            <i class="fa fa-minus text-active"></i>
-                                            <span class="text-active">Collapse All</span>
-                                        </button>
-                                    </div>
-                                    <div class="row">
-                                        <div>
-                                            <div class="dd" id="nestable1">
-                                                @{ var countSec = ViewBag.Encuesta.Secciones.Count; var estadoSec = string.Empty; var estadoSubSec = string.Empty; var estadoPreg = string.Empty;  }
-                                                @if (countSec > 0)
-                                                {
-                                                    <ol class="dd-list collapse">
-                                                        @foreach (var seccion in ViewBag.Encuesta.Secciones)
-                                                        {
-                                                            if (seccion.Estado)
-                                                            {
-                                                                <li class="dd-item" data-id="@seccion.IdSeccion">
-                                                                    <div class="dd-handle">@seccion.Nombre</div>
-                                                                    @{ var countSubSec = seccion.SubSecciones.Count;  }
-                                                                    @if (countSubSec > 0)
-                                                                    {
-                                                                        <ol class="dd-list">
-                                                                            @foreach (var subSeccion in seccion.SubSecciones)
-                                                                            {
-                                                                                if (subSeccion.Estado)
-                                                                                {
-                                                                                    <li class="dd-item" data-id="@subSeccion.IdSeccion">
-                                                                                        <div class="dd-handle">@subSeccion.Nombre</div>
-                                                                                        @{ var countPregSubSec = subSeccion.Preguntas.Count;  }
-                                                                                        @if (countPregSubSec > 0)
-                                                                                        {
-                                                                                            <ol class="dd-list">
-                                                                                                @foreach (var pregunta in subSeccion.Preguntas)
-                                                                                                {
-                                                                                                    estadoPreg = (pregunta.EstadoPregunta ? "" : "red");
-                                                                                                    <li class="dd-item" data-id="@pregunta.IdPregunta">
-                                                                                                        <div class="row">
-                                                                                                            <div class="dd-handle">@pregunta.Texto <b class='badge bg-warning dot @estadoPreg'></b></div>
-                                                                                                        </div>
-                                                                                                        <div class="row">
-                                                                                                            <div class="dd-handle">@pregunta.Texto <b class='badge bg-warning dot @estadoPreg'></b></div>
-                                                                                                        </div>
-                                                                                                    </li>
-                                                                                                }
-                                                                                            </ol>
-                                                                                        }
-                                                                                    </li>
-                                                                                }
-                                                                            }
-                                                                        </ol>
-                                                                    }
-                                                                    @{ var countPregSec = seccion.Preguntas.Count;  }
-                                                                    @if (countPregSec > 0)
-                                                                    {
-                                                                        <ol class="dd-list">
-                                                                            @foreach (var pregunta in seccion.Preguntas)
-                                                                            {
-                                                                                if (pregunta.EstadoPregunta)
-                                                                                {
-                                                                                    <li class="dd-item" data-id="@pregunta.IdPregunta">
-                                                                                        <div class="dd-handle"><b class='badge bg-warning dot'></b>&nbsp;&nbsp;&nbsp;&nbsp;@pregunta.Texto</div>
-                                                                                    </li>
-                                                                                }
-                                                                            }
-                                                                        </ol>
-                                                                    }
-                                                                </li>
-                                                            }
-                                                        }
-                                                    </ol>
-                                                }
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-
+                                
+                                @{ var countEva = ViewBag.Evaluados.Count; }
+                                <div class="col-md-4">
                                 </div>
+                                @foreach (var evaluado in ViewBag.Evaluados)
+                                {
+                                    <div class="col-md-1 rotate"><div><span>@evaluado.Nombre</span></div></div>
+                                }
+                                @if (Model.Encuesta.Secciones.Count > 0)
+                                {
+                                    <div class="panel-group m-b" id="accordionN1">
+                                        @foreach (var seccion in Model.Encuesta.Secciones)
+                                        {
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionN1" href="#@seccion.IdSeccion"> @seccion.Nombre </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="@seccion.IdSeccion" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        @if (seccion.SubSecciones.Count > 0)
+                                                        {
+
+                                                            <div class="panel-group m-b" id="accordionN2">
+                                                                @foreach (var subSeccion in seccion.SubSecciones)
+                                                                {
+                                                                    <div class="panel panel-default">
+                                                                        <div class="panel-heading">
+                                                                            <h4 class="panel-title">
+                                                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionN2" href="#@subSeccion.IdSeccion"> @subSeccion.Nombre </a>
+                                                                            </h4>
+                                                                        </div>
+                                                                        <div id="@subSeccion.IdSeccion" class="panel-collapse collapse">
+                                                                            <div class="panel-body">
+                                                                                @*@if (seccion.SubSecciones.Count > 0)
+                                                                                {
+
+                                                                                }*@
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
 
                             </div>
                         </section>

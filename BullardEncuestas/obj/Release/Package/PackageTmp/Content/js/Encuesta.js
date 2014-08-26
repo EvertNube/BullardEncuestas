@@ -35,7 +35,7 @@
         $('#EsSocio').prop("checked", (essocio.toLowerCase() == 'true'));
         $('#Estado').prop("checked", (estado.toLowerCase() == 'true'));
         //$('#estadoSec').prop("checked", true); $('#chx i').addClass("checked");
-        setOrden(count, orden);
+        setOrden($('#Orden'), count, orden);
         $('#modal-Seccionform').modal('show');
     });
 
