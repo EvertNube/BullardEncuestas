@@ -38,15 +38,21 @@
                             </header>
                             <div class="panel-body">
 
-                                @{ var countEva = ViewBag.Evaluados.Count; }
-                                @if (countEva > 0)
+                                @if (ViewBag.Evaluados.Count > 0)
                                 {
-                                    <div class="col-md-4">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th></th>
+                                                @foreach (var evaluado in ViewBag.Evaluados)
+                                                {
+                                                    <th>
+                                                        <div class="rotate"><div><span>@evaluado.Nombre</span></div></div>
+                                                    </th>
+                                                }
+                                            </tr>
+                                        </table>
                                     </div>
-                                    @foreach (var evaluado in ViewBag.Evaluados)
-                                    {
-                                        <div class="col-md-1 rotate"><div><span>@evaluado.Nombre</span></div></div>
-                                    }
                                 }
                                 @if (Model.Encuesta.Secciones.Count > 0)
                                 {
@@ -75,10 +81,33 @@
                                                                         </div>
                                                                         <div id="@subSeccion.IdSeccion" class="panel-collapse collapse">
                                                                             <div class="panel-body">
-                                                                                @*@if (seccion.SubSecciones.Count > 0)
+                                                                                @if (subSeccion.Preguntas.Count > 0)
+                                                                                {
+                                                                                    foreach (var pregunta in subSeccion.Preguntas)
                                                                                     {
-
-                                                                                    }*@
+                                                                                        <div class="table-responsive">
+                                                                                            <table class="table table-bordered">
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td>@pregunta.Texto</td>
+                                                                                                        <td>
+                                                                                                            @switch (@pregunta.IdTipoRespuesta)
+                                                                                                            {
+                                                                                                                case 1: <input type="text" class="form-control input-sm" />
+                                                                                                                    break;
+                                                                                                                case 2: <textarea class="form-control"></textarea>
+                                                                                                                    break;
+                                                                                                                case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre"), new { @class = "input-sm", @style = "width: auto;" })
+                                                                                                                    break;
+                                                                                                                default: break;
+                                                                                                            }
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    }
+                                                                                }
                                                                             </div>
                                                                         </div>
                                                                     </div>
