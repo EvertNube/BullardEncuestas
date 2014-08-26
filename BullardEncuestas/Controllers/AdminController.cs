@@ -75,35 +75,7 @@ namespace BullardEncuestas.Controllers
         {
             EncuestaBL oBL = new EncuestaBL();
             var model = oBL.getEncuestas();
-            //List<EncuestaDTO> model = new List<EncuestaDTO>();
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    EncuestaDTO nuevo = new EncuestaDTO();
-            //    nuevo.IdEncuesta = i;
-            //    nuevo.IdPeriodo = 201400 + i;
-            //    //nuevo.NombreEncuesta = "Profesional" + i.ToString();
-            //    switch (i)
-            //    {
-            //        case 0:
-            //            nuevo.NombreEncuesta = "Profesional";
-            //            break;
-            //        case 1:
-            //            nuevo.NombreEncuesta = "Practicante";
-            //            break;
-            //        case 2:
-            //            nuevo.NombreEncuesta = "Satisfaccion al cliente";
-            //            break;
-            //    }
-            //    /*Profesional - practicante - satisfaccion al cliente
-            //     */
-            //    nuevo.Estado = true;
-            //    PeriodoDTO nuevop = new PeriodoDTO();
-            //    nuevop.IdPeriodo = i;
-            //    nuevop.Descripcion = "2014";
-            //    nuevo.Periodo = nuevop;
-            //    nuevo.IdGrupoTrabajo = 1;
-            //    model.Add(nuevo);
-            //}
+
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(model.ToPagedList(pageNumber, pageSize));
@@ -212,6 +184,12 @@ namespace BullardEncuestas.Controllers
 
         public ActionResult LlenarEncuesta()
         {
+            EncuestaBL oBL = new EncuestaBL();
+            PersonaBL pBL = new PersonaBL();
+            //Id por defecto 1
+            ViewBag.Encuesta = oBL.getEncuesta(1);
+            ViewBag.Personas = pBL.getPersonasPorGrupo(1);
+            
             return View(new EncuestaEvaluadorDTO());
         }
 
