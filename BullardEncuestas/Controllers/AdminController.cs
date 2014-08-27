@@ -189,6 +189,7 @@ namespace BullardEncuestas.Controllers
             //Id por defecto 1
             //ViewBag.Encuesta = oBL.getEncuesta(1);
             ViewBag.Evaluados = oPersonaBL.getPersonasPorGrupo(idGrupo);
+            ViewBag.Items_SelectSINO = "";
             var model = oBL.getEncuestaEvaluador(idEncuesta, idEvaluador);
             return View(model); //View(new EncuestaEvaluadorDTO());
         }

@@ -53,6 +53,7 @@
     <Compile Include="BL\GrupoTrabajoBL.cs" />
     <Compile Include="BL\PreguntaBL.cs" />
     <Compile Include="BL\PeriodoBL.cs" />
+    <Compile Include="BL\OpcionesRespuestaBL.cs" />
     <Compile Include="BL\TipoRespuestaBL.cs" />
     <Compile Include="BL\SeccionBL.cs" />
     <Compile Include="BL\PersonaBL.cs" />
