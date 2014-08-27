@@ -13,15 +13,14 @@ namespace BullardEncuestas.Core.BL
 {
     public class OpcionesRespuestaBL : Base
     {
-        public IList<TipoRespuestaDTO> getOpcionesRespuesta(int id, bool activeOnly = false)
+        public IList<OpcionesRespuestaDTO> getOpcionesRespuesta(int id, bool AsSelectList = false)
         {
             using (var context = getContext())
             {
-                var result = !activeOnly ? context.OpcionesRespuesta.Where(r => r.IdTipoRespuesta == id)
-                    .Select(r => new OpcionesRespuestaDTO { IdOpcion = r.IdOpcion, IdTipoRespuesta = r.IdTipoRespuesta, Nombre = r.Nombre, Valor = r.Valor })
-                    : context.OpcionesRespuesta.Where(r => r.IdTipoRespuesta == id && r.Estado == true)
-                    .Select(r => new OpcionesRespuestaDTO { IdOpcion = r.IdOpcion, IdTipoRespuesta = r.IdTipoRespuesta, Nombre = r.Nombre, Valor = r.Valor });
-                return result.ToList();
+                var lista = context.OpcionesRespuesta.Where(r => r.IdTipoRespuesta == id && r.Estado == true).Select(r => new OpcionesRespuestaDTO { IdOpcion = r.IdOpcion, IdTipoRespuesta = r.IdTipoRespuesta, Nombre = r.Nombre, Valor = r.Valor }).ToList();
+                if (AsSelectList)
+                    lista.Insert(0, new OpcionesRespuestaDTO { Nombre = "Seleccione" });
+                return lista;
             }
         }
 

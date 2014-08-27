@@ -18,6 +18,7 @@ namespace BullardEncuestas.Data
         public int Valor { get; set; }
         public int IdTipoRespuesta { get; set; }
         public string Nombre { get; set; }
+        public bool Estado { get; set; }
     
         public virtual TipoRespuesta TipoRespuesta { get; set; }
     }

@@ -54,6 +54,7 @@
     <Property Name="Valor" Type="int" Nullable="false" />
     <Property Name="IdTipoRespuesta" Type="int" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Periodo">
     <Key>

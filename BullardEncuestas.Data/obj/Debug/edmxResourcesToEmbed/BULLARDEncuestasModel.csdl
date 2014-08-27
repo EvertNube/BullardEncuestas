@@ -139,6 +139,7 @@
     <Property Name="IdTipoRespuesta" Type="Int32" Nullable="false" />
     <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="TipoRespuesta" Relationship="BULLARD.EncuestasDbModel.FK_OpcionesRespuesta_TipoRespuesta" FromRole="OpcionesRespuesta" ToRole="TipoRespuesta" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Periodo">
     <Key>

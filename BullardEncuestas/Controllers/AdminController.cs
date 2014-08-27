@@ -186,10 +186,11 @@ namespace BullardEncuestas.Controllers
         {
             EncuestaBL oBL = new EncuestaBL();
             PersonaBL oPersonaBL = new PersonaBL();
+            OpcionesRespuestaBL oOpcionesRespuestaBL = new OpcionesRespuestaBL();
             //Id por defecto 1
             //ViewBag.Encuesta = oBL.getEncuesta(1);
             ViewBag.Evaluados = oPersonaBL.getPersonasPorGrupo(idGrupo);
-            ViewBag.Items_SelectSINO = "";
+            ViewBag.Items_SelectSINO = oOpcionesRespuestaBL.getOpcionesRespuesta(3, true);
             var model = oBL.getEncuestaEvaluador(idEncuesta, idEvaluador);
             return View(model); //View(new EncuestaEvaluadorDTO());
         }
