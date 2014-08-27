@@ -19,7 +19,7 @@ namespace BullardEncuestas.Core.BL
             {
                 var lista = context.OpcionesRespuesta.Where(r => r.IdTipoRespuesta == id && r.Estado == true).Select(r => new OpcionesRespuestaDTO { IdOpcion = r.IdOpcion, IdTipoRespuesta = r.IdTipoRespuesta, Nombre = r.Nombre, Valor = r.Valor }).ToList();
                 if (AsSelectList)
-                    lista.Insert(0, new OpcionesRespuestaDTO { Nombre = "Seleccione" });
+                    lista.Insert(0, new OpcionesRespuestaDTO { Nombre = "" });
                 return lista;
             }
         }
