@@ -184,7 +184,7 @@ namespace BullardEncuestas.Controllers
 
         public ActionResult LlenarEncuesta(int idEncuesta, int idGrupo, int idEvaluador)
         {
-            EncuestaBL oBL = new EncuestaBL();
+            EncuestaEvaluadorBL oBL = new EncuestaEvaluadorBL();
             PersonaBL oPersonaBL = new PersonaBL();
             OpcionesRespuestaBL oOpcionesRespuestaBL = new OpcionesRespuestaBL();
             //Id por defecto 1
