@@ -19,7 +19,7 @@
     <section class="scrollable padder">
         <div class="row m-b">
             <div class="col-xs-12 col-md-10 col-md-offset-1">
-                <h2>@Model.Encuesta.Periodo / @Model.Encuesta.NombreEncuesta</h2>
+                <h2>@Model.Encuesta.Periodo.Descripcion / @Model.Encuesta.NombreEncuesta</h2>
 
                 @using (Html.BeginForm("AddEncuestaEvaluador", "Admin", FormMethod.Post))
                 {

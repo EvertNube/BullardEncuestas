@@ -136,6 +136,24 @@ namespace BullardEncuestas.Core.BL
                 try
                 {
                     var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).SingleOrDefault();
+                    
+                    var oldRespuesta = encuestaEvaluador.Respuestas;
+                    for (int i = 0; i < encuestaEvaluadorDTO.Respuestas.Count; i++)
+                    {
+                        //var respuesta = oldRespuesta.Where(x => x.IdRespuestas == encuestaEvaluador.Respuestas[i]).SingleOrDefault();
+                    }
+
+
+                    foreach (var item in encuestaEvaluadorDTO.Respuestas)
+                    {
+                        Respuestas respuesta = new Respuestas();
+                        respuesta.IdEncuestaEvaluador = encuestaEvaluador.IdEncuestaEvaluador;
+                        respuesta.IdPregunta = item.IdPregunta;
+                        respuesta.IdEvaluado = item.IdEvaluado;
+                        respuesta.Valor = item.Valor;
+                        encuestaEvaluador.Respuestas.Add(respuesta);
+                    }
+
                     context.SaveChanges();
                     return true;
                 }
