@@ -309,6 +309,60 @@ namespace BullardEncuestas.Controllers
             return RedirectToAction("Encuesta");
         }
 
+        public ActionResult AddEncuestaEvaluador(EncuestaEvaluadorDTO dto)
+        {
+            //if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            try
+            {
+                EncuestaEvaluadorBL objBL = new EncuestaEvaluadorBL();
+                dto.Respuestas = new List<RespuestasDTO>();
+                for (int i = 0; i < dto.listaRespuestas.Count; i++)
+                {
+                    if (!string.IsNullOrEmpty(dto.listaRespuestas[i].Trim()) && dto.listaRespuestas[i] != "0")
+                    {
+                        RespuestasDTO respuesta = new RespuestasDTO();
+                        respuesta.IdPregunta = dto.listaPreguntas[i];
+                        respuesta.IdEvaluado = dto.listaEvaluados[i];
+                        respuesta.Valor = dto.listaRespuestas[i];
+                        dto.Respuestas.Add(respuesta);
+                    }
+                }
+                if (dto.IdEncuestaEvaluador == 0)
+                {
+                    if (objBL.add(dto))
+                    {
+                        //dto.IdProtocolo = idProtocolo;
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("Protocolos");
+                    }
+                }
+                else if (dto.IdEncuestaEvaluador != 0)
+                {
+                    if (objBL.update(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("Protocolos");
+                    }
+                    else
+                    {
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                    }
+                }
+                else
+                {
+                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+                }
+            }
+            catch
+            {
+                if (dto.IdEncuestaEvaluador != 0)
+                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                else createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+            }
+            TempData["Protocolo"] = dto;
+            return RedirectToAction("LlenarEncuesta");
+        }
+
         #region APIS
         [HttpGet]
         public ActionResult GetTiposRespuesta(bool AsSelectList = false)

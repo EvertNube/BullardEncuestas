@@ -129,7 +129,8 @@ namespace BullardEncuestas.Core.BL
                                             Valor = o.Valor,
                                             Nombre = o.Nombre
                                         }).ToList()
-                                    }
+                                    },
+                                    Respuestas = y.Respuestas.Select(a => a.Valor).ToList()
                                 }).OrderBy(y => y.OrdenPregunta).ToList(),
                                 SubSecciones = r.Seccion.Where(y => y.IdSeccionPadre == x.IdSeccion).Select(y => new SeccionDTO
                                 {
@@ -156,7 +157,8 @@ namespace BullardEncuestas.Core.BL
                                                 Valor = o.Valor,
                                                 Nombre = o.Nombre
                                             }).ToList()
-                                        }
+                                        },
+                                        Respuestas = z.Respuestas.Select(a => a.Valor).ToList()
                                     }).OrderBy(z => z.OrdenPregunta).ToList()
                                 }).OrderBy(y => y.Orden).ToList(),
                             }).OrderBy(x => x.Orden).ToList(),

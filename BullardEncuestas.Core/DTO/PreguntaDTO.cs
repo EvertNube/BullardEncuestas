@@ -17,7 +17,7 @@ namespace BullardEncuestas.Core.DTO
         public bool EstadoPregunta { get; set; }
         
         public int IdEncuesta { get; set; }
-        public List<RespuestasDTO> Respuestas { get; set; }
+        public List<string> Respuestas { get; set; }
         public TipoRespuestaDTO TipoRespuesta { get; set; }
     }
 }

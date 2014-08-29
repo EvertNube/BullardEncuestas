@@ -13,7 +13,6 @@
     <EntitySet Name="Respuestas" EntityType="BULLARD.EncuestasDbModel.Respuestas" />
     <EntitySet Name="Rol" EntityType="BULLARD.EncuestasDbModel.Rol" />
     <EntitySet Name="Seccion" EntityType="BULLARD.EncuestasDbModel.Seccion" />
-    <EntitySet Name="sysdiagrams" EntityType="BULLARD.EncuestasDbModel.sysdiagrams" />
     <EntitySet Name="TipoRespuesta" EntityType="BULLARD.EncuestasDbModel.TipoRespuesta" />
     <EntitySet Name="Usuario" EntityType="BULLARD.EncuestasDbModel.Usuario" />
     <AssociationSet Name="FK_Persona_Empresa" Association="BULLARD.EncuestasDbModel.FK_Persona_Empresa">
@@ -51,6 +50,10 @@
     <AssociationSet Name="FK_OpcionesRespuesta_TipoRespuesta" Association="BULLARD.EncuestasDbModel.FK_OpcionesRespuesta_TipoRespuesta">
       <End Role="TipoRespuesta" EntitySet="TipoRespuesta" />
       <End Role="OpcionesRespuesta" EntitySet="OpcionesRespuesta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Respuestas_Evaluado" Association="BULLARD.EncuestasDbModel.FK_Respuestas_Evaluado">
+      <End Role="Persona" EntitySet="Persona" />
+      <End Role="Respuestas" EntitySet="Respuestas" />
     </AssociationSet>
     <AssociationSet Name="FK_Pregunta_Seccion" Association="BULLARD.EncuestasDbModel.FK_Pregunta_Seccion">
       <End Role="Seccion" EntitySet="Seccion" />
@@ -138,8 +141,8 @@
     <Property Name="Valor" Type="Int32" Nullable="false" />
     <Property Name="IdTipoRespuesta" Type="Int32" Nullable="false" />
     <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="TipoRespuesta" Relationship="BULLARD.EncuestasDbModel.FK_OpcionesRespuesta_TipoRespuesta" FromRole="OpcionesRespuesta" ToRole="TipoRespuesta" />
     <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="TipoRespuesta" Relationship="BULLARD.EncuestasDbModel.FK_OpcionesRespuesta_TipoRespuesta" FromRole="OpcionesRespuesta" ToRole="TipoRespuesta" />
   </EntityType>
   <EntityType Name="Periodo">
     <Key>
@@ -163,6 +166,7 @@
     <NavigationProperty Name="Empresa" Relationship="BULLARD.EncuestasDbModel.FK_Persona_Empresa" FromRole="Persona" ToRole="Empresa" />
     <NavigationProperty Name="EncuestaEvaluador" Relationship="BULLARD.EncuestasDbModel.FK_EncuestaEvaluador_Persona" FromRole="Persona" ToRole="EncuestaEvaluador" />
     <NavigationProperty Name="GrupoTrabajo" Relationship="BULLARD.EncuestasDbModel.FK_Persona_GrupoTrabajo" FromRole="Persona" ToRole="GrupoTrabajo" />
+    <NavigationProperty Name="Respuestas" Relationship="BULLARD.EncuestasDbModel.FK_Respuestas_Evaluado" FromRole="Persona" ToRole="Respuestas" />
   </EntityType>
   <EntityType Name="Pregunta">
     <Key>
@@ -186,8 +190,10 @@
     <Property Name="IdRespuestas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IdEncuestaEvaluador" Type="Int32" Nullable="false" />
     <Property Name="IdPregunta" Type="Int32" Nullable="false" />
-    <Property Name="Valor" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IdEvaluado" Type="Int32" Nullable="false" />
+    <Property Name="Valor" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="EncuestaEvaluador" Relationship="BULLARD.EncuestasDbModel.FK_Respuestas_EncuestaEvaluador" FromRole="Respuestas" ToRole="EncuestaEvaluador" />
+    <NavigationProperty Name="Persona" Relationship="BULLARD.EncuestasDbModel.FK_Respuestas_Evaluado" FromRole="Respuestas" ToRole="Persona" />
     <NavigationProperty Name="Pregunta" Relationship="BULLARD.EncuestasDbModel.FK_Respuestas_Pregunta" FromRole="Respuestas" ToRole="Pregunta" />
   </EntityType>
   <EntityType Name="Rol">
@@ -212,16 +218,6 @@
     <Property Name="Estado" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Encuesta" Relationship="BULLARD.EncuestasDbModel.FK_Seccion_Encuesta" FromRole="Seccion" ToRole="Encuesta" />
     <NavigationProperty Name="Pregunta" Relationship="BULLARD.EncuestasDbModel.FK_Pregunta_Seccion" FromRole="Seccion" ToRole="Pregunta" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="TipoRespuesta">
     <Key>
@@ -354,6 +350,18 @@
       </Principal>
       <Dependent Role="OpcionesRespuesta">
         <PropertyRef Name="IdTipoRespuesta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Respuestas_Evaluado">
+    <End Type="BULLARD.EncuestasDbModel.Persona" Role="Persona" Multiplicity="1" />
+    <End Type="BULLARD.EncuestasDbModel.Respuestas" Role="Respuestas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="IdPersona" />
+      </Principal>
+      <Dependent Role="Respuestas">
+        <PropertyRef Name="IdEvaluado" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
