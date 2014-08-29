@@ -138,12 +138,12 @@ namespace BullardEncuestas.Core.BL
                 return false;
             }
         }
-        public IEnumerable<RolDTO> getRoles()
+        public IList<RolDTO> getRoles()
         {
             using (var context = getContext())
             {
                 var result = from r in context.Rol
-                             where r.IdRol != CONSTANTES.SUPER_ADMIN_ROL
+                             //where r.Activo == true//r.IdRol != CONSTANTES.SUPER_ADMIN_ROL
                              select new RolDTO
                              {
                                  IdRol = r.IdRol,

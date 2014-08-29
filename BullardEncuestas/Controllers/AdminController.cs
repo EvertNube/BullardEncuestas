@@ -363,6 +363,273 @@ namespace BullardEncuestas.Controllers
             return RedirectToAction("LlenarEncuesta");
         }
 
+        public ActionResult Usuarios()
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            UsuariosBL usuariosBL = new UsuariosBL();
+            UsuarioDTO currentUser = getCurrentUser();
+            return View(usuariosBL.getUsuarios(currentUser.IdRol));//(CONSTANTES.ROL_RESPONSABLE));
+        }
+
+        public ActionResult Usuario(int? id = null)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            UsuarioDTO currentUser = getCurrentUser();
+            if (!this.isAdministrator() && id != currentUser.IdUsuario) { return RedirectToAction("Index"); }
+            if (id == 1 && !this.isSuperAdministrator()) { return RedirectToAction("Index"); }
+            UsuariosBL usuariosBL = new UsuariosBL();
+            IList<RolDTO> roles = usuariosBL.getRoles();
+            //var rolesList = roles.ToList();
+            roles.Insert(0, new RolDTO() { IdRol = 0, Nombre = "Seleccione un Rol" });
+            ViewBag.Roles = roles;//.AsEnumerable();
+            var objSent = TempData["Usuario"];
+            if (objSent != null) { TempData["Usuario"] = null; return View(objSent); }
+            if (id != null)
+            {
+                UsuarioDTO usuario = usuariosBL.getUsuario((int)id);
+                return View(usuario);
+            }
+            return View();
+        }
+
+        public ActionResult AddUser(UsuarioDTO user, string passUser = "", string passChange = "")
+        {
+
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            UsuarioDTO currentUser = getCurrentUser();
+            if (!this.isAdministrator() && user.IdUsuario != currentUser.IdUsuario) { return RedirectToAction("Index"); }
+            if (user.IdUsuario == 1 && !this.isSuperAdministrator()) { return RedirectToAction("Index"); }
+            try
+            {
+                UsuariosBL usuariosBL = new UsuariosBL();
+                if (user.IdUsuario == 0 && usuariosBL.validateUsuario(user))
+                {
+                    usuariosBL.add(user);
+                    createResponseMessage(CONSTANTES.SUCCESS);
+                    return RedirectToAction("Usuarios");
+                }
+                else if (user.IdUsuario != 0)
+                {
+                    if (usuariosBL.update(user, passUser, passChange, this.getCurrentUser()))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        if (user.IdUsuario == this.getCurrentUser().IdUsuario)
+                        {
+                            System.Web.HttpContext.Current.Session["User"] = usuariosBL.getUsuario(user.IdUsuario);
+                            if (!this.getCurrentUser().Active) System.Web.HttpContext.Current.Session["User"] = null;
+                        }
+                        return RedirectToAction("Usuarios");
+                    }
+                    else
+                    {
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE + "<br>Si está intentando actualizar la contraseña, verifique que ha ingresado la contraseña actual correctamente.");
+                    }
+
+                }
+                else
+                {
+                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+                }
+            }
+            catch
+            {
+                if (user.IdUsuario != 0)
+                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                else createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+            }
+            TempData["Usuario"] = user;
+            return RedirectToAction("Usuario");
+        }
+        public ActionResult GruposTrabajo()
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            GrupoTrabajoBL grupoBL = new GrupoTrabajoBL();
+            PersonaBL personaBL = new PersonaBL();
+            EmpresaBL empresaBL = new EmpresaBL();
+
+            ViewBag.Clientes = personaBL.getPersonasPorGrupo();
+            ViewBag.Empresas = empresaBL.getEmpresas();
+
+            return View(grupoBL.getGruposEvaluados());
+        }
+        public ActionResult GrupoTrabajo(int? id = null)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            if (id == 1 && !this.isSuperAdministrator()) { return RedirectToAction("Index"); }
+
+            GrupoTrabajoBL grupoTrabajoBL = new GrupoTrabajoBL();
+            if (id != null)
+            {
+                GrupoTrabajoDTO grupoT = grupoTrabajoBL.getGrupoTrabajo((int)id);
+                return View(grupoT);
+            }
+            return View();
+        }
+        public ActionResult AddGrupoTrabajo(GrupoTrabajoDTO dto)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            if (!this.isSuperAdministrator()) { return RedirectToAction("Index"); }
+
+            try
+            {
+                GrupoTrabajoBL objBL = new GrupoTrabajoBL();
+                if (dto.IdGrupoTrabajo == 0)
+                {
+                    if (objBL.add(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("GruposTrabajo");
+                    }
+                    else
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                }
+                else if (dto.IdGrupoTrabajo != 0)
+                {
+                    if (objBL.update(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("GruposTrabajo");
+                    }
+                    else
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                }
+                else
+                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+            }
+            catch
+            {
+                if (dto.IdGrupoTrabajo != 0) createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                else createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+            }
+            TempData["GrupoTrabajo"] = dto;
+            return RedirectToAction("GruposTrabajo");
+        }
+        public ActionResult Personas(int idGrupo)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            PersonaBL personaBL = new PersonaBL();
+            if (idGrupo != null && idGrupo != 0)
+                return View(personaBL.getPersonasPorGrupo(idGrupo));
+            else
+                return RedirectToAction("GruposTrabajo");
+        }
+        public ActionResult Persona(int? id = null)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            UsuarioDTO currentUser = getCurrentUser();
+            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            if (id == 1 && !this.isSuperAdministrator()) { return RedirectToAction("Index"); }
+
+
+            PersonaBL PersonaBL = new PersonaBL();
+            if (id != null)
+            {
+                PersonaDTO dto = PersonaBL.getPersona((int)id);
+                return View(dto);
+            }
+            return View();
+        }
+        public ActionResult AddPersona(PersonaDTO dto)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            if (!this.isSuperAdministrator()) { return RedirectToAction("Index"); }
+
+            try
+            {
+                PersonaBL objBL = new PersonaBL();
+                if (dto.IdPersona == 0)
+                {
+                    if (objBL.add(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("GruposTrabajo");
+                    }
+                    else
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                }
+                else if (dto.IdPersona != 0)
+                {
+                    if (objBL.update(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("GruposTrabajo");
+                    }
+                    else
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                }
+                else
+                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+            }
+            catch
+            {
+                if (dto.IdPersona != 0) createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                else createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+            }
+            TempData["Persona"] = dto;
+            return RedirectToAction("GruposTrabajo");
+        }
+        public ActionResult Empresa(int? id = null)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            UsuarioDTO currentUser = getCurrentUser();
+            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            if (id == 1 && !this.isSuperAdministrator()) { return RedirectToAction("Index"); }
+
+            EmpresaBL empresaBL = new EmpresaBL();
+            if (id != null)
+            {
+                EmpresaDTO dto = empresaBL.getEmpresa((int)id);
+                return View(dto);
+            }
+            return View();
+        }
+        public ActionResult AddEmpresa(EmpresaDTO dto)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            if (!this.isSuperAdministrator()) { return RedirectToAction("Index"); }
+
+            try
+            {
+                EmpresaBL objBL = new EmpresaBL();
+                if (dto.IdEmpresa == 0)
+                {
+                    if (objBL.add(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("GruposTrabajo");
+                    }
+                    else
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                }
+                else if (dto.IdEmpresa != 0)
+                {
+                    if (objBL.update(dto))
+                    {
+                        createResponseMessage(CONSTANTES.SUCCESS);
+                        return RedirectToAction("GruposTrabajo");
+                    }
+                    else
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                }
+                else
+                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+            }
+            catch
+            {
+                if (dto.IdEmpresa != 0) createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                else createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+            }
+            TempData["Persona"] = dto;
+            return RedirectToAction("Personas");
+        }
+
         #region APIS
         [HttpGet]
         public ActionResult GetTiposRespuesta(bool AsSelectList = false)

@@ -162,13 +162,12 @@
     <Content Include="Content\themes\admin\images\avatar.jpg" />
     <Content Include="Content\themes\admin\images\avatar_default.jpg" />
     <Content Include="Content\themes\admin\images\avatar_default_female.jpg" />
+    <Content Include="Content\themes\admin\images\bullard.jpg" />
     <Content Include="Content\themes\admin\images\circle_Blue.png" />
     <Content Include="Content\themes\admin\images\circle_Green.png" />
     <Content Include="Content\themes\admin\images\circle_Orange.png" />
     <Content Include="Content\themes\admin\images\circle_Red.png" />
     <Content Include="Content\themes\admin\images\edit.png" />
-    <Content Include="Content\themes\admin\images\logo-essac.png" />
-    <Content Include="Content\themes\admin\images\Logo-rpd.png" />
     <Content Include="Content\themes\admin\images\logo.jpg" />
     <Content Include="Content\themes\admin\images\main.png" />
     <Content Include="Content\themes\admin\images\phone-1.png" />
@@ -795,9 +794,15 @@
     <Content Include="Views\Error\NoEncontrado.cshtml" />
     <Content Include="Views\Error\_showAlertMessages.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Encuestas.cshtml" />
     <Content Include="Views\Admin\Encuesta.cshtml" />
     <Content Include="Views\Admin\LlenarEncuesta.cshtml" />
+    <Content Include="Views\Admin\Empresa.cshtml" />
+    <Content Include="Views\Admin\GruposTrabajo.cshtml" />
+    <Content Include="Views\Admin\GrupoTrabajo.cshtml" />
+    <Content Include="Views\Admin\Persona.cshtml" />
+    <Content Include="Views\Admin\Personas.cshtml" />
+    <Content Include="Views\Admin\Usuario.cshtml" />
+    <Content Include="Views\Admin\Usuarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

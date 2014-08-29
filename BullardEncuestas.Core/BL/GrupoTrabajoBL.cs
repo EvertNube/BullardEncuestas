@@ -23,57 +23,60 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
-        //public IList<GrupoTrabajoDTO> getGruposEvaluadores(bool activeOnly = false)
-        //{
-        //    using (var context = getContext())
-        //    {
-        //        var result = !activeOnly ? context.GrupoTrabajo.Select(r => new GrupoTrabajoDTO { IdGrupoTrabajo = r.IdGrupoTrabajo, Nombre = r.Nombre, Estado = r.Estado }) :
-        //            context.GrupoTrabajo.Where(r => r.Estado == true).Select(r => new GrupoTrabajoDTO { IdGrupoTrabajo = r.IdGrupoTrabajo, Nombre = r.Nombre, Estado = r.Estado });
-        //        return result.ToList();
-        //    }
-        //}
+        public GrupoTrabajoDTO getGrupoTrabajo(int id)
+        {
+            using (var context = getContext())
+            {
+                var result = from r in context.GrupoTrabajo
+                             where r.IdGrupoTrabajo == id
+                             select new GrupoTrabajoDTO
+                             {
+                                 IdGrupoTrabajo = r.IdGrupoTrabajo,
+                                 Nombre = r.Nombre,
+                                 Estado = r.Estado,
+                                 listaPersona = context.Persona.Where(y => y.IdGrupoTrabajo == id).Select(x => new PersonaDTO { IdPersona = x.IdPersona, Nombre = x.Nombre, Email = x.Email, IdEmpresa = (int)x.IdEmpresa, IdGrupoTrabajo = (int)x.IdGrupoTrabajo }).ToList(),
+                                 listaEncuesta = context.Encuesta.Where(y => y.IdGrupoEvaluado == id).Select(x => new EncuestaDTO { IdEncuesta = x.IdEncuesta, NombreEncuesta = x.Nombre, Instrucciones = x.Instrucciones, Leyenda = x.Leyenda, IdPeriodo = x.IdPeriodo, IdGrupoEvaluado = x.IdGrupoEvaluado, EstadoEncuesta = x.Estado }).ToList(),
+                             };
+                return result.SingleOrDefault();
+            }
+        }
+        public bool add(GrupoTrabajoDTO grupoTrabajo)
+        {
+            using (var context = getContext())
+            {
+                try
+                {
+                    GrupoTrabajo nuevo = new GrupoTrabajo();
+                    nuevo.Nombre = grupoTrabajo.Nombre;
+                    nuevo.Estado = grupoTrabajo.Estado;
+                    context.GrupoTrabajo.Add(nuevo);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
 
-        //public bool add(SeccionDTO seccionDTO)
-        //{
-        //    using (var context = getContext())
-        //    {
-        //        try
-        //        {
-        //            Seccion seccion = new Seccion();
-        //            context.Seccion.Add(seccion);
-        //            context.SaveChanges();
-        //            return true;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            throw e;
-        //            //return false;
-        //        }
-        //    }
-        //}
-
-        //public bool update(SeccionDTO seccionDTO)
-        //{
-        //    using (var context = getContext())
-        //    {
-        //        try
-        //        {
-        //            var seccion = context.Seccion.Where(x => x.IdSeccion == seccionDTO.IdSeccion).SingleOrDefault();
-        //            seccion.Nombre = seccionDTO.Nombre;
-        //            seccion.Orden = seccionDTO.Orden;
-        //            seccion.EsSocio = seccionDTO.EsSocio;
-        //            seccion.Estado = seccionDTO.Estado;
-        //            context.SaveChanges();
-        //            seccionDTO.IdEncuesta = seccion.IdEncuesta;
-        //            return true;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            //throw e;
-        //            return false;
-        //        }
-        //    }
-        //}
-
+        public bool update(GrupoTrabajoDTO grupoTrabajo)
+        {
+            using (var context = getContext())
+            {
+                try
+                {
+                    var grupo = context.GrupoTrabajo.Where(x => x.IdGrupoTrabajo == grupoTrabajo.IdGrupoTrabajo).SingleOrDefault();
+                    grupo.Nombre = grupoTrabajo.Nombre;
+                    grupo.Estado = grupoTrabajo.Estado;
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
     }
 }
