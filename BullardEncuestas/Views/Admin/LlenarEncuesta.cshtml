@@ -129,7 +129,7 @@
                                                                                                                             break;
                                                                                                                         case 2: @Html.TextAreaFor(u => u.listaRespuestas, new { @Value = pregunta.Respuestas[i], @class = "form-control input-sm", @placeholder = "", @type = "text" })
                                                                                                                             break;
-                                                                                                                        case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", pregunta.Respuestas.IdEvaluado < countRespuestas ? Convert.ToInt32(pregunta.Respuestas[i]) : 0), new { @class = "input-sm", @style = "width: auto;" })
+                                                                                                                        case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", i < countRespuestas ? Convert.ToInt32(pregunta.Respuestas[i]) : 0), new { @class = "input-sm", @style = "width: auto;" })
                                                                                                                             break;
                                                                                                                         default: break;
                                                                                                                     }
