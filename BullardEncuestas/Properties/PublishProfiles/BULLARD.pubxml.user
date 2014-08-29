@@ -13,13 +13,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/21/2014 11:58:19</publishTime>
     </File>
     <File Include="bin/BullardEncuestas.Core.dll">
-      <publishTime>08/27/2014 14:28:10</publishTime>
+      <publishTime>08/29/2014 09:49:12</publishTime>
     </File>
     <File Include="bin/BullardEncuestas.Data.dll">
-      <publishTime>08/27/2014 14:28:09</publishTime>
+      <publishTime>08/29/2014 09:38:52</publishTime>
     </File>
     <File Include="bin/BullardEncuestas.dll">
-      <publishTime>08/27/2014 14:28:11</publishTime>
+      <publishTime>08/29/2014 09:49:13</publishTime>
     </File>
     <File Include="bin/BullardEncuestas.Helpers.dll">
       <publishTime>08/22/2014 12:11:59</publishTime>
@@ -152,6 +152,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/themes/admin/images/avatar_default_female.jpg">
       <publishTime>08/21/2014 11:58:11</publishTime>
+    </File>
+    <File Include="Content/themes/admin/images/bullard.jpg">
+      <publishTime>08/29/2014 09:35:06</publishTime>
     </File>
     <File Include="Content/themes/admin/images/circle_Blue.png">
       <publishTime>08/21/2014 11:58:11</publishTime>
@@ -1956,20 +1959,41 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/_references.js">
       <publishTime>08/21/2014 11:58:14</publishTime>
     </File>
+    <File Include="Views/Admin/Empresa.cshtml">
+      <publishTime>08/29/2014 09:35:06</publishTime>
+    </File>
     <File Include="Views/Admin/Encuesta.cshtml">
       <publishTime>08/22/2014 12:06:49</publishTime>
     </File>
     <File Include="Views/Admin/Encuestas.cshtml">
       <publishTime>08/21/2014 11:58:15</publishTime>
     </File>
+    <File Include="Views/Admin/GruposTrabajo.cshtml">
+      <publishTime>08/29/2014 09:35:06</publishTime>
+    </File>
+    <File Include="Views/Admin/GrupoTrabajo.cshtml">
+      <publishTime>08/29/2014 09:35:06</publishTime>
+    </File>
     <File Include="Views/Admin/Index.cshtml">
       <publishTime>08/22/2014 08:21:24</publishTime>
     </File>
     <File Include="Views/Admin/Ingresar.cshtml">
-      <publishTime>08/21/2014 11:58:15</publishTime>
+      <publishTime>08/29/2014 09:35:06</publishTime>
     </File>
     <File Include="Views/Admin/LlenarEncuesta.cshtml">
-      <publishTime>08/27/2014 14:20:49</publishTime>
+      <publishTime>08/29/2014 09:02:13</publishTime>
+    </File>
+    <File Include="Views/Admin/Persona.cshtml">
+      <publishTime>08/29/2014 09:35:06</publishTime>
+    </File>
+    <File Include="Views/Admin/Personas.cshtml">
+      <publishTime>08/29/2014 09:35:06</publishTime>
+    </File>
+    <File Include="Views/Admin/Usuario.cshtml">
+      <publishTime>08/29/2014 09:35:06</publishTime>
+    </File>
+    <File Include="Views/Admin/Usuarios.cshtml">
+      <publishTime>08/29/2014 09:35:06</publishTime>
     </File>
     <File Include="Views/Error/Error.cshtml">
       <publishTime>08/21/2014 11:58:15</publishTime>
@@ -1990,7 +2014,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/21/2014 11:58:15</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutAdmin.cshtml">
-      <publishTime>08/21/2014 11:58:15</publishTime>
+      <publishTime>08/29/2014 09:35:06</publishTime>
     </File>
     <File Include="Views/Shared/_showAlertMessages.cshtml">
       <publishTime>08/21/2014 11:58:15</publishTime>
@@ -2002,7 +2026,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/21/2014 11:58:15</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/27/2014 14:28:13</publishTime>
+      <publishTime>08/29/2014 09:49:15</publishTime>
     </File>
   </ItemGroup>
 </Project>

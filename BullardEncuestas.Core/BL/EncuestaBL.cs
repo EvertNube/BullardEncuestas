@@ -92,6 +92,7 @@ namespace BullardEncuestas.Core.BL
                 var result = context.Encuesta.Where(r => r.IdEncuesta == idEncuesta).AsEnumerable()
                     .Select(r => new EncuestaEvaluadorDTO
                     {
+                        IdEncuestaEvaluador = r.EncuestaEvaluador.Select(x => x.IdEvaluador).FirstOrDefault(),
                         IdEncuesta = r.IdEncuesta,
                         IdEvaluador = idEvaluador,
                         Encuesta = new EncuestaDTO
@@ -130,7 +131,7 @@ namespace BullardEncuestas.Core.BL
                                             Nombre = o.Nombre
                                         }).ToList()
                                     },
-                                    Respuestas = y.Respuestas.Select(a => new RespuestasDTO { IdEvaluado = a.IdEvaluado, Valor = a.Valor }).ToList()
+                                    Respuestas = y.Respuestas.Where(a => a.EncuestaEvaluador.IdEvaluador == idEvaluador).Select(a => new RespuestasDTO { IdEvaluado = a.IdEvaluado, Valor = a.Valor }).ToList()
                                 }).OrderBy(y => y.OrdenPregunta).ToList(),
                                 SubSecciones = r.Seccion.Where(y => y.IdSeccionPadre == x.IdSeccion).Select(y => new SeccionDTO
                                 {
@@ -158,7 +159,7 @@ namespace BullardEncuestas.Core.BL
                                                 Nombre = o.Nombre
                                             }).ToList()
                                         },
-                                        Respuestas = z.Respuestas.Select(a => new RespuestasDTO { IdEvaluado = a.IdEvaluado, Valor = a.Valor }).ToList()
+                                        Respuestas = z.Respuestas.Where(a => a.EncuestaEvaluador.IdEvaluador == idEvaluador).Select(a => new RespuestasDTO { IdEvaluado = a.IdEvaluado, Valor = a.Valor }).ToList()
                                     }).OrderBy(z => z.OrdenPregunta).ToList()
                                 }).OrderBy(y => y.Orden).ToList(),
                             }).OrderBy(x => x.Orden).ToList(),

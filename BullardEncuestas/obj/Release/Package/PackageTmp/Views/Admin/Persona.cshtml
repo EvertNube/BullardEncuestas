@@ -1,0 +1,75 @@
+﻿@model BullardEncuestas.Core.DTO.PersonaDTO
+@{
+    ViewBag.Title = "Persona";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="vbox">
+    <section class="scrollable padder">
+        <div class="row m-b">
+            <div class="col-xs-12 col-md-10 col-md-offset-1">
+                @if (Model == null || Model.IdPersona == 0)
+                {
+                    <h2>Nueva persona</h2>
+                }
+                else
+                {<h2>Actualizar persona</h2>}
+
+                @using (Html.BeginForm("AddPersona", "Admin", FormMethod.Post))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="row m-b">
+                        <div class="col-xs-12 col-md-6">
+                            @Html.Partial("_showAlertMessages")
+
+                            <section class="panel panel-default">
+                                <header class="panel-heading font-bold">Formulario de Registro</header>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        @Html.TextBoxFor(u => u.Nombre, new { @class = "form-control", @placeholder = "Ingrese el nombre de la persona", @type = "text" })
+                                        @Html.ValidationMessageFor(u => u.Nombre)
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        @Html.TextBoxFor(u => u.Email, new { @class = "form-control", @placeholder = "Ingrese el Email de la persona", @type = "text" })
+                                        @Html.ValidationMessageFor(u => u.Email)
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Empresa</label>
+                                        @Html.TextBoxFor(u => u.IdEmpresa, new { @class = "form-control", @placeholder = "Ingrese el nombre de la empresa", @type = "hidden" })
+                                        @Html.ValidationMessageFor(u => u.IdEmpresa)
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Grupo de Trabajo</label>
+                                        @Html.TextBoxFor(u => u.IdGrupoTrabajo, new { @class = "form-control", @placeholder = "Ingrese el nombre del grupo de trabajo", @type = "hidden" })
+                                        @Html.ValidationMessageFor(u => u.IdGrupoTrabajo)
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Estado</label>
+                                        <div class="col-lg-9">
+                                            @Html.CheckBox("Estado")
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed line-lg pull-in"></div>
+                                    @Html.TextBoxFor(u => u.IdPersona, new { @value = Model != null ? Model.IdPersona.ToString() : "", @type = "hidden" })
+                                    @{var btnName = (Model != null && Model.IdPersona > 0) ? "Guardar Cambios" : "Crear";}
+                                    <button type="submit" class="btn btn-sm btn-primary">@btnName</button>
+                                    @if (ViewBag.EsAdmin)
+                                    {
+                                        <a class="btn btn-sm btn-danger" href="@Url.Action("GruposTrabajo")">Salir</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-sm btn-danger" href="@Url.Action("Index")">Salir</a>
+                                    }
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </section>
+</section>

@@ -94,7 +94,8 @@
     <Property Name="IdRespuestas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IdEncuestaEvaluador" Type="int" Nullable="false" />
     <Property Name="IdPregunta" Type="int" Nullable="false" />
-    <Property Name="Valor" Type="nvarchar" MaxLength="500" />
+    <Property Name="IdEvaluado" Type="int" Nullable="false" />
+    <Property Name="Valor" Type="nvarchar" MaxLength="500" Nullable="false" />
   </EntityType>
   <EntityType Name="Rol">
     <Key>
@@ -115,16 +116,6 @@
     <Property Name="Orden" Type="int" Nullable="false" />
     <Property Name="EsSocio" Type="bit" Nullable="false" />
     <Property Name="Estado" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="TipoRespuesta">
     <Key>
@@ -293,6 +284,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Respuestas_Evaluado">
+    <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+    <End Role="Respuestas" Type="Self.Respuestas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="IdPersona" />
+      </Principal>
+      <Dependent Role="Respuestas">
+        <PropertyRef Name="IdEvaluado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Respuestas_Pregunta">
     <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="1" />
     <End Role="Respuestas" Type="Self.Respuestas" Multiplicity="*" />
@@ -343,7 +346,6 @@
     <EntitySet Name="Respuestas" EntityType="Self.Respuestas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Seccion" EntityType="Self.Seccion" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoRespuesta" EntityType="Self.TipoRespuesta" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Encuesta_GrupoTrabajo" Association="Self.FK_Encuesta_GrupoTrabajo">
@@ -392,6 +394,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Respuestas_EncuestaEvaluador" Association="Self.FK_Respuestas_EncuestaEvaluador">
       <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
+      <End Role="Respuestas" EntitySet="Respuestas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Respuestas_Evaluado" Association="Self.FK_Respuestas_Evaluado">
+      <End Role="Persona" EntitySet="Persona" />
       <End Role="Respuestas" EntitySet="Respuestas" />
     </AssociationSet>
     <AssociationSet Name="FK_Respuestas_Pregunta" Association="Self.FK_Respuestas_Pregunta">
