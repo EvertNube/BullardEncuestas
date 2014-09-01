@@ -105,12 +105,28 @@ namespace BullardEncuestas.Controllers
             }
             return View();
         }
-        public ActionResult SendCorreo(int idGrupo, string nombreEncuesta, string periodo)
+        /*public ActionResult SendCorreo(int idGrupo, string nombreEncuesta, string periodo)
         {
             EncuestaBL oBL = new EncuestaBL();
             oBL.SendMailGrupo(idGrupo, nombreEncuesta, periodo);
             return RedirectToAction("Index");
+        }*/
+        [HttpPost]
+        public ActionResult SendCorreo(int idGrupo, string nombreEncuesta, string periodo)
+        {
+            EncuestaBL oBL = new EncuestaBL();
+            var response = oBL.SendMailGrupo(idGrupo, nombreEncuesta, periodo);
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult SendCorreoEncuesta(int idGrupo, string nombreEncuesta, string periodo)
+        {
+            EncuestaBL oBL = new EncuestaBL();
+            var response = oBL.SendMailGrupo(idGrupo, nombreEncuesta, periodo);
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpPost]
         public ActionResult Login(UsuarioDTO user)

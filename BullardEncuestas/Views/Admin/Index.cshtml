@@ -2,6 +2,32 @@
 @using BullardEncuestas.Core.DTO
 @using PagedList;
 @model IPagedList<EncuestaDTO>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnEnviarCorreo').click(function () {
+                $("#loading").show();
+                var evaluado = $(this).data("gevaluado");
+                var encuesta = $(this).data("encuesta");
+                var periodo = $(this).data("periodo");
+                $.ajax({
+                    url: "/Admin/SendCorreoEncuesta",
+                    type: "POST",
+                    cache: false,
+                    data: { idGrupo: evaluado, nombreEncuesta: encuesta, periodo: periodo },
+                    dataType: "json"
+                }).done(function (data) {
+                    if (data) {
+                        $("#loading").hide();
+                    }
+                }).fail(function () {
+                    $("#loading").hide();
+                    alert('Error al intentar obtener el listado de Tipos de Respuesta. Por favor, actualice la página o presione F5.');
+                });
+            });
+        });
+    </script>
+}
 
 @{
     ViewBag.Title = "Encuestas";
@@ -58,7 +84,10 @@
                                                                 <a style="text-align: center; padding: 0 15px;" href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" data-toggle="tooltip" data-original-title="Editar encuesta">
                                                                     <i class="fa fa-pencil"></i>
                                                                 </a>
-                                                                <a href="@Url.Action("SendCorreo", new { idGrupo = obj.IdGrupoEvaluado, nombreEncuesta = obj.NombreEncuesta, periodo = obj.Periodo.Descripcion })" data-toggle="tooltip" data-original-title="Enviar encuesta">
+                                                                @*<a id="btnEnviarCorreo" href="@Url.Action("SendCorreoEncuesta", new { idGrupo = obj.IdGrupoEvaluado, nombreEncuesta = obj.NombreEncuesta, periodo = obj.Periodo.Descripcion })" data-toggle="tooltip" data-original-title="Enviar encuesta">
+                                                                    <i class="fa fa-envelope"></i>
+                                                                </a>*@
+                                                                <a id="btnEnviarCorreo" data-toggle="tooltip" data-original-title="Enviar encuesta" data-gevaluado="@obj.IdGrupoEvaluado" data-encuesta="@obj.NombreEncuesta" data-periodo="@obj.Periodo.Descripcion">
                                                                     <i class="fa fa-envelope"></i>
                                                                 </a>
                                                             </td>
@@ -110,3 +139,6 @@
         </section>
     </aside>
 </section>
+<div id="loading" style="display:none;">
+    <img id="loading-image" src="../../Content/themes/admin/gif/loading.gif" alt="Loading..." />
+</div>

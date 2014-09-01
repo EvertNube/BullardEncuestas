@@ -158,6 +158,7 @@
     <Content Include="Content\themes\admin\css\main.css" />
     <Content Include="Content\themes\admin\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\themes\admin\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\themes\admin\gif\loading.gif" />
     <Content Include="Content\themes\admin\images\app.png" />
     <Content Include="Content\themes\admin\images\avatar.jpg" />
     <Content Include="Content\themes\admin\images\avatar_default.jpg" />
