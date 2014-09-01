@@ -59,7 +59,7 @@ namespace BullardEncuestas.Core.BL
                                             Nombre = o.Nombre
                                         }).ToList()
                                     },
-                                    Respuestas = y.Respuestas.Where(a => a.EncuestaEvaluador.IdEvaluador == idEvaluador).Select(a => new RespuestasDTO { IdEvaluado = a.IdEvaluado, Valor = a.Valor }).ToList()
+                                    Respuestas = y.Respuestas.Where(a => a.EncuestaEvaluador.IdEvaluador == idEvaluador).Select(a => new RespuestasDTO { IdRespuestas = a.IdRespuestas, IdEvaluado = a.IdEvaluado, Valor = a.Valor }).ToList()
                                 }).OrderBy(y => y.OrdenPregunta).ToList(),
                                 SubSecciones = r.Seccion.Where(y => y.IdSeccionPadre == x.IdSeccion).Select(y => new SeccionDTO
                                 {
@@ -87,7 +87,7 @@ namespace BullardEncuestas.Core.BL
                                                 Nombre = o.Nombre
                                             }).ToList()
                                         },
-                                        Respuestas = z.Respuestas.Where(a => a.EncuestaEvaluador.IdEvaluador == idEvaluador).Select(a => new RespuestasDTO { IdEvaluado = a.IdEvaluado, Valor = a.Valor }).ToList()
+                                        Respuestas = z.Respuestas.Where(a => a.EncuestaEvaluador.IdEvaluador == idEvaluador).Select(a => new RespuestasDTO { IdRespuestas = a.IdRespuestas, IdEvaluado = a.IdEvaluado, Valor = a.Valor }).ToList()
                                     }).OrderBy(z => z.OrdenPregunta).ToList()
                                 }).OrderBy(y => y.Orden).ToList(),
                             }).OrderBy(x => x.Orden).ToList(),
@@ -103,11 +103,24 @@ namespace BullardEncuestas.Core.BL
             {
                 try
                 {
+                    encuestaEvaluadorDTO.Respuestas = new List<RespuestasDTO>();
+                    for (int i = 0; i < encuestaEvaluadorDTO.listaRespuestas.Count; i++)
+                    {
+                        if (!string.IsNullOrEmpty(encuestaEvaluadorDTO.listaRespuestas[i].Trim()) && encuestaEvaluadorDTO.listaRespuestas[i] != "0")
+                        {
+                            RespuestasDTO respuesta = new RespuestasDTO();
+                            respuesta.IdRespuestas = encuestaEvaluadorDTO.listaIdRespuestas[i];
+                            respuesta.IdPregunta = encuestaEvaluadorDTO.listaPreguntas[i];
+                            respuesta.IdEvaluado = encuestaEvaluadorDTO.listaEvaluados[i];
+                            respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
+                            encuestaEvaluadorDTO.Respuestas.Add(respuesta);
+                        }
+                    }
                     EncuestaEvaluador encuestaEvaluador = new EncuestaEvaluador();
                     encuestaEvaluador.IdEncuesta = encuestaEvaluadorDTO.IdEncuesta;
                     encuestaEvaluador.IdEvaluador = encuestaEvaluadorDTO.IdEvaluador;
                     encuestaEvaluador.CodEvaluador = "";
-                    encuestaEvaluador.EstadoEncuesta = true;
+                    encuestaEvaluador.EstadoEncuesta = false;
                     context.EncuestaEvaluador.Add(encuestaEvaluador);
                     foreach (var item in encuestaEvaluadorDTO.Respuestas)
                     {
@@ -135,25 +148,52 @@ namespace BullardEncuestas.Core.BL
             {
                 try
                 {
+                    //var oldRespuestas = context.Respuestas.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).ToList();
+                    for (int i = 0; i < encuestaEvaluadorDTO.listaRespuestas.Count; i++)
+                    {
+                        if (encuestaEvaluadorDTO.listaIdRespuestas[i] != 0)
+                        {
+                            var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
+                            if (respuesta != null)
+                            {
+                                if (encuestaEvaluadorDTO.listaRespuestas[i] == "0")
+                                    context.Respuestas.Remove(respuesta);
+                                else if (encuestaEvaluadorDTO.listaRespuestas[i] != respuesta.Valor)
+                                    respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
+                            }
+                        }
+                        else
+                        {
+                            if (encuestaEvaluadorDTO.listaRespuestas[i] != "0")
+                            {
+                                Respuestas respuesta = new Respuestas();
+                                respuesta.IdEncuestaEvaluador = encuestaEvaluadorDTO.IdEncuestaEvaluador;
+                                respuesta.IdPregunta = encuestaEvaluadorDTO.listaPreguntas[i];
+                                respuesta.IdEvaluado = encuestaEvaluadorDTO.listaEvaluados[i];
+                                respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
+                                context.Respuestas.Add(respuesta);
+                            }
+                        }
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    //throw e;
+                    return false;
+                }
+            }
+        }
+
+        public bool updateEstadoEncuesta(EncuestaEvaluadorDTO encuestaEvaluadorDTO)
+        {
+            using (var context = getContext())
+            {
+                try
+                {
                     var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).SingleOrDefault();
-                    
-                    var oldRespuesta = encuestaEvaluador.Respuestas;
-                    for (int i = 0; i < encuestaEvaluadorDTO.Respuestas.Count; i++)
-                    {
-                        //var respuesta = oldRespuesta.Where(x => x.IdRespuestas == encuestaEvaluador.Respuestas[i]).SingleOrDefault();
-                    }
-
-
-                    foreach (var item in encuestaEvaluadorDTO.Respuestas)
-                    {
-                        Respuestas respuesta = new Respuestas();
-                        respuesta.IdEncuestaEvaluador = encuestaEvaluador.IdEncuestaEvaluador;
-                        respuesta.IdPregunta = item.IdPregunta;
-                        respuesta.IdEvaluado = item.IdEvaluado;
-                        respuesta.Valor = item.Valor;
-                        encuestaEvaluador.Respuestas.Add(respuesta);
-                    }
-
+                    encuestaEvaluador.EstadoEncuesta = true; //Encuesta termiada.
                     context.SaveChanges();
                     return true;
                 }
