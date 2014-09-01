@@ -22,7 +22,8 @@ namespace BullardEncuestas.Core.BL
                     IdEncuesta = r.IdEncuesta,
                     NombreEncuesta = r.NombreEncuesta,
                     Periodo = new PeriodoDTO { Descripcion = r.NombrePeriodo },
-                    EstadoEncuesta = r.Estado
+                    EstadoEncuesta = r.Estado,
+                    IdGrupoEvaluado = r.IdGrupoEvaluado
                     //GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.NombreGrupo }
                 }).ToList();
                 return result;
