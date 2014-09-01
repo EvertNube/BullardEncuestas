@@ -4,8 +4,12 @@
 }
 @section scripts{
     @Scripts.Render("~/Content/themes/admin/js/fuelux/fuelux.js")
-    @Scripts.Render("~/Content/js/Encuesta.js")
-}
+    <script type="text/javascript">
+        function setActionHidden(action) {
+            $("#Accion").val(action);
+        }
+    </script>
+    }
 @{
     if (Model == null)
     {
@@ -167,9 +171,11 @@
                                         @Html.TextBoxFor(u => u.IdEncuestaEvaluador, new { @Value = Model != null ? Model.IdEncuestaEvaluador.ToString() : "", @type = "hidden" })
                                         @Html.TextBoxFor(u => u.IdEncuesta, new { @Value = Model != null ? Model.IdEncuesta.ToString() : "", @type = "hidden" })
                                         @Html.TextBoxFor(u => u.IdEvaluador, new { @Value = Model != null ? Model.IdEvaluador.ToString() : "", @type = "hidden" })
+                                        <input type="hidden" id="Accion" name="Accion" />
                                         <a class="btn btn-sm btn-danger btn-rounded" href="@Url.Action("Salir")">Salir</a>
-                                        <button type="submit" id="btnGuardar" class="btn btn-sm btn-primary btn-rounded">Guardar</button>
-                                        <a class="btn btn-sm btn-default btn-rounded" href="@Url.Action("EnviarEncuesta")">Enviar</a>
+                                        <button type="submit" id="btnGuardar" class="btn btn-sm btn-primary btn-rounded" onclick="setActionHidden(1)">Guardar</button>
+                                        <button type="submit" id="btnEnviar" class="btn btn-sm btn-primary btn-rounded" onclick="setActionHidden(2)">Enviar</button>
+                                        @*<a class="btn btn-sm btn-default btn-rounded" href="@Url.Action("EnviarEncuesta")">Enviar</a>*@
                                     </div>
                                 </div>
                             </footer>

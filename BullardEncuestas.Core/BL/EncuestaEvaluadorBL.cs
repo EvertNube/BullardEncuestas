@@ -186,13 +186,13 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
-        public bool updateEstadoEncuesta(EncuestaEvaluadorDTO encuestaEvaluadorDTO)
+        public bool updateEstadoEncuesta(int idEncuestaEvaluador)
         {
             using (var context = getContext())
             {
                 try
                 {
-                    var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).SingleOrDefault();
+                    var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == idEncuestaEvaluador).SingleOrDefault();
                     encuestaEvaluador.EstadoEncuesta = true; //Encuesta termiada.
                     context.SaveChanges();
                     return true;

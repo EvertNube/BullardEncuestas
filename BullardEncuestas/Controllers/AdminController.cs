@@ -190,7 +190,7 @@ namespace BullardEncuestas.Controllers
         public ActionResult Formulario()
         { return View(); }
 
-        public ActionResult LlenarEncuesta(int idEncuesta, int idGrupo, int idEvaluador)
+        public ActionResult LlenarEncuesta(int? idEncuesta, int? idGrupo, int? idEvaluador)
         {
             EncuestaEvaluadorBL oBL = new EncuestaEvaluadorBL();
             PersonaBL oPersonaBL = new PersonaBL();
@@ -201,7 +201,7 @@ namespace BullardEncuestas.Controllers
             if (objSent != null) { TempData["EncuestaEvaluador"] = null; return View(objSent); }
             if (idEncuesta != 0 && idGrupo != 0 && idEvaluador != 0)
             {
-                var model = oBL.getEncuestaEvaluador(idEncuesta, idEvaluador);
+                var model = oBL.getEncuestaEvaluador((int)idEncuesta, (int)idEvaluador);
                 return View(model);
             }
             return View();
@@ -327,29 +327,58 @@ namespace BullardEncuestas.Controllers
             try
             {
                 EncuestaEvaluadorBL objBL = new EncuestaEvaluadorBL();
-                if (dto.IdEncuestaEvaluador == 0)
+
+                if (dto.Accion == 1)
                 {
-                    if (objBL.add(dto))
+                    //Save
+                    if (dto.IdEncuestaEvaluador == 0)
                     {
-                        createResponseMessage(CONSTANTES.SUCCESS);
-                        return RedirectToAction("LlenarEncuesta");
+                        if (objBL.add(dto))
+                        {
+                            createResponseMessage(CONSTANTES.SUCCESS);
+                            return RedirectToAction("LlenarEncuesta");
+                        }
                     }
-                }
-                else if (dto.IdEncuestaEvaluador != 0)
-                {
-                    if (objBL.update(dto))
+                    else if (dto.IdEncuestaEvaluador != 0)
                     {
-                        createResponseMessage(CONSTANTES.SUCCESS);
-                        return RedirectToAction("LlenarEncuesta");
+                        if (objBL.update(dto))
+                        {
+                            createResponseMessage(CONSTANTES.SUCCESS);
+                            return RedirectToAction("LlenarEncuesta");
+                        }
+                        else
+                            createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
                     }
                     else
-                    {
-                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
-                    }
+                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
                 }
-                else
+                else if (dto.Accion == 2)
                 {
-                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+                    //Enviar
+                    var conta = dto.listaRespuestas.Where(x => x == "0").Count();
+                    if (conta == 0)
+                    {
+                        if (dto.IdEncuestaEvaluador == 0)
+                        {
+                            if (objBL.add(dto))
+                            {
+                                objBL.updateEstadoEncuesta(dto.IdEncuestaEvaluador);
+                                return RedirectToAction("MensajeEncuesta");
+                            }
+                        }
+                        else if (dto.IdEncuestaEvaluador != 0)
+                        {
+                            if (objBL.update(dto))
+                            {
+                                objBL.updateEstadoEncuesta(dto.IdEncuestaEvaluador);
+                                return RedirectToAction("MensajeEncuesta");
+                            }
+                            else
+                                createMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                        }
+                        else
+                            createMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+                    }
                 }
             }
             catch
@@ -362,45 +391,47 @@ namespace BullardEncuestas.Controllers
             return RedirectToAction("LlenarEncuesta");
         }
 
-        public ActionResult EnviarEncuesta(EncuestaEvaluadorDTO dto)
-        {
-            try
-            {
-                var conta = dto.listaRespuestas.Where(x => x == "0").Count();
-                if (conta == 0)
-                {
-                    EncuestaEvaluadorBL objBL = new EncuestaEvaluadorBL();
-                    if (dto.IdEncuestaEvaluador == 0)
-                    {
-                        if (objBL.add(dto))
-                        {
-                            return RedirectToAction("MensajeEncuesta");
-                        }
-                    }
-                    else if (dto.IdEncuestaEvaluador != 0)
-                    {
-                        if (objBL.update(dto))
-                        {
-                            return RedirectToAction("MensajeEncuesta");
-                        }
-                        else
-                        {
-                            createMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
-                        }
-                    }
-                    else
-                        createMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
-                }
-            }
-            catch
-            {
-                if (dto.IdEncuestaEvaluador != 0)
-                    createMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
-                else createMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
-            }
-            TempData["EncuestaEvaluador"] = dto;
-            return RedirectToAction("LlenarEncuesta");
-        }
+        //public ActionResult EnviarEncuesta(EncuestaEvaluadorDTO dto)
+        //{
+        //    try
+        //    {
+        //        var conta = dto.listaRespuestas.Where(x => x == "0").Count();
+        //        if (conta == 0)
+        //        {
+        //            EncuestaEvaluadorBL objBL = new EncuestaEvaluadorBL();
+        //            if (dto.IdEncuestaEvaluador == 0)
+        //            {
+        //                if (objBL.add(dto))
+        //                {
+        //                    objBL.updateEstadoEncuesta(dto.IdEncuestaEvaluador);
+        //                    return RedirectToAction("MensajeEncuesta");
+        //                }
+        //            }
+        //            else if (dto.IdEncuestaEvaluador != 0)
+        //            {
+        //                if (objBL.update(dto))
+        //                {
+        //                    objBL.updateEstadoEncuesta(dto.IdEncuestaEvaluador);
+        //                    return RedirectToAction("MensajeEncuesta");
+        //                }
+        //                else
+        //                {
+        //                    createMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+        //                }
+        //            }
+        //            else
+        //                createMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        if (dto.IdEncuestaEvaluador != 0)
+        //            createMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+        //        else createMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+        //    }
+        //    TempData["EncuestaEvaluador"] = dto;
+        //    return RedirectToAction("LlenarEncuesta");
+        //}
         public ActionResult MensajeEncuesta()
         {
             return View();
