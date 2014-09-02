@@ -720,6 +720,15 @@ namespace BullardEncuestas.Controllers
             return RedirectToAction("Personas");
         }
 
+        public ActionResult Reportes()
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            EncuestaBL encuestaBL = new EncuestaBL();
+
+            return View(encuestaBL.getEncuestas());
+        }
+
         #region APIS
         [HttpGet]
         public ActionResult GetTiposRespuesta(bool AsSelectList = false)

@@ -34,7 +34,7 @@ namespace BullardEncuestas.Core.BL
                                  IdGrupoTrabajo = r.IdGrupoTrabajo,
                                  Nombre = r.Nombre,
                                  Estado = r.Estado,
-                                 listaPersona = context.Persona.Where(y => y.IdGrupoTrabajo == id).Select(x => new PersonaDTO { IdPersona = x.IdPersona, Nombre = x.Nombre, Email = x.Email, IdEmpresa = (int)x.IdEmpresa, IdGrupoTrabajo = (int)x.IdGrupoTrabajo }).ToList(),
+                                 listaPersona = context.Persona.Where(y => y.IdGrupoTrabajo == id).Select(x => new PersonaDTO { IdPersona = x.IdPersona, Nombre = x.Nombre, Email = x.Email, IdEmpresa = x.IdEmpresa, IdGrupoTrabajo = x.IdGrupoTrabajo }).ToList(),
                                  listaEncuesta = context.Encuesta.Where(y => y.IdGrupoEvaluado == id).Select(x => new EncuestaDTO { IdEncuesta = x.IdEncuesta, NombreEncuesta = x.Nombre, Instrucciones = x.Instrucciones, Leyenda = x.Leyenda, IdPeriodo = x.IdPeriodo, IdGrupoEvaluado = x.IdGrupoEvaluado, EstadoEncuesta = x.Estado }).ToList(),
                              };
                 return result.SingleOrDefault();

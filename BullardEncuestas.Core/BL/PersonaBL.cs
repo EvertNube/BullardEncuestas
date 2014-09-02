@@ -42,8 +42,9 @@ namespace BullardEncuestas.Core.BL
                         IdEmpresa = x.IdEmpresa,
                         IdGrupoTrabajo = x.IdGrupoTrabajo,
                         Estado = x.Estado,
-                        Empresa = context.Empresa.Where(y => y.IdEmpresa == x.IdEmpresa).Select(w => new EmpresaDTO { IdEmpresa = (int)x.IdEmpresa, Nombre = x.Nombre, Estado = x.Estado }).FirstOrDefault(),
-                        GrupoTrabajo = context.GrupoTrabajo.Where(y => y.IdGrupoTrabajo == x.IdGrupoTrabajo).Select(w => new GrupoTrabajoDTO { IdGrupoTrabajo = (int)x.IdGrupoTrabajo, Nombre = x.Nombre, Estado = x.Estado }).FirstOrDefault()
+                        Empresa = new EmpresaDTO { IdEmpresa = x.Empresa.IdEmpresa, Nombre = x.Empresa.Nombre, Estado = x.Empresa.Estado },
+                        //GrupoTrabajo = context.GrupoTrabajo.Where(y => y.IdGrupoTrabajo == x.IdGrupoTrabajo).Select(w => new GrupoTrabajoDTO { IdGrupoTrabajo = (int)w.IdGrupoTrabajo, Nombre = w.Nombre, Estado = w.Estado }).FirstOrDefault()
+                        GrupoTrabajo = new GrupoTrabajoDTO { IdGrupoTrabajo = x.IdGrupoTrabajo ?? 0, Nombre = x.Nombre, Estado = x.Estado },
                     }).ToList();
                 }
                 return result;

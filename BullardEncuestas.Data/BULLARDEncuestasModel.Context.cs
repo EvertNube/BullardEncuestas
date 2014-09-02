@@ -148,5 +148,27 @@ namespace BullardEncuestas.Data
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual ObjectResult<SP_GetEncuestasReporte_Result> SP_GetEncuestasReporte()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestasReporte_Result>("SP_GetEncuestasReporte");
+        }
+    
+        public virtual ObjectResult<SP_GetEncuestasReporteSecciones_Result> SP_GetEncuestasReporteSecciones(Nullable<int> idEncuesta, Nullable<int> idPeriodo, Nullable<int> idGrupoTrabajo)
+        {
+            var idEncuestaParameter = idEncuesta.HasValue ?
+                new ObjectParameter("IdEncuesta", idEncuesta) :
+                new ObjectParameter("IdEncuesta", typeof(int));
+    
+            var idPeriodoParameter = idPeriodo.HasValue ?
+                new ObjectParameter("IdPeriodo", idPeriodo) :
+                new ObjectParameter("IdPeriodo", typeof(int));
+    
+            var idGrupoTrabajoParameter = idGrupoTrabajo.HasValue ?
+                new ObjectParameter("IdGrupoTrabajo", idGrupoTrabajo) :
+                new ObjectParameter("IdGrupoTrabajo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestasReporteSecciones_Result>("SP_GetEncuestasReporteSecciones", idEncuestaParameter, idPeriodoParameter, idGrupoTrabajoParameter);
+        }
     }
 }

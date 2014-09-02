@@ -29,23 +29,28 @@
                             </thead>
                             <tbody>
                                 @foreach (var grupo in Model)
-                            {
-                                var classInactive = (ViewBag.EsAdmin && !grupo.Estado) ? "class='inactive'" : "";
+                                {
+                                    var classInactive = (ViewBag.EsAdmin && !grupo.Estado) ? "class='inactive'" : "";
                                     <tr @Html.Raw(classInactive)>
                                         <td>@grupo.Nombre</td>
-                                        @{if(grupo.Estado)
-                                        {<td align="center">Activo</td>;}
-                                        else{<td align="center">Inactivo</td>;}}
+                                        @{if (grupo.Estado)
+                                        {
+                                        <td align="center">Activo</td>;
+                                        }
+                                        else
+                                        {
+                                        <td align="center">Inactivo</td>;
+                                        }}
                                         @if (ViewBag.EsAdmin)
-                                    {
+                                        {
                                             <td align="center">
-                                                @*<a data-toggle="tooltip" data-original-title="Ver Grupo" href="@Url.Action("Personas", new { idGrupo = grupo.IdGrupoTrabajo})"><i class="fa fa-eye"></i></a>
-                                                &nbsp;&nbsp;*@
+                                                @*<a data-toggle="tooltip" data-original-title="Ver Grupo" href="@Url.Action("GrupoTrabajoDetalle", new { idGrupo = grupo.IdGrupoTrabajo})"><i class="fa fa-eye"></i></a>
+                                                    &nbsp;&nbsp;*@
                                                 <a data-toggle="tooltip" data-original-title="Editar grupo" href="@Url.Action("GrupoTrabajo", new { id = grupo.IdGrupoTrabajo})"><i class="fa fa-pencil"></i></a>
                                             </td>
-                                    }
+                                        }
                                     </tr>
-                            }
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -65,9 +70,9 @@
                         <table class="table table-striped m-b-none">
                             <thead>
                                 <tr>
-                                    <th width="40%">Nombre</th>
-                                    <th width="40%">Email</th>
-                                    @*<th width="20%">Empresa</th>*@
+                                    <th width="30%">Nombre</th>
+                                    <th width="30%">Email</th>
+                                    <th width="20%">Empresa</th>
                                     <th width="10%" style="text-align:center;">Estado</th>
                                     <th width="10%">Opciones</th>
                                 </tr>
@@ -79,13 +84,22 @@
                                     <tr>
                                         <td>@persona.Nombre</td>
                                         <td>@persona.Email</td>
-                                        @*@{if (persona.Empresa != null)
-                                        {<td>@persona.Empresa.Nombre</td>;}
-                                        else {<td>No asignado</td>;}}*@
-                                        @{if (persona.Estado)
-                                        {<td align="center">Activo</td>;}
+                                        @{if (persona.Empresa != null)
+                                        {
+                                        <td>@persona.Empresa.Nombre</td>;
+                                        }
                                         else
-                                        {<td align="center">Inactivo</td>;}}
+                                        {
+                                        <td>No asignado</td>;
+                                        }}
+                                        @{if (persona.Estado)
+                                        {
+                                        <td align="center">Activo</td>;
+                                        }
+                                        else
+                                        {
+                                        <td align="center">Inactivo</td>;
+                                        }}
                                         @if (ViewBag.EsAdmin)
                                         {
                                             <td align="center">
@@ -127,11 +141,11 @@
                                         <td>@empresa.Nombre</td>
                                         @{if (empresa.Estado)
                                         {
-                                        <td align="center">Activo</td>;
+                                            <td align="center">Activo</td>;
                                         }
                                         else
                                         {
-                                        <td align="center">Inactivo</td>;
+                                            <td align="center">Inactivo</td>;
                                         }}
                                         @if (ViewBag.EsAdmin)
                                         {

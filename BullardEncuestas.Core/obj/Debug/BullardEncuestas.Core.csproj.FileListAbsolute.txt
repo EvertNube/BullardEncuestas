@@ -40,8 +40,6 @@ C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.csprojResolveAssemblyReference.cache
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.dll
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.pdb
-D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.csprojResolveAssemblyReference.cache
-D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.dll
 D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\bin\Debug\BullardEncuestas.Core.dll.config
 D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\bin\Debug\BullardEncuestas.Core.dll
 D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\bin\Debug\BullardEncuestas.Core.pdb
@@ -53,4 +51,6 @@ D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\bin\Debu
 D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\bin\Debug\BullardEncuestas.Helpers.pdb
 D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\bin\Debug\EntityFramework.xml
 D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\bin\Debug\EntityFramework.SqlServer.xml
+D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.csprojResolveAssemblyReference.cache
+D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.dll
 D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Core\obj\Debug\BullardEncuestas.Core.pdb

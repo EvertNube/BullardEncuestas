@@ -105,6 +105,12 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="SP_GetEncuestasReporte" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestasReporte_Result)" />
+    <FunctionImport Name="SP_GetEncuestasReporteSecciones" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestasReporteSecciones_Result)">
+      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+      <Parameter Name="IdGrupoTrabajo" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SP_GetEncuestas_Result">
     <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
@@ -465,5 +471,24 @@
     <Property Type="Int32" Name="ID" Nullable="false" />
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_GetEncuestasReporte_Result">
+    <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
+    <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
+    <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="IdGrupoTrabajo" Nullable="false" />
+    <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="SP_GetEncuestasReporteSecciones_Result">
+    <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+    <Property Type="Int32" Name="OrdenSeccion" Nullable="false" />
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="Int32" Name="OrdenPregunta" Nullable="false" />
+    <Property Type="Int32" Name="IdRespuestas" Nullable="false" />
+    <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+    <Property Type="Int32" Name="IdOpcion" Nullable="false" />
+    <Property Type="Int32" Name="Valor" Nullable="false" />
   </ComplexType>
 </Schema>

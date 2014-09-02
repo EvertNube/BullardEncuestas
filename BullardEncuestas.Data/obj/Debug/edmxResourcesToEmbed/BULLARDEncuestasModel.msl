@@ -190,5 +190,32 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="BULLARD.EncuestasDbModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="BULLARD.EncuestasDbModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="SP_GetEncuestasReporte" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestasReporte">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetEncuestasReporte_Result">
+          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+          <ScalarProperty Name="NombreEncuesta" ColumnName="NombreEncuesta" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+          <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
+          <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
+          <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_GetEncuestasReporteSecciones" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestasReporteSecciones">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetEncuestasReporteSecciones_Result">
+          <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
+          <ScalarProperty Name="OrdenSeccion" ColumnName="OrdenSeccion" />
+          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+          <ScalarProperty Name="OrdenPregunta" ColumnName="OrdenPregunta" />
+          <ScalarProperty Name="IdRespuestas" ColumnName="IdRespuestas" />
+          <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
+          <ScalarProperty Name="IdOpcion" ColumnName="IdOpcion" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>
