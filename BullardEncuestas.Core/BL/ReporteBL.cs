@@ -56,7 +56,7 @@ namespace BullardEncuestas.Core.BL
                     for (int i = 0; i < nele; i++)
                     {
                         //Promedio Evaluados
-
+                        promedioG = 1;
                         //Promedio Secciones
 
                     }
