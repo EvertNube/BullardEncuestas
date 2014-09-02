@@ -25,6 +25,10 @@
                     alert('Error al intentar obtener el listado de Tipos de Respuesta. Por favor, actualice la página o presione F5.');
                 });
             });
+
+            $('#btnNuevaEncuesta').click(function () {
+                $('#modal-Encuestaform').modal('show');
+            });
         });
     </script>
 }
@@ -44,7 +48,7 @@
                             <section class="panel panel-default">
                                 <header class="panel-heading font-bold">
                                     <div class="col-sm-12 m-b-lg">
-                                        <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Nueva Encuesta</a>
+                                        <a id="btnNuevaEncuesta" class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Nueva Encuesta</a>
                                     </div>
                                 </header>
                                 <div class="table-responsive">
