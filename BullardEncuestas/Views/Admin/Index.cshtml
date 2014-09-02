@@ -142,3 +142,40 @@
 <div id="loading" style="display:none;">
     <img id="loading-image" src="../../Content/themes/admin/gif/loading.gif" alt="Loading..." />
 </div>
+<div class="modal fade" id="modal-Encuestaform">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Nueva Encuesta</h4>
+            </div>
+            @using (Html.BeginForm("AddEncuesta", "Admin", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="registro" class="col-sm-12 form-horizontal">
+                            <input type="hidden" id="IdEncuesta" name="IdEncuesta" />
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Periodo</label>
+                                <div class="col-lg-9">
+                                    <select id="IdPeriodo" name="IdPeriodo" class="form-control"></select>
+                                    <input type="text" id="NombrePeriodo" name="NombrePeriodo" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Grupo</label>
+                                <div class="col-lg-9">
+                                    <select id="IdGrupoEncuesta" name="IdGrupoEncuesta" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" id="brnSaveEncuesta">Guardar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
