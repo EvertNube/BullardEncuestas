@@ -26,6 +26,19 @@ namespace BullardEncuestas.Core.BL
                 return result;
             }
         }
+        public IList<EmpresaDTO> getEmpresasIList()//bool activeOnly = false
+        {
+            using (var context = getContext())
+            {
+                var result = context.Empresa.Select(x => new EmpresaDTO
+                {
+                    IdEmpresa = x.IdEmpresa,
+                    Nombre = x.Nombre,
+                    Estado = x.Estado
+                }).ToList();
+                return result;
+            }
+        }
         public EmpresaDTO getEmpresa(int id)
         {
             using (var context = getContext())

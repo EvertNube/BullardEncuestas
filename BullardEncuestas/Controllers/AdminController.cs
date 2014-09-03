@@ -619,6 +619,17 @@ namespace BullardEncuestas.Controllers
             if (!this.isAdministrator()) { return RedirectToAction("Index"); }
             if (id == 1 && !this.isSuperAdministrator()) { return RedirectToAction("Index"); }
 
+            GrupoTrabajoBL grupoTBL = new GrupoTrabajoBL();
+            EmpresaBL empresaBL = new EmpresaBL();
+
+            IList<GrupoTrabajoDTO> gruposTrabajo = grupoTBL.getGruposEvaluados();
+            IList<EmpresaDTO> Empresas = empresaBL.getEmpresas();
+
+            gruposTrabajo.Insert(0, new GrupoTrabajoDTO() { IdGrupoTrabajo = 0, Nombre = "Seleccione un grupo" });
+            Empresas.Insert(0, new EmpresaDTO() { IdEmpresa = 0, Nombre = "Sin Empresa" });
+
+            ViewBag.GruposTrabajo = gruposTrabajo;
+            ViewBag.Empresas = Empresas;
 
             PersonaBL PersonaBL = new PersonaBL();
             if (id != null)
