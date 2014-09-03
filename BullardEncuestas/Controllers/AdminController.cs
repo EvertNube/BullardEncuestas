@@ -730,6 +730,15 @@ namespace BullardEncuestas.Controllers
         }
 
         #region APIS
+        [HttpPost]
+        public ActionResult SavePeriodo(string descripcion)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            PeriodoBL objBL = new PeriodoBL();
+            PeriodoDTO oPeriodoDTO = new PeriodoDTO();
+            oPeriodoDTO.Descripcion = descripcion;
+            return Json(objBL.add(oPeriodoDTO), JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         public ActionResult GetTiposRespuesta(bool AsSelectList = false)
         {
