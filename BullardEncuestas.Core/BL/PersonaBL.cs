@@ -13,41 +13,33 @@ namespace BullardEncuestas.Core.BL
 {
     public class PersonaBL : Base
     {
-        public List<PersonaDTO> getPersonasPorGrupo(int? idGrupo = null)//bool activeOnly = false
+        public List<PersonaDTO> getPersonasPorGrupo(int idGrupo)//bool activeOnly = false
         {
             using (var context = getContext())
             {
-                var result = new List<PersonaDTO>();
-                if (idGrupo != null && idGrupo != 0)
+                var result = context.SP_GetPersonasPorGrupo(idGrupo).Select(x => new PersonaDTO
                 {
-                    result = context.Persona.Where(x => x.IdGrupoTrabajo == idGrupo).Select(x => new PersonaDTO
+                    IdPersona = x.IdPersona,
+                    Nombre = x.Nombre,
+                    Email = x.Email,
+                    Estado = x.Estado,
+                    Empresa = x.NombreEmpresa
+                }).ToList();
+                return result;
+            }
+        }
+        public List<PersonaDTO> getPersonas()
+        {
+            using (var context = getContext())
+            {
+                var result = context.Persona.Select(x => new PersonaDTO
                     {
                         IdPersona = x.IdPersona,
                         Nombre = x.Nombre,
                         Email = x.Email,
-                        IdEmpresa = x.IdEmpresa,
-                        IdGrupoTrabajo = x.IdGrupoTrabajo,
                         Estado = x.Estado,
-                        Empresa = context.Empresa.Where(y => y.IdEmpresa == x.IdEmpresa).Select(w => new EmpresaDTO { IdEmpresa = (int)w.IdEmpresa, Nombre = w.Nombre, Estado = w.Estado }).FirstOrDefault(),
-                        GrupoTrabajo = context.GrupoTrabajo.Where(y => y.IdGrupoTrabajo == x.IdGrupoTrabajo).Select(w => new GrupoTrabajoDTO { IdGrupoTrabajo = (int)x.IdGrupoTrabajo, Nombre = x.Nombre, Estado = x.Estado }).FirstOrDefault()
+                        Empresa = new EmpresaDTO { Nombre = x.Empresa.Nombre }
                     }).ToList();
-                }
-                else
-                {
-                    result = context.Persona.Select(x => new PersonaDTO
-                    {
-                        IdPersona = x.IdPersona,
-                        Nombre = x.Nombre,
-                        Email = x.Email,
-                        IdEmpresa = x.IdEmpresa,
-                        IdGrupoTrabajo = x.IdGrupoTrabajo,
-                        Estado = x.Estado,
-                        //Empresa = new EmpresaDTO { IdEmpresa = x.Empresa.IdEmpresa, Nombre = x.Empresa.Nombre, Estado = x.Empresa.Estado },
-                        Empresa = context.Empresa.Where(y => y.IdEmpresa == x.IdEmpresa).Select(w => new EmpresaDTO { IdEmpresa = (int)w.IdEmpresa, Nombre = w.Nombre, Estado = w.Estado }).FirstOrDefault(),
-                        //GrupoTrabajo = context.GrupoTrabajo.Where(y => y.IdGrupoTrabajo == x.IdGrupoTrabajo).Select(w => new GrupoTrabajoDTO { IdGrupoTrabajo = (int)w.IdGrupoTrabajo, Nombre = w.Nombre, Estado = w.Estado }).FirstOrDefault()
-                        GrupoTrabajo = new GrupoTrabajoDTO { IdGrupoTrabajo = x.IdGrupoTrabajo ?? 0, Nombre = x.Nombre, Estado = x.Estado },
-                    }).ToList();
-                }
                 return result;
             }
         }

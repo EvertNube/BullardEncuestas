@@ -73,8 +73,15 @@
     <Property Name="Nombre" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="150" />
     <Property Name="IdEmpresa" Type="int" />
-    <Property Name="IdGrupoTrabajo" Type="int" />
     <Property Name="Estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonaGrupo">
+    <Key>
+      <PropertyRef Name="IdPersona" />
+      <PropertyRef Name="IdGrupoTrabajo" />
+    </Key>
+    <Property Name="IdPersona" Type="int" Nullable="false" />
+    <Property Name="IdGrupoTrabajo" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Pregunta">
     <Key>
@@ -237,15 +244,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Persona_GrupoTrabajo">
-    <End Role="GrupoTrabajo" Type="Self.GrupoTrabajo" Multiplicity="0..1" />
-    <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+  <Association Name="FK_PersonaGrupo_GrupoTrabajo">
+    <End Role="GrupoTrabajo" Type="Self.GrupoTrabajo" Multiplicity="1" />
+    <End Role="PersonaGrupo" Type="Self.PersonaGrupo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="GrupoTrabajo">
         <PropertyRef Name="IdGrupoTrabajo" />
       </Principal>
-      <Dependent Role="Persona">
+      <Dependent Role="PersonaGrupo">
         <PropertyRef Name="IdGrupoTrabajo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonaGrupo_Persona">
+    <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+    <End Role="PersonaGrupo" Type="Self.PersonaGrupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="IdPersona" />
+      </Principal>
+      <Dependent Role="PersonaGrupo">
+        <PropertyRef Name="IdPersona" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -356,6 +375,7 @@
     <EntitySet Name="OpcionesRespuesta" EntityType="Self.OpcionesRespuesta" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Periodo" EntityType="Self.Periodo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonaGrupo" EntityType="Self.PersonaGrupo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pregunta" EntityType="Self.Pregunta" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Respuestas" EntityType="Self.Respuestas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
@@ -394,9 +414,13 @@
       <End Role="Empresa" EntitySet="Empresa" />
       <End Role="Persona" EntitySet="Persona" />
     </AssociationSet>
-    <AssociationSet Name="FK_Persona_GrupoTrabajo" Association="Self.FK_Persona_GrupoTrabajo">
+    <AssociationSet Name="FK_PersonaGrupo_GrupoTrabajo" Association="Self.FK_PersonaGrupo_GrupoTrabajo">
       <End Role="GrupoTrabajo" EntitySet="GrupoTrabajo" />
+      <End Role="PersonaGrupo" EntitySet="PersonaGrupo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonaGrupo_Persona" Association="Self.FK_PersonaGrupo_Persona">
       <End Role="Persona" EntitySet="Persona" />
+      <End Role="PersonaGrupo" EntitySet="PersonaGrupo" />
     </AssociationSet>
     <AssociationSet Name="FK_Pregunta_Seccion" Association="Self.FK_Pregunta_Seccion">
       <End Role="Seccion" EntitySet="Seccion" />

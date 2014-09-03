@@ -68,5 +68,14 @@ namespace BullardEncuestas.Data
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestas2_Result>("SP_GetEncuestas2");
         }
+    
+        public virtual ObjectResult<SP_GetPersonasPorGrupo_Result> SP_GetPersonasPorGrupo(Nullable<int> idGrupoTrabajo)
+        {
+            var idGrupoTrabajoParameter = idGrupoTrabajo.HasValue ?
+                new ObjectParameter("IdGrupoTrabajo", idGrupoTrabajo) :
+                new ObjectParameter("IdGrupoTrabajo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetPersonasPorGrupo_Result>("SP_GetPersonasPorGrupo", idGrupoTrabajoParameter);
+        }
     }
 }
