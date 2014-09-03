@@ -20,5 +20,6 @@ namespace BullardEncuestas.Data
         public string NombrePeriodo { get; set; }
         public int IdGrupoTrabajo { get; set; }
         public string NombreGrupo { get; set; }
+        public Nullable<decimal> PromedioGeneral { get; set; }
     }
 }
