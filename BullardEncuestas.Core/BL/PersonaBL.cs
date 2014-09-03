@@ -23,7 +23,7 @@ namespace BullardEncuestas.Core.BL
                     Nombre = x.Nombre,
                     Email = x.Email,
                     Estado = x.Estado,
-                    Empresa = x.NombreEmpresa
+                    Empresa = new EmpresaDTO { Nombre = x.NombreEmpresa } 
                 }).ToList();
                 return result;
             }

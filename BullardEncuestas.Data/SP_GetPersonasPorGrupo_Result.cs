@@ -16,8 +16,7 @@ namespace BullardEncuestas.Data
         public int IdPersona { get; set; }
         public string Nombre { get; set; }
         public string Email { get; set; }
-        public Nullable<int> IdEmpresa { get; set; }
         public bool Estado { get; set; }
-        public string Nombre1 { get; set; }
+        public string NombreEmpresa { get; set; }
     }
 }

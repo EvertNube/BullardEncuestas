@@ -539,7 +539,7 @@ namespace BullardEncuestas.Controllers
             PersonaBL personaBL = new PersonaBL();
             EmpresaBL empresaBL = new EmpresaBL();
 
-            ViewBag.Clientes = personaBL.getPersonasPorGrupo();
+            ViewBag.Clientes = personaBL.getPersonas();
             ViewBag.Empresas = empresaBL.getEmpresas();
 
             return View(grupoBL.getGruposEvaluados());

@@ -46,9 +46,23 @@ namespace BullardEncuestas.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestas_Result>("SP_GetEncuestas");
         }
     
+        public virtual ObjectResult<SP_GetEncuestas2_Result> SP_GetEncuestas2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestas2_Result>("SP_GetEncuestas2");
+        }
+    
         public virtual ObjectResult<SP_GetEncuestasReporte_Result> SP_GetEncuestasReporte()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestasReporte_Result>("SP_GetEncuestasReporte");
+        }
+    
+        public virtual ObjectResult<SP_GetPersonasPorGrupo_Result> SP_GetPersonasPorGrupo(Nullable<int> idGrupoTrabajo)
+        {
+            var idGrupoTrabajoParameter = idGrupoTrabajo.HasValue ?
+                new ObjectParameter("IdGrupoTrabajo", idGrupoTrabajo) :
+                new ObjectParameter("IdGrupoTrabajo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetPersonasPorGrupo_Result>("SP_GetPersonasPorGrupo", idGrupoTrabajoParameter);
         }
     
         public virtual int SP_ReplicaEncuesta(Nullable<int> idPeriodo, Nullable<int> idGrupo)
@@ -62,20 +76,6 @@ namespace BullardEncuestas.Data
                 new ObjectParameter("IdGrupo", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ReplicaEncuesta", idPeriodoParameter, idGrupoParameter);
-        }
-    
-        public virtual ObjectResult<SP_GetEncuestas2_Result> SP_GetEncuestas2()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestas2_Result>("SP_GetEncuestas2");
-        }
-    
-        public virtual ObjectResult<SP_GetPersonasPorGrupo_Result> SP_GetPersonasPorGrupo(Nullable<int> idGrupoTrabajo)
-        {
-            var idGrupoTrabajoParameter = idGrupoTrabajo.HasValue ?
-                new ObjectParameter("IdGrupoTrabajo", idGrupoTrabajo) :
-                new ObjectParameter("IdGrupoTrabajo", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetPersonasPorGrupo_Result>("SP_GetPersonasPorGrupo", idGrupoTrabajoParameter);
         }
     }
 }
