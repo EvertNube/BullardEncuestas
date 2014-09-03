@@ -27,9 +27,88 @@
             });
 
             $('#btnNuevaEncuesta').click(function () {
+                getPeriodos();
+                getGruposEvaluados();
+                $('#NombrePeriodo').hide();
+                $('#save-Descripcion').hide();
+                $('#close-Descripcion').hide();
                 $('#modal-Encuestaform').modal('show');
             });
+            $('#add-Descripcion').click(function () {
+                $('#NombrePeriodo').val('');
+                $('#NombrePeriodo').show();
+                $('#save-Descripcion').show();
+                $('#close-Descripcion').show();
+                $('#NombrePeriodo').focus();
+            });
+            $('#save-Descripcion').click(function () {
+                $('#NombrePeriodo').hide();
+                $('#save-Descripcion').hide();
+                $('#close-Descripcion').hide();
+                savePeriodo($('#NombrePeriodo').val());
+            });
+            $('#close-Descripcion').click(function () {
+                $('#NombrePeriodo').hide();
+                $('#save-Descripcion').hide();
+                $('#close-Descripcion').hide();
+            });
         });
+        function getPeriodos(id) {
+            $.ajax({
+                url: "/Admin/GetPeriodos",
+                type: "GET",
+                cache: false,
+                data: { AsSelectList: true },
+                dataType: "json"
+            }).done(function (data) {
+                var select = $("#IdPeriodo");
+                select.empty();
+                $.each(data, function (index, item) {
+                    select.append($('<option />', {
+                        value: item.IdPeriodo,
+                        text: item.Descripcion
+                    }));
+                });
+                if (id) select.val(id);
+            }).fail(function () {
+                alert('Error al intentar obtener el listado de Periodos. Por favor, actualice la página o presione F5.');
+            });
+        }
+        function getGruposEvaluados(id) {
+            $.ajax({
+                url: "/Admin/GetGruposEvaluados",
+                type: "GET",
+                cache: false,
+                data: { AsSelectList: true },
+                dataType: "json"
+            }).done(function (data) {
+                var select = $("#IdGrupoEvaluado");
+                select.empty();
+                $.each(data, function (index, item) {
+                    select.append($('<option />', {
+                        value: item.IdGrupoTrabajo,
+                        text: item.Nombre
+                    }));
+                });
+                if (id) select.val(id);
+            }).fail(function () {
+                alert('Error al intentar obtener el listado de Grupos de Evaluados. Por favor, actualice la página o presione F5.');
+            });
+        }
+        function savePeriodo(descripcion) {
+            $.ajax({
+                url: "/Admin/SavePeriodo",
+                type: "POST",
+                cache: false,
+                data: { descripcion: descripcion },
+                dataType: "json"
+            }).done(function (data) {
+                if (data != 0) getPeriodos(data);
+                else alert("Error al intentar guardar el Periodo. Por favor, actualice la página o presione F5.");
+            }).fail(function () {
+                alert("Error al intentar guardar el Periodo. Por favor, actualice la página o presione F5.");
+            });
+        }
     </script>
 }
 
@@ -89,8 +168,8 @@
                                                                     <i class="fa fa-pencil"></i>
                                                                 </a>
                                                                 @*<a id="btnEnviarCorreo" href="@Url.Action("SendCorreoEncuesta", new { idGrupo = obj.IdGrupoEvaluado, nombreEncuesta = obj.NombreEncuesta, periodo = obj.Periodo.Descripcion })" data-toggle="tooltip" data-original-title="Enviar encuesta">
-                                                                    <i class="fa fa-envelope"></i>
-                                                                </a>*@
+                                                                        <i class="fa fa-envelope"></i>
+                                                                    </a>*@
                                                                 <a id="btnEnviarCorreo" data-toggle="tooltip" data-original-title="Enviar encuesta" data-gevaluado="@obj.IdGrupoEvaluado" data-encuesta="@obj.NombreEncuesta" data-periodo="@obj.Periodo.Descripcion">
                                                                     <i class="fa fa-envelope"></i>
                                                                 </a>
@@ -160,16 +239,27 @@
                         <div id="registro" class="col-sm-12 form-horizontal">
                             <input type="hidden" id="IdEncuesta" name="IdEncuesta" />
                             <div class="form-group">
-                                <label class="col-lg-3 control-label">Periodo</label>
-                                <div class="col-lg-9">
-                                    <select id="IdPeriodo" name="IdPeriodo" class="form-control"></select>
-                                    <input type="text" id="NombrePeriodo" name="NombrePeriodo" />
+                                <label class="col-lg-2 control-label">Periodo</label>
+                                <div class="col-lg-10 input-group">
+                                    <select id="IdPeriodo" name="IdPeriodo" class="form-control input-s"></select>
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-dark btn-icon btn-rounded" id="add-Descripcion" data-toggle="tooltip" data-placement="right" title="" data-original-title="Agregar Descripción Periodo">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" id="NombrePeriodo" name="NombrePeriodo" class="form-control input-s" style="display:none;" />
+                                    <button type="button" class="btn btn-dark btn-icon btn-rounded" style="display:none;" id="save-Descripcion" data-toggle="tooltip" data-placement="right" title="" data-original-title="Guardar">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-dark btn-icon btn-rounded" style="display:none;" id="close-Descripcion" data-toggle="tooltip" data-placement="right" title="" data-original-title="Cancelar">
+                                        <i class="fa fa-close"></i>
+                                    </button>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label">Grupo</label>
-                                <div class="col-lg-9">
-                                    <select id="IdGrupoEncuesta" name="IdGrupoEncuesta" class="form-control"></select>
+                                <label class="col-lg-2 control-label">Grupo</label>
+                                <div class="col-lg-10">
+                                    <select id="IdGrupoEvaluado" name="IdGrupoEncuesta" class="form-control"></select>
                                 </div>
                             </div>
                         </div>
