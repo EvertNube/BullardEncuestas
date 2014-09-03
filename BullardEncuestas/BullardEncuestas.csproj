@@ -806,6 +806,7 @@
     <Content Include="Views\Admin\Usuarios.cshtml" />
     <Content Include="Views\Admin\MensajeEncuesta.cshtml" />
     <Content Include="Views\Admin\Reportes.cshtml" />
+    <Content Include="Views\Shared\_LayoutOffLine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
