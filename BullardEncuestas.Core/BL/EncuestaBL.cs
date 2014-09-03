@@ -115,7 +115,7 @@ namespace BullardEncuestas.Core.BL
                     var link = host + "/Admin/EncuestaEncuestador/" + item.IdPersona;
                     subject = "Encuesta : " + nombreEncuesta;
                     body = "Estimado " + item.Nombre + ",<br/>se ha abierto la encuesta " + nombreEncuesta + " para el Periodo " + periodo +
-                    ", sirvase a contestar la encuesta a traves de este enlace:<br/>" + link + "Atentamente,<br/>La Administración.";
+                    ", sirvase a contestar la encuesta a traves de este enlace:<br/>" + link + "<br/>Atentamente,<br/>La Administración.";
                     to = item.Email;
                     MailHandler.Send(to, copy, subject, body);
                 }
