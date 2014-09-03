@@ -726,7 +726,9 @@ namespace BullardEncuestas.Controllers
             if (!this.isAdministrator()) { return RedirectToAction("Index"); }
             EncuestaBL encuestaBL = new EncuestaBL();
 
-            return View(encuestaBL.getEncuestas());
+            ReporteBL reporteBL = new ReporteBL();
+            ViewBag.ReportesEncuestas = reporteBL.ObtenerReportesEncuestas();
+            return View(encuestaBL.getEncuestas2());
         }
 
         #region APIS
