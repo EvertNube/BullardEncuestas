@@ -23,7 +23,8 @@ namespace BullardEncuestas.Core.BL
                     NombreEncuesta = r.NombreEncuesta,
                     Periodo = new PeriodoDTO { Descripcion = r.NombrePeriodo },
                     EstadoEncuesta = r.Estado,
-                    IdGrupoEvaluado = r.IdGrupoEvaluado
+                    StrGrupoEvaluador = r.StrGrupoEvaluador
+                    //IdGrupoEvaluado = r.IdGrupoEvaluado
                     //GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.NombreGrupo }
                 }).ToList();
                 return result;
@@ -112,7 +113,7 @@ namespace BullardEncuestas.Core.BL
                 string host = getHost();
                 foreach (var item in personas)
                 {
-                    var link = host + "/Admin/LlenarEncuesta/" + item.IdPersona;//LlenarEncuesta?idEncuesta=1&idEvaluador=1&idGrupo=1
+                    var link = host + "/Admin/LlenarEncuesta/" + item.IdPersona;//LlenarEncuesta?idEncuesta=1&idEvaluador=item.IdPersona&idGrupo=item.IdGrupoTrabajo
                     subject = "Encuesta : " + nombreEncuesta;
                     body = "Estimado " + item.Nombre + ",<br/>se ha abierto la encuesta " + nombreEncuesta + " para el Periodo " + periodo +
                     ", sirvase a contestar la encuesta a traves de este enlace:<br/>" + link + "<br/>Atentamente,<br/>La Administración.";
