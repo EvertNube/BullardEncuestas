@@ -112,7 +112,7 @@ namespace BullardEncuestas.Core.BL
                 string host = getHost();
                 foreach (var item in personas)
                 {
-                    var link = host + "/Admin/EncuestaEncuestador/" + item.IdPersona;
+                    var link = host + "/Admin/LlenarEncuesta/" + item.IdPersona;//LlenarEncuesta?idEncuesta=1&idEvaluador=1&idGrupo=1
                     subject = "Encuesta : " + nombreEncuesta;
                     body = "Estimado " + item.Nombre + ",<br/>se ha abierto la encuesta " + nombreEncuesta + " para el Periodo " + periodo +
                     ", sirvase a contestar la encuesta a traves de este enlace:<br/>" + link + "<br/>Atentamente,<br/>La Administración.";
