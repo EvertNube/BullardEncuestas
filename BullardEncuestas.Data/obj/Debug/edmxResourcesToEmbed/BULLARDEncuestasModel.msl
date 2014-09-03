@@ -182,5 +182,18 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SP_ReplicaEncuesta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_ReplicaEncuesta" />
+    <FunctionImportMapping FunctionImportName="SP_GetEncuestas2" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestas2">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetEncuestas2_Result">
+          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+          <ScalarProperty Name="NombreEncuesta" ColumnName="NombreEncuesta" />
+          <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+          <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
+          <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

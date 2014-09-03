@@ -120,7 +120,7 @@ namespace BullardEncuestas.Controllers
         //}
 
         [HttpPost]
-        public ActionResult SendCorreoEncuesta(List<int> grupoEvaluadores, int idEncuesta, string nombreEncuesta, string periodo)
+        public ActionResult SendCorreoEncuesta(string grupoEvaluadores, int idEncuesta, string nombreEncuesta, string periodo)
         {
             EncuestaBL oBL = new EncuestaBL();
             var response = oBL.SendMailGrupo(grupoEvaluadores, idEncuesta, nombreEncuesta, periodo);
