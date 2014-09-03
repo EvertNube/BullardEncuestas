@@ -17,30 +17,32 @@ namespace BullardEncuestas.Core.BL
         {
             using (var context = getContext())
             {
-                var result = !activeOnly ? context.Periodo.Select(r => new PeriodoDTO { IdPeriodo = r.IdPeriodo, Descripcion = r.Descripcion, Estado = r.Estado }) : 
+                var result = !activeOnly ? context.Periodo.Select(r => new PeriodoDTO { IdPeriodo = r.IdPeriodo, Descripcion = r.Descripcion, Estado = r.Estado }) :
                     context.Periodo.Where(r => r.Estado == true).Select(r => new PeriodoDTO { IdPeriodo = r.IdPeriodo, Descripcion = r.Descripcion, Estado = r.Estado });
                 return result.ToList();
             }
         }
 
-        //public bool add(SeccionDTO seccionDTO)
-        //{
-        //    using (var context = getContext())
-        //    {
-        //        try
-        //        {
-        //            Seccion seccion = new Seccion();
-        //            context.Seccion.Add(seccion);
-        //            context.SaveChanges();
-        //            return true;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            throw e;
-        //            //return false;
-        //        }
-        //    }
-        //}
+        public int add(PeriodoDTO periodoDTO)
+        {
+            using (var context = getContext())
+            {
+                try
+                {
+                    Periodo periodo = new Periodo();
+                    periodo.Descripcion = periodoDTO.Descripcion;
+                    periodo.Estado = true;
+                    context.Periodo.Add(periodo);
+                    context.SaveChanges();
+                    return periodo.IdPeriodo;
+                }
+                catch (Exception e)
+                {
+                    //throw e;
+                    return 0;
+                }
+            }
+        }
 
         //public bool update(SeccionDTO seccionDTO)
         //{
