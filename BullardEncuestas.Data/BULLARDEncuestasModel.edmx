@@ -339,6 +339,10 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="FN_GetPromedioGeneralEncuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+          <Parameter Name="IdPeriodo" Type="int" Mode="In" />
+          <Parameter Name="IdGrupo" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -356,6 +360,7 @@
           <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_GetEncuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_GetEncuestasReporte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -573,6 +578,7 @@
             <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
             <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_GetEncuestasReporte1" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestasReporte1_Result)" />
           </EntityContainer>
         <ComplexType Name="SP_GetEncuestas_Result">
           <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
@@ -954,6 +960,16 @@
           <Property Type="Int32" Name="IdOpcion" Nullable="false" />
           <Property Type="Int32" Name="Valor" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="SP_GetEncuestasReporte1_Result">
+          <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
+          <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
+          <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="IdGrupoTrabajo" Nullable="false" />
+          <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
+          <Property Type="Decimal" Name="PromedioGeneral" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1151,6 +1167,20 @@
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="BULLARD.EncuestasDbModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="BULLARD.EncuestasDbModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="SP_ReplicaEncuesta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_ReplicaEncuesta" />
+          <FunctionImportMapping FunctionImportName="SP_GetEncuestasReporte1" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestasReporte">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetEncuestasReporte1_Result">
+                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+                <ScalarProperty Name="NombreEncuesta" ColumnName="NombreEncuesta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
+                <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
+                <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
+                <ScalarProperty Name="PromedioGeneral" ColumnName="PromedioGeneral" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

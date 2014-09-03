@@ -99,6 +99,9 @@
     <Compile Include="Seccion.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_GetEncuestasReporte1_Result.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_GetEncuestasReporteSecciones_Result.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
