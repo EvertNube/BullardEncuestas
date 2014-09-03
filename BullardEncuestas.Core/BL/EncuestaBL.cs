@@ -133,9 +133,7 @@ namespace BullardEncuestas.Core.BL
             {
                 try
                 {
-                    Encuesta encuesta = new Encuesta();
-                    context.Encuesta.Add(encuesta);
-                    context.SaveChanges();
+                    context.SP_ReplicaEncuesta(encuestaDTO.IdPeriodo, encuestaDTO.IdGrupoEvaluado);
                     return true;
                 }
                 catch (Exception e)
