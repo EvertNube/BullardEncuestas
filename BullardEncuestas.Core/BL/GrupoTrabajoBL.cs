@@ -27,16 +27,13 @@ namespace BullardEncuestas.Core.BL
         {
             using (var context = getContext())
             {
-                var result = from r in context.GrupoTrabajo
-                             where r.IdGrupoTrabajo == id
-                             select new GrupoTrabajoDTO
+                var result = context.GrupoTrabajo.Where(r => r.IdGrupoTrabajo == id).Select(r => new GrupoTrabajoDTO
                              {
                                  IdGrupoTrabajo = r.IdGrupoTrabajo,
                                  Nombre = r.Nombre,
                                  Estado = r.Estado,
-                                 listaPersona = context.Persona.Where(y => y.IdGrupoTrabajo == id).Select(x => new PersonaDTO { IdPersona = x.IdPersona, Nombre = x.Nombre, Email = x.Email, IdEmpresa = x.IdEmpresa, IdGrupoTrabajo = x.IdGrupoTrabajo }).ToList(),
-                                 listaEncuesta = context.Encuesta.Where(y => y.IdGrupoEvaluado == id).Select(x => new EncuestaDTO { IdEncuesta = x.IdEncuesta, NombreEncuesta = x.Nombre, Instrucciones = x.Instrucciones, Leyenda = x.Leyenda, IdPeriodo = x.IdPeriodo, IdGrupoEvaluado = x.IdGrupoEvaluado, EstadoEncuesta = x.Estado }).ToList(),
-                             };
+                                 listaPersona = r.Persona.Select(x => new PersonaDTO { Nombre = x.Nombre }).ToList()
+                             });
                 return result.SingleOrDefault();
             }
         }
