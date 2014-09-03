@@ -103,23 +103,27 @@ namespace BullardEncuestas.Core.BL
                 MailHandler.Send(to, copy, subject, body);
             }
         }*/
-        public bool SendMailGrupo(int idGrupo, string nombreEncuesta, string periodo)
+        public bool SendMailGrupo(List<int> grupoEvaluadores, int idEncuesta, string nombreEncuesta, string periodo)
         {
             try
             {
                 string to = string.Empty, copy = string.Empty, subject = string.Empty, body = string.Empty;
                 PersonaBL oBL = new PersonaBL();
-                var personas = oBL.getPersonasPorGrupo(idGrupo);
-                string host = getHost();
-                foreach (var item in personas)
+                foreach (var grupo in grupoEvaluadores)
                 {
-                    var link = host + "/Admin/LlenarEncuesta/" + item.IdPersona;//LlenarEncuesta?idEncuesta=1&idEvaluador=item.IdPersona&idGrupo=item.IdGrupoTrabajo
-                    subject = "Encuesta : " + nombreEncuesta;
-                    body = "Estimado " + item.Nombre + ",<br/>se ha abierto la encuesta " + nombreEncuesta + " para el Periodo " + periodo +
-                    ", sirvase a contestar la encuesta a traves de este enlace:<br/>" + link + "<br/>Atentamente,<br/>La Administración.";
-                    to = item.Email;
-                    MailHandler.Send(to, copy, subject, body);
+                    var personas = oBL.getPersonasPorGrupo(grupo);
+                    string host = getHost();
+                    foreach (var persona in personas)
+                    {
+                        var link = host + "/Admin/LlenarEncuesta?idEncuesta=idEncuesta&idEvaluador=persona.IdPersona&idGrupo=persona.IdGrupoTrabajo";
+                        subject = "Encuesta : " + nombreEncuesta;
+                        body = "Estimado " + persona.Nombre + ",<br/>se ha abierto la encuesta " + nombreEncuesta + " para el Periodo " + periodo +
+                        ", sirvase a contestar la encuesta a traves de este enlace:<br/>" + link + "<br/>Atentamente,<br/>La Administración.";
+                        to = persona.Email;
+                        MailHandler.Send(to, copy, subject, body);
+                    }
                 }
+                
                 return true;
             }
             catch (Exception)
