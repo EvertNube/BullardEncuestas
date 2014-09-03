@@ -173,8 +173,8 @@
                                         @Html.TextBoxFor(u => u.IdEvaluador, new { @Value = Model != null ? Model.IdEvaluador.ToString() : "", @type = "hidden" })
                                         <input type="hidden" id="Accion" name="Accion" />
                                         <a class="btn btn-sm btn-danger btn-rounded" href="@Url.Action("Salir")">Salir</a>
-                                        <button type="submit" id="btnGuardar" class="btn btn-sm btn-primary btn-rounded" onclick="setActionHidden(1)">Guardar</button>
-                                        <button type="submit" id="btnEnviar" class="btn btn-sm btn-primary btn-rounded" onclick="setActionHidden(2)">Enviar</button>
+                                        <button type="submit" id="btnGuardar" class="btn btn-sm btn-primary btn-rounded" onclick="setActionHidden(1)">Guardar y continuar después.</button>
+                                        <button type="submit" id="btnEnviar" class="btn btn-sm btn-primary btn-rounded" onclick="setActionHidden(2)">Salir y enviar.</button>
                                         @*<a class="btn btn-sm btn-default btn-rounded" href="@Url.Action("EnviarEncuesta")">Enviar</a>*@
                                     </div>
                                 </div>

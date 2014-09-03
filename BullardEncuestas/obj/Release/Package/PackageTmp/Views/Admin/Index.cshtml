@@ -2,6 +2,117 @@
 @using BullardEncuestas.Core.DTO
 @using PagedList;
 @model IPagedList<EncuestaDTO>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnEnviarCorreo').click(function () {
+                $("#loading").show();
+                var evaluadores = $(this).data("gevaluador");
+                var id = $(this).data("id");
+                var encuesta = $(this).data("encuesta");
+                var periodo = $(this).data("periodo");
+                $.ajax({
+                    url: "/Admin/SendCorreoEncuesta",
+                    type: "POST",
+                    cache: false,
+                    data: { grupoEvaluadores: evaluadores, idEncuesta: id, nombreEncuesta: encuesta, periodo: periodo },
+                    dataType: "json"
+                }).done(function (data) {
+                    if (data) {
+                        $("#loading").hide();
+                        alert("Los correos se han enviado con éxito.")
+                    }
+                }).fail(function () {
+                    $("#loading").hide();
+                    alert('Error al intentar enviar los correos al Grupo de Evaluadores. Por favor, actualice la página o presione F5.');
+                });
+            });
+
+            $('#btnNuevaEncuesta').click(function () {
+                getPeriodos();
+                getGruposEvaluados();
+                $('#NombrePeriodo').hide();
+                $('#save-Descripcion').hide();
+                $('#close-Descripcion').hide();
+                $('#modal-Encuestaform').modal('show');
+            });
+            $('#add-Descripcion').click(function () {
+                $('#NombrePeriodo').val('');
+                $('#NombrePeriodo').show();
+                $('#save-Descripcion').show();
+                $('#close-Descripcion').show();
+                $('#NombrePeriodo').focus();
+            });
+            $('#save-Descripcion').click(function () {
+                $('#NombrePeriodo').hide();
+                $('#save-Descripcion').hide();
+                $('#close-Descripcion').hide();
+                savePeriodo($('#NombrePeriodo').val());
+            });
+            $('#close-Descripcion').click(function () {
+                $('#NombrePeriodo').hide();
+                $('#save-Descripcion').hide();
+                $('#close-Descripcion').hide();
+            });
+        });
+        function getPeriodos(id) {
+            $.ajax({
+                url: "/Admin/GetPeriodos",
+                type: "GET",
+                cache: false,
+                data: { AsSelectList: true },
+                dataType: "json"
+            }).done(function (data) {
+                var select = $("#IdPeriodo");
+                select.empty();
+                $.each(data, function (index, item) {
+                    select.append($('<option />', {
+                        value: item.IdPeriodo,
+                        text: item.Descripcion
+                    }));
+                });
+                if (id) select.val(id);
+            }).fail(function () {
+                alert('Error al intentar obtener el listado de Periodos. Por favor, actualice la página o presione F5.');
+            });
+        }
+        function getGruposEvaluados(id) {
+            $.ajax({
+                url: "/Admin/GetGruposEvaluados",
+                type: "GET",
+                cache: false,
+                data: { AsSelectList: true },
+                dataType: "json"
+            }).done(function (data) {
+                var select = $("#IdGrupoEvaluado");
+                select.empty();
+                $.each(data, function (index, item) {
+                    select.append($('<option />', {
+                        value: item.IdGrupoTrabajo,
+                        text: item.Nombre
+                    }));
+                });
+                if (id) select.val(id);
+            }).fail(function () {
+                alert('Error al intentar obtener el listado de Grupos de Evaluados. Por favor, actualice la página o presione F5.');
+            });
+        }
+        function savePeriodo(descripcion) {
+            $.ajax({
+                url: "/Admin/SavePeriodo",
+                type: "POST",
+                cache: false,
+                data: { descripcion: descripcion },
+                dataType: "json"
+            }).done(function (data) {
+                if (data != 0) getPeriodos(data);
+                else alert("Error al intentar guardar el Periodo. Por favor, actualice la página o presione F5.");
+            }).fail(function () {
+                alert("Error al intentar guardar el Periodo. Por favor, actualice la página o presione F5.");
+            });
+        }
+    </script>
+}
 
 @{
     ViewBag.Title = "Encuestas";
@@ -15,10 +126,11 @@
                     <h2>Encuestas</h2>
                     <div class="row m-b">
                         <div class="col-xs-12 col-md-12">
+                            @Html.Partial("_showAlertMessages")
                             <section class="panel panel-default">
                                 <header class="panel-heading font-bold">
                                     <div class="col-sm-12 m-b-lg">
-                                        <a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Nueva Encuesta</a>
+                                        <a id="btnNuevaEncuesta" class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-plus"></i> Nueva Encuesta</a>
                                     </div>
                                 </header>
                                 <div class="table-responsive">
@@ -58,7 +170,10 @@
                                                                 <a style="text-align: center; padding: 0 15px;" href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" data-toggle="tooltip" data-original-title="Editar encuesta">
                                                                     <i class="fa fa-pencil"></i>
                                                                 </a>
-                                                                <a href="@Url.Action("SendCorreo", new { idGrupo = obj.IdGrupoEvaluado, nombreEncuesta = obj.NombreEncuesta, periodo = obj.Periodo.Descripcion })" data-toggle="tooltip" data-original-title="Enviar encuesta">
+                                                                @*<a id="btnEnviarCorreo" href="@Url.Action("SendCorreoEncuesta", new { idGrupo = obj.IdGrupoEvaluado, nombreEncuesta = obj.NombreEncuesta, periodo = obj.Periodo.Descripcion })" data-toggle="tooltip" data-original-title="Enviar encuesta">
+                                                                        <i class="fa fa-envelope"></i>
+                                                                    </a>*@
+                                                                <a id="btnEnviarCorreo" data-toggle="tooltip" data-original-title="Enviar encuesta" data-id="@obj.IdEncuesta" data-gevaluador="@obj.StrGrupoEvaluador" data-encuesta="@obj.NombreEncuesta" data-periodo="@obj.Periodo.Descripcion">
                                                                     <i class="fa fa-envelope"></i>
                                                                 </a>
                                                             </td>
@@ -110,3 +225,54 @@
         </section>
     </aside>
 </section>
+<div id="loading" style="display:none;">
+    <img id="loading-image" src="../../Content/themes/admin/gif/loading.gif" alt="Loading..." />
+</div>
+<div class="modal fade" id="modal-Encuestaform">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Nueva Encuesta</h4>
+            </div>
+            @using (Html.BeginForm("AddEncuesta", "Admin", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="registro" class="col-sm-12 form-horizontal">
+                            <input type="hidden" id="IdEncuesta" name="IdEncuesta" />
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Periodo</label>
+                                <div class="col-lg-10 input-group">
+                                    <select id="IdPeriodo" name="IdPeriodo" class="form-control input-s"></select>
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-dark btn-icon btn-rounded" id="add-Descripcion" data-toggle="tooltip" data-placement="right" title="" data-original-title="Agregar Descripción Periodo">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" id="NombrePeriodo" name="NombrePeriodo" class="form-control input-s" style="display:none;" />
+                                    <button type="button" class="btn btn-dark btn-icon btn-rounded" style="display:none;" id="save-Descripcion" data-toggle="tooltip" data-placement="right" title="" data-original-title="Guardar">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-dark btn-icon btn-rounded" style="display:none;" id="close-Descripcion" data-toggle="tooltip" data-placement="right" title="" data-original-title="Cancelar">
+                                        <i class="fa fa-close"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Grupo</label>
+                                <div class="col-lg-10">
+                                    <select id="IdGrupoEvaluado" name="IdGrupoEvaluado" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" id="brnSaveEncuesta">Guardar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
