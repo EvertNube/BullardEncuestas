@@ -593,7 +593,11 @@ namespace BullardEncuestas.Controllers
             catch
             {
                 if (dto.IdGrupoTrabajo != 0) createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
-                else createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+                else
+                {
+                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
+                    return RedirectToAction("GrupoTrabajo");
+                }
             }
             TempData["GrupoTrabajo"] = dto;
             return RedirectToAction("GruposTrabajo");
