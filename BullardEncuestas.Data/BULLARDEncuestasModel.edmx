@@ -24,6 +24,7 @@
           <Property Name="IdPeriodo" Type="int" Nullable="false" />
           <Property Name="IdGrupoEvaluado" Type="int" />
           <Property Name="Estado" Type="bit" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="EncuestaEvaluador">
           <Key>
@@ -355,12 +356,6 @@
           <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_GetEncuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="SP_GetEncuestasReporte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="SP_GetEncuestasReporteSecciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdEncuesta" Type="int" Mode="In" />
-          <Parameter Name="IdPeriodo" Type="int" Mode="In" />
-          <Parameter Name="IdGrupoTrabajo" Type="int" Mode="In" />
-        </Function>
         <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -373,6 +368,10 @@
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_ReplicaEncuesta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdPeriodo" Type="int" Mode="In" />
+          <Parameter Name="IdGrupo" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="BULLARDEncuestasDbModelStoreContainer">
@@ -570,6 +569,10 @@
             <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
             <Parameter Name="IdGrupoTrabajo" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_ReplicaEncuesta">
+            <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+            <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="SP_GetEncuestas_Result">
           <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
@@ -603,6 +606,7 @@
           <NavigationProperty Name="EncuestaEvaluador" Relationship="BULLARD.EncuestasDbModel.FK_EncuestaEvaluador_Encuesta" FromRole="Encuesta" ToRole="EncuestaEvaluador" />
           <NavigationProperty Name="Seccion" Relationship="BULLARD.EncuestasDbModel.FK_Seccion_Encuesta" FromRole="Encuesta" ToRole="Seccion" />
           <NavigationProperty Name="GrupoTrabajo1" Relationship="BULLARD.EncuestasDbModel.GrupoEvaluador" FromRole="Encuesta" ToRole="GrupoTrabajo" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="EncuestaEvaluador">
           <Key>
@@ -968,6 +972,7 @@
           <EntitySetMapping Name="Encuesta">
             <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Encuesta">
               <MappingFragment StoreEntitySet="Encuesta">
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />
                 <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
@@ -1145,33 +1150,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="BULLARD.EncuestasDbModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="BULLARD.EncuestasDbModel.Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="SP_GetEncuestasReporte" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestasReporte">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetEncuestasReporte_Result">
-                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
-                <ScalarProperty Name="NombreEncuesta" ColumnName="NombreEncuesta" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
-                <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
-                <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
-                <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_GetEncuestasReporteSecciones" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestasReporteSecciones">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetEncuestasReporteSecciones_Result">
-                <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
-                <ScalarProperty Name="OrdenSeccion" ColumnName="OrdenSeccion" />
-                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
-                <ScalarProperty Name="OrdenPregunta" ColumnName="OrdenPregunta" />
-                <ScalarProperty Name="IdRespuestas" ColumnName="IdRespuestas" />
-                <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
-                <ScalarProperty Name="IdOpcion" ColumnName="IdOpcion" />
-                <ScalarProperty Name="Valor" ColumnName="Valor" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ReplicaEncuesta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_ReplicaEncuesta" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

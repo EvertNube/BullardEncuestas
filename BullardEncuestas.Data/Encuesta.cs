@@ -28,6 +28,7 @@ namespace BullardEncuestas.Data
         public int IdPeriodo { get; set; }
         public Nullable<int> IdGrupoEvaluado { get; set; }
         public bool Estado { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
     
         public virtual GrupoTrabajo GrupoTrabajo { get; set; }
         public virtual Periodo Periodo { get; set; }
