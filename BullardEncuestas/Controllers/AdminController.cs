@@ -234,7 +234,7 @@ namespace BullardEncuestas.Controllers
                     if (objBL.add(dto))
                     {
                         createResponseMessage(CONSTANTES.SUCCESS);
-                        return RedirectToAction("Encuesta", new { id = dto.IdEncuesta });
+                        return RedirectToAction("Index");
                     }
                     else
                         createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);

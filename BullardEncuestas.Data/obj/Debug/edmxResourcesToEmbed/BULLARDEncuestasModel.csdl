@@ -111,6 +111,10 @@
       <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
       <Parameter Name="IdGrupoTrabajo" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="SP_ReplicaEncuesta">
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+      <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SP_GetEncuestas_Result">
     <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
@@ -144,6 +148,7 @@
     <NavigationProperty Name="EncuestaEvaluador" Relationship="BULLARD.EncuestasDbModel.FK_EncuestaEvaluador_Encuesta" FromRole="Encuesta" ToRole="EncuestaEvaluador" />
     <NavigationProperty Name="Seccion" Relationship="BULLARD.EncuestasDbModel.FK_Seccion_Encuesta" FromRole="Encuesta" ToRole="Seccion" />
     <NavigationProperty Name="GrupoTrabajo1" Relationship="BULLARD.EncuestasDbModel.GrupoEvaluador" FromRole="Encuesta" ToRole="GrupoTrabajo" />
+    <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
   <EntityType Name="EncuestaEvaluador">
     <Key>
