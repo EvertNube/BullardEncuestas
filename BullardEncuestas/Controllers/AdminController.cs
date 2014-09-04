@@ -119,13 +119,7 @@ namespace BullardEncuestas.Controllers
         //    return Json(response, JsonRequestBehavior.AllowGet);
         //}
 
-        [HttpPost]
-        public ActionResult SendCorreoEncuesta(string grupoEvaluadores, int idEncuesta, string nombreEncuesta, string periodo)
-        {
-            EncuestaBL oBL = new EncuestaBL();
-            var response = oBL.SendMailGrupo(grupoEvaluadores, idEncuesta, nombreEncuesta, periodo);
-            return Json(response, JsonRequestBehavior.AllowGet);
-        }
+        
 
 
         [HttpPost]
@@ -206,16 +200,16 @@ namespace BullardEncuestas.Controllers
         public ActionResult Formulario()
         { return View(); }
 
-        public ActionResult LlenarEncuesta(int? idEncuesta, int? idGrupo, int? idEvaluador)
+        public ActionResult LlenarEncuesta(int? idEncuesta, int? idGrupoEvaluado, int? idEvaluador)
         {
             EncuestaEvaluadorBL oBL = new EncuestaEvaluadorBL();
             PersonaBL oPersonaBL = new PersonaBL();
             OpcionesRespuestaBL oOpcionesRespuestaBL = new OpcionesRespuestaBL();
-            ViewBag.Evaluados = oPersonaBL.getPersonasPorGrupo((int)idGrupo);
+            ViewBag.Evaluados = oPersonaBL.getPersonasPorGrupo((int)idGrupoEvaluado);
             ViewBag.Items_SelectSINO = oOpcionesRespuestaBL.getOpcionesRespuesta(3, true);
             var objSent = TempData["EncuestaEvaluador"];
             if (objSent != null) { TempData["EncuestaEvaluador"] = null; return View(objSent); }
-            if (idEncuesta != 0 && idGrupo != 0 && idEvaluador != 0)
+            if (idEncuesta != 0 && idGrupoEvaluado != 0 && idEvaluador != 0)
             {
                 var model = oBL.getEncuestaEvaluador((int)idEncuesta, (int)idEvaluador);
                 return View(model);
@@ -747,6 +741,13 @@ namespace BullardEncuestas.Controllers
         }
 
         #region APIS
+        [HttpPost]
+        public ActionResult SendCorreoEncuesta(string grupoEvaluadores, int idEncuesta, int idGrupoEvaluado, string nombreEncuesta, string periodo)
+        {
+            EncuestaBL oBL = new EncuestaBL();
+            var response = oBL.SendMailGrupo(grupoEvaluadores, idEncuesta, idGrupoEvaluado, nombreEncuesta, periodo);
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public ActionResult SavePeriodo(string descripcion)
         {

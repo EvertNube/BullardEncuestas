@@ -54,64 +54,64 @@ namespace BullardEncuestas.Core.BL
                         Nombre = r.Nombre,
                         Email = r.Email,
                         IdEmpresa = r.IdEmpresa,
-                        IdGrupoTrabajo = r.IdGrupoTrabajo,
+                        //IdGrupoTrabajo = r.IdGrupoTrabajo,
                         Estado = r.Estado,
                         Empresa = context.Empresa.Where(y => y.IdEmpresa == r.IdEmpresa).Select(w => new EmpresaDTO { IdEmpresa = (int)r.IdEmpresa, Nombre = r.Nombre, Estado = r.Estado }).FirstOrDefault(),
-                        GrupoTrabajo = context.GrupoTrabajo.Where(y => y.IdGrupoTrabajo == r.IdGrupoTrabajo).Select(w => new GrupoTrabajoDTO { IdGrupoTrabajo = (int)r.IdGrupoTrabajo, Nombre = r.Nombre, Estado = r.Estado }).FirstOrDefault()
+                        //GrupoTrabajo = context.GrupoTrabajo.Where(y => y.IdGrupoTrabajo == r.IdGrupoTrabajo).Select(w => new GrupoTrabajoDTO { IdGrupoTrabajo = (int)r.IdGrupoTrabajo, Nombre = r.Nombre, Estado = r.Estado }).FirstOrDefault()
                     }).SingleOrDefault();
                 return result;
             }
         }
-        public PersonaDTO getPersonaEvaluador(int id)
-        {
-            using (var context = getContext())
-            {
-                var result = context.Persona.Where(x => x.IdPersona == id)
-                    .Select(r => new PersonaDTO
-                    {
-                        IdPersona = r.IdPersona,
-                        Nombre = r.Nombre,
-                        Email = r.Email,
-                        IdEmpresa = (int)r.IdEmpresa,
-                        IdGrupoTrabajo = (int)r.IdGrupoTrabajo,
-                        Estado = r.Estado,
-                        listaEncuestaEvaluador = r.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == id).Select(x => new EncuestaEvaluadorDTO
-                        {
-                            IdEncuestaEvaluador = x.IdEncuestaEvaluador,
-                            IdEncuesta = x.IdEncuesta,
-                            IdEvaluador = x.IdEvaluador,
-                            CodEvaluador = x.CodEvaluador,
-                            EstadoEncuesta = x.EstadoEncuesta
-                        }).ToList()
-                    }).SingleOrDefault();
-                return result;
-            }
-        }
-        public PersonaDTO getPersonaEvaluada(int id)
-        {
-            using (var context = getContext())
-            {
-                var result = context.Persona.Where(x => x.IdPersona == id)
-                    .Select(r => new PersonaDTO
-                    {
-                        IdPersona = r.IdPersona,
-                        Nombre = r.Nombre,
-                        Email = r.Email,
-                        IdEmpresa = (int)r.IdEmpresa,
-                        IdGrupoTrabajo = (int)r.IdGrupoTrabajo,
-                        Estado = r.Estado,
-                        listaEncuestaEvaluado = r.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == id).Select(x => new EncuestaEvaluadorDTO
-                        {
-                            IdEncuestaEvaluador = x.IdEncuestaEvaluador,
-                            IdEncuesta = x.IdEncuesta,
-                            IdEvaluador = x.IdEvaluador,
-                            CodEvaluador = x.CodEvaluador,
-                            EstadoEncuesta = x.EstadoEncuesta
-                        }).ToList()
-                    }).SingleOrDefault();
-                return result;
-            }
-        }
+        //public PersonaDTO getPersonaEvaluador(int id)
+        //{
+        //    using (var context = getContext())
+        //    {
+        //        var result = context.Persona.Where(x => x.IdPersona == id)
+        //            .Select(r => new PersonaDTO
+        //            {
+        //                IdPersona = r.IdPersona,
+        //                Nombre = r.Nombre,
+        //                Email = r.Email,
+        //                IdEmpresa = (int)r.IdEmpresa,
+        //                IdGrupoTrabajo = (int)r.IdGrupoTrabajo,
+        //                Estado = r.Estado,
+        //                listaEncuestaEvaluador = r.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == id).Select(x => new EncuestaEvaluadorDTO
+        //                {
+        //                    IdEncuestaEvaluador = x.IdEncuestaEvaluador,
+        //                    IdEncuesta = x.IdEncuesta,
+        //                    IdEvaluador = x.IdEvaluador,
+        //                    CodEvaluador = x.CodEvaluador,
+        //                    EstadoEncuesta = x.EstadoEncuesta
+        //                }).ToList()
+        //            }).SingleOrDefault();
+        //        return result;
+        //    }
+        //}
+        //public PersonaDTO getPersonaEvaluada(int id)
+        //{
+        //    using (var context = getContext())
+        //    {
+        //        var result = context.Persona.Where(x => x.IdPersona == id)
+        //            .Select(r => new PersonaDTO
+        //            {
+        //                IdPersona = r.IdPersona,
+        //                Nombre = r.Nombre,
+        //                Email = r.Email,
+        //                IdEmpresa = (int)r.IdEmpresa,
+        //                IdGrupoTrabajo = (int)r.IdGrupoTrabajo,
+        //                Estado = r.Estado,
+        //                listaEncuestaEvaluado = r.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == id).Select(x => new EncuestaEvaluadorDTO
+        //                {
+        //                    IdEncuestaEvaluador = x.IdEncuestaEvaluador,
+        //                    IdEncuesta = x.IdEncuesta,
+        //                    IdEvaluador = x.IdEvaluador,
+        //                    CodEvaluador = x.CodEvaluador,
+        //                    EstadoEncuesta = x.EstadoEncuesta
+        //                }).ToList()
+        //            }).SingleOrDefault();
+        //        return result;
+        //    }
+        //}
         public bool add(PersonaDTO persona)
         {
             using (var context = getContext())
@@ -119,15 +119,15 @@ namespace BullardEncuestas.Core.BL
                 try
                 {
                     Persona nuevo = new Persona();
-                    nuevo.Nombre = persona.Nombre;
-                    nuevo.Email = persona.Email;
-                    if (persona.IdEmpresa == 0)
-                    { nuevo.IdEmpresa = null; }
-                    else { nuevo.IdEmpresa = persona.IdEmpresa; }
-                    if (persona.IdGrupoTrabajo == 0)
-                    { nuevo.IdGrupoTrabajo = null; }
-                    else { nuevo.IdGrupoTrabajo = persona.IdGrupoTrabajo; }
-                    nuevo.Estado = persona.Estado;
+                    //nuevo.Nombre = persona.Nombre;
+                    //nuevo.Email = persona.Email;
+                    //if (persona.IdEmpresa == 0)
+                    //{ nuevo.IdEmpresa = null; }
+                    //else { nuevo.IdEmpresa = persona.IdEmpresa; }
+                    //if (persona.IdGrupoTrabajo == 0)
+                    //{ nuevo.IdGrupoTrabajo = null; }
+                    //else { nuevo.IdGrupoTrabajo = persona.IdGrupoTrabajo; }
+                    //nuevo.Estado = persona.Estado;
                     context.Persona.Add(nuevo);
                     context.SaveChanges();
                     return true;
@@ -145,11 +145,11 @@ namespace BullardEncuestas.Core.BL
                 try
                 {
                     var person = context.Persona.Where(x => x.IdPersona == persona.IdPersona).SingleOrDefault();
-                    person.Nombre = persona.Nombre;
-                    person.Email = persona.Email;
-                    person.IdEmpresa = persona.IdEmpresa;
-                    person.IdGrupoTrabajo = persona.IdGrupoTrabajo;
-                    person.Estado = persona.Estado;
+                    //person.Nombre = persona.Nombre;
+                    //person.Email = persona.Email;
+                    //person.IdEmpresa = persona.IdEmpresa;
+                    //person.IdGrupoTrabajo = persona.IdGrupoTrabajo;
+                    //person.Estado = persona.Estado;
                     context.SaveChanges();
                     return true;
                 }
