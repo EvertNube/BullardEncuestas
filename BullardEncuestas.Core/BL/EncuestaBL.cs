@@ -73,9 +73,63 @@ namespace BullardEncuestas.Core.BL
                         NombreEvaluado = w.NombreEvaluado,
                         PromedioPreguntaXEvaluado = w.PromedioPreguntaXEvaluado
                     }
-                    ).ToList()
+                    ).ToList(),
+                    listaReportePersonas = context.SP_GetPersonasEnEncuesta(r.IdEncuesta, r.IdPeriodo, r.IdGrupoEvaluado)
+                    .Select(p => new PersonaDTO
+                    {
+                        IdPersona = p.IdPersona,
+                        Nombre = p.NombreEvaluado,
+                    }).ToList(),
+                    listaReportePreguntas = context.SP_GetPreguntasEnEncuesta(r.IdEncuesta, r.IdPeriodo, r.IdGrupoEvaluado)
+                    .Select(pre => new PreguntaDTO 
+                    {
+                        IdPregunta = pre.IdPregunta,
+                        Descripcion = pre.PreguntaDescrip
+                    }).ToList()
                     //GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.NombreGrupo }
                 }).ToList();
+
+                
+                foreach(EncuestaDTO item in result)
+                {
+                    //item.matrizReporteDetalle
+                    int numeroPreguntas = item.listaReportePreguntas.Count;
+                    int numeroPersonas = item.listaReportePersonas.Count;
+
+                    ItemMatriz [,] nuevaMatriz = new ItemMatriz[numeroPreguntas,numeroPersonas];
+                    for(int i=0; i<numeroPreguntas; i++)
+                    {
+                        for(int j=0; j<numeroPersonas; j++)
+                        {
+                            ItemMatriz nuevo = new ItemMatriz();
+
+                            nuevo.IdItemColumn = item.listaReportePersonas[j].IdPersona;
+                            nuevo.NombreItemColumn = item.listaReportePersonas[j].Nombre;
+                            nuevo.IdItemRow = item.listaReportePreguntas[i].IdPregunta;
+                            nuevo.NombreItemRow = item.listaReportePreguntas[i].Descripcion;
+                            nuevo.ValorItem = -1;
+
+                            nuevaMatriz[i, j] = nuevo;
+                        }
+                    }
+
+                    for (int i = 0; i < numeroPreguntas; i++)
+                    {
+                        for (int j = 0; j < numeroPersonas; j++)
+                        {
+                            foreach(ReporteDTO itemDetalle in item.listaReporteDetalle)
+                            {
+                                if(nuevaMatriz[i,j].IdItemColumn == itemDetalle.IdEvaluado && nuevaMatriz[i,j].IdItemRow == itemDetalle.IdPregunta)
+                                {
+                                    nuevaMatriz[i, j].ValorItem = itemDetalle.PromedioPreguntaXEvaluado;
+                                }
+                            }
+                        }
+                    }
+
+                    item.matrizReporteDetalle = nuevaMatriz;
+                }
+
                 return result;
             }
         }

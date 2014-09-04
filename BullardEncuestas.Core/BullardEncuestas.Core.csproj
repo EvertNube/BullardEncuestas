@@ -66,6 +66,7 @@
     <Compile Include="DTO\EncuestaDTO.cs" />
     <Compile Include="DTO\EncuestaEvaluadorDTO.cs" />
     <Compile Include="DTO\GrupoTrabajoDTO.cs" />
+    <Compile Include="DTO\ItemMatriz.cs" />
     <Compile Include="DTO\OpcionesRespuestaDTO.cs" />
     <Compile Include="DTO\PeriodoDTO.cs" />
     <Compile Include="DTO\PersonaDTO.cs" />

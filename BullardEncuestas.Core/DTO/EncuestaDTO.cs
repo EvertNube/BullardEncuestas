@@ -22,6 +22,9 @@ namespace BullardEncuestas.Core.DTO
         public List<ReporteDTO> listaReporteDetalle { get; set; }
         public List<PersonaDTO> listaReportePersonas { get; set; }
         public List<PreguntaDTO> listaReportePreguntas { get; set; }
+        //Matriz
+        public ItemMatriz[,] matrizReporteDetalle { get; set; }
+        //Matriz
         //Reportes
         public List<SeccionDTO> Secciones { get; set; }
         public List<int> GrupoEvaluador { get; set; }
