@@ -624,11 +624,13 @@ namespace BullardEncuestas.Controllers
 
             ViewBag.GruposTrabajo = gruposTrabajo;
             ViewBag.Empresas = Empresas;
+            ViewBag.GruposTrabajoPersona = new List<GrupoTrabajoDTO>();
 
             PersonaBL PersonaBL = new PersonaBL();
             if (id != null)
             {
                 PersonaDTO dto = PersonaBL.getPersona((int)id);
+                ViewBag.GruposTrabajoPersona = dto.GruposTrabajo;
                 return View(dto);
             }
             return View();

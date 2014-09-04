@@ -23,7 +23,7 @@ namespace BullardEncuestas.Core.BL
                     Nombre = x.Nombre,
                     Email = x.Email,
                     Estado = x.Estado,
-                    Empresa = new EmpresaDTO { Nombre = x.NombreEmpresa } 
+                    Empresa = new EmpresaDTO { Nombre = x.NombreEmpresa }
                 }).ToList();
                 return result;
             }
@@ -47,17 +47,15 @@ namespace BullardEncuestas.Core.BL
         {
             using (var context = getContext())
             {
-                var result = context.Persona.Where(x => x.IdPersona == id)
+                var result = context.Persona.Where(r => r.IdPersona == id)
                     .Select(r => new PersonaDTO
                     {
                         IdPersona = r.IdPersona,
                         Nombre = r.Nombre,
                         Email = r.Email,
                         IdEmpresa = r.IdEmpresa,
-                        //IdGrupoTrabajo = r.IdGrupoTrabajo,
                         Estado = r.Estado,
-                        Empresa = context.Empresa.Where(y => y.IdEmpresa == r.IdEmpresa).Select(w => new EmpresaDTO { IdEmpresa = (int)r.IdEmpresa, Nombre = r.Nombre, Estado = r.Estado }).FirstOrDefault(),
-                        //GrupoTrabajo = context.GrupoTrabajo.Where(y => y.IdGrupoTrabajo == r.IdGrupoTrabajo).Select(w => new GrupoTrabajoDTO { IdGrupoTrabajo = (int)r.IdGrupoTrabajo, Nombre = r.Nombre, Estado = r.Estado }).FirstOrDefault()
+                        GruposTrabajo = r.GrupoTrabajo.Select(w => new GrupoTrabajoDTO { IdGrupoTrabajo = w.IdGrupoTrabajo, Nombre = w.Nombre }).ToList()
                     }).SingleOrDefault();
                 return result;
             }
@@ -112,23 +110,18 @@ namespace BullardEncuestas.Core.BL
         //        return result;
         //    }
         //}
-        public bool add(PersonaDTO persona)
+        public bool add(PersonaDTO personaDTO)
         {
             using (var context = getContext())
             {
                 try
                 {
-                    Persona nuevo = new Persona();
-                    //nuevo.Nombre = persona.Nombre;
-                    //nuevo.Email = persona.Email;
-                    //if (persona.IdEmpresa == 0)
-                    //{ nuevo.IdEmpresa = null; }
-                    //else { nuevo.IdEmpresa = persona.IdEmpresa; }
-                    //if (persona.IdGrupoTrabajo == 0)
-                    //{ nuevo.IdGrupoTrabajo = null; }
-                    //else { nuevo.IdGrupoTrabajo = persona.IdGrupoTrabajo; }
-                    //nuevo.Estado = persona.Estado;
-                    context.Persona.Add(nuevo);
+                    Persona persona = new Persona();
+                    persona.Nombre = personaDTO.Nombre;
+                    persona.Email = personaDTO.Email;
+                    persona.Estado = personaDTO.Estado;
+                    persona.IdEmpresa = personaDTO.IdEmpresa != 0 ? personaDTO.IdEmpresa : null;                    
+                    context.Persona.Add(persona);
                     context.SaveChanges();
                     return true;
                 }

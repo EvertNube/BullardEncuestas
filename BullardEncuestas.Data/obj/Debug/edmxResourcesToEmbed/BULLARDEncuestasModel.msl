@@ -170,6 +170,7 @@
           <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
           <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />
           <ScalarProperty Name="StrGrupoEvaluador" ColumnName="StrGrupoEvaluador" />
         </ComplexTypeMapping>
       </ResultMapping>

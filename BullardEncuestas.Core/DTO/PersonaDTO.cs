@@ -20,6 +20,7 @@ namespace BullardEncuestas.Core.DTO
         public GrupoTrabajoDTO GrupoTrabajo { get; set; }
         public List<EncuestaEvaluadorDTO> listaEncuestaEvaluador { get; set; }
         public List<EncuestaEvaluadorDTO> listaEncuestaEvaluado { get; set; }
-        public List<int> GruposTrabajo { get; set; }
+        public List<int> ListaGruposTrabajo { get; set; }
+        public List<GrupoTrabajoDTO> GruposTrabajo { get; set; }
     }
 }

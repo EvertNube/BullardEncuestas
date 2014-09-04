@@ -417,6 +417,7 @@
     <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
     <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
     <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="IdGrupoEvaluado" Nullable="true" />
     <Property Type="String" Name="StrGrupoEvaluador" Nullable="true" />
   </ComplexType>
   <ComplexType Name="SP_GetEncuestas2_Result">
