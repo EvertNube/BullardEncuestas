@@ -4,35 +4,35 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e7a2c6c8f9f54516a6eb620c2710f491" Name="Diagram1">
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Empresa" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Encuesta" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.EncuestaEvaluador" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.GrupoTrabajo" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.OpcionesRespuesta" Width="1.5" PointX="7.5" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Periodo" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Persona" Width="1.5" PointX="7.5" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Pregunta" Width="1.5" PointX="7.5" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Respuestas" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Rol" Width="1.5" PointX="7.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Seccion" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.TipoRespuesta" Width="1.5" PointX="5.25" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Usuario" Width="1.5" PointX="10" PointY="1.875" IsExpanded="true" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Persona_Empresa" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Encuesta_GrupoTrabajo" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Encuesta_Periodo" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_EncuestaEvaluador_Encuesta" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Seccion_Encuesta" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_EncuestaEvaluador_Persona" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Respuestas_EncuestaEvaluador" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_OpcionesRespuesta_TipoRespuesta" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Respuestas_Evaluado" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Pregunta_Seccion" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Pregunta_TipoRespuesta" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Respuestas_Pregunta" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Usuario_Rol" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.GrupoEvaluador" ManuallyRouted="false" />
-        <AssociationConnector Association="BULLARD.EncuestasDbModel.PersonaGrupo" ManuallyRouted="false" />
+      <Diagram DiagramId="ee36168e233b43ca9c0562b26804b9ba" Name="Diagram1" >
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Empresa" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Encuesta" Width="1.5" PointX="3" PointY="4.625" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.EncuestaEvaluador" Width="1.5" PointX="9.75" PointY="4.375" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.GrupoTrabajo" Width="1.5" PointX="5.25" PointY="3.5" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.OpcionesRespuesta" Width="1.5" PointX="7.5" PointY="15.125" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Periodo" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Persona" Width="1.5" PointX="7.5" PointY="3.25" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Pregunta" Width="1.5" PointX="7.5" PointY="9.75" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Respuestas" Width="1.5" PointX="12" PointY="6.625" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Rol" Width="1.5" PointX="9.75" PointY="11.875" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Seccion" Width="1.5" PointX="5.25" PointY="9.75" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.TipoRespuesta" Width="1.5" PointX="5.25" PointY="14.125" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Usuario" Width="1.5" PointX="12" PointY="11.25" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Persona_Empresa" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Encuesta_GrupoTrabajo" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Encuesta_Periodo" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_EncuestaEvaluador_Encuesta" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Seccion_Encuesta" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_EncuestaEvaluador_Persona" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Respuestas_EncuestaEvaluador" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_OpcionesRespuesta_TipoRespuesta" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Respuestas_Evaluado" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Pregunta_Seccion" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Pregunta_TipoRespuesta" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Respuestas_Pregunta" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.FK_Usuario_Rol" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.GrupoEvaluador" />
+        <AssociationConnector Association="BULLARD.EncuestasDbModel.PersonaGrupo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
