@@ -50,6 +50,35 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
+        public IList<EncuestaDTO> getEncuestasReporte()//bool activeOnly = false
+        {
+            using (var context = getContext())
+            {
+                var result = context.SP_GetEncuestas2().Select(r => new EncuestaDTO
+                {
+                    IdEncuesta = r.IdEncuesta,
+                    NombreEncuesta = r.NombreEncuesta,
+                    Periodo = new PeriodoDTO { Descripcion = r.NombrePeriodo },
+                    GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.NombreGrupo },
+                    EstadoEncuesta = r.Estado,
+                    IdGrupoEvaluado = r.IdGrupoEvaluado,
+                    IdPeriodo = r.IdPeriodo,
+                    PromedioGeneral = r.PromedioGeneral,
+                    listaReporteDetalle = context.SP_GetEncuestasReporteDetalle2(r.IdEncuesta, r.IdPeriodo, r.IdGrupoEvaluado)
+                    .Select(w => new ReporteDTO
+                    {
+                        IdPregunta = w.IdPregunta,
+                        DescripPregunta = w.DescripPregunta,
+                        IdEvaluado = w.IdEvaluado,
+                        NombreEvaluado = w.NombreEvaluado,
+                        PromedioPreguntaXEvaluado = w.PromedioPreguntaXEvaluado
+                    }
+                    ).ToList()
+                    //GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.NombreGrupo }
+                }).ToList();
+                return result;
+            }
+        }
 
         public EncuestaDTO getEncuesta(int id)//bool activeOnly = false
         {

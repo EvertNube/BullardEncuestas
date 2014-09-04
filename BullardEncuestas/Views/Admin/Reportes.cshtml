@@ -41,25 +41,16 @@
                                                     </div>
                                                     <div id="@subseccion1" class="panel-collapse collapse in">
                                                         <div class="panel-body text-sm">
-                                                            @foreach (ReporteDTO reporteItem in ViewBag.ReportesEncuestas)
-                                                            {
-                                                                if (reporteItem.IdPeriodo == encuesta.IdPeriodo && reporteItem.IdGrupo == encuesta.IdGrupoEvaluado)
-                                                                {
+                                                            @if (encuesta.PromedioGeneral != null)
+                                                            {<p><b>Promedio General: </b>@encuesta.PromedioGeneral</p>}
+                                                            else
+                                                            {<p><b>Promedio General: </b>No existen datos suficientes para obtener un promedio general</p>}
 
-                                                                    <p><b>Promedio General: </b>@reporteItem.PromedioGeneral</p>
-                                                                    break;
-                                                                }
-                                                            }
                                                         </div>
-
-
-                                                        @*<div class="panel-body text-sm">
-                                                                Test
-                                                            </div>*@
                                                     </div>
                                                 </div>
                                             </div>
-                                            @*@{var subseccion2 = "sub2enc" + encuesta.IdEncuesta; }
+                                            @{var subseccion2 = "sub2enc" + encuesta.IdEncuesta; }
                                             <div class="panel-group m-b" id="accordionSub2">
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
@@ -67,24 +58,47 @@
                                                     </div>
                                                     <div id="@subseccion2" class="panel-collapse collapse in">
                                                         <div class="panel-body text-sm">
-                                                            Test
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <th>&nbsp;</th>
+                                                                            @{int nelePxE = encuesta.listaReporteDetalle.Count;}
+                                                                            @for(int i=0; i<nelePxE; i++)
+                                                                            {
+                                                                                if(i == 0)
+                                                                                {
+                                                                                    <th>
+                                                                                        <div class="rotate"><div><span>@encuesta.listaReporteDetalle[i].NombreEvaluado</span></div></div>
+                                                                                    </th>
+                                                                                }
+                                                                                else
+                                                                                {
+
+                                                                                }
+                                                                            }
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            @{var subseccion3 = "sub3enc" + encuesta.IdEncuesta; }
-                                            <div class="panel-group m-b" id="accordionSub3">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionSub3" href="#@subseccion3"> Puntaje por seccion</a>
-                                                    </div>
-                                                    <div id="@subseccion3" class="panel-collapse collapse in">
-                                                        <div class="panel-body text-sm">
-                                                            Test
+                                            @*
+                                                @{var subseccion3 = "sub3enc" + encuesta.IdEncuesta; }
+                                                <div class="panel-group m-b" id="accordionSub3">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionSub3" href="#@subseccion3"> Puntaje por seccion</a>
+                                                        </div>
+                                                        <div id="@subseccion3" class="panel-collapse collapse in">
+                                                            <div class="panel-body text-sm">
+                                                                Test
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>*@
+                                                </div>*@
                                         </div>
                                     </div>
                                 </div>

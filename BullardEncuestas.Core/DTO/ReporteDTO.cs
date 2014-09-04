@@ -16,10 +16,13 @@ namespace BullardEncuestas.Core.DTO
         public string NombrePeriodo { get; set; }
         public int IdGrupo { get; set; }
         public string NombreGrupo { get; set; }
+        //public decimal? PromedioGeneral { get; set; }
 
-        public decimal? PromedioGeneral { get; set; }
-        public List<DetalleEvaluadoDTO> ListaEvaluados { get; set; }
-        public List<ReporteSeccionValorDTO> ListaSeccionProm { get; set; }
+        public int IdPregunta { get; set; }
+        public string DescripPregunta { get; set; }
+        public int IdEvaluado { get; set; }
+        public string NombreEvaluado { get; set; }
+        public decimal? PromedioPreguntaXEvaluado { get; set; }
         public ReporteDTO reporteAnterior { get; set; }
         //s
     }

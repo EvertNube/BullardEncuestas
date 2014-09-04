@@ -739,7 +739,8 @@ namespace BullardEncuestas.Controllers
 
             ReporteBL reporteBL = new ReporteBL();
             ViewBag.ReportesEncuestas = reporteBL.ObtenerReportesEncuestas();
-            return View(encuestaBL.getEncuestas2());
+
+            return View(encuestaBL.getEncuestasReporte());
         }
 
         #region APIS

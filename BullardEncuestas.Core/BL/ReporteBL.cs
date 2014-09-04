@@ -27,7 +27,7 @@ namespace BullardEncuestas.Core.BL
                         NombrePeriodo = x.NombrePeriodo,
                         IdGrupo = x.IdGrupoTrabajo,
                         NombreGrupo = x.NombreGrupo,
-                        PromedioGeneral = x.PromedioGeneral
+                        //PromedioGeneral = x.PromedioGeneral
                         //s
                     }
                     ).ToList();
