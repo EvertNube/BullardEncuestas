@@ -145,6 +145,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\empty.gif" />
+    <Content Include="Content\images\facebook-64.png" />
+    <Content Include="Content\images\facebook.jpg" />
+    <Content Include="Content\images\footer_top.jpg" />
+    <Content Include="Content\images\header_bottom.jpg" />
+    <Content Include="Content\images\img2.jpg" />
+    <Content Include="Content\images\linkedin-64.png" />
+    <Content Include="Content\images\separator.jpg" />
+    <Content Include="Content\images\skype-64.png" />
     <Content Include="Content\js\Encuesta.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />

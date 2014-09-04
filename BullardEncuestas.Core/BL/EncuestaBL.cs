@@ -81,7 +81,7 @@ namespace BullardEncuestas.Core.BL
                         Nombre = p.NombreEvaluado,
                     }).ToList(),
                     listaReportePreguntas = context.SP_GetPreguntasEnEncuesta(r.IdEncuesta, r.IdPeriodo, r.IdGrupoEvaluado)
-                    .Select(pre => new PreguntaDTO 
+                    .Select(pre => new PreguntaDTO
                     {
                         IdPregunta = pre.IdPregunta,
                         Descripcion = pre.PreguntaDescrip
@@ -89,17 +89,17 @@ namespace BullardEncuestas.Core.BL
                     //GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.NombreGrupo }
                 }).ToList();
 
-                
-                foreach(EncuestaDTO item in result)
+
+                foreach (EncuestaDTO item in result)
                 {
                     //item.matrizReporteDetalle
                     int numeroPreguntas = item.listaReportePreguntas.Count;
                     int numeroPersonas = item.listaReportePersonas.Count;
 
-                    ItemMatriz [,] nuevaMatriz = new ItemMatriz[numeroPreguntas,numeroPersonas];
-                    for(int i=0; i<numeroPreguntas; i++)
+                    ItemMatriz[,] nuevaMatriz = new ItemMatriz[numeroPreguntas, numeroPersonas];
+                    for (int i = 0; i < numeroPreguntas; i++)
                     {
-                        for(int j=0; j<numeroPersonas; j++)
+                        for (int j = 0; j < numeroPersonas; j++)
                         {
                             ItemMatriz nuevo = new ItemMatriz();
 
@@ -117,9 +117,9 @@ namespace BullardEncuestas.Core.BL
                     {
                         for (int j = 0; j < numeroPersonas; j++)
                         {
-                            foreach(ReporteDTO itemDetalle in item.listaReporteDetalle)
+                            foreach (ReporteDTO itemDetalle in item.listaReporteDetalle)
                             {
-                                if(nuevaMatriz[i,j].IdItemColumn == itemDetalle.IdEvaluado && nuevaMatriz[i,j].IdItemRow == itemDetalle.IdPregunta)
+                                if (nuevaMatriz[i, j].IdItemColumn == itemDetalle.IdEvaluado && nuevaMatriz[i, j].IdItemRow == itemDetalle.IdPregunta)
                                 {
                                     nuevaMatriz[i, j].ValorItem = itemDetalle.PromedioPreguntaXEvaluado;
                                 }
@@ -190,22 +190,6 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
-        /*public void SendMailGrupo(int idGrupo, string nombreEncuesta, string periodo)
-        {
-            string to = string.Empty, copy = string.Empty, subject = string.Empty, body = string.Empty;
-            PersonaBL oBL = new PersonaBL();
-            var personas = oBL.getPersonasPorGrupo(idGrupo);
-            string host = getHost();
-            foreach (var item in personas)
-            {
-                var link = host + "/Admin/EncuestaEncuestador/" + item.IdPersona;
-                subject = "Encuesta : " + nombreEncuesta;
-                body = "Estimado " + item.Nombre + ",<br/>se ha abierto la encuesta " + nombreEncuesta + " para el Periodo " + periodo +
-                    ", sirvase a contestar la encuesta a traves de este enlace:<br/>" + link + "Atentamente,<br/>La Administración.";
-                to = item.Email;
-                MailHandler.Send(to, copy, subject, body);
-            }
-        }*/
         public bool SendMailGrupo(string grupoEvaluadores, int idEncuesta, int idGrupoEvaluado, string nombreEncuesta, string periodo)
         {
             try
@@ -219,11 +203,12 @@ namespace BullardEncuestas.Core.BL
                     string host = getHost();
                     foreach (var persona in personas)
                     {
-                        var link = host + "/Admin/LlenarEncuesta?idEncuesta=" + idEncuesta + "&idGrupoEvaluado=" + idGrupoEvaluado + "&idEvaluador=" + persona.IdPersona;
-                        subject = "Encuesta : " + nombreEncuesta;
-                        body = "Estimado " + persona.Nombre + ",<br/>se ha abierto la encuesta " + nombreEncuesta + " para el Periodo " + periodo +
-                        ", sirvase a contestar la encuesta a traves de este enlace:<br/>" + link + "<br/>Atentamente,<br/>La Administración.";
                         to = persona.Email;
+                        subject = "Encuesta : " + nombreEncuesta;
+                        var link = host + "/Admin/LlenarEncuesta?idEncuesta=" + idEncuesta + "&idGrupoEvaluado=" + idGrupoEvaluado + "&idEvaluador=" + persona.IdPersona;
+                        //body = "Estimado " + persona.Nombre + ",<br/>se ha abierto la encuesta " + nombreEncuesta + " para el Periodo " + periodo +
+                        //", sirvase a contestar la encuesta a traves de este enlace:<br/>" + link + "<br/>Atentamente,<br/>La Administración.";
+                        body = cuerpoCorreo(persona.Nombre, nombreEncuesta, periodo, link);
                         MailHandler.Send(to, copy, subject, body);
                     }
                 }
@@ -288,6 +273,139 @@ namespace BullardEncuestas.Core.BL
                     return false;
                 }
             }
+        }
+
+        private string cuerpoCorreo(string NombrePersona, string NombreEncuesta, string Periodo, string Link)
+        {
+            var body = "<html xmlns='http://www.w3.org/1999/xhtml'>" +
+"<head>" +
+    "<meta http-equiv='Content-type' content='text/html; charset=utf-8' />" +
+    "<meta content='telephone=no' name='format-detection' />" +
+    "<title>Email Template</title>" +
+    "<style type='text/css' media='screen'>" +
+        "body { padding:0 !important; margin:0 !important; display:block !important; background:#ffffff; -webkit-text-size-adjust:none }" +
+        "a { color:#00b8e4; text-decoration:underline }" +
+        "h3 a { color:#1f1f1f; text-decoration:none }" +
+        ".text2 a { color:#ea4261; text-decoration:none }" +
+        "p { padding:0 !important; margin:0 !important } " +
+    "</style>" +
+"</head>" +
+
+"<body class='body' style='padding:0 !important; margin:0 !important; display:block !important; background:#ffffff; -webkit-text-size-adjust:none'>" +
+
+"<table width='100%' border='0' cellspacing='0' cellpadding='0' bgcolor='#ffffff'>" +
+    "<tr>" +
+        "<td align='center' valign='top'>" +
+            "<table width='800' border='0' cellspacing='0' cellpadding='0'>" +
+                "<tr>" +
+                    "<td align='center' bgcolor='#0082c9'>" +
+                        "<table width='620' border='0' cellspacing='0' cellpadding='0'>" +
+                            "<tr>" +
+                                "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left'><a href='www.bullardabogados.pe' target='_blank'><img src='http://54.186.226.155:75/Content/themes/admin/images/bullard.jpg' alt='' border='0' height='52' /></a></td>" +
+                                "<td align='right'>" +
+                                    "<table border='0' cellspacing='0' cellpadding='0'>" +
+                                        "<tr>" +
+                                            "<td class='top' style='color:#ea4261; font-family:Tahoma; font-size:12px; line-height:18px; text-align:left'><a class='link-top' style='color:#ffffff; text-decoration:underline' target='_blank' href='www.bullardabogados.pe'>bullardabogados.pe</a></td>" +
+                                            "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left' width='10'></td>" +
+                                        "</tr>" +
+                                    "</table>" +
+                                "</td>" +
+                            "</tr>" +
+                        "</table>" +
+                    "</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td>" +
+                        "<table width='100%' border='0' cellspacing='0' cellpadding='0'>" +
+                            "<tr>" +
+                                "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left' width='90'></td>" +
+                                "<td>" +
+                                    "<div style='font-size:0pt; line-height:0pt; height:30px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='30' style='height:30px' alt='' /></div>" +
+                                    "<div>" +
+                                        "<div class='h2' style='color:#1f1f1f; font-family:Tahoma; font-size:20px; line-height:24px; text-align:center; font-weight:bold'>" +
+                                            "<div>BFE - ENCUESTAS</div>" +
+                                        "</div>" +
+                                        "<div style='font-size:0pt; line-height:0pt; height:10px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='10' style='height:10px' alt='' /></div>" +
+                                        "<div class='text-left' style='color:#868686; font-family:Tahoma; font-size:14px; line-height:18px; text-align:left'>" +
+                                            "<div>Hola " + NombrePersona + ",<br />" +
+                                            "Se ha abierto la encuesta " + NombreEncuesta + " para el período " + Periodo + ".<br />¡Nos encantaría conocer tu opinión! Por favor, contesta la encuesta a través de este enlace.</div>" +
+                                        "</div>" +
+                                        "<div style='font-size:0pt; line-height:0pt; height:35px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='35' style='height:35px' alt='' /></div>" +
+                                    "</div>" +
+                                    "<div>" +
+                                        "<table width='100%' border='0' cellspacing='0' cellpadding='0'>" +
+                                            "<tr>" +
+                                                "<td valign='top' width='130'>" +
+                                                "<div></div>" +
+                                                    "<div class='img-center' style='font-size:0pt; line-height:0pt; text-align:center'><a href='" + Link + "' target='_blank'><img src='http://54.186.226.155:75/Content/images/img2.jpg' alt='' border='0' width='109' height='109' /></a></div>" +
+                                                    "<div style='font-size:0pt; line-height:0pt; height:30px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='30' style='height:30px' alt='' /></div>" +
+                                                    "<div class='h3' style='color:#1f1f1f; font-family:Tahoma; font-size:16px; line-height:20px; text-align:center; font-weight:normal'>" +
+                                                        "<div><a href='" + Link + "' target='_blank'>" + NombreEncuesta + "</a></div>" +
+                                                    "</div>" +
+                                                    "<div style='font-size:0pt; line-height:0pt; height:15px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='15' style='height:15px' alt='' /></div>" +
+                                                    "<div class='text2-center' style='color:#bebebe; font-family:Tahoma; font-size:12px; line-height:18px; text-align:center'>" +
+                                                        "<div></div>" +
+                                                    "</div>" +
+                                                "</td>" +
+                                            "</tr>" +
+                                        "</table>" +
+                                        "<div style='font-size:0pt; line-height:0pt; height:10px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='10' style='height:10px' alt='' /></div>" +
+                                    "</div>" +
+                                    "<div>" +
+                                        "<div style='font-size:0pt; line-height:0pt; height:20px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='20' style='height:20px' alt='' /></div>" +
+                                        "<div class='img' style='font-size:0pt; line-height:0pt; text-align:left'><a href='#' target='_blank'><img src='http://54.186.226.155:75/Content/images/separator.jpg' alt='' border='0' width='620' height='13' /></a></div>" +
+                                    "</div>" +
+                                    "<div>" +
+                                        "<div style='font-size:0pt; line-height:0pt; height:35px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='35' style='height:35px' alt='' /></div>" +
+                                    "</div>" +
+                                "</td>" +
+                                "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left' width='90'></td>" +
+                            "</tr>" +
+                        "</table>" +
+                    "</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td>" +
+                        "<div class='img' style='font-size:0pt; line-height:0pt; text-align:left'><img src='http://54.186.226.155:75/Content/images/footer_top.jpg' alt='' border='0' width='800' height='10' /></div>" +
+                        "<table width='100%' border='0' cellspacing='0' cellpadding='0' bgcolor='#eeefec'>" +
+                            "<tr>" +
+                                "<td>" +
+                                    "<div style='font-size:0pt; line-height:0pt; height:12px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='12' style='height:12px' alt='' /></div>" +
+                                    "<table width='100%' border='0' cellspacing='0' cellpadding='0'>" +
+                                        "<tr>" +
+                                            "<td align='center'>" +
+                                                "<table border='0' cellspacing='0' cellpadding='0'>" +
+                                                    "<tr>" +
+                                                        "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left'><a href='www.facebook.com/bullardfallaezcurra' target='_blank'><img src='http://54.186.226.155:75/Content/images/facebook-64.png' alt='' border='0' width='43' height='43' /></a></td>" +
+                                                        "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left' width='7'></td>" +
+                                                        "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left'><a href='#' target='_blank'><img src='http://54.186.226.155:75/Content/images/linkedin-64.png' alt='' border='0' width='43' height='43' /></a></td>" +
+                                                        "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left' width='7'></td>" +
+                                                        "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left'><a href='#' target='_blank'><img src='http://54.186.226.155:75/Content/images/skype-64.png' alt='' border='0' width='43' height='43' /></a></td>" +
+                                                    "</tr>" +
+                                                "</table>" +
+                                            "</td>" +
+                                        "</tr>" +
+                                    "</table>" +
+                                    "<div style='font-size:0pt; line-height:0pt; height:30px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='30' style='height:30px' alt='' /></div>" +
+                                    "<div class='footer' style='color:#a9aaa9; font-family:Arial; font-size:11px; line-height:20px; text-align:center'>" +
+                                        "<div>" +
+                                            "Copyright &copy; <span>2014</span> <span>Estudio Bulard Falla Ezcurra +</span>.<br />" +
+                                            "Diseñado por <a href='www.nube.la'>Nube Labs</a>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div style='font-size:0pt; line-height:0pt; height:25px'><img src='images/empty.gif' width='1' height='25' style='height:25px' alt='' /></div>" +
+                                "</td>" +
+                            "</tr>" +
+                        "</table>" +
+                    "</td>" +
+                "</tr>" +
+            "</table>" +
+        "</td>" +
+    "</tr>" +
+"</table>" +
+"</body>" +
+"</html>";
+            return body;
         }
 
     }
