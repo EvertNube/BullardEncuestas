@@ -143,7 +143,6 @@ namespace BullardEncuestas.Core.BL
                         MailHandler.Send(to, copy, subject, body);
                     }
                 }
-                
                 return true;
             }
             catch (Exception)
