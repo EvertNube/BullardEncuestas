@@ -33,13 +33,13 @@ namespace BullardEncuestas.Core.BL
             using (var context = getContext())
             {
                 var result = context.Persona.Select(x => new PersonaDTO
-                    {
-                        IdPersona = x.IdPersona,
-                        Nombre = x.Nombre,
-                        Email = x.Email,
-                        Estado = x.Estado,
-                        Empresa = new EmpresaDTO { Nombre = x.Empresa.Nombre }
-                    }).ToList();
+                {
+                    IdPersona = x.IdPersona,
+                    Nombre = x.Nombre,
+                    Email = x.Email,
+                    Estado = x.Estado,
+                    Empresa = new EmpresaDTO { Nombre = x.Empresa.Nombre }
+                }).ToList();
                 return result;
             }
         }
@@ -120,13 +120,12 @@ namespace BullardEncuestas.Core.BL
                     persona.Nombre = personaDTO.Nombre;
                     persona.Email = personaDTO.Email;
                     persona.Estado = personaDTO.Estado;
-                    persona.IdEmpresa = personaDTO.IdEmpresa != 0 ? personaDTO.IdEmpresa : null;                    
+                    persona.IdEmpresa = personaDTO.IdEmpresa != 0 ? personaDTO.IdEmpresa : null;
                     context.Persona.Add(persona);
-                    foreach (var grupo in personaDTO.ListaGruposTrabajo)
+                    foreach (var group in personaDTO.ListaGruposTrabajo)
                     {
-                        GrupoTrabajo grupoTrabajo = new GrupoTrabajo();
-                        grupoTrabajo.IdGrupoTrabajo = grupo;
-                        persona.GrupoTrabajo.Add(grupoTrabajo);
+                        var grupo = context.GrupoTrabajo.Where(x => x.IdGrupoTrabajo == group).SingleOrDefault();
+                        persona.GrupoTrabajo.Add(grupo);
                     }
                     context.SaveChanges();
                     return true;

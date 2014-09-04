@@ -1,4 +1,52 @@
-﻿@model BullardEncuestas.Core.DTO.PersonaDTO
+﻿@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#add-grupo").click(function () {
+                var existe = false;
+                var val = $('#GrupoTrabajo :selected').val();
+                if (val > 0) {
+                    var text = $('#GrupoTrabajo :selected').text();
+                    $('#ListaGruposTrabajo option').each(function () {
+                        if ($(this).val() == val) existe = true;
+                    });
+                    if (!existe) {
+                        $('#ListaGruposTrabajo').append($('<option>', {
+                            value: val,
+                            text: text
+                        }));
+                        $('#GrupoTrabajo :selected').remove();
+                    } else {
+                        alert("No se puede agregar el grupo " + text + ", porque ya se encuentra agregado.");
+                    }
+                } else {
+                    alert("Por favor, seleccione un grupo válido.");
+                }
+            });
+            $("#remove-grupo").click(function () {
+                var val = $('#ListaGruposTrabajo :selected').val();
+                if (val) {
+                    var text = $('#ListaGruposTrabajo :selected').text();
+                    $('#GrupoTrabajo').append($('<option>', {
+                        value: val,
+                        text: text
+                    }));
+                    $("select#GrupoTrabajo").html($("select#GrupoTrabajo option").sort(function (a, b) {
+                        return a.text == b.text ? 0 : a.value > b.value ? 1 : -1;
+                    }));
+                    $('#ListaGruposTrabajo :selected').remove();
+                }
+            });
+        });
+        $("#btnSavePersona").click(function () {
+            var values = [];
+            $('#ListaGruposTrabajo option').each(function () {
+                values.push($(this).val());
+            });
+            $("#ListaGruposTrabajo").val(values);
+        });
+    </script>
+}
+@model BullardEncuestas.Core.DTO.PersonaDTO
 @{
     ViewBag.Title = "Persona";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -38,7 +86,7 @@
                                     <div class="form-group">
                                         <label>Grupo de Trabajo</label>
                                         @*@Html.DropDownListFor(u => u.IdGrupoTrabajo, new SelectList(ViewBag.GruposTrabajo, "IdGrupoTrabajo", "Nombre"), new { @class = "form-control parsley-validated" })
-                                        @Html.ValidationMessageFor(u => u.IdGrupoTrabajo)*@
+                                            @Html.ValidationMessageFor(u => u.IdGrupoTrabajo)*@
                                         <div class="input-group">
                                             @Html.DropDownList("GrupoTrabajo", new SelectList(ViewBag.GruposTrabajo, "IdGrupoTrabajo", "Nombre"), new { @class = "form-control" })
                                             <div class="input-group-btn">
@@ -73,7 +121,7 @@
                                     <div class="line line-dashed line-lg pull-in"></div>
                                     @Html.TextBoxFor(u => u.IdPersona, new { @value = Model != null ? Model.IdPersona.ToString() : "", @type = "hidden" })
                                     @{var btnName = (Model != null && Model.IdPersona > 0) ? "Guardar Cambios" : "Crear";}
-                                    <button type="submit" class="btn btn-sm btn-primary">@btnName</button>
+                                    <button type="submit" id="btnSavePersona" class="btn btn-sm btn-primary">@btnName</button>
                                     @if (ViewBag.EsAdmin)
                                     {
                                         <a class="btn btn-sm btn-danger" href="@Url.Action("GruposTrabajo")">Salir</a>
