@@ -247,7 +247,7 @@ namespace BullardEncuestas.Core.BL
                     encuesta.Nombre = encuestaDTO.NombreEncuesta;
                     encuesta.Instrucciones = encuestaDTO.Instrucciones;
                     encuesta.Leyenda = encuestaDTO.Leyenda;
-                    encuesta.IdPeriodo = encuestaDTO.IdPeriodo;
+                    //encuesta.IdPeriodo = encuestaDTO.IdPeriodo;
                     encuesta.IdGrupoEvaluado = encuestaDTO.IdGrupoEvaluado;
                     encuesta.Estado = encuestaDTO.EstadoEncuesta;
                     var oldGrupos = encuesta.GrupoTrabajo1.Select(x => x.IdGrupoTrabajo).ToList();
