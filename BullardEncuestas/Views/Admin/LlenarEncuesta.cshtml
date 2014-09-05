@@ -13,6 +13,9 @@
                 var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
 
                 var encuestaEvaluadorDTO = {
+                    IdEncuestaEvaluador: $("#IdEncuestaEvaluador"),
+                    IdEncuesta: $("#IdEncuesta"),
+                    IdEvaluador: $("#IdEvaluador"),
                     listaIdRespuestas: listaIdRespuestas,
                     listaPreguntas: listaPreguntas,
                     listaEvaluados: listaEvaluados,
@@ -21,13 +24,13 @@
 
                 $.ajax({
                     url: "/Admin/AddEncuestaEvaluador",
-                    type: "GET",
+                    type: "POST",
                     cache: false,
                     data: { dto: JSON.stringify(encuestaEvaluadorDTO) },
                     dataType: "json"
                 }).done(function (data) {
                     if (data) {
-                        alert("Los datos ");
+                        alert("La encuesta se ha guardado correctamente");
                     }
                 }).fail(function () {
                     alert('Error al intentar obtener el listado de Tipos de Respuesta. Por favor, actualice la página o presione F5.');
@@ -118,9 +121,9 @@
                                                                                                     break;
                                                                                                 default: break;
                                                                                             }
-                                                                                            @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0) })
-                                                                                            @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta })
-                                                                                            @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona })
+                                                                                            @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0), @class = "listaIdRespuestas" })
+                                                                                            @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta, @class = "listaPreguntas" })
+                                                                                            @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona, @class = "listaEvaluados" })
                                                                                         </td>
                                                                                     }
                                                                                 </tr>
@@ -166,9 +169,9 @@
                                                                                                                             break;
                                                                                                                         default: break;
                                                                                                                     }
-                                                                                                                    @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0) })
-                                                                                                                    @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta })
-                                                                                                                    @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona })
+                                                                                                                    @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0), @class = "listaIdRespuestas" })
+                                                                                                                    @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta, @class = "listaPreguntas" })
+                                                                                                                    @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona, @class = "listaEvaluados" })
                                                                                                                 </td>
                                                                                                             }
                                                                                                         </tr>
