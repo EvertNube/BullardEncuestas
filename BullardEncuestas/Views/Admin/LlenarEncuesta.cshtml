@@ -11,7 +11,6 @@
                 var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
                 var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
                 var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
-
                 var encuestaEvaluadorDTO = {
                     IdEncuestaEvaluador: $("#IdEncuestaEvaluador"),
                     IdEncuesta: $("#IdEncuesta"),
@@ -21,19 +20,47 @@
                     listaEvaluados: listaEvaluados,
                     listaRespuestas: listaRespuestas
                 };
-
                 $.ajax({
                     url: "/Admin/SaveEncuestaEvaluador",
                     type: "POST",
                     cache: false,
-                    data: { dto: JSON.stringify(encuestaEvaluadorDTO) },
+                    data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
                     dataType: "json"
                 }).done(function (data) {
                     if (data) {
                         alert("La encuesta se ha guardado correctamente.");
                     }
                 }).fail(function () {
-                    alert('Error al intentar obtener el listado de Tipos de Respuesta. Por favor, actualice la página o presione F5.');
+                    alert('Error al intentar guardar la Encuesta. Por favor, actualice la página o presione F5.');
+                });
+            });
+
+            $("#btnEnviar").click(function () {
+                var listaIdRespuestas = []; $('.listaIdRespuestas').each(function (index, item) { var value = item.value; listaIdRespuestas.push(value); });
+                var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
+                var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
+                var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
+                var encuestaEvaluadorDTO = {
+                    IdEncuestaEvaluador: $("#IdEncuestaEvaluador"),
+                    IdEncuesta: $("#IdEncuesta"),
+                    IdEvaluador: $("#IdEvaluador"),
+                    listaIdRespuestas: listaIdRespuestas,
+                    listaPreguntas: listaPreguntas,
+                    listaEvaluados: listaEvaluados,
+                    listaRespuestas: listaRespuestas
+                };
+                $.ajax({
+                    url: "/Admin/SendEncuestaEvaluador",
+                    type: "POST",
+                    cache: false,
+                    data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
+                    dataType: "json"
+                }).done(function (data) {
+                    if (data) {
+                        alert("La encuesta se ha guardado correctamente.");
+                    }
+                }).fail(function () {
+                    alert('Error al intentar guardar la Encuesta. Por favor, actualice la página o presione F5.');
                 });
             });
         });
@@ -41,7 +68,7 @@
             $("#Accion").val(action);
         }
     </script>
-    }
+}
 @{
     if (Model == null)
     {
