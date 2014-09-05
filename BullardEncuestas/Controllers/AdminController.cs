@@ -207,11 +207,19 @@ namespace BullardEncuestas.Controllers
             OpcionesRespuestaBL oOpcionesRespuestaBL = new OpcionesRespuestaBL();
             ViewBag.Evaluados = oPersonaBL.getPersonasPorGrupo((int)idGrupoEvaluado);
             ViewBag.Items_SelectSINO = oOpcionesRespuestaBL.getOpcionesRespuesta(3, true);
-            var objSent = TempData["EncuestaEvaluador"];
-            if (objSent != null) { TempData["EncuestaEvaluador"] = null; return View(objSent); }
-            if (idEncuesta != 0 && idGrupoEvaluado != 0 && idEvaluador != 0)
+            var objSent = (EncuestaEvaluadorDTO)TempData["EncuestaEvaluador"];
+            if (objSent != null) { 
+                TempData["EncuestaEvaluador"] = null; 
+                objSent.IdGrupoEvaluado = idGrupoEvaluado ?? 0;
+                objSent.Encuesta = (EncuestaDTO)TempData["Encuesta_"];
+                return View(objSent);
+            }
+            
+            if (idEncuesta != 0 && idEvaluador != 0)
             {
                 var model = oBL.getEncuestaEvaluador((int)idEncuesta, (int)idEvaluador);
+                model.IdGrupoEvaluado = idGrupoEvaluado ?? 0;
+                TempData["Encuesta_"] = model.Encuesta;
                 return View(model);
             }
             return View();
@@ -341,12 +349,13 @@ namespace BullardEncuestas.Controllers
                 if (dto.Accion == 1)
                 {
                     //Save
+                    TempData["EncuestaEvaluador"] = dto;
                     if (dto.IdEncuestaEvaluador == 0)
                     {
                         if (objBL.add(dto))
                         {
                             createResponseMessage(CONSTANTES.SUCCESS);
-                            return RedirectToAction("LlenarEncuesta");
+                            return RedirectToAction("LlenarEncuesta", new { idGrupoEvaluado = dto.IdGrupoEvaluado, idEncuesta = dto.IdEncuesta, idEvaluador = dto.IdEvaluador });
                         }
                     }
                     else if (dto.IdEncuestaEvaluador != 0)
@@ -354,7 +363,7 @@ namespace BullardEncuestas.Controllers
                         if (objBL.update(dto))
                         {
                             createResponseMessage(CONSTANTES.SUCCESS);
-                            return RedirectToAction("LlenarEncuesta");
+                            return RedirectToAction("LlenarEncuesta", new { idGrupoEvaluado = dto.IdGrupoEvaluado, idEncuesta = dto.IdEncuesta, idEvaluador = dto.IdEvaluador });
                         }
                         else
                             createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);

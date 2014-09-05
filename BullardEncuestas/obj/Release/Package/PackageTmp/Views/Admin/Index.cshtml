@@ -7,15 +7,16 @@
         $(document).ready(function () {
             $('#btnEnviarCorreo').click(function () {
                 $("#loading").show();
-                var evaluadores = $(this).data("gevaluador");
                 var id = $(this).data("id");
+                var gevaluado = $(this).data("gevaluado");
                 var encuesta = $(this).data("encuesta");
                 var periodo = $(this).data("periodo");
+                var evaluadores = $(this).data("gevaluador");
                 $.ajax({
                     url: "/Admin/SendCorreoEncuesta",
                     type: "POST",
                     cache: false,
-                    data: { grupoEvaluadores: evaluadores, idEncuesta: id, nombreEncuesta: encuesta, periodo: periodo },
+                    data: { grupoEvaluadores: evaluadores, idEncuesta: id, idGrupoEvaluado: gevaluado, nombreEncuesta: encuesta, periodo: periodo },
                     dataType: "json"
                 }).done(function (data) {
                     if (data) {
@@ -173,7 +174,7 @@
                                                                 @*<a id="btnEnviarCorreo" href="@Url.Action("SendCorreoEncuesta", new { idGrupo = obj.IdGrupoEvaluado, nombreEncuesta = obj.NombreEncuesta, periodo = obj.Periodo.Descripcion })" data-toggle="tooltip" data-original-title="Enviar encuesta">
                                                                         <i class="fa fa-envelope"></i>
                                                                     </a>*@
-                                                                <a id="btnEnviarCorreo" data-toggle="tooltip" data-original-title="Enviar encuesta" data-id="@obj.IdEncuesta" data-gevaluador="@obj.StrGrupoEvaluador" data-encuesta="@obj.NombreEncuesta" data-periodo="@obj.Periodo.Descripcion">
+                                                                <a id="btnEnviarCorreo" data-toggle="tooltip" data-original-title="Enviar encuesta" data-id="@obj.IdEncuesta" data-gevaluado="@obj.IdGrupoEvaluado" data-gevaluador="@obj.StrGrupoEvaluador" data-encuesta="@obj.NombreEncuesta" data-periodo="@obj.Periodo.Descripcion">
                                                                     <i class="fa fa-envelope"></i>
                                                                 </a>
                                                             </td>
