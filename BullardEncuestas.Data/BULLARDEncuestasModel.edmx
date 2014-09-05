@@ -18,11 +18,13 @@
             <PropertyRef Name="IdEncuesta" />
           </Key>
           <Property Name="IdEncuesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdGrupoEvaluado" Type="int" />
+          <Property Name="IdPeriodo" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Instrucciones" Type="nvarchar" MaxLength="250" />
           <Property Name="Leyenda" Type="nvarchar" MaxLength="250" />
-          <Property Name="IdPeriodo" Type="int" Nullable="false" />
-          <Property Name="IdGrupoEvaluado" Type="int" />
+          <Property Name="FechaInicio" Type="date" Nullable="false" />
+          <Property Name="FechaCierre" Type="date" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
         </EntityType>
@@ -661,6 +663,8 @@
           <NavigationProperty Name="EncuestaEvaluador" Relationship="BULLARD.EncuestasDbModel.FK_EncuestaEvaluador_Encuesta" FromRole="Encuesta" ToRole="EncuestaEvaluador" />
           <NavigationProperty Name="Seccion" Relationship="BULLARD.EncuestasDbModel.FK_Seccion_Encuesta" FromRole="Encuesta" ToRole="Seccion" />
           <NavigationProperty Name="GrupoTrabajo1" Relationship="BULLARD.EncuestasDbModel.GrupoEvaluador" FromRole="Encuesta" ToRole="GrupoTrabajo" />
+          <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaCierre" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="EncuestaEvaluador">
           <Key>
@@ -1059,6 +1063,8 @@
           <EntitySetMapping Name="Encuesta">
             <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Encuesta">
               <MappingFragment StoreEntitySet="Encuesta">
+                <ScalarProperty Name="FechaCierre" ColumnName="FechaCierre" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />
