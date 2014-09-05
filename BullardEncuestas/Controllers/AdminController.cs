@@ -713,12 +713,29 @@ namespace BullardEncuestas.Controllers
 
         #region APIS
         [HttpPost]
-        public ActionResult SaveEncuestaEvaluador(EncuestaEvaluadorDTO dto)
+        public ActionResult SaveEncuestaEvaluador(string encuestaEvaluador)
         {
             bool response;
             try
             {
                 EncuestaEvaluadorBL objBL = new EncuestaEvaluadorBL();
+                var dto = new JavaScriptSerializer().Deserialize<EncuestaEvaluadorDTO>(encuestaEvaluador);
+                if (dto.IdEncuestaEvaluador == 0)
+                    response = objBL.add(dto);
+                else
+                    response = objBL.update(dto);
+            }
+            catch { response = false; }
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult SendEncuestaEvaluador(string encuestaEvaluador)
+        {
+            bool response;
+            try
+            {
+                EncuestaEvaluadorBL objBL = new EncuestaEvaluadorBL();
+                var dto = new JavaScriptSerializer().Deserialize<EncuestaEvaluadorDTO>(encuestaEvaluador);
                 if (dto.IdEncuestaEvaluador == 0)
                     response = objBL.add(dto);
                 else
