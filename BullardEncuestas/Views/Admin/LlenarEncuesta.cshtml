@@ -23,14 +23,14 @@
                 };
 
                 $.ajax({
-                    url: "/Admin/AddEncuestaEvaluador",
+                    url: "/Admin/SaveEncuestaEvaluador",
                     type: "POST",
                     cache: false,
                     data: { dto: JSON.stringify(encuestaEvaluadorDTO) },
                     dataType: "json"
                 }).done(function (data) {
                     if (data) {
-                        alert("La encuesta se ha guardado correctamente");
+                        alert("La encuesta se ha guardado correctamente.");
                     }
                 }).fail(function () {
                     alert('Error al intentar obtener el listado de Tipos de Respuesta. Por favor, actualice la página o presione F5.');

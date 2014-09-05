@@ -715,73 +715,17 @@ namespace BullardEncuestas.Controllers
         [HttpPost]
         public ActionResult SaveEncuestaEvaluador(EncuestaEvaluadorDTO dto)
         {
+            bool response;
             try
             {
                 EncuestaEvaluadorBL objBL = new EncuestaEvaluadorBL();
-
-                if (dto.Accion == 1)
-                {
-                    //Save
-                    TempData["EncuestaEvaluador"] = dto;
-                    if (dto.IdEncuestaEvaluador == 0)
-                    {
-                        if (objBL.add(dto))
-                        {
-                            createResponseMessage(CONSTANTES.SUCCESS);
-                            return RedirectToAction("LlenarEncuesta", new { idGrupoEvaluado = dto.IdGrupoEvaluado, idEncuesta = dto.IdEncuesta, idEvaluador = dto.IdEvaluador });
-                        }
-
-                    }
-                    else if (dto.IdEncuestaEvaluador != 0)
-                    {
-                        if (objBL.update(dto))
-                        {
-                            createResponseMessage(CONSTANTES.SUCCESS);
-                            return RedirectToAction("LlenarEncuesta", new { idGrupoEvaluado = dto.IdGrupoEvaluado, idEncuesta = dto.IdEncuesta, idEvaluador = dto.IdEvaluador });
-                        }
-                        else
-                            createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
-                    }
-                    else
-                        createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
-                }
-                else if (dto.Accion == 2)
-                {
-                    //Enviar
-                    var conta = dto.listaRespuestas.Where(x => x == "0").Count();
-                    if (conta == 0)
-                    {
-                        if (dto.IdEncuestaEvaluador == 0)
-                        {
-                            if (objBL.add(dto))
-                            {
-                                objBL.updateEstadoEncuesta(dto.IdEncuestaEvaluador);
-                                return RedirectToAction("MensajeEncuesta");
-                            }
-                        }
-                        else if (dto.IdEncuestaEvaluador != 0)
-                        {
-                            if (objBL.update(dto))
-                            {
-                                objBL.updateEstadoEncuesta(dto.IdEncuestaEvaluador);
-                                return RedirectToAction("MensajeEncuesta");
-                            }
-                            else
-                                createMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
-                        }
-                        else
-                            createMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
-                    }
-                }
+                if (dto.IdEncuestaEvaluador == 0)
+                    response = objBL.add(dto);
+                else
+                    response = objBL.update(dto);
             }
-            catch
-            {
-                if (dto.IdEncuestaEvaluador != 0)
-                    createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
-                else createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_INSERT_MESSAGE);
-            }
-            TempData["EncuestaEvaluador"] = dto;
-            return RedirectToAction("LlenarEncuesta");
+            catch { response = false; }
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult SendCorreoEncuesta(string grupoEvaluadores, int idEncuesta, int idGrupoEvaluado, string nombreEncuesta, string periodo)
