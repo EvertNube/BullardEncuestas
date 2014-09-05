@@ -40,28 +40,38 @@
                 var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
                 var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
                 var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
-                var encuestaEvaluadorDTO = {
-                    IdEncuestaEvaluador: $("#IdEncuestaEvaluador"),
-                    IdEncuesta: $("#IdEncuesta"),
-                    IdEvaluador: $("#IdEvaluador"),
-                    listaIdRespuestas: listaIdRespuestas,
-                    listaPreguntas: listaPreguntas,
-                    listaEvaluados: listaEvaluados,
-                    listaRespuestas: listaRespuestas
-                };
-                $.ajax({
-                    url: "/Admin/SendEncuestaEvaluador",
-                    type: "POST",
-                    cache: false,
-                    data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
-                    dataType: "json"
-                }).done(function (data) {
-                    if (data) {
-                        alert("La encuesta se ha guardado correctamente.");
-                    }
-                }).fail(function () {
-                    alert('Error al intentar guardar la Encuesta. Por favor, actualice la página o presione F5.');
-                });
+                
+                var conta = 0;
+                if (listaRespuestas.indexOf("0") > -1) conta = 1;
+
+                if (conta == 0) {
+                    var encuestaEvaluadorDTO = {
+                        IdEncuestaEvaluador: $("#IdEncuestaEvaluador"),
+                        IdEncuesta: $("#IdEncuesta"),
+                        IdEvaluador: $("#IdEvaluador"),
+                        listaIdRespuestas: listaIdRespuestas,
+                        listaPreguntas: listaPreguntas,
+                        listaEvaluados: listaEvaluados,
+                        listaRespuestas: listaRespuestas
+                    };
+                    $.ajax({
+                        url: "/Admin/SendEncuestaEvaluador",
+                        type: "POST",
+                        cache: false,
+                        data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
+                        dataType: "json"
+                    }).done(function (data) {
+                        if (data) {
+                            window.location = "/Admin/MensajeEncuesta";
+                        } else {
+                            alert("Por favor verifique todas las respuesta estén marcadas.\n Si el problema continúa actualice la página o presione F5.");
+                        }
+                    }).fail(function () {
+                        alert('Error al intentar enviar la Encuesta. Por favor, actualice la página o presione F5.');
+                    });
+                } else {
+                    alert("Por favor verifique todas las respuesta estén marcadas.\n Si el problema continúa actualice la página o presione F5.");
+                }
             });
         });
         function setActionHidden(action) {
@@ -84,8 +94,7 @@
             <div class="col-xs-12 col-md-10 col-md-offset-1">
                 <h2> @Html.LabelFor(m => m.Encuesta.Periodo.Descripcion, Model.Encuesta.Periodo.Descripcion) / @Html.LabelFor(m => m.Encuesta.NombreEncuesta, Model.Encuesta.NombreEncuesta) </h2>
 
-                @using (Html.BeginForm("AddEncuestaEvaluador", "Admin", FormMethod.Post))
-                {
+                @*@using (Html.BeginForm("AddEncuestaEvaluador", "Admin", FormMethod.Post)) {*@
                     @Html.ValidationSummary(true)
                     <div class="row m-b">
                         <div class="col-xs-12 col-md-9">
@@ -231,17 +240,16 @@
                                         @Html.TextBoxFor(u => u.IdEncuesta, new { @Value = Model != null ? Model.IdEncuesta.ToString() : "", @type = "hidden" })
                                         @Html.TextBoxFor(u => u.IdEvaluador, new { @Value = Model != null ? Model.IdEvaluador.ToString() : "", @type = "hidden" })
                                         @Html.TextBoxFor(u => u.IdGrupoEvaluado, new { @Value = Model != null ? Model.IdGrupoEvaluado.ToString() : "", @type = "hidden" })
-                                        <input type="hidden" id="Accion" name="Accion" />
+                                        @*<input type="hidden" id="Accion" name="Accion" />*@
                                         @*<a class="btn btn-sm btn-danger btn-rounded" href="@Url.Action("Salir")">Salir</a>*@
-                                        <button type="submit" id="btnGuardar" class="btn btn-sm btn-primary btn-rounded" onclick="setActionHidden(1)">Guardar y continuar después.</button>
-                                        <button type="submit" id="btnEnviar" class="btn btn-sm btn-danger btn-rounded" onclick="setActionHidden(2)">Salir y enviar.</button>
-                                        @*<a class="btn btn-sm btn-default btn-rounded" href="@Url.Action("EnviarEncuesta")">Enviar</a>*@
+                                        <button type="button" id="btnGuardar" class="btn btn-sm btn-primary btn-rounded">Guardar y continuar después.</button>
+                                        <button type="button" id="btnEnviar" class="btn btn-sm btn-danger btn-rounded">Salir y enviar.</button>
                                     </div>
                                 </div>
                             </footer>
                         </div>
                     </div>
-                }
+                @*}*@
             </div>
         </div>
     </section>

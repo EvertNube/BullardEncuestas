@@ -731,15 +731,19 @@ namespace BullardEncuestas.Controllers
         [HttpPost]
         public ActionResult SendEncuestaEvaluador(string encuestaEvaluador)
         {
-            bool response;
+            bool response = false;
             try
             {
                 EncuestaEvaluadorBL objBL = new EncuestaEvaluadorBL();
                 var dto = new JavaScriptSerializer().Deserialize<EncuestaEvaluadorDTO>(encuestaEvaluador);
-                if (dto.IdEncuestaEvaluador == 0)
-                    response = objBL.add(dto);
-                else
-                    response = objBL.update(dto);
+                var conta = dto.listaRespuestas.Where(x => x == "0").Count();
+                if (conta == 0)
+                {
+                    if (dto.IdEncuestaEvaluador == 0)
+                        response = objBL.add(dto);
+                    else
+                        response = objBL.update(dto);
+                }
             }
             catch { response = false; }
             return Json(response, JsonRequestBehavior.AllowGet);
