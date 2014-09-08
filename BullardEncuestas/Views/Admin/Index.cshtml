@@ -139,10 +139,10 @@
                                         <thead>
                                             <tr>
                                                 <th width="5%">ID</th>
-                                                <th width="30%">Encuesta</th>
-                                                <th width="10%">Periodo</th>
-                                                <th width="20%">Grupo</th>
-                                                <th width="15%">Resultados</th>
+                                                <th width="35%">Encuesta</th>
+                                                <th width="15%">Periodo</th>
+                                                <th width="25%">Grupo</th>
+                                                @*<th width="15%">Resultados</th>*@
                                                 <th width="20%" style="text-align:center">Opciones</th>
                                             </tr>
                                         </thead>
@@ -165,7 +165,7 @@
                                                         <td>@obj.NombreEncuesta</td>
                                                         <td>@obj.Periodo.Descripcion</td>
                                                         <td>@obj.GrupoEvaluado.Nombre</td>
-                                                        <td><a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" data-toggle="tooltip" data-original-title="Mostrar reporte">Ver</a></td>
+                                                        @*<td><a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" data-toggle="tooltip" data-original-title="Mostrar reporte">Ver</a></td>*@
                                                         @if (ViewBag.EsAdmin)
                                                         {
                                                             <td style="text-align: center;">

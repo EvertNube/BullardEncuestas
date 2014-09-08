@@ -41,6 +41,15 @@ namespace BullardEncuestas.Data
         public virtual DbSet<TipoRespuesta> TipoRespuesta { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
     
+        public virtual ObjectResult<Nullable<int>> SP_EsSocio(Nullable<int> idPersona)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_EsSocio", idPersonaParameter);
+        }
+    
         public virtual ObjectResult<SP_GetEncuestas_Result> SP_GetEncuestas()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestas_Result>("SP_GetEncuestas");
@@ -127,15 +136,6 @@ namespace BullardEncuestas.Data
                 new ObjectParameter("IdGrupo", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ReplicaEncuesta", idPeriodoParameter, idGrupoParameter);
-        }
-    
-        public virtual int SP_EsSocio(Nullable<int> idPersona)
-        {
-            var idPersonaParameter = idPersona.HasValue ?
-                new ObjectParameter("IdPersona", idPersona) :
-                new ObjectParameter("IdPersona", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_EsSocio", idPersonaParameter);
         }
     }
 }
