@@ -146,7 +146,7 @@ namespace BullardEncuestas.Core.BL
                     var persona = context.Persona.Where(x => x.IdPersona == personaDTO.IdPersona).SingleOrDefault();
                     persona.Nombre = personaDTO.Nombre;
                     persona.Email = personaDTO.Email;
-                    persona.IdEmpresa = personaDTO.IdEmpresa;
+                    persona.IdEmpresa = personaDTO.IdEmpresa != 0 ? personaDTO.IdEmpresa : null;
                     persona.Estado = personaDTO.Estado;
                     var oldGrupo = persona.GrupoTrabajo.Select(x => x.IdGrupoTrabajo).ToList();
                     var newGrupo = personaDTO.ListaGruposTrabajo.Select(x => x).ToList();

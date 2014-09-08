@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
-
+    $("#FechaInicio").datepicker();
+    $("#FechaCierre").datepicker();
     // activate Nestable for list 1
     $('#nestable1').nestable({
         group: 1
@@ -64,6 +65,8 @@
         var periodo = $(this).data('periodo');
         var gevaluado = $(this).data('gevaluado');
         var gevaluador = $(this).data('gevaluador');
+        var finicio = $(this).data('finicio');
+        var fcierre = $(this).data('fcierre');
         var estado = $(this).data('estado');
         var count = $(this).data('count');
         getPeriodos(periodo);
@@ -74,6 +77,10 @@
         $('#NombreEncuesta').val(nombre);
         $('#Instrucciones').val(instrucciones);
         $('#Leyenda').val(leyenda);
+        //$("#FechaInicio").datepicker("setDate", finicio);
+        //$("#FechaCierre").datepicker("setDate", fcierre);
+        $("#FechaInicio").val(finicio);
+        $("#FechaCierre").val(fcierre);
         $('#EstadoEncuesta').prop("checked", (estado.toLowerCase() == 'true'));
         $('#modal-Encuestaform').modal('show');
     });

@@ -5,7 +5,7 @@
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#btnEnviarCorreo').click(function () {
+            $('.btnEnviarCorreo').click(function () {
                 $("#loading").show();
                 var id = $(this).data("id");
                 var gevaluado = $(this).data("gevaluado");
@@ -139,11 +139,11 @@
                                         <thead>
                                             <tr>
                                                 <th width="5%">ID</th>
-                                                <th width="45%">Encuesta</th>
+                                                <th width="30%">Encuesta</th>
                                                 <th width="10%">Periodo</th>
-                                                @*<th width="21%" style="text-align:center">Estado</th>*@
-                                                <th width="10%">Resultados</th>
-                                                <th width="30%" style="text-align:center">Opciones</th>
+                                                <th width="20%">Grupo</th>
+                                                <th width="15%">Resultados</th>
+                                                <th width="20%" style="text-align:center">Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -164,6 +164,7 @@
                                                         </td>
                                                         <td>@obj.NombreEncuesta</td>
                                                         <td>@obj.Periodo.Descripcion</td>
+                                                        <td>@obj.GrupoEvaluado.Nombre</td>
                                                         <td><a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" data-toggle="tooltip" data-original-title="Mostrar reporte">Ver</a></td>
                                                         @if (ViewBag.EsAdmin)
                                                         {
@@ -174,7 +175,10 @@
                                                                 @*<a id="btnEnviarCorreo" href="@Url.Action("SendCorreoEncuesta", new { idGrupo = obj.IdGrupoEvaluado, nombreEncuesta = obj.NombreEncuesta, periodo = obj.Periodo.Descripcion })" data-toggle="tooltip" data-original-title="Enviar encuesta">
                                                                         <i class="fa fa-envelope"></i>
                                                                     </a>*@
-                                                                <a id="btnEnviarCorreo" data-toggle="tooltip" data-original-title="Enviar encuesta" data-id="@obj.IdEncuesta" data-gevaluado="@obj.IdGrupoEvaluado" data-gevaluador="@obj.StrGrupoEvaluador" data-encuesta="@obj.NombreEncuesta" data-periodo="@obj.Periodo.Descripcion">
+                                                                @*<a class="btn btn-sm btn-success pull-right btn-rounded" id="btnEnviarCorreo" data-toggle="tooltip" data-original-title="Enviar encuesta" data-id="@obj.IdEncuesta" data-gevaluado="@obj.IdGrupoEvaluado" data-gevaluador="@obj.StrGrupoEvaluador" data-encuesta="@obj.NombreEncuesta" data-periodo="@obj.Periodo.Descripcion">
+                                                                    <i class="fa fa-envelope"></i>
+                                                                </a>*@
+                                                                <a class="btn btn-sm btn-success btn-rounded btnEnviarCorreo" data-toggle="tooltip" data-original-title="Enviar encuesta" data-id="@obj.IdEncuesta" data-gevaluado="@obj.IdGrupoEvaluado" data-gevaluador="@obj.StrGrupoEvaluador" data-encuesta="@obj.NombreEncuesta" data-periodo="@obj.Periodo.Descripcion">
                                                                     <i class="fa fa-envelope"></i>
                                                                 </a>
                                                             </td>

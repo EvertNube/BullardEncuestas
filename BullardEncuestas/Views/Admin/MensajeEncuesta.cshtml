@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "Encuesta";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_LayoutOffLine.cshtml";
 }
 <section class="hbox stretch">
     <aside>
@@ -11,6 +11,7 @@
             <section class="scrollable padder">
                 <div class="col-xs-12 col-md-12">
                     <h2>
+                        @TempData["MensajeEncuesta"]<br />
                         Su encuesta ha sido enviada con éxito muchas gracias.
                     </h2>
                 </div>

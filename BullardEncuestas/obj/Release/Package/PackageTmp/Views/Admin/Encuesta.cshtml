@@ -3,7 +3,15 @@
 }
 @section scripts{
     @Scripts.Render("~/Content/themes/admin/js/fuelux/fuelux.js")
+@*<script>
+    $(function () {
+        $(".datefield").datepicker();
+    });
+</script>*@
+
     @Scripts.Render("~/Content/js/Encuesta.js")
+
+    
 }
 
 @model BullardEncuestas.Core.DTO.EncuestaDTO
@@ -26,7 +34,7 @@
                                 @{var estadoEncuesta = (Model.EstadoEncuesta ? "" : "red");}
                                 @Html.LabelFor(m => m.Periodo.Descripcion, Model.Periodo.Descripcion) / @Html.LabelFor(m => m.NombreEncuesta, Model.NombreEncuesta) <b class='badge bg-warning dot @estadoEncuesta'></b>
                                 @*<a class="btn btn-sm btn-success pull-right btn-rounded"><i class="fa fa-save"></i>&nbsp;&nbsp;Guardar</a>*@
-                                <a class="btn btn-sm btn-success pull-right btn-rounded btnEditEncuesta" data-id="@Model.IdEncuesta" data-nombre="@Model.NombreEncuesta" data-instr="@Model.Instrucciones" data-leyenda="@Model.Leyenda" data-periodo="@Model.IdPeriodo" data-gevaluado="@Model.IdGrupoEvaluado" data-gevaluador="[@Model.StrGrupoEvaluador]" data-estado="@Model.EstadoEncuesta">
+                                <a class="btn btn-sm btn-success pull-right btn-rounded btnEditEncuesta" data-id="@Model.IdEncuesta" data-nombre="@Model.NombreEncuesta" data-instr="@Model.Instrucciones" data-leyenda="@Model.Leyenda" data-periodo="@Model.IdPeriodo" data-finicio="@Model.FechaInicio.ToString("dd/MM/yyyy")" data-fcierre="@Model.FechaCierre.ToString("dd/MM/yyyy")" data-gevaluado="@Model.IdGrupoEvaluado" data-gevaluador="[@Model.StrGrupoEvaluador]" data-estado="@Model.EstadoEncuesta">
                                     <i class="fa fa-plus"></i>&nbsp;&nbsp;Configuración
                                 </a>
                             </header>
@@ -254,7 +262,19 @@
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Periodo</label>
                                 <div class="col-lg-9">
-                                    <select id="IdPeriodo" name="IdPeriodo" class="form-control"></select>
+                                    <select id="IdPeriodo" name="IdPeriodo" class="form-control" disabled="disabled"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Fecha Inicio</label>
+                                <div class="input-group col-lg-9">
+                                    @Html.TextBoxFor(u => u.FechaInicio, "{0:dd/MM/yyyy}", new { @class = "form-control input-s", @type = "text", @placeholder = "dd/MM/yyyy" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Fecha Fin</label>
+                                <div class="input-group col-lg-9">
+                                    @Html.TextBoxFor(u => u.FechaCierre, "{0:dd/MM/yyyy}", new { @class = "form-control input-s", @type = "text", @placeholder = "dd/MM/yyyy" })
                                 </div>
                             </div>
                             <div class="form-group">

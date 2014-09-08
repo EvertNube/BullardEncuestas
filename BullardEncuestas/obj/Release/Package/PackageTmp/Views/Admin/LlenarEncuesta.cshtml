@@ -5,11 +5,82 @@
 @section scripts{
     @Scripts.Render("~/Content/themes/admin/js/fuelux/fuelux.js")
     <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnGuardar").click(function () {
+                var listaIdRespuestas = []; $('.listaIdRespuestas').each(function (index, item) { var value = item.value; listaIdRespuestas.push(value); });
+                var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
+                var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
+                var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
+                var encuestaEvaluadorDTO = {
+                    IdEncuestaEvaluador: $("#IdEncuestaEvaluador").val(),
+                    IdEncuesta: $("#IdEncuesta").val(),
+                    IdEvaluador: $("#IdEvaluador").val(),
+                    listaIdRespuestas: listaIdRespuestas,
+                    listaPreguntas: listaPreguntas,
+                    listaEvaluados: listaEvaluados,
+                    listaRespuestas: listaRespuestas,
+                    EstadoEncuesta: false //Encuesta No Enviada.
+                };
+                $.ajax({
+                    url: "/Admin/SaveEncuestaEvaluador",
+                    type: "POST",
+                    cache: false,
+                    data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
+                    dataType: "json"
+                }).done(function (data) {
+                    if (data) {
+                        alert("La encuesta se ha guardado correctamente.");
+                    }
+                }).fail(function () {
+                    alert('Error al intentar guardar la Encuesta. Por favor, actualice la página o presione F5.');
+                });
+            });
+
+            $("#btnEnviar").click(function () {
+                var listaIdRespuestas = []; $('.listaIdRespuestas').each(function (index, item) { var value = item.value; listaIdRespuestas.push(value); });
+                var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
+                var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
+                var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
+                
+                var conta = 0;
+                if (listaRespuestas.indexOf("0") > -1) conta = 1;
+
+                if (conta == 0) {
+                    var encuestaEvaluadorDTO = {
+                        IdEncuestaEvaluador: $("#IdEncuestaEvaluador").val(),
+                        IdEncuesta: $("#IdEncuesta").val(),
+                        IdEvaluador: $("#IdEvaluador").val(),
+                        listaIdRespuestas: listaIdRespuestas,
+                        listaPreguntas: listaPreguntas,
+                        listaEvaluados: listaEvaluados,
+                        listaRespuestas: listaRespuestas,
+                        EstadoEncuesta: true //Encuesta enviada.
+                    };
+                    $.ajax({
+                        url: "/Admin/SendEncuestaEvaluador",
+                        type: "POST",
+                        cache: false,
+                        data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
+                        dataType: "json"
+                    }).done(function (data) {
+                        if (data) {
+                            window.location = "/Admin/MensajeEncuesta";
+                        } else {
+                            alert("Por favor verifique todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
+                        }
+                    }).fail(function () {
+                        alert('Error al intentar enviar la Encuesta. Por favor, actualice la página o presione F5.');
+                    });
+                } else {
+                    alert("Por favor verifique que todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
+                }
+            });
+        });
         function setActionHidden(action) {
             $("#Accion").val(action);
         }
     </script>
-    }
+}
 @{
     if (Model == null)
     {
@@ -23,10 +94,9 @@
     <section class="scrollable padder">
         <div class="row m-b">
             <div class="col-xs-12 col-md-10 col-md-offset-1">
-                <h2>@Model.Encuesta.Periodo.Descripcion / @Model.Encuesta.NombreEncuesta</h2>
+                <h2> @Html.LabelFor(m => m.Encuesta.Periodo.Descripcion, Model.Encuesta.Periodo.Descripcion) / @Html.LabelFor(m => m.Encuesta.NombreEncuesta, Model.Encuesta.NombreEncuesta) </h2>
 
-                @using (Html.BeginForm("AddEncuestaEvaluador", "Admin", FormMethod.Post))
-                {
+                @*@using (Html.BeginForm("AddEncuestaEvaluador", "Admin", FormMethod.Post)) {*@
                     @Html.ValidationSummary(true)
                     <div class="row m-b">
                         <div class="col-xs-12 col-md-9">
@@ -81,17 +151,17 @@
                                                                                         <td>
                                                                                             @switch (pregunta.IdTipoRespuesta)
                                                                                             {
-                                                                                                case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @Value = respuesta, @class = "form-control input-sm", @placeholder = "", @type = "text" })
+                                                                                                case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @Value = respuesta, @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
                                                                                                     break;
-                                                                                                case 2: @Html.TextAreaFor(u => u.listaRespuestas, new { @Value = respuesta, @class = "form-control input-sm", @placeholder = "", @type = "text" })
+                                                                                                case 2: @Html.TextAreaFor(u => u.listaRespuestas, new { @Value = respuesta, @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
                                                                                                     break;
-                                                                                                case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", respuesta != null ? Convert.ToInt32(respuesta.Valor) : 0), new { @class = "input-sm", @style = "width: auto;" })
+                                                                                                case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", respuesta != null ? Convert.ToInt32(respuesta.Valor) : 0), new { @class = "input-sm listaRespuestas", @style = "width: auto;" })
                                                                                                     break;
                                                                                                 default: break;
                                                                                             }
-                                                                                            @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0) })
-                                                                                            @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta })
-                                                                                            @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona })
+                                                                                            @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0), @class = "listaIdRespuestas" })
+                                                                                            @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta, @class = "listaPreguntas" })
+                                                                                            @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona, @class = "listaEvaluados" })
                                                                                         </td>
                                                                                     }
                                                                                 </tr>
@@ -129,17 +199,17 @@
                                                                                                                 <td>
                                                                                                                     @switch (pregunta.IdTipoRespuesta)
                                                                                                                     {
-                                                                                                                        case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @Value = respuesta, @class = "form-control input-sm", @placeholder = "", @type = "text" })
+                                                                                                                        case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @Value = respuesta, @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
                                                                                                                             break;
-                                                                                                                        case 2: @Html.TextAreaFor(u => u.listaRespuestas, new { @Value = respuesta, @class = "form-control input-sm", @placeholder = "", @type = "text" })
+                                                                                                                        case 2: @Html.TextAreaFor(u => u.listaRespuestas, new { @Value = respuesta, @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
                                                                                                                             break;
-                                                                                                                        case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", respuesta != null ? Convert.ToInt32(respuesta.Valor) : 0), new { @class = "input-sm", @style = "width: auto;" })
+                                                                                                                        case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", respuesta != null ? Convert.ToInt32(respuesta.Valor) : 0), new { @class = "input-sm listaRespuestas", @style = "width: auto;" })
                                                                                                                             break;
                                                                                                                         default: break;
                                                                                                                     }
-                                                                                                                    @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0) })
-                                                                                                                    @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta })
-                                                                                                                    @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona })
+                                                                                                                    @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0), @class = "listaIdRespuestas" })
+                                                                                                                    @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta, @class = "listaPreguntas" })
+                                                                                                                    @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona, @class = "listaEvaluados" })
                                                                                                                 </td>
                                                                                                             }
                                                                                                         </tr>
@@ -166,22 +236,22 @@
                             </section>
                             <footer class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-8"></div>
-                                    <div class="col-md-4" style="align-items:center;">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8" style="align-items:center;">
                                         @Html.TextBoxFor(u => u.IdEncuestaEvaluador, new { @Value = Model != null ? Model.IdEncuestaEvaluador.ToString() : "", @type = "hidden" })
                                         @Html.TextBoxFor(u => u.IdEncuesta, new { @Value = Model != null ? Model.IdEncuesta.ToString() : "", @type = "hidden" })
                                         @Html.TextBoxFor(u => u.IdEvaluador, new { @Value = Model != null ? Model.IdEvaluador.ToString() : "", @type = "hidden" })
-                                        <input type="hidden" id="Accion" name="Accion" />
-                                        <a class="btn btn-sm btn-danger btn-rounded" href="@Url.Action("Salir")">Salir</a>
-                                        <button type="submit" id="btnGuardar" class="btn btn-sm btn-primary btn-rounded" onclick="setActionHidden(1)">Guardar y continuar después.</button>
-                                        <button type="submit" id="btnEnviar" class="btn btn-sm btn-primary btn-rounded" onclick="setActionHidden(2)">Salir y enviar.</button>
-                                        @*<a class="btn btn-sm btn-default btn-rounded" href="@Url.Action("EnviarEncuesta")">Enviar</a>*@
+                                        @Html.TextBoxFor(u => u.IdGrupoEvaluado, new { @Value = Model != null ? Model.IdGrupoEvaluado.ToString() : "", @type = "hidden" })
+                                        @*<input type="hidden" id="Accion" name="Accion" />*@
+                                        @*<a class="btn btn-sm btn-danger btn-rounded" href="@Url.Action("Salir")">Salir</a>*@
+                                        <button type="button" id="btnGuardar" class="btn btn-sm btn-primary btn-rounded">Guardar y continuar después.</button>
+                                        <button type="button" id="btnEnviar" class="btn btn-sm btn-danger btn-rounded">Salir y enviar.</button>
                                     </div>
                                 </div>
                             </footer>
                         </div>
                     </div>
-                }
+                @*}*@
             </div>
         </div>
     </section>

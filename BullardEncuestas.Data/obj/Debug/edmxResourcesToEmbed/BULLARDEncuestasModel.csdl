@@ -177,6 +177,8 @@
     <NavigationProperty Name="EncuestaEvaluador" Relationship="BULLARD.EncuestasDbModel.FK_EncuestaEvaluador_Encuesta" FromRole="Encuesta" ToRole="EncuestaEvaluador" />
     <NavigationProperty Name="Seccion" Relationship="BULLARD.EncuestasDbModel.FK_Seccion_Encuesta" FromRole="Encuesta" ToRole="Seccion" />
     <NavigationProperty Name="GrupoTrabajo1" Relationship="BULLARD.EncuestasDbModel.GrupoEvaluador" FromRole="Encuesta" ToRole="GrupoTrabajo" />
+    <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FechaCierre" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
   <EntityType Name="EncuestaEvaluador">
     <Key>

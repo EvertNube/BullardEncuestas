@@ -12,13 +12,14 @@
                 var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
                 var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
                 var encuestaEvaluadorDTO = {
-                    IdEncuestaEvaluador: $("#IdEncuestaEvaluador"),
-                    IdEncuesta: $("#IdEncuesta"),
-                    IdEvaluador: $("#IdEvaluador"),
+                    IdEncuestaEvaluador: $("#IdEncuestaEvaluador").val(),
+                    IdEncuesta: $("#IdEncuesta").val(),
+                    IdEvaluador: $("#IdEvaluador").val(),
                     listaIdRespuestas: listaIdRespuestas,
                     listaPreguntas: listaPreguntas,
                     listaEvaluados: listaEvaluados,
-                    listaRespuestas: listaRespuestas
+                    listaRespuestas: listaRespuestas,
+                    EstadoEncuesta: false //Encuesta No Enviada.
                 };
                 $.ajax({
                     url: "/Admin/SaveEncuestaEvaluador",
@@ -46,13 +47,14 @@
 
                 if (conta == 0) {
                     var encuestaEvaluadorDTO = {
-                        IdEncuestaEvaluador: $("#IdEncuestaEvaluador"),
-                        IdEncuesta: $("#IdEncuesta"),
-                        IdEvaluador: $("#IdEvaluador"),
+                        IdEncuestaEvaluador: $("#IdEncuestaEvaluador").val(),
+                        IdEncuesta: $("#IdEncuesta").val(),
+                        IdEvaluador: $("#IdEvaluador").val(),
                         listaIdRespuestas: listaIdRespuestas,
                         listaPreguntas: listaPreguntas,
                         listaEvaluados: listaEvaluados,
-                        listaRespuestas: listaRespuestas
+                        listaRespuestas: listaRespuestas,
+                        EstadoEncuesta: true //Encuesta enviada.
                     };
                     $.ajax({
                         url: "/Admin/SendEncuestaEvaluador",
@@ -64,13 +66,13 @@
                         if (data) {
                             window.location = "/Admin/MensajeEncuesta";
                         } else {
-                            alert("Por favor verifique todas las respuesta estén marcadas.\n Si el problema continúa actualice la página o presione F5.");
+                            alert("Por favor verifique todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
                         }
                     }).fail(function () {
                         alert('Error al intentar enviar la Encuesta. Por favor, actualice la página o presione F5.');
                     });
                 } else {
-                    alert("Por favor verifique todas las respuesta estén marcadas.\n Si el problema continúa actualice la página o presione F5.");
+                    alert("Por favor verifique que todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
                 }
             });
         });

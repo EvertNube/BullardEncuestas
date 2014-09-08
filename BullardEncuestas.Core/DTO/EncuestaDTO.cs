@@ -15,6 +15,9 @@ namespace BullardEncuestas.Core.DTO
         public int IdPeriodo { get; set; }
         public int? IdGrupoEvaluado { get; set; }
         public bool EstadoEncuesta { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaCierre { get; set; }
+
         public decimal? PromedioGeneral { get; set; }
         public PeriodoDTO Periodo { get; set; }
         public GrupoTrabajoDTO GrupoEvaluado { get; set; }

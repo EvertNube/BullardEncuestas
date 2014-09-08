@@ -24,9 +24,8 @@ namespace BullardEncuestas.Core.BL
                     Periodo = new PeriodoDTO { Descripcion = r.NombrePeriodo },
                     EstadoEncuesta = r.Estado,
                     IdGrupoEvaluado = r.IdGrupoEvaluado,
+                    GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.NombreGrupo },
                     StrGrupoEvaluador = r.StrGrupoEvaluador
-                    //IdGrupoEvaluado = r.IdGrupoEvaluado
-                    //GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.NombreGrupo }
                 }).ToList();
                 return result;
             }
@@ -148,6 +147,8 @@ namespace BullardEncuestas.Core.BL
                         IdPeriodo = r.IdPeriodo,
                         IdGrupoEvaluado = r.IdGrupoEvaluado,
                         EstadoEncuesta = r.Estado,
+                        FechaInicio = r.FechaInicio,
+                        FechaCierre = r.FechaCierre,
                         Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
                         GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.Nombre },
                         StrGrupoEvaluador = string.Join(", ", r.GrupoTrabajo1.Select(y => y.IdGrupoTrabajo)),
@@ -250,8 +251,10 @@ namespace BullardEncuestas.Core.BL
                     //encuesta.IdPeriodo = encuestaDTO.IdPeriodo;
                     encuesta.IdGrupoEvaluado = encuestaDTO.IdGrupoEvaluado;
                     encuesta.Estado = encuestaDTO.EstadoEncuesta;
+                    encuesta.FechaInicio = encuestaDTO.FechaInicio;
+                    encuesta.FechaCierre = encuestaDTO.FechaCierre;
                     var oldGrupos = encuesta.GrupoTrabajo1.Select(x => x.IdGrupoTrabajo).ToList();
-                    var newGrupos = encuestaDTO.GrupoEvaluador.Select(x => x).ToList();
+                    var newGrupos = encuestaDTO.GrupoEvaluador != null ? encuestaDTO.GrupoEvaluador.Select(x => x).ToList() : new List<int>();
                     var gruposToRemove = oldGrupos.Except(newGrupos).ToList();
                     var gruposToAdd = newGrupos.Except(oldGrupos).ToList();
                     foreach (var group in gruposToRemove)
@@ -323,7 +326,7 @@ namespace BullardEncuestas.Core.BL
                                     "<div style='font-size:0pt; line-height:0pt; height:30px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='30' style='height:30px' alt='' /></div>" +
                                     "<div>" +
                                         "<div class='h2' style='color:#1f1f1f; font-family:Tahoma; font-size:20px; line-height:24px; text-align:center; font-weight:bold'>" +
-                                            "<div>BFE - ENCUESTAS</div>" +
+                                            "<div>BFE+ - Encuestas</div>" +
                                         "</div>" +
                                         "<div style='font-size:0pt; line-height:0pt; height:10px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='10' style='height:10px' alt='' /></div>" +
                                         "<div class='text-left' style='color:#868686; font-family:Tahoma; font-size:14px; line-height:18px; text-align:left'>" +
@@ -376,11 +379,11 @@ namespace BullardEncuestas.Core.BL
                                             "<td align='center'>" +
                                                 "<table border='0' cellspacing='0' cellpadding='0'>" +
                                                     "<tr>" +
+                                                        "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left'></td>" +
+                                                        "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left' width='7'></td>" +
                                                         "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left'><a href='www.facebook.com/bullardfallaezcurra' target='_blank'><img src='http://54.186.226.155:75/Content/images/facebook-64.png' alt='' border='0' width='43' height='43' /></a></td>" +
                                                         "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left' width='7'></td>" +
-                                                        "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left'><a href='#' target='_blank'><img src='http://54.186.226.155:75/Content/images/linkedin-64.png' alt='' border='0' width='43' height='43' /></a></td>" +
-                                                        "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left' width='7'></td>" +
-                                                        "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left'><a href='#' target='_blank'><img src='http://54.186.226.155:75/Content/images/skype-64.png' alt='' border='0' width='43' height='43' /></a></td>" +
+                                                        "<td class='img' style='font-size:0pt; line-height:0pt; text-align:left'></td>" +
                                                     "</tr>" +
                                                 "</table>" +
                                             "</td>" +

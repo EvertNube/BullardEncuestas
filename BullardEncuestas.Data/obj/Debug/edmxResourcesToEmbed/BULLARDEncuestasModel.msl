@@ -93,6 +93,8 @@
     <EntitySetMapping Name="Encuesta">
       <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Encuesta">
         <MappingFragment StoreEntitySet="Encuesta">
+          <ScalarProperty Name="FechaCierre" ColumnName="FechaCierre" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
           <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />

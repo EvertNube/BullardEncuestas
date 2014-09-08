@@ -120,7 +120,7 @@ namespace BullardEncuestas.Core.BL
                     encuestaEvaluador.IdEncuesta = encuestaEvaluadorDTO.IdEncuesta;
                     encuestaEvaluador.IdEvaluador = encuestaEvaluadorDTO.IdEvaluador;
                     encuestaEvaluador.CodEvaluador = "";
-                    encuestaEvaluador.EstadoEncuesta = false;
+                    encuestaEvaluador.EstadoEncuesta = encuestaEvaluadorDTO.EstadoEncuesta;
                     context.EncuestaEvaluador.Add(encuestaEvaluador);
                     foreach (var item in encuestaEvaluadorDTO.Respuestas)
                     {
@@ -148,30 +148,30 @@ namespace BullardEncuestas.Core.BL
             {
                 try
                 {
-                    //var oldRespuestas = context.Respuestas.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).ToList();
+                    var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).SingleOrDefault();
+                    encuestaEvaluador.EstadoEncuesta = encuestaEvaluadorDTO.EstadoEncuesta;
                     for (int i = 0; i < encuestaEvaluadorDTO.listaRespuestas.Count; i++)
                     {
-                        if (encuestaEvaluadorDTO.listaIdRespuestas[i] != 0)
+                        var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
+                        if (respuesta != null)
                         {
-                            var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
-                            if (respuesta != null)
-                            {
-                                if (encuestaEvaluadorDTO.listaRespuestas[i] == "0")
-                                    context.Respuestas.Remove(respuesta);
-                                else if (encuestaEvaluadorDTO.listaRespuestas[i] != respuesta.Valor)
-                                    respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
-                            }
+                            if (encuestaEvaluadorDTO.listaRespuestas[i] == "0")
+                                //encuestaEvaluador.Respuestas.Remove(respuesta);
+                                context.Respuestas.Remove(respuesta);
+                            else if (encuestaEvaluadorDTO.listaRespuestas[i] != respuesta.Valor)
+                                respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
                         }
                         else
                         {
                             if (encuestaEvaluadorDTO.listaRespuestas[i] != "0")
                             {
-                                Respuestas respuesta = new Respuestas();
-                                respuesta.IdEncuestaEvaluador = encuestaEvaluadorDTO.IdEncuestaEvaluador;
-                                respuesta.IdPregunta = encuestaEvaluadorDTO.listaPreguntas[i];
-                                respuesta.IdEvaluado = encuestaEvaluadorDTO.listaEvaluados[i];
-                                respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
-                                context.Respuestas.Add(respuesta);
+                                Respuestas respuestaNew = new Respuestas();
+                                respuestaNew.IdEncuestaEvaluador = encuestaEvaluadorDTO.IdEncuestaEvaluador;
+                                respuestaNew.IdPregunta = encuestaEvaluadorDTO.listaPreguntas[i];
+                                respuestaNew.IdEvaluado = encuestaEvaluadorDTO.listaEvaluados[i];
+                                respuestaNew.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
+                                //encuestaEvaluador.Respuestas.Add(respuesta);
+                                context.Respuestas.Add(respuestaNew);
                             }
                         }
                     }
@@ -204,6 +204,33 @@ namespace BullardEncuestas.Core.BL
                 }
             }
         }
+
+    //if (encuestaEvaluadorDTO.listaIdRespuestas[i] != 0)
+    //{
+    //    //var respuesta = oldRespuestas.Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
+    //    var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
+    //    if (respuesta != null)
+    //    {
+    //        if (encuestaEvaluadorDTO.listaRespuestas[i] == "0")
+    //            //encuestaEvaluador.Respuestas.Remove(respuesta);
+    //            context.Respuestas.Remove(respuesta);
+    //        else if (encuestaEvaluadorDTO.listaRespuestas[i] != respuesta.Valor)
+    //            respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
+    //    }
+    //}
+    //else
+    //{
+    //    if (encuestaEvaluadorDTO.listaRespuestas[i] != "0")
+    //    {
+    //        Respuestas respuesta = new Respuestas();
+    //        respuesta.IdEncuestaEvaluador = encuestaEvaluadorDTO.IdEncuestaEvaluador;
+    //        respuesta.IdPregunta = encuestaEvaluadorDTO.listaPreguntas[i];
+    //        respuesta.IdEvaluado = encuestaEvaluadorDTO.listaEvaluados[i];
+    //        respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
+    //        //encuestaEvaluador.Respuestas.Add(respuesta);
+    //        context.Respuestas.Add(respuesta);
+    //    }
+    //}
 
     }
 }
