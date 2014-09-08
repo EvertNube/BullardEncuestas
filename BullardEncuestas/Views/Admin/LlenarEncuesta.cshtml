@@ -151,9 +151,9 @@
                                                                                         <td>
                                                                                             @switch (pregunta.IdTipoRespuesta)
                                                                                             {
-                                                                                                case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @Value = respuesta, @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
+                                                                                                case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @value = (respuesta != null ? respuesta.Valor.Trim() : ""), @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
                                                                                                     break;
-                                                                                                case 2: @Html.TextAreaFor(u => u.listaRespuestas, new { @Value = respuesta, @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
+                                                                                                case 2: @Html.TextArea("listaRespuestas", respuesta != null ? respuesta.Valor.Trim() : "", new { @class = "form-control input-sm listaRespuestas" })
                                                                                                     break;
                                                                                                 case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", respuesta != null ? Convert.ToInt32(respuesta.Valor) : 0), new { @class = "input-sm listaRespuestas", @style = "width: auto;" })
                                                                                                     break;
@@ -199,9 +199,9 @@
                                                                                                                 <td>
                                                                                                                     @switch (pregunta.IdTipoRespuesta)
                                                                                                                     {
-                                                                                                                        case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @Value = respuesta, @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
+                                                                                                                        case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @Value = (respuesta != null ? respuesta.Valor.Trim() : ""), @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
                                                                                                                             break;
-                                                                                                                        case 2: @Html.TextAreaFor(u => u.listaRespuestas, new { @Value = respuesta, @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
+                                                                                                                        case 2: @Html.TextArea("listaRespuestas", respuesta != null ? respuesta.Valor.Trim() : "", new { @class = "form-control input-sm listaRespuestas" })
                                                                                                                             break;
                                                                                                                         case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", respuesta != null ? Convert.ToInt32(respuesta.Valor) : 0), new { @class = "input-sm listaRespuestas", @style = "width: auto;" })
                                                                                                                             break;
