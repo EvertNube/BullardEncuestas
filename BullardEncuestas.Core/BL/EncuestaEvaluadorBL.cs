@@ -20,9 +20,10 @@ namespace BullardEncuestas.Core.BL
                 var result = context.Encuesta.Where(r => r.IdEncuesta == idEncuesta).AsEnumerable()
                     .Select(r => new EncuestaEvaluadorDTO
                     {
-                        IdEncuestaEvaluador = r.EncuestaEvaluador.Where(x => x.IdEvaluador == idEvaluador).Select(x => x.IdEvaluador).FirstOrDefault(),
+                        IdEncuestaEvaluador = r.EncuestaEvaluador.Where(x => x.IdEvaluador == idEvaluador).Select(x => x.IdEncuestaEvaluador).FirstOrDefault(),
                         IdEncuesta = r.IdEncuesta,
                         IdEvaluador = idEvaluador,
+                        EstadoEncuesta = r.EncuestaEvaluador.Where(x => x.IdEvaluador == idEvaluador).Select(x => x.EstadoEncuesta).FirstOrDefault(),
                         Encuesta = new EncuestaDTO
                         {
                             IdGrupoEvaluado = r.IdGrupoEvaluado,
@@ -32,7 +33,7 @@ namespace BullardEncuestas.Core.BL
                             Leyenda = r.Leyenda,
                             FechaInicio = r.FechaInicio,
                             FechaCierre = r.FechaCierre,
-                            EstadoEncuesta = r.EncuestaEvaluador.Where(x => x.IdEvaluador == idEvaluador).Select(x => x.EstadoEncuesta).FirstOrDefault(),
+                            EstadoEncuesta = r.Estado,
                             Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
                             GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.Nombre },
                             Secciones = r.Seccion.Where(x => x.IdSeccionPadre == null).Select(x => new SeccionDTO
