@@ -178,7 +178,7 @@ namespace BullardEncuestas.Core.BL
             {
                 try
                 {
-                    var conta = context.SP_ReplicaEncuesta(1, 1);
+                    var conta = context.SP_EsSocio(id);
                     return conta == 1 ? true : false;
                 }
                 catch (Exception)

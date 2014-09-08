@@ -128,5 +128,14 @@ namespace BullardEncuestas.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ReplicaEncuesta", idPeriodoParameter, idGrupoParameter);
         }
+    
+        public virtual int SP_EsSocio(Nullable<int> idPersona)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_EsSocio", idPersonaParameter);
+        }
     }
 }

@@ -372,6 +372,9 @@
           <Parameter Name="IdPeriodo" Type="int" Mode="In" />
           <Parameter Name="IdGrupo" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_EsSocio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdPersona" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_GetEncuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_GetEncuestas2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_GetEncuestasReporte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -585,6 +588,9 @@
             <End Role="GrupoTrabajo" EntitySet="GrupoTrabajo" />
             <End Role="Persona" EntitySet="Persona" />
           </AssociationSet>
+          <FunctionImport Name="SP_EsSocio">
+            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_GetEncuestas_Result">
           <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
@@ -1214,6 +1220,7 @@
               <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="SP_EsSocio" FunctionName="BULLARD.EncuestasDbModel.Store.SP_EsSocio" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
