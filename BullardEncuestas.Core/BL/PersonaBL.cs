@@ -172,6 +172,21 @@ namespace BullardEncuestas.Core.BL
                 }
             }
         }
+        public bool esSocio(int id)
+        {
+            using (var context = getContext())
+            {
+                try
+                {
+                    var conta = context.SP_ReplicaEncuesta(1, 1);
+                    return conta == 1 ? true : false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
 
