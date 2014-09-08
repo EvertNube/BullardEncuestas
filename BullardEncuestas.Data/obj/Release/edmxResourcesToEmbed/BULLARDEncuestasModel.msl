@@ -1,6 +1,170 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="BULLARDEncuestasDbModelStoreContainer" CdmEntityContainer="BULLARDEncuestasEntities">
+    <EntitySetMapping Name="Empresa">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Empresa">
+        <MappingFragment StoreEntitySet="Empresa">
+          <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Encuesta">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Encuesta">
+        <MappingFragment StoreEntitySet="Encuesta">
+          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+          <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />
+          <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Instrucciones" ColumnName="Instrucciones" />
+          <ScalarProperty Name="Leyenda" ColumnName="Leyenda" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="FechaCierre" ColumnName="FechaCierre" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EncuestaEvaluador">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.EncuestaEvaluador">
+        <MappingFragment StoreEntitySet="EncuestaEvaluador">
+          <ScalarProperty Name="IdEncuestaEvaluador" ColumnName="IdEncuestaEvaluador" />
+          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+          <ScalarProperty Name="IdEvaluador" ColumnName="IdEvaluador" />
+          <ScalarProperty Name="CodEvaluador" ColumnName="CodEvaluador" />
+          <ScalarProperty Name="EstadoEncuesta" ColumnName="EstadoEncuesta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GrupoTrabajo">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.GrupoTrabajo">
+        <MappingFragment StoreEntitySet="GrupoTrabajo">
+          <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OpcionesRespuesta">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.OpcionesRespuesta">
+        <MappingFragment StoreEntitySet="OpcionesRespuesta">
+          <ScalarProperty Name="IdOpcion" ColumnName="IdOpcion" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+          <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Periodo">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Periodo">
+        <MappingFragment StoreEntitySet="Periodo">
+          <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Persona">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Persona">
+        <MappingFragment StoreEntitySet="Persona">
+          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pregunta">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Pregunta">
+        <MappingFragment StoreEntitySet="Pregunta">
+          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+          <ScalarProperty Name="Texto" ColumnName="Texto" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
+          <ScalarProperty Name="Orden" ColumnName="Orden" />
+          <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Respuestas">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Respuestas">
+        <MappingFragment StoreEntitySet="Respuestas">
+          <ScalarProperty Name="IdRespuestas" ColumnName="IdRespuestas" />
+          <ScalarProperty Name="IdEncuestaEvaluador" ColumnName="IdEncuestaEvaluador" />
+          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+          <ScalarProperty Name="IdEvaluado" ColumnName="IdEvaluado" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rol">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Rol">
+        <MappingFragment StoreEntitySet="Rol">
+          <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="DescripcionRol" ColumnName="DescripcionRol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Seccion">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Seccion">
+        <MappingFragment StoreEntitySet="Seccion">
+          <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+          <ScalarProperty Name="IdSeccionPadre" ColumnName="IdSeccionPadre" />
+          <ScalarProperty Name="Orden" ColumnName="Orden" />
+          <ScalarProperty Name="EsSocio" ColumnName="EsSocio" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoRespuesta">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.TipoRespuesta">
+        <MappingFragment StoreEntitySet="TipoRespuesta">
+          <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="InicialesNombre" ColumnName="InicialesNombre" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Cuenta" ColumnName="Cuenta" />
+          <ScalarProperty Name="Pass" ColumnName="Pass" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+          <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+          <ScalarProperty Name="IdCargo" ColumnName="IdCargo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="GrupoEvaluador" TypeName="BULLARD.EncuestasDbModel.GrupoEvaluador" StoreEntitySet="GrupoEvaluador">
+      <EndProperty Name="Encuesta">
+        <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+      </EndProperty>
+      <EndProperty Name="GrupoTrabajo">
+        <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonaGrupo" TypeName="BULLARD.EncuestasDbModel.PersonaGrupo" StoreEntitySet="PersonaGrupo">
+      <EndProperty Name="GrupoTrabajo">
+        <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
+      </EndProperty>
+      <EndProperty Name="Persona">
+        <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="SP_EsSocio" FunctionName="BULLARD.EncuestasDbModel.Store.SP_EsSocio" />
     <FunctionImportMapping FunctionImportName="SP_GetEncuestas" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestas">
       <ResultMapping>
         <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetEncuestas_Result">
@@ -81,166 +245,5 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SP_ReplicaEncuesta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_ReplicaEncuesta" />
-    <EntitySetMapping Name="Empresa">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Empresa">
-        <MappingFragment StoreEntitySet="Empresa">
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Encuesta">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Encuesta">
-        <MappingFragment StoreEntitySet="Encuesta">
-          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />
-          <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
-          <ScalarProperty Name="Leyenda" ColumnName="Leyenda" />
-          <ScalarProperty Name="Instrucciones" ColumnName="Instrucciones" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="EncuestaEvaluador">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.EncuestaEvaluador">
-        <MappingFragment StoreEntitySet="EncuestaEvaluador">
-          <ScalarProperty Name="EstadoEncuesta" ColumnName="EstadoEncuesta" />
-          <ScalarProperty Name="CodEvaluador" ColumnName="CodEvaluador" />
-          <ScalarProperty Name="IdEvaluador" ColumnName="IdEvaluador" />
-          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
-          <ScalarProperty Name="IdEncuestaEvaluador" ColumnName="IdEncuestaEvaluador" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="GrupoTrabajo">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.GrupoTrabajo">
-        <MappingFragment StoreEntitySet="GrupoTrabajo">
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="OpcionesRespuesta">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.OpcionesRespuesta">
-        <MappingFragment StoreEntitySet="OpcionesRespuesta">
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
-          <ScalarProperty Name="Valor" ColumnName="Valor" />
-          <ScalarProperty Name="IdOpcion" ColumnName="IdOpcion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Periodo">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Periodo">
-        <MappingFragment StoreEntitySet="Periodo">
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Persona">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Persona">
-        <MappingFragment StoreEntitySet="Persona">
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Pregunta">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Pregunta">
-        <MappingFragment StoreEntitySet="Pregunta">
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
-          <ScalarProperty Name="Orden" ColumnName="Orden" />
-          <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          <ScalarProperty Name="Texto" ColumnName="Texto" />
-          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Respuestas">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Respuestas">
-        <MappingFragment StoreEntitySet="Respuestas">
-          <ScalarProperty Name="Valor" ColumnName="Valor" />
-          <ScalarProperty Name="IdEvaluado" ColumnName="IdEvaluado" />
-          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
-          <ScalarProperty Name="IdEncuestaEvaluador" ColumnName="IdEncuestaEvaluador" />
-          <ScalarProperty Name="IdRespuestas" ColumnName="IdRespuestas" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Rol">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Rol">
-        <MappingFragment StoreEntitySet="Rol">
-          <ScalarProperty Name="DescripcionRol" ColumnName="DescripcionRol" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="IdRol" ColumnName="IdRol" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Seccion">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Seccion">
-        <MappingFragment StoreEntitySet="Seccion">
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="EsSocio" ColumnName="EsSocio" />
-          <ScalarProperty Name="Orden" ColumnName="Orden" />
-          <ScalarProperty Name="IdSeccionPadre" ColumnName="IdSeccionPadre" />
-          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TipoRespuesta">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.TipoRespuesta">
-        <MappingFragment StoreEntitySet="TipoRespuesta">
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Usuario">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Usuario">
-        <MappingFragment StoreEntitySet="Usuario">
-          <ScalarProperty Name="IdCargo" ColumnName="IdCargo" />
-          <ScalarProperty Name="IdRol" ColumnName="IdRol" />
-          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Pass" ColumnName="Pass" />
-          <ScalarProperty Name="Cuenta" ColumnName="Cuenta" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="InicialesNombre" ColumnName="InicialesNombre" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="GrupoEvaluador" TypeName="BULLARD.EncuestasDbModel.GrupoEvaluador" StoreEntitySet="GrupoEvaluador">
-      <EndProperty Name="GrupoTrabajo">
-        <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
-      </EndProperty>
-      <EndProperty Name="Encuesta">
-        <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="PersonaGrupo" TypeName="BULLARD.EncuestasDbModel.PersonaGrupo" StoreEntitySet="PersonaGrupo">
-      <EndProperty Name="Persona">
-        <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-      </EndProperty>
-      <EndProperty Name="GrupoTrabajo">
-        <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>
