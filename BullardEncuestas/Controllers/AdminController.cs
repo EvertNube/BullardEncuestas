@@ -220,8 +220,8 @@ namespace BullardEncuestas.Controllers
                 var model = oBL.getEncuestaEvaluador((int)idEncuesta, (int)idEvaluador);
                 model.IdGrupoEvaluado = idGrupoEvaluado ?? 0;
                 TempData["Encuesta_"] = model.Encuesta;
-                var fechaActual = DateTime.Now;
-                if (fechaActual.Date < model.Encuesta.FechaInicio && model.Encuesta.FechaCierre < fechaActual)
+                var fechaActual = DateTime.Now.Date;
+                if (fechaActual < model.Encuesta.FechaInicio && model.Encuesta.FechaCierre < fechaActual)
                 {
                     TempData["MensajeEncuesta"] = "Usted ya respondió la encuesta previamente.";
                     return RedirectToAction("MensajeEncuesta");

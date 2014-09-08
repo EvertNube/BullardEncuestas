@@ -25,11 +25,13 @@ namespace BullardEncuestas.Core.BL
                         IdEvaluador = idEvaluador,
                         Encuesta = new EncuestaDTO
                         {
+                            IdGrupoEvaluado = r.IdGrupoEvaluado,
+                            IdPeriodo = r.IdPeriodo,
                             NombreEncuesta = r.Nombre,
                             Instrucciones = r.Instrucciones,
                             Leyenda = r.Leyenda,
-                            IdPeriodo = r.IdPeriodo,
-                            IdGrupoEvaluado = r.IdGrupoEvaluado,
+                            FechaInicio = r.FechaInicio,
+                            FechaCierre = r.FechaCierre,
                             EstadoEncuesta = r.Estado,
                             Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
                             GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.Nombre },
