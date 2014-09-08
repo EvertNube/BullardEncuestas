@@ -41,7 +41,7 @@
                 var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
                 var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
                 var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
-                
+
                 var conta = 0;
                 if (listaRespuestas.indexOf("0") > -1) conta = 1;
 
@@ -97,27 +97,29 @@
                 <h2> @Html.LabelFor(m => m.Encuesta.Periodo.Descripcion, Model.Encuesta.Periodo.Descripcion) / @Html.LabelFor(m => m.Encuesta.NombreEncuesta, Model.Encuesta.NombreEncuesta) </h2>
 
                 @*@using (Html.BeginForm("AddEncuestaEvaluador", "Admin", FormMethod.Post)) {*@
-                    @Html.ValidationSummary(true)
-                    <div class="row m-b">
-                        <div class="col-xs-12 col-md-9">
-                            @Html.Partial("_showAlertMessages")
-                            <section class="panel panel-default">
-                                @*<header class="panel-heading affix" style="min-height:inherit; min-width:641%; overflow-x:auto">*@
-                                <header class="panel-heading mi-head">
-                                    @*min-height:50px 130 641*@
-                                    <p>
-                                        <div class="font-bold">Instrucciones:</div><div>@Model.Encuesta.Instrucciones</div>
-                                    </p>
-                                    <p>
-                                        <div class="font-bold">Leyenda:</div><div>@Model.Encuesta.Leyenda</div>
-                                    </p>
-                                </header>
-                                <div class="panel-body">
-                                    @*@{ var countEvaluados = ViewBag.Evaluados.Count; }*@
-                                    @if (Model.Encuesta.Secciones.Count > 0)
-                                    {
-                                        <div class="panel-group m-b" id="accordionN1">
-                                            @foreach (var seccion in Model.Encuesta.Secciones)
+                @Html.ValidationSummary(true)
+                <div class="row m-b">
+                    <div class="col-xs-12 col-md-9">
+                        @Html.Partial("_showAlertMessages")
+                        <section class="panel panel-default">
+                            @*<header class="panel-heading affix" style="min-height:inherit; min-width:641%; overflow-x:auto">*@
+                            <header class="panel-heading mi-head">
+                                @*min-height:50px 130 641*@
+                                <p>
+                                    <div class="font-bold">Instrucciones:</div><div>@Model.Encuesta.Instrucciones</div>
+                                </p>
+                                <p>
+                                    <div class="font-bold">Leyenda:</div><div>@Model.Encuesta.Leyenda</div>
+                                </p>
+                            </header>
+                            <div class="panel-body">
+                                @*@{ var countEvaluados = ViewBag.Evaluados.Count; }*@
+                                @if (Model.Encuesta.Secciones.Count > 0)
+                                {
+                                    <div class="panel-group m-b" id="accordionN1">
+                                        @foreach (var seccion in Model.Encuesta.Secciones)
+                                        {
+                                            if ((seccion.EsSocio && ViewBag.EsSocio) || (!seccion.EsSocio && !ViewBag.EsSocio))
                                             {
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
@@ -176,28 +178,30 @@
                                                                 <div class="panel-group m-b" id="accordionN2">
                                                                     @foreach (var subSeccion in seccion.SubSecciones)
                                                                     {
-                                                                        <div class="panel panel-default">
-                                                                            <div class="panel-heading">
-                                                                                <h4 class="panel-title">
-                                                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionN2" href="#@subSeccion.IdSeccion"> @subSeccion.Nombre </a>
-                                                                                </h4>
-                                                                            </div>
-                                                                            <div id="@subSeccion.IdSeccion" class="panel-collapse collapse">
-                                                                                <div class="panel-body">
-                                                                                    @if (subSeccion.Preguntas.Count > 0)
+                                                                        if ((seccion.EsSocio && ViewBag.EsSocio) || (!seccion.EsSocio && !ViewBag.EsSocio))
+                                                                        {
+                                                                            <div class="panel panel-default">
+                                                                                <div class="panel-heading">
+                                                                                    <h4 class="panel-title">
+                                                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionN2" href="#@subSeccion.IdSeccion"> @subSeccion.Nombre </a>
+                                                                                    </h4>
+                                                                                </div>
+                                                                                <div id="@subSeccion.IdSeccion" class="panel-collapse collapse">
+                                                                                    <div class="panel-body">
+                                                                                        @if (subSeccion.Preguntas.Count > 0)
                                                                                     {
-                                                                                        <div class="table-responsive">
-                                                                                            <table class="table table-bordered">
-                                                                                                <tbody>
-                                                                                                    @foreach (var pregunta in subSeccion.Preguntas)
+                                                                                    <div class="table-responsive">
+                                                                                        <table class="table table-bordered">
+                                                                                            <tbody>
+                                                                                                @foreach (var pregunta in subSeccion.Preguntas)
                                                                                                     {
-                                                                                                        <tr>
-                                                                                                            <td>@pregunta.Texto</td>
-                                                                                                            @foreach (var evaluado in ViewBag.Evaluados)
+                                                                                                    <tr>
+                                                                                                        <td>@pregunta.Texto</td>
+                                                                                                        @foreach (var evaluado in ViewBag.Evaluados)
                                                                                                             {
                                                                                                                 var respuesta = pregunta.Respuestas.Where(p => p.IdEvaluado == evaluado.IdPersona).Select(p => new BullardEncuestas.Core.DTO.RespuestasDTO { IdRespuestas = p.IdRespuestas, Valor = p.Valor }).FirstOrDefault();
-                                                                                                                <td>
-                                                                                                                    @switch (pregunta.IdTipoRespuesta)
+                                                                                                            <td>
+                                                                                                                @switch (pregunta.IdTipoRespuesta)
                                                                                                                     {
                                                                                                                         case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @Value = (respuesta != null ? respuesta.Valor.Trim() : ""), @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
                                                                                                                             break;
@@ -207,21 +211,22 @@
                                                                                                                             break;
                                                                                                                         default: break;
                                                                                                                     }
-                                                                                                                    @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0), @class = "listaIdRespuestas" })
-                                                                                                                    @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta, @class = "listaPreguntas" })
-                                                                                                                    @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona, @class = "listaEvaluados" })
-                                                                                                                </td>
+                                                                                                                @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0), @class = "listaIdRespuestas" })
+                                                                                                                @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta, @class = "listaPreguntas" })
+                                                                                                                @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona, @class = "listaEvaluados" })
+                                                                                                            </td>
                                                                                                             }
-                                                                                                        </tr>
+                                                                                                    </tr>
                                                                                                     }
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                        </div>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
                                                                                     }
-                                                                                </div>
+                                                                                    </div>
 
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
+                                                                        }
                                                                     }
                                                                 </div>
 
@@ -230,27 +235,28 @@
                                                     </div>
                                                 </div>
                                             }
-                                        </div>
-                                    }
-                                </div>
-                            </section>
-                            <footer class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-4"></div>
-                                    <div class="col-md-8" style="align-items:center;">
-                                        @Html.TextBoxFor(u => u.IdEncuestaEvaluador, new { @Value = Model != null ? Model.IdEncuestaEvaluador.ToString() : "", @type = "hidden" })
-                                        @Html.TextBoxFor(u => u.IdEncuesta, new { @Value = Model != null ? Model.IdEncuesta.ToString() : "", @type = "hidden" })
-                                        @Html.TextBoxFor(u => u.IdEvaluador, new { @Value = Model != null ? Model.IdEvaluador.ToString() : "", @type = "hidden" })
-                                        @Html.TextBoxFor(u => u.IdGrupoEvaluado, new { @Value = Model != null ? Model.IdGrupoEvaluado.ToString() : "", @type = "hidden" })
-                                        @*<input type="hidden" id="Accion" name="Accion" />*@
-                                        @*<a class="btn btn-sm btn-danger btn-rounded" href="@Url.Action("Salir")">Salir</a>*@
-                                        <button type="button" id="btnGuardar" class="btn btn-sm btn-primary btn-rounded">Guardar y continuar después.</button>
-                                        <button type="button" id="btnEnviar" class="btn btn-sm btn-danger btn-rounded">Salir y enviar.</button>
+                                        }
                                     </div>
+                                }
+                            </div>
+                        </section>
+                        <footer class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-8" style="align-items:center;">
+                                    @Html.TextBoxFor(u => u.IdEncuestaEvaluador, new { @Value = Model != null ? Model.IdEncuestaEvaluador.ToString() : "", @type = "hidden" })
+                                    @Html.TextBoxFor(u => u.IdEncuesta, new { @Value = Model != null ? Model.IdEncuesta.ToString() : "", @type = "hidden" })
+                                    @Html.TextBoxFor(u => u.IdEvaluador, new { @Value = Model != null ? Model.IdEvaluador.ToString() : "", @type = "hidden" })
+                                    @Html.TextBoxFor(u => u.IdGrupoEvaluado, new { @Value = Model != null ? Model.IdGrupoEvaluado.ToString() : "", @type = "hidden" })
+                                    @*<input type="hidden" id="Accion" name="Accion" />*@
+                                    @*<a class="btn btn-sm btn-danger btn-rounded" href="@Url.Action("Salir")">Salir</a>*@
+                                    <button type="button" id="btnGuardar" class="btn btn-sm btn-primary btn-rounded">Guardar y continuar después.</button>
+                                    <button type="button" id="btnEnviar" class="btn btn-sm btn-danger btn-rounded">Salir y enviar.</button>
                                 </div>
-                            </footer>
-                        </div>
+                            </div>
+                        </footer>
                     </div>
+                </div>
                 @*}*@
             </div>
         </div>

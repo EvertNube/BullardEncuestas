@@ -205,6 +205,7 @@ namespace BullardEncuestas.Controllers
             EncuestaEvaluadorBL oBL = new EncuestaEvaluadorBL();
             PersonaBL oPersonaBL = new PersonaBL();
             OpcionesRespuestaBL oOpcionesRespuestaBL = new OpcionesRespuestaBL();
+            ViewBag.EsSocio = false;
             ViewBag.Evaluados = oPersonaBL.getPersonasPorGrupo((int)idGrupoEvaluado);
             ViewBag.Items_SelectSINO = oOpcionesRespuestaBL.getOpcionesRespuesta(3, true);
             var objSent = (EncuestaEvaluadorDTO)TempData["EncuestaEvaluador"];
