@@ -11,8 +11,8 @@
             <section class="scrollable padder">
                 <div class="col-xs-12 col-md-12">
                     <h2>
-                        @TempData["MensajeEncuesta"]<br />
-                        Su encuesta ha sido enviada con éxito muchas gracias.
+                        @{ var mensaje = (TempData["MensajeEncuesta"] ?? "Su encuesta ha sido enviada con éxito muchas gracias.");}
+                        @mensaje
                     </h2>
                 </div>
             </section>

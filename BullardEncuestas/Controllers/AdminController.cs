@@ -214,16 +214,15 @@ namespace BullardEncuestas.Controllers
                 objSent.Encuesta = (EncuestaDTO)TempData["Encuesta_"];
                 return View(objSent);
             }
-            
             if (idEncuesta != 0 && idEvaluador != 0)
             {
                 var model = oBL.getEncuestaEvaluador((int)idEncuesta, (int)idEvaluador);
                 model.IdGrupoEvaluado = idGrupoEvaluado ?? 0;
                 TempData["Encuesta_"] = model.Encuesta;
                 var fechaActual = DateTime.Now.Date;
-                if (fechaActual < model.Encuesta.FechaInicio && model.Encuesta.FechaCierre < fechaActual)
+                if (fechaActual < model.Encuesta.FechaInicio || model.Encuesta.FechaCierre < fechaActual)
                 {
-                    TempData["MensajeEncuesta"] = "Usted ya respondió la encuesta previamente.";
+                    TempData["MensajeEncuesta"] = "La encuesta se encuentra cerrada.";
                     return RedirectToAction("MensajeEncuesta");
                 }
                 if (model.EstadoEncuesta == true)
