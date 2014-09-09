@@ -93,7 +93,7 @@
 <section class="vbox">
     <section class="scrollable padder">
         <div class="row m-b">
-            <div class="col-xs-12 col-md-10 col-md-offset-1">
+            <div class="col-xs-12 col-md-12 col-md-offset-1">
                 <h2> @Html.LabelFor(m => m.Encuesta.Periodo.Descripcion, Model.Encuesta.Periodo.Descripcion) / @Html.LabelFor(m => m.Encuesta.NombreEncuesta, Model.Encuesta.NombreEncuesta) </h2>
 
                 @*@using (Html.BeginForm("AddEncuestaEvaluador", "Admin", FormMethod.Post)) {*@
@@ -131,7 +131,7 @@
                                                         <div class="panel-body">
                                                             @if (seccion.Preguntas.Count > 0)
                                                             {
-                                                                <div class="table-responsive">
+                                                                <div class="table-responsive" style="overflow:scroll;">
                                                                     <table class="table table-bordered">
                                                                         <tbody>
                                                                             <tr>
@@ -189,39 +189,39 @@
                                                                                 <div id="@subSeccion.IdSeccion" class="panel-collapse collapse">
                                                                                     <div class="panel-body">
                                                                                         @if (subSeccion.Preguntas.Count > 0)
-                                                                                    {
-                                                                                    <div class="table-responsive">
-                                                                                        <table class="table table-bordered">
-                                                                                            <tbody>
-                                                                                                @foreach (var pregunta in subSeccion.Preguntas)
-                                                                                                    {
-                                                                                                    <tr>
-                                                                                                        <td>@pregunta.Texto</td>
-                                                                                                        @foreach (var evaluado in ViewBag.Evaluados)
-                                                                                                            {
-                                                                                                                var respuesta = pregunta.Respuestas.Where(p => p.IdEvaluado == evaluado.IdPersona).Select(p => new BullardEncuestas.Core.DTO.RespuestasDTO { IdRespuestas = p.IdRespuestas, Valor = p.Valor }).FirstOrDefault();
-                                                                                                            <td>
-                                                                                                                @switch (pregunta.IdTipoRespuesta)
-                                                                                                                    {
-                                                                                                                        case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @Value = (respuesta != null ? respuesta.Valor.Trim() : ""), @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
-                                                                                                                            break;
-                                                                                                                        case 2: @Html.TextArea("listaRespuestas", respuesta != null ? respuesta.Valor.Trim() : "", new { @class = "form-control input-sm listaRespuestas" })
-                                                                                                                            break;
-                                                                                                                        case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", respuesta != null ? Convert.ToInt32(respuesta.Valor) : 0), new { @class = "input-sm listaRespuestas", @style = "width: auto;" })
-                                                                                                                            break;
-                                                                                                                        default: break;
-                                                                                                                    }
-                                                                                                                @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0), @class = "listaIdRespuestas" })
-                                                                                                                @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta, @class = "listaPreguntas" })
-                                                                                                                @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona, @class = "listaEvaluados" })
-                                                                                                            </td>
-                                                                                                            }
-                                                                                                    </tr>
-                                                                                                    }
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </div>
-                                                                                    }
+                                                                                        {
+                                                                                            <div class="table-responsive" style="overflow:scroll;">
+                                                                                                <table class="table table-bordered">
+                                                                                                    <tbody>
+                                                                                                        @foreach (var pregunta in subSeccion.Preguntas)
+                                                                                                        {
+                                                                                                            <tr>
+                                                                                                                <td>@pregunta.Texto</td>
+                                                                                                                @foreach (var evaluado in ViewBag.Evaluados)
+                                                                                                                {
+                                                                                                                    var respuesta = pregunta.Respuestas.Where(p => p.IdEvaluado == evaluado.IdPersona).Select(p => new BullardEncuestas.Core.DTO.RespuestasDTO { IdRespuestas = p.IdRespuestas, Valor = p.Valor }).FirstOrDefault();
+                                                                                                                    <td>
+                                                                                                                        @switch (pregunta.IdTipoRespuesta)
+                                                                                                                        {
+                                                                                                                            case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @Value = (respuesta != null ? respuesta.Valor.Trim() : ""), @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
+                                                                                                                                break;
+                                                                                                                            case 2: @Html.TextArea("listaRespuestas", respuesta != null ? respuesta.Valor.Trim() : "", new { @class = "form-control input-sm listaRespuestas" })
+                                                                                                                                break;
+                                                                                                                            case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", respuesta != null ? Convert.ToInt32(respuesta.Valor) : 0), new { @class = "input-sm listaRespuestas", @style = "width: auto;" })
+                                                                                                                                break;
+                                                                                                                            default: break;
+                                                                                                                        }
+                                                                                                                        @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0), @class = "listaIdRespuestas" })
+                                                                                                                        @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta, @class = "listaPreguntas" })
+                                                                                                                        @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona, @class = "listaEvaluados" })
+                                                                                                                    </td>
+                                                                                                                }
+                                                                                                            </tr>
+                                                                                                        }
+                                                                                                    </tbody>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        }
                                                                                     </div>
 
                                                                                 </div>
