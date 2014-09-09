@@ -119,7 +119,7 @@
                                     <div class="panel-group m-b" id="accordionN1">
                                         @foreach (var seccion in Model.Encuesta.Secciones)
                                         {
-                                            if ((seccion.EsSocio && ViewBag.EsSocio) || (!seccion.EsSocio && !ViewBag.EsSocio))
+                                            if ((seccion.EsSocio && ViewBag.EsSocio) || !seccion.EsSocio)
                                             {
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
@@ -178,7 +178,7 @@
                                                                 <div class="panel-group m-b" id="accordionN2">
                                                                     @foreach (var subSeccion in seccion.SubSecciones)
                                                                     {
-                                                                        if ((seccion.EsSocio && ViewBag.EsSocio) || (!seccion.EsSocio && !ViewBag.EsSocio))
+                                                                        if ((subSeccion.EsSocio && ViewBag.EsSocio) || !subSeccion.EsSocio)
                                                                         {
                                                                             <div class="panel panel-default">
                                                                                 <div class="panel-heading">
