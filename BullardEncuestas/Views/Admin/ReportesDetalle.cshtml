@@ -2,9 +2,95 @@
 @using BullardEncuestas.Core.DTO
 @using PagedList;
 @model EncuestaDTO
+@section styles{
+    @Styles.Render("~/Content/themes/admin/js/fuelux/fuelux.css")
+}
+@section scripts{
+    @Scripts.Render("~/Content/themes/admin/js/fuelux/fuelux.js")
+}
 @{
     ViewBag.Title = "ReportesDetalle";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<section class="vbox">
+    <section class="scrollable padder">
+        <div class="row m-b">
+            <div class="col-xs-12 col-md-12">
+                <p style="margin-top:10px;"></p>
+                @Html.Partial("_showAlertMessages")
+                <h2>Reportes</h2>
+                <section class="panel panel-default">
+                    <header class="panel-heading font-bold">Encuestas / Periodos</header>
+                    <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
 
+                        <div class="panel-group m-b" id="accordionP">
+                            @foreach (EncuestaDTO encuesta in Model)
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionP" href="#@encuesta.IdEncuesta"> @encuesta.NombreEncuesta / @encuesta.Periodo.Descripcion </a>
+                                    </div>
+                                    <div id="@encuesta.IdEncuesta" class="panel-collapse collapse">
+                                        <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
+                                            @{var subseccion1 = "sub1enc" + encuesta.IdEncuesta; }
+                                            @if (encuesta.PromedioGeneral != null)
+                                            {<p><b>&nbsp;&nbsp;Promedio General: </b>@encuesta.PromedioGeneral</p>}
+                                            else
+                                            {<p><b>Promedio General: </b>No existen datos suficientes para obtener un promedio general</p>}
+                                            @{var subseccion2 = "sub2enc" + encuesta.IdEncuesta; }
+                                            <div class="panel-group m-b" id="accordionSub2">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionSub2" href="#@subseccion2"> Detalle Evaluados</a>
+                                                    </div>
+                                                    <div id="@subseccion2" class="panel-collapse collapse in">
+                                                        <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered">
+                                                                    <tbody>
+                                                                        @{int npre = encuesta.listaReportePreguntas.Count;}
+                                                                        @{int nper = encuesta.listaReportePersonas.Count;}
+                                                                        <tr>
+                                                                            <th>&nbsp;</th>
+                                                                            @for (int j = 0; j < nper; j++)
+                                                                            {
+                                                                                <th>
+                                                                                    <div class="rotate"><div><span>@encuesta.listaReportePersonas[j].Nombre</span></div></div>
+                                                                                </th>
+                                                                            }
+                                                                        </tr>
+                                                                        @for (int pre = 0; pre < npre; pre++)
+                                                                        {
+                                                                            <tr>
+                                                                                <td><div><span>@encuesta.listaReportePreguntas[pre].Texto</span></div></td>
+                                                                                @for (int per = 0; per < nper; per++)
+                                                                                {
+                                                                                    if (encuesta.matrizReporteDetalle[pre, per].ValorItem != -1)
+                                                                                    {
+                                                                                        <td align="center"><div><span>@encuesta.matrizReporteDetalle[pre, per].ValorItem</span></div></td>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <td align="center"><div><span>NA</span></div></td>}
+                                                                                }
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</section>

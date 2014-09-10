@@ -3243,20 +3243,21 @@ fieldset[disabled] .btn-gplus.active {
 
 div.rotate {
   /* Something you can count on */
-  height: 136px;
+  height: 160px;
+  margin-left: -24px;
   white-space: nowrap;
 }
 
 div.rotate > div {
   transform: 
     /* Magic Numbers */
-    translate(25px, 107px)
+    translate(25px, 132px)
     /* 45 is really 360 - 45 */
     rotate(-90deg);
   width: 30px;
 }
 div.rotate > div > span {
   border-bottom: 1px solid #ccc;
-  padding: 3px 3px;
+  /*padding: 3px 3px;*/
 }
 
