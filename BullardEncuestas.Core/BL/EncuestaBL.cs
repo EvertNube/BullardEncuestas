@@ -67,7 +67,7 @@ namespace BullardEncuestas.Core.BL
                     .Select(w => new ReporteDTO
                     {
                         IdPregunta = w.IdPregunta,
-                        DescripPregunta = w.DescripPregunta,
+                        TextoPregunta = w.TextoPregunta,
                         IdEvaluado = w.IdEvaluado,
                         NombreEvaluado = w.NombreEvaluado,
                         PromedioPreguntaXEvaluado = w.PromedioPreguntaXEvaluado
@@ -83,7 +83,7 @@ namespace BullardEncuestas.Core.BL
                     .Select(pre => new PreguntaDTO
                     {
                         IdPregunta = pre.IdPregunta,
-                        Descripcion = pre.PreguntaDescrip
+                        Texto = pre.TextoPregunta
                     }).ToList()
                     //GrupoTrabajo = new GrupoTrabajoDTO { Nombre = r.NombreGrupo }
                 }).ToList();

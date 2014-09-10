@@ -105,6 +105,9 @@
     <Compile Include="SP_GetEncuestasReporteDetalle2_Result.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_GetEncuestasReporteDetalle2_Result1.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_GetEncuestasReporte_Result.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
@@ -118,6 +121,9 @@
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SP_GetPreguntasEnEncuesta_Result.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetPreguntasEnEncuesta_Result1.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoRespuesta.cs">

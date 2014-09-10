@@ -16,13 +16,13 @@
 <section class="vbox">
     <section class="scrollable padder">
         <div class="row m-b">
-            <div class="col-xs-12 col-md-10 col-md-offset-1">
+            <div class="col-xs-12 col-md-12">
                 <p style="margin-top:10px;"></p>
                 @Html.Partial("_showAlertMessages")
                 <h2>Reportes</h2>
                 <section class="panel panel-default">
                     <header class="panel-heading font-bold">Encuestas / Periodos</header>
-                    <div class="panel-body">
+                    <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
 
                         <div class="panel-group m-b" id="accordionP">
                             @foreach (EncuestaDTO encuesta in Model)
@@ -32,24 +32,8 @@
                                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionP" href="#@encuesta.IdEncuesta"> @encuesta.NombreEncuesta / @encuesta.Periodo.Descripcion </a>
                                     </div>
                                     <div id="@encuesta.IdEncuesta" class="panel-collapse collapse">
-                                        <div class="panel-body">
+                                        <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
                                             @{var subseccion1 = "sub1enc" + encuesta.IdEncuesta; }
-                                            @*<div class="panel-group m-b" id="accordionSub1">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionSub1" href="#@subseccion1"> Encuesta (Resumen)</a>
-                                                    </div>
-                                                    <div id="@subseccion1" class="panel-collapse collapse in">
-                                                        <div class="panel-body text-sm">
-                                                            @if (encuesta.PromedioGeneral != null)
-                                                            {<p><b>Promedio General: </b>@encuesta.PromedioGeneral</p>}
-                                                            else
-                                                            {<p><b>Promedio General: </b>No existen datos suficientes para obtener un promedio general</p>}
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>*@
                                             @if (encuesta.PromedioGeneral != null)
                                             {<p><b>&nbsp;&nbsp;Promedio General: </b>@encuesta.PromedioGeneral</p>}
                                             else
@@ -61,15 +45,10 @@
                                                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionSub2" href="#@subseccion2"> Detalle Evaluados</a>
                                                     </div>
                                                     <div id="@subseccion2" class="panel-collapse collapse in">
-                                                        <div class="panel-body text-sm">
+                                                        <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
                                                             <div class="table-responsive">
                                                                 <table class="table table-bordered">
                                                                     <tbody>
-
-                                                                        @*@{int nelePxE = encuesta.listaReporteDetalle.Count;}
-                                                                            @for (int i = 0; i < nelePxE; i++)
-                                                                            {
-                                                                            }*@
                                                                         @{int npre = encuesta.listaReportePreguntas.Count;}
                                                                         @{int nper = encuesta.listaReportePersonas.Count;}
                                                                         <tr>
@@ -84,16 +63,16 @@
                                                                         @for (int pre = 0; pre < npre; pre++)
                                                                         {
                                                                             <tr>
-                                                                                <td><div><span>@encuesta.listaReportePreguntas[pre].Descripcion</span></div></td>
+                                                                                <td><div><span>@encuesta.listaReportePreguntas[pre].Texto</span></div></td>
                                                                                 @for (int per = 0; per < nper; per++)
                                                                                 {
                                                                                     if (encuesta.matrizReporteDetalle[pre, per].ValorItem != -1)
                                                                                     {
-                                                                                        <td align="center"><div><span>@encuesta.matrizReporteDetalle[pre,per].ValorItem</span></div></td>
+                                                                                        <td align="center"><div><span>@encuesta.matrizReporteDetalle[pre, per].ValorItem</span></div></td>
                                                                                     }
                                                                                     else
                                                                                     {
-                                                                                    <td align="center"><div><span>NA</span></div></td>}
+                                                                                        <td align="center"><div><span>NA</span></div></td>}
                                                                                 }
                                                                             </tr>
                                                                         }
@@ -104,20 +83,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            @*
-                                                @{var subseccion3 = "sub3enc" + encuesta.IdEncuesta; }
-                                                <div class="panel-group m-b" id="accordionSub3">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading">
-                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionSub3" href="#@subseccion3"> Puntaje por seccion</a>
-                                                        </div>
-                                                        <div id="@subseccion3" class="panel-collapse collapse in">
-                                                            <div class="panel-body text-sm">
-                                                                Test
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>*@
                                         </div>
                                     </div>
                                 </div>

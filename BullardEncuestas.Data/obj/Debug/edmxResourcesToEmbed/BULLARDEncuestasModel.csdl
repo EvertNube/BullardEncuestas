@@ -408,11 +408,6 @@
     <FunctionImport Name="SP_GetEncuestas" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestas_Result)" />
     <FunctionImport Name="SP_GetEncuestas2" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestas2_Result)" />
     <FunctionImport Name="SP_GetEncuestasReporte" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestasReporte_Result)" />
-    <FunctionImport Name="SP_GetEncuestasReporteDetalle2" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestasReporteDetalle2_Result)">
-      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
-      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
-      <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="SP_GetPersonasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPersonasEnEncuesta_Result)">
       <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
       <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
@@ -421,14 +416,19 @@
     <FunctionImport Name="SP_GetPersonasPorGrupo" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPersonasPorGrupo_Result)">
       <Parameter Name="IdGrupoTrabajo" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="SP_GetPreguntasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPreguntasEnEncuesta_Result)">
+    <FunctionImport Name="SP_ReplicaEncuesta">
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+      <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_GetEncuestasReporteDetalle2" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestasReporteDetalle2_Result1)">
       <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
       <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
       <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="SP_ReplicaEncuesta">
+    <FunctionImport Name="SP_GetPreguntasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPreguntasEnEncuesta_Result1)">
+      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
       <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
-      <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
+      <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SP_GetEncuestas_Result">
@@ -481,5 +481,16 @@
   <ComplexType Name="SP_GetPreguntasEnEncuesta_Result">
     <Property Type="Int32" Name="IdPregunta" Nullable="false" />
     <Property Type="String" Name="PreguntaDescrip" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="SP_GetEncuestasReporteDetalle2_Result1">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
+    <Property Type="Int32" Name="IdEvaluado" Nullable="false" />
+    <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+    <Property Type="Decimal" Name="PromedioPreguntaXEvaluado" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="SP_GetPreguntasEnEncuesta_Result1">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
   </ComplexType>
 </Schema>
