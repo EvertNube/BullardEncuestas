@@ -209,8 +209,9 @@ namespace BullardEncuestas.Controllers
             ViewBag.Evaluados = oPersonaBL.getPersonasPorGrupo((int)idGrupoEvaluado);
             ViewBag.Items_SelectSINO = oOpcionesRespuestaBL.getOpcionesRespuesta(3, true);
             var objSent = (EncuestaEvaluadorDTO)TempData["EncuestaEvaluador"];
-            if (objSent != null) { 
-                TempData["EncuestaEvaluador"] = null; 
+            if (objSent != null)
+            {
+                TempData["EncuestaEvaluador"] = null;
                 objSent.IdGrupoEvaluado = idGrupoEvaluado ?? 0;
                 objSent.Encuesta = (EncuestaDTO)TempData["Encuesta_"];
                 return View(objSent);
@@ -250,7 +251,10 @@ namespace BullardEncuestas.Controllers
                         return RedirectToAction("Index");
                     }
                     else
+                    {
                         createResponseMessage(CONSTANTES.ERROR, CONSTANTES.ERROR_UPDATE_MESSAGE);
+                        return RedirectToAction("Index");
+                    }
                 }
                 else if (dto.IdEncuesta != 0)
                 {

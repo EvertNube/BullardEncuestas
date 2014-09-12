@@ -93,13 +93,13 @@
 <section class="vbox">
     <section class="scrollable padder">
         <div class="row m-b">
-            <div class="col-xs-12 col-md-12">
+            <div class="col-xs-12 col-md-12 col-md-offset-1">
                 <h2> @Html.LabelFor(m => m.Encuesta.Periodo.Descripcion, Model.Encuesta.Periodo.Descripcion) / @Html.LabelFor(m => m.Encuesta.NombreEncuesta, Model.Encuesta.NombreEncuesta) </h2>
 
                 @*@using (Html.BeginForm("AddEncuestaEvaluador", "Admin", FormMethod.Post)) {*@
                 @Html.ValidationSummary(true)
                 <div class="row m-b">
-                    <div class="col-xs-12 col-md-12">
+                    <div class="col-xs-12 col-md-9">
                         @Html.Partial("_showAlertMessages")
                         <section class="panel panel-default">
                             @*<header class="panel-heading affix" style="min-height:inherit; min-width:641%; overflow-x:auto">*@
@@ -112,7 +112,7 @@
                                     <div class="font-bold">Leyenda:</div><div>@Model.Encuesta.Leyenda</div>
                                 </p>
                             </header>
-                            <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
+                            <div class="panel-body">
                                 @*@{ var countEvaluados = ViewBag.Evaluados.Count; }*@
                                 @if (Model.Encuesta.Secciones.Count > 0)
                                 {
@@ -128,7 +128,7 @@
                                                         </h4>
                                                     </div>
                                                     <div id="@seccion.IdSeccion" class="panel-collapse collapse">
-                                                        <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
+                                                        <div class="panel-body">
                                                             @if (seccion.Preguntas.Count > 0)
                                                             {
                                                                 <div class="table-responsive" style="overflow:scroll;">
@@ -187,12 +187,21 @@
                                                                                     </h4>
                                                                                 </div>
                                                                                 <div id="@subSeccion.IdSeccion" class="panel-collapse collapse">
-                                                                                    <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
+                                                                                    <div class="panel-body">
                                                                                         @if (subSeccion.Preguntas.Count > 0)
                                                                                         {
                                                                                             <div class="table-responsive" style="overflow:scroll;">
                                                                                                 <table class="table table-bordered">
                                                                                                     <tbody>
+                                                                                                        <tr>
+                                                                                                            <th>&nbsp;</th>
+                                                                                                            @foreach (var evaluado in ViewBag.Evaluados)
+                                                                                                            {
+                                                                                                                <th>
+                                                                                                                    <div class="rotate"><div><span>@evaluado.Nombre</span></div></div>
+                                                                                                                </th>
+                                                                                                            }
+                                                                                                        </tr>
                                                                                                         @foreach (var pregunta in subSeccion.Preguntas)
                                                                                                         {
                                                                                                             <tr>

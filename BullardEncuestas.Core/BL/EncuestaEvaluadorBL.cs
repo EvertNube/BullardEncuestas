@@ -36,14 +36,14 @@ namespace BullardEncuestas.Core.BL
                             EstadoEncuesta = r.Estado,
                             Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
                             GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.Nombre },
-                            Secciones = r.Seccion.Where(x => x.IdSeccionPadre == null).Select(x => new SeccionDTO
+                            Secciones = r.Seccion.Where(x => x.IdSeccionPadre == null && x.Estado == true).Select(x => new SeccionDTO
                             {
                                 IdSeccion = x.IdSeccion,
                                 Nombre = x.Nombre,
                                 Orden = x.Orden,
                                 EsSocio = x.EsSocio,
                                 Estado = x.Estado,
-                                Preguntas = x.Pregunta.Select(y => new PreguntaDTO
+                                Preguntas = x.Pregunta.Where(y => y.Estado == true).Select(y => new PreguntaDTO
                                 {
                                     IdPregunta = y.IdPregunta,
                                     Texto = y.Texto,
@@ -64,14 +64,14 @@ namespace BullardEncuestas.Core.BL
                                     },
                                     Respuestas = y.Respuestas.Where(a => a.EncuestaEvaluador.IdEvaluador == idEvaluador).Select(a => new RespuestasDTO { IdRespuestas = a.IdRespuestas, IdEvaluado = a.IdEvaluado, Valor = a.Valor }).ToList()
                                 }).OrderBy(y => y.OrdenPregunta).ToList(),
-                                SubSecciones = r.Seccion.Where(y => y.IdSeccionPadre == x.IdSeccion).Select(y => new SeccionDTO
+                                SubSecciones = r.Seccion.Where(y => y.IdSeccionPadre == x.IdSeccion && y.Estado == true).Select(y => new SeccionDTO
                                 {
                                     IdSeccion = y.IdSeccion,
                                     Nombre = y.Nombre,
                                     Orden = y.Orden,
                                     EsSocio = y.EsSocio,
                                     Estado = y.Estado,
-                                    Preguntas = y.Pregunta.Select(z => new PreguntaDTO
+                                    Preguntas = y.Pregunta.Where(z => z.Estado == true).Select(z => new PreguntaDTO
                                     {
                                         IdPregunta = z.IdPregunta,
                                         Texto = z.Texto,
@@ -92,8 +92,8 @@ namespace BullardEncuestas.Core.BL
                                         },
                                         Respuestas = z.Respuestas.Where(a => a.EncuestaEvaluador.IdEvaluador == idEvaluador).Select(a => new RespuestasDTO { IdRespuestas = a.IdRespuestas, IdEvaluado = a.IdEvaluado, Valor = a.Valor }).ToList()
                                     }).OrderBy(z => z.OrdenPregunta).ToList()
-                                }).OrderBy(y => y.Orden).ToList(),
-                            }).OrderBy(x => x.Orden).ToList(),
+                                }).OrderBy(y => y.Orden).ToList()
+                            }).OrderBy(x => x.Orden).ToList()
                         }
                     }).SingleOrDefault();
                 return result;
