@@ -359,29 +359,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="FN_GetEncuestaPeriodoAnterior" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="IdEncuesta" Type="int" Mode="In" />
+          <Parameter Name="IdGrupo" Type="int" Mode="In" />
+        </Function>
         <Function Name="FN_GetGrupoEvaluadorByEncuesta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar(max)">
           <Parameter Name="IdEncuesta" Type="int" Mode="In" />
         </Function>
         <Function Name="FN_GetPromedioDetallePXE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+          <Parameter Name="IdEncuesta" Type="int" Mode="In" />
           <Parameter Name="IdPeriodo" Type="int" Mode="In" />
           <Parameter Name="IdGrupo" Type="int" Mode="In" />
           <Parameter Name="IdPregunta" Type="int" Mode="In" />
           <Parameter Name="IdPersona" Type="int" Mode="In" />
         </Function>
         <Function Name="FN_GetPromedioGeneralEncuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+          <Parameter Name="IdEncuesta" Type="int" Mode="In" />
+          <Parameter Name="IdGrupo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="FN_GetPromedioGeneralPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+          <Parameter Name="IdEncuesta" Type="int" Mode="In" />
           <Parameter Name="IdPeriodo" Type="int" Mode="In" />
           <Parameter Name="IdGrupo" Type="int" Mode="In" />
+          <Parameter Name="IdPersona" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_EsSocio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdPersona" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_GetEncuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_GetEncuestas2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="SP_GetEncuestasReporte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_GetEncuestasPorIdPeriodo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdPeriodo" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_GetEncuestasReporteDetalle2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdEncuesta" Type="int" Mode="In" />
           <Parameter Name="IdPeriodo" Type="int" Mode="In" />
           <Parameter Name="IdGrupoEvaluado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_GetEncuestasReportePorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEncuesta" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_GetPersonasEnEncuesta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdEncuesta" Type="int" Mode="In" />
@@ -897,11 +913,6 @@
           <FunctionImport Name="SP_GetEncuestas" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestas_Result)" />
           <FunctionImport Name="SP_GetEncuestas2" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestas2_Result)" />
           <FunctionImport Name="SP_GetEncuestasReporte" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestasReporte_Result)" />
-          <FunctionImport Name="SP_GetPersonasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPersonasEnEncuesta_Result)">
-            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
-            <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
-            <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="SP_GetPersonasPorGrupo" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPersonasPorGrupo_Result)">
           <Parameter Name="IdGrupoTrabajo" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -915,6 +926,17 @@
             <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetPreguntasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPreguntasEnEncuesta_Result1)">
+            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+            <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+            <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetEncuestasPorIdPeriodo" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestasPorIdPeriodo_Result)">
+          <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetEncuestasReportePorId" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestasReportePorId_Result)">
+          <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetPersonasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPersonasEnEncuesta_Result1)">
             <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
             <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
             <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
@@ -981,6 +1003,31 @@
         <ComplexType Name="SP_GetPreguntasEnEncuesta_Result1">
           <Property Type="Int32" Name="IdPregunta" Nullable="false" />
           <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
+        </ComplexType>
+        <ComplexType Name="SP_GetEncuestasPorIdPeriodo_Result">
+          <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
+          <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
+          <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="Int32" Name="IdGrupoEvaluado" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_GetEncuestasReportePorId_Result">
+          <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
+          <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
+          <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="IdGrupoTrabajo" Nullable="false" />
+          <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
+          <Property Type="Decimal" Name="PromedioGeneral" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="PromedioGeneralAnterior" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SP_GetPersonasEnEncuesta_Result1">
+          <Property Type="Int32" Name="IdPersona" Nullable="false" />
+          <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+          <Property Type="Decimal" Name="PromedioPersona" Nullable="true" Precision="18" Scale="2" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1179,28 +1226,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_GetEncuestasReporte" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestasReporte">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetEncuestasReporte_Result">
-                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
-                <ScalarProperty Name="NombreEncuesta" ColumnName="NombreEncuesta" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
-                <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
-                <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
-                <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
-                <ScalarProperty Name="PromedioGeneral" ColumnName="PromedioGeneral" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_GetPersonasEnEncuesta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetPersonasEnEncuesta">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetPersonasEnEncuesta_Result">
-                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-                <ScalarProperty Name="NombreEvaluado" ColumnName="NombreEvaluado" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_GetPersonasPorGrupo" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetPersonasPorGrupo">
             <ResultMapping>
               <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetPersonasPorGrupo_Result">
@@ -1229,6 +1254,43 @@
               <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetPreguntasEnEncuesta_Result1">
                 <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
                 <ScalarProperty Name="TextoPregunta" ColumnName="TextoPregunta" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetEncuestasPorIdPeriodo" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestasPorIdPeriodo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetEncuestasPorIdPeriodo_Result">
+                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+                <ScalarProperty Name="NombreEncuesta" ColumnName="NombreEncuesta" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
+                <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetEncuestasReportePorId" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestasReportePorId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetEncuestasReportePorId_Result">
+                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+                <ScalarProperty Name="NombreEncuesta" ColumnName="NombreEncuesta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
+                <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
+                <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
+                <ScalarProperty Name="PromedioGeneral" ColumnName="PromedioGeneral" />
+                <ScalarProperty Name="PromedioGeneralAnterior" ColumnName="PromedioGeneralAnterior" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetPersonasEnEncuesta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetPersonasEnEncuesta">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetPersonasEnEncuesta_Result1">
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="NombreEvaluado" ColumnName="NombreEvaluado" />
+                <ScalarProperty Name="PromedioPersona" ColumnName="PromedioPersona" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -408,11 +408,6 @@
     <FunctionImport Name="SP_GetEncuestas" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestas_Result)" />
     <FunctionImport Name="SP_GetEncuestas2" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestas2_Result)" />
     <FunctionImport Name="SP_GetEncuestasReporte" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestasReporte_Result)" />
-    <FunctionImport Name="SP_GetPersonasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPersonasEnEncuesta_Result)">
-      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
-      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
-      <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="SP_GetPersonasPorGrupo" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPersonasPorGrupo_Result)">
       <Parameter Name="IdGrupoTrabajo" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -426,6 +421,17 @@
       <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="SP_GetPreguntasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPreguntasEnEncuesta_Result1)">
+      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+      <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_GetEncuestasPorIdPeriodo" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestasPorIdPeriodo_Result)">
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_GetEncuestasReportePorId" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestasReportePorId_Result)">
+      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_GetPersonasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPersonasEnEncuesta_Result1)">
       <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
       <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
       <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
@@ -492,5 +498,30 @@
   <ComplexType Name="SP_GetPreguntasEnEncuesta_Result1">
     <Property Type="Int32" Name="IdPregunta" Nullable="false" />
     <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
+  </ComplexType>
+  <ComplexType Name="SP_GetEncuestasPorIdPeriodo_Result">
+    <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
+    <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
+    <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="IdGrupoEvaluado" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SP_GetEncuestasReportePorId_Result">
+    <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
+    <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
+    <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="IdGrupoTrabajo" Nullable="false" />
+    <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
+    <Property Type="Decimal" Name="PromedioGeneral" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="PromedioGeneralAnterior" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="SP_GetPersonasEnEncuesta_Result1">
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+    <Property Type="Decimal" Name="PromedioPersona" Nullable="true" Precision="18" Scale="2" />
   </ComplexType>
 </Schema>

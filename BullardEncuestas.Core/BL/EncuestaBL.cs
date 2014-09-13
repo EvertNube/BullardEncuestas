@@ -31,6 +31,23 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
+        public List<EncuestaDTO> getEncuestaEnPeriodo(int idPeriodo)
+        {
+            using (var context = getContext())
+            {
+                var result = context.SP_GetEncuestasPorIdPeriodo(idPeriodo)
+                     .Select(r => new EncuestaDTO
+                     {
+                         IdEncuesta = r.IdEncuesta,
+                         NombreEncuesta = r.NombreEncuesta,
+                         Periodo = new PeriodoDTO { IdPeriodo = r.IdPeriodo, Descripcion = r.NombrePeriodo },
+                         GrupoEvaluado = new GrupoTrabajoDTO { IdGrupoTrabajo = r.IdGrupoEvaluado, Nombre = r.NombreGrupo },
+                         EstadoEncuesta = r.Estado
+                     }).ToList();
+                return result;
+            }
+        }
+
         public IList<EncuestaDTO> getEncuestas2()//bool activeOnly = false
         {
             using (var context = getContext())
@@ -78,6 +95,7 @@ namespace BullardEncuestas.Core.BL
                     {
                         IdPersona = p.IdPersona,
                         Nombre = p.NombreEvaluado,
+                        Promedio = p.PromedioPersona
                     }).ToList(),
                     listaReportePreguntas = context.SP_GetPreguntasEnEncuesta(r.IdEncuesta, r.IdPeriodo, r.IdGrupoEvaluado)
                     .Select(pre => new PreguntaDTO
@@ -131,6 +149,89 @@ namespace BullardEncuestas.Core.BL
 
                 return result;
             }
+        }
+
+        public EncuestaDTO getEncuestaReporteDetalle(int id)
+        {
+            using (var context = getContext())
+            {
+                //var result = context.Encuesta.Where(x => x.IdEncuesta == 2).AsEnumerable()
+                var result = context.SP_GetEncuestasReportePorId(id).AsEnumerable()
+                .Select(r => new EncuestaDTO
+                {
+                    IdEncuesta = r.IdEncuesta,
+                    NombreEncuesta = r.NombreEncuesta,
+                    Periodo = new PeriodoDTO { Descripcion = r.NombrePeriodo },
+                    GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.NombreGrupo },
+                    EstadoEncuesta = r.Estado,
+                    IdGrupoEvaluado = r.IdGrupoTrabajo,
+                    IdPeriodo = r.IdPeriodo,
+                    PromedioGeneral = r.PromedioGeneral,
+                    PromGeneralAnterior = r.PromedioGeneralAnterior,
+                    listaReporteDetalle = context.SP_GetEncuestasReporteDetalle2(r.IdEncuesta, r.IdPeriodo, r.IdGrupoTrabajo)
+                    .Select(w => new ReporteDTO
+                    {
+                        IdPregunta = w.IdPregunta,
+                        TextoPregunta = w.TextoPregunta,
+                        IdEvaluado = w.IdEvaluado,
+                        NombreEvaluado = w.NombreEvaluado,
+                        PromedioPreguntaXEvaluado = w.PromedioPreguntaXEvaluado
+                    }
+                    ).ToList(),
+                    listaReportePersonas = context.SP_GetPersonasEnEncuesta(r.IdEncuesta, r.IdPeriodo, r.IdGrupoTrabajo)
+                    .Select(p => new PersonaDTO
+                    {
+                        IdPersona = p.IdPersona,
+                        Nombre = p.NombreEvaluado,
+                        Promedio = p.PromedioPersona
+                    }).ToList(),
+                    listaReportePreguntas = context.SP_GetPreguntasEnEncuesta(r.IdEncuesta, r.IdPeriodo, r.IdGrupoTrabajo)
+                    .Select(pre => new PreguntaDTO
+                    {
+                        IdPregunta = pre.IdPregunta,
+                        Texto = pre.TextoPregunta
+                    }).ToList()
+                }).SingleOrDefault();
+
+                int numeroPreguntas = result.listaReportePreguntas.Count;
+                int numeroPersonas = result.listaReportePersonas.Count;
+
+                ItemMatriz[,] nuevaMatriz = new ItemMatriz[numeroPreguntas, numeroPersonas];
+                for (int i = 0; i < numeroPreguntas; i++)
+                {
+                    for (int j = 0; j < numeroPersonas; j++)
+                    {
+                        ItemMatriz nuevo = new ItemMatriz();
+
+                        nuevo.IdItemColumn = result.listaReportePersonas[j].IdPersona;
+                        nuevo.NombreItemColumn = result.listaReportePersonas[j].Nombre;
+                        nuevo.IdItemRow = result.listaReportePreguntas[i].IdPregunta;
+                        nuevo.NombreItemRow = result.listaReportePreguntas[i].Descripcion;
+                        nuevo.ValorItem = -1;
+
+                        nuevaMatriz[i, j] = nuevo;
+                    }
+                }
+
+                for (int i = 0; i < numeroPreguntas; i++)
+                {
+                    for (int j = 0; j < numeroPersonas; j++)
+                    {
+                        foreach (ReporteDTO itemDetalle in result.listaReporteDetalle)
+                        {
+                            if (nuevaMatriz[i, j].IdItemColumn == itemDetalle.IdEvaluado && nuevaMatriz[i, j].IdItemRow == itemDetalle.IdPregunta)
+                            {
+                                nuevaMatriz[i, j].ValorItem = itemDetalle.PromedioPreguntaXEvaluado;
+                            }
+                        }
+                    }
+                }
+
+                result.matrizReporteDetalle = nuevaMatriz;
+
+                return result;
+            }
+
         }
 
         public EncuestaDTO getEncuesta(int id)//bool activeOnly = false

@@ -354,29 +354,45 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="FN_GetEncuestaPeriodoAnterior" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+    <Parameter Name="IdEncuesta" Type="int" Mode="In" />
+    <Parameter Name="IdGrupo" Type="int" Mode="In" />
+  </Function>
   <Function Name="FN_GetGrupoEvaluadorByEncuesta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar(max)">
     <Parameter Name="IdEncuesta" Type="int" Mode="In" />
   </Function>
   <Function Name="FN_GetPromedioDetallePXE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+    <Parameter Name="IdEncuesta" Type="int" Mode="In" />
     <Parameter Name="IdPeriodo" Type="int" Mode="In" />
     <Parameter Name="IdGrupo" Type="int" Mode="In" />
     <Parameter Name="IdPregunta" Type="int" Mode="In" />
     <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
   <Function Name="FN_GetPromedioGeneralEncuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+    <Parameter Name="IdEncuesta" Type="int" Mode="In" />
+    <Parameter Name="IdGrupo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="FN_GetPromedioGeneralPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+    <Parameter Name="IdEncuesta" Type="int" Mode="In" />
     <Parameter Name="IdPeriodo" Type="int" Mode="In" />
     <Parameter Name="IdGrupo" Type="int" Mode="In" />
+    <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
   <Function Name="SP_EsSocio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
   <Function Name="SP_GetEncuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="SP_GetEncuestas2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-  <Function Name="SP_GetEncuestasReporte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_GetEncuestasPorIdPeriodo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdPeriodo" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_GetEncuestasReporteDetalle2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IdEncuesta" Type="int" Mode="In" />
     <Parameter Name="IdPeriodo" Type="int" Mode="In" />
     <Parameter Name="IdGrupoEvaluado" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetEncuestasReportePorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEncuesta" Type="int" Mode="In" />
   </Function>
   <Function Name="SP_GetPersonasEnEncuesta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IdEncuesta" Type="int" Mode="In" />

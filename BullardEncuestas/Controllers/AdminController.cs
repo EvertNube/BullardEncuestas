@@ -719,11 +719,25 @@ namespace BullardEncuestas.Controllers
             if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
             if (!this.isAdministrator()) { return RedirectToAction("Index"); }
             EncuestaBL encuestaBL = new EncuestaBL();
+            PeriodoBL periodoBL = new PeriodoBL();
 
-            ReporteBL reporteBL = new ReporteBL();
-            ViewBag.ReportesEncuestas = reporteBL.ObtenerReportesEncuestas();
+            IList<PeriodoDTO> lperiodos = periodoBL.getPeriodos(true);
 
-            return View(encuestaBL.getEncuestasReporte());
+            lperiodos.Insert(0, new PeriodoDTO() { IdPeriodo = 0, Descripcion = "Seleccione un periodo" });
+
+            return View(lperiodos);
+        }
+        public ActionResult ReportesDetalle(int? id = null)
+        {
+            if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
+            if (!this.isAdministrator()) { return RedirectToAction("Index"); }
+            EncuestaBL encuestaBL = new EncuestaBL();
+            var model = new EncuestaDTO();
+            if (id != null)
+            {
+                model = encuestaBL.getEncuestaReporteDetalle((int)id);
+            }
+            return View(model);
         }
 
         #region APIS
@@ -809,16 +823,13 @@ namespace BullardEncuestas.Controllers
                 lista.Insert(0, new GrupoTrabajoDTO { IdGrupoTrabajo = 0, Nombre = "Seleccione un Grupo" });
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
-        //[HttpGet]
-        //public ActionResult GetGruposEvaluadores(bool AsSelectList = false)
-        //{
-        //    //if (!this.currentUser()) { return RedirectToAction("Ingresar"); }
-        //    GrupoTrabajoBL objBL = new GrupoTrabajoBL();
-        //    var lista = objBL.getGruposEvaluadores(true);
-        //    if (AsSelectList)
-        //        lista.Insert(0, new GrupoTrabajoDTO { IdGrupoTrabajo = 0, Nombre = "Seleccione un Grupo" });
-        //    return Json(lista, JsonRequestBehavior.AllowGet);
-        //}
+        [HttpGet]
+        public ActionResult GetEncuestasEnPeriodo(int idPeriodo)
+        {
+            EncuestaBL objBL = new EncuestaBL();
+            var model = objBL.getEncuestaEnPeriodo(idPeriodo);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
         #endregion
     }
 }

@@ -8,7 +8,7 @@ namespace BullardEncuestas.Core.DTO
 {
     public class GrupoTrabajoDTO
     {
-        public int IdGrupoTrabajo { get; set; }
+        public int? IdGrupoTrabajo { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
         public List<EncuestaDTO> listaEncuesta { get; set; }
