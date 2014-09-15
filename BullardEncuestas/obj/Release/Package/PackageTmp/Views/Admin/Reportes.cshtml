@@ -1,130 +1,86 @@
 ﻿@using BullardEncuestas.Helpers
 @using BullardEncuestas.Core.DTO
 @using PagedList;
-@model IList<EncuestaDTO>
-@section styles{
-    @Styles.Render("~/Content/themes/admin/js/fuelux/fuelux.css")
-}
-@section scripts{
-    @Scripts.Render("~/Content/themes/admin/js/fuelux/fuelux.js")
-}
+@model IList<PeriodoDTO>
 @{
     ViewBag.Title = "Reportes";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Periodo").change(function () {
+                var value = $(this).val();
+                if (value != "0") listarEncuestas($(this).val());
+            });
+        });
+        function drawEncuestas(data) {
+            $('#tableEncuestas td').remove();
+            $.each(data, function (index, itemData) {
+                var url = '@Url.Action("ReportesDetalle", "Admin")?id=' + itemData.IdEncuesta;
+                $('#tableEncuestas > tbody:last').append(
+                    '<tr><td>' + itemData.NombreEncuesta + '</td>' +
+                    '<td>' + itemData.EstadoEncuesta + '</td>' +
+                    '<td>' + '<a href="' + url + '" >Ver</a>' +
+                    '</td></tr>');
+            });
+        }
+        function listarEncuestas(idPeriodo) {
+            $.ajax({
+                url: "/Admin/GetEncuestasEnPeriodo",
+                type: "GET",
+                cache: false,
+                data: { idPeriodo: idPeriodo },
+                dataType: "json"
+            }).done(function (data) {
+                drawEncuestas(data);
+            }).fail(function () {
+                alert('Error al intentar obtener los Protocolos. Por favor, actualice la página o presione F5.');
+            });
+        }
 
+        //function getEncuestaReporteDetalle(idEncuesta) {
+        //    $.ajax({
+        //        async: false,
+        //        url: "/Admin/ReportesDetalle",
+        //        type: "GET",
+        //        cache: false,
+        //        data: { id: idEncuesta },
+        //        dataType: "json"
+        //    }).done();
+        //    return true;
+        //}
+    </script>
+
+}
 <section class="vbox">
     <section class="scrollable padder">
         <div class="row m-b">
             <div class="col-xs-12 col-md-10 col-md-offset-1">
                 <p style="margin-top:10px;"></p>
                 @Html.Partial("_showAlertMessages")
-                <h2>Reportes</h2>
+                <h2>Reportes por periodo</h2>
                 <section class="panel panel-default">
-                    <header class="panel-heading font-bold">Encuestas / Periodos</header>
-                    <div class="panel-body">
-
-                        <div class="panel-group m-b" id="accordionP">
-                            @foreach (EncuestaDTO encuesta in Model)
-                            {
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionP" href="#@encuesta.IdEncuesta"> @encuesta.NombreEncuesta / @encuesta.Periodo.Descripcion </a>
-                                    </div>
-                                    <div id="@encuesta.IdEncuesta" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            @{var subseccion1 = "sub1enc" + encuesta.IdEncuesta; }
-                                            @*<div class="panel-group m-b" id="accordionSub1">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionSub1" href="#@subseccion1"> Encuesta (Resumen)</a>
-                                                    </div>
-                                                    <div id="@subseccion1" class="panel-collapse collapse in">
-                                                        <div class="panel-body text-sm">
-                                                            @if (encuesta.PromedioGeneral != null)
-                                                            {<p><b>Promedio General: </b>@encuesta.PromedioGeneral</p>}
-                                                            else
-                                                            {<p><b>Promedio General: </b>No existen datos suficientes para obtener un promedio general</p>}
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>*@
-                                            @if (encuesta.PromedioGeneral != null)
-                                            {<p><b>&nbsp;&nbsp;Promedio General: </b>@encuesta.PromedioGeneral</p>}
-                                            else
-                                            {<p><b>Promedio General: </b>No existen datos suficientes para obtener un promedio general</p>}
-                                            @{var subseccion2 = "sub2enc" + encuesta.IdEncuesta; }
-                                            <div class="panel-group m-b" id="accordionSub2">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionSub2" href="#@subseccion2"> Detalle Evaluados</a>
-                                                    </div>
-                                                    <div id="@subseccion2" class="panel-collapse collapse in">
-                                                        <div class="panel-body text-sm">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-bordered">
-                                                                    <tbody>
-
-                                                                        @*@{int nelePxE = encuesta.listaReporteDetalle.Count;}
-                                                                            @for (int i = 0; i < nelePxE; i++)
-                                                                            {
-                                                                            }*@
-                                                                        @{int npre = encuesta.listaReportePreguntas.Count;}
-                                                                        @{int nper = encuesta.listaReportePersonas.Count;}
-                                                                        <tr>
-                                                                            <th>&nbsp;</th>
-                                                                            @for (int j = 0; j < nper; j++)
-                                                                            {
-                                                                                <th>
-                                                                                    <div class="rotate"><div><span>@encuesta.listaReportePersonas[j].Nombre</span></div></div>
-                                                                                </th>
-                                                                            }
-                                                                        </tr>
-                                                                        @for (int pre = 0; pre < npre; pre++)
-                                                                        {
-                                                                            <tr>
-                                                                                <td><div><span>@encuesta.listaReportePreguntas[pre].Descripcion</span></div></td>
-                                                                                @for (int per = 0; per < nper; per++)
-                                                                                {
-                                                                                    if (encuesta.matrizReporteDetalle[pre, per].ValorItem != -1)
-                                                                                    {
-                                                                                        <td align="center"><div><span>@encuesta.matrizReporteDetalle[pre,per].ValorItem</span></div></td>
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                    <td align="center"><div><span>NA</span></div></td>}
-                                                                                }
-                                                                            </tr>
-                                                                        }
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @*
-                                                @{var subseccion3 = "sub3enc" + encuesta.IdEncuesta; }
-                                                <div class="panel-group m-b" id="accordionSub3">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading">
-                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionSub3" href="#@subseccion3"> Puntaje por seccion</a>
-                                                        </div>
-                                                        <div id="@subseccion3" class="panel-collapse collapse in">
-                                                            <div class="panel-body text-sm">
-                                                                Test
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>*@
-                                        </div>
-                                    </div>
-                                </div>
-
-                            }
+                    <div class="row wrapper">
+                        <div class="col-md-4" style="text-align:right; vertical-align:central;">
+                            <label style="font-size: 15px; margin-top:6px;">Periodo:</label>
                         </div>
-
+                        <div class="col-md-4">
+                            @Html.DropDownList("Periodo", new SelectList(Model, "IdPeriodo", "Descripcion"), new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped m-b-none" id="tableEncuestas">
+                            <thead>
+                                <tr>
+                                    <th width="60%">Encuesta</th>
+                                    <th width="20%">Estado</th>
+                                    <th width="20%">Reporte</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </section>
             </div>

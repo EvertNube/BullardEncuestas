@@ -193,6 +193,15 @@
                                                                                             <div class="table-responsive" style="overflow:scroll;">
                                                                                                 <table class="table table-bordered">
                                                                                                     <tbody>
+                                                                                                        <tr>
+                                                                                                            <th>&nbsp;</th>
+                                                                                                            @foreach (var evaluado in ViewBag.Evaluados)
+                                                                                                            {
+                                                                                                                <th>
+                                                                                                                    <div class="rotate"><div><span>@evaluado.Nombre</span></div></div>
+                                                                                                                </th>
+                                                                                                            }
+                                                                                                        </tr>
                                                                                                         @foreach (var pregunta in subSeccion.Preguntas)
                                                                                                         {
                                                                                                             <tr>
