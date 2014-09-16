@@ -26,6 +26,7 @@ namespace BullardEncuestas.Data
         public string Email { get; set; }
         public Nullable<int> IdEmpresa { get; set; }
         public bool Estado { get; set; }
+        public string RutaImagen { get; set; }
     
         public virtual Empresa Empresa { get; set; }
         public virtual ICollection<EncuestaEvaluador> EncuestaEvaluador { get; set; }

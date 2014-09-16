@@ -10,18 +10,12 @@
 namespace BullardEncuestas.Data
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Respuestas
+    public partial class SP_GetPersonasEnEncuesta_Result1
     {
-        public int IdRespuestas { get; set; }
-        public int IdEncuestaEvaluador { get; set; }
-        public int IdPregunta { get; set; }
-        public int IdEvaluado { get; set; }
-        public string Valor { get; set; }
-    
-        public virtual EncuestaEvaluador EncuestaEvaluador { get; set; }
-        public virtual Pregunta Pregunta { get; set; }
-        public virtual Persona Persona { get; set; }
+        public int IdPersona { get; set; }
+        public string NombreEvaluado { get; set; }
+        public string RutaImagenPersona { get; set; }
+        public Nullable<decimal> PromedioPersona { get; set; }
     }
 }

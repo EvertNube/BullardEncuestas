@@ -77,6 +77,7 @@
     <Property Name="Email" Type="nvarchar" MaxLength="150" />
     <Property Name="IdEmpresa" Type="int" />
     <Property Name="Estado" Type="bit" Nullable="false" />
+    <Property Name="RutaImagen" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="PersonaGrupo">
     <Key>

@@ -67,17 +67,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Persona">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Persona">
-        <MappingFragment StoreEntitySet="Persona">
-          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Pregunta">
       <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Pregunta">
         <MappingFragment StoreEntitySet="Pregunta">
@@ -157,14 +146,6 @@
         <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="PersonaGrupo" TypeName="BULLARD.EncuestasDbModel.PersonaGrupo" StoreEntitySet="PersonaGrupo">
-      <EndProperty Name="GrupoTrabajo">
-        <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
-      </EndProperty>
-      <EndProperty Name="Persona">
-        <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-      </EndProperty>
-    </AssociationSetMapping>
     <FunctionImportMapping FunctionImportName="SP_EsSocio" FunctionName="BULLARD.EncuestasDbModel.Store.SP_EsSocio" />
     <FunctionImportMapping FunctionImportName="SP_GetEncuestas" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestas">
       <ResultMapping>
@@ -232,15 +213,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="SP_GetPersonasEnEncuesta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetPersonasEnEncuesta">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetPersonasEnEncuesta_Result">
-          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-          <ScalarProperty Name="NombreEvaluado" ColumnName="NombreEvaluado" />
-          <ScalarProperty Name="PromedioPersona" ColumnName="PromedioPersona" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SP_GetPersonasPorGrupo" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetPersonasPorGrupo">
       <ResultMapping>
         <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetPersonasPorGrupo_Result">
@@ -261,5 +233,35 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SP_ReplicaEncuesta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_ReplicaEncuesta" />
+    <EntitySetMapping Name="Persona">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Persona">
+        <MappingFragment StoreEntitySet="Persona">
+          <ScalarProperty Name="RutaImagen" ColumnName="RutaImagen" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PersonaGrupo" TypeName="BULLARD.EncuestasDbModel.PersonaGrupo" StoreEntitySet="PersonaGrupo">
+      <EndProperty Name="Persona">
+        <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+      </EndProperty>
+      <EndProperty Name="GrupoTrabajo">
+        <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="SP_GetPersonasEnEncuesta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetPersonasEnEncuesta">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetPersonasEnEncuesta_Result1">
+          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+          <ScalarProperty Name="NombreEvaluado" ColumnName="NombreEvaluado" />
+          <ScalarProperty Name="RutaImagenPersona" ColumnName="RutaImagenPersona" />
+          <ScalarProperty Name="PromedioPersona" ColumnName="PromedioPersona" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

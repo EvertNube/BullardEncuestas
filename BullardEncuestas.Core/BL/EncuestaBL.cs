@@ -183,7 +183,8 @@ namespace BullardEncuestas.Core.BL
                     {
                         IdPersona = p.IdPersona,
                         Nombre = p.NombreEvaluado,
-                        Promedio = p.PromedioPersona
+                        Promedio = p.PromedioPersona,
+                        UrlImagen = p.RutaImagenPersona
                     }).ToList(),
                     listaReportePreguntas = context.SP_GetPreguntasEnEncuesta(r.IdEncuesta, r.IdPeriodo, r.IdGrupoTrabajo)
                     .Select(pre => new PreguntaDTO
