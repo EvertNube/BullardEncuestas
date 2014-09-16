@@ -54,6 +54,13 @@
                                                         {
                                                             <li class="list-group-item">
                                                                 <div class="media">
+                                                                    <span class="pull-right thumb-sm">
+                                                                        @{if (personasSort[nele].UrlImagen != null)
+                                                                        {<img src=@personasSort[nele].UrlImagen class="img-full">}
+                                                                        else
+                                                                        {<img src="~/Content/themes/admin/images/avatar_default.jpg" class="img-full" /> }
+                                                                        }
+                                                                    </span>
                                                                     <div class="media-body" style="text-align:center;">
                                                                         <div>
                                                                             @personasSort[nele].Nombre

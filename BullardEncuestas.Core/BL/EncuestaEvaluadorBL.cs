@@ -136,8 +136,13 @@ namespace BullardEncuestas.Core.BL
                         respuesta.Valor = item.Valor;
                         encuestaEvaluador.Respuestas.Add(respuesta);
                     }
-                    var encuesta = encuestaEvaluador.Encuesta;
-                    encuesta.EstadoProceso = encuestaEvaluadorDTO.EstadoEncuesta ?? "";
+                    
+                    if (encuestaEvaluadorDTO.Accion == 2) //Enviar
+                        if (context.SP_GetEncuestaCompleta(encuestaEvaluadorDTO.IdEncuesta).SingleOrDefault() == 1) 
+                        {
+                            var encuesta = context.Encuesta.Where(x => x.IdEncuesta == encuestaEvaluadorDTO.IdEncuesta).SingleOrDefault();
+                            encuesta.EstadoProceso = "Completo";
+                        }
                     context.SaveChanges();
                     return true;
                 }
@@ -182,7 +187,9 @@ namespace BullardEncuestas.Core.BL
                             }
                         }
                     }
-                    encuestaEvaluador.Encuesta.EstadoProceso = encuestaEvaluadorDTO.EstadoEncuesta ?? "";
+                    if (encuestaEvaluadorDTO.Accion == 2) //Enviar
+                        if (context.SP_GetEncuestaCompleta(encuestaEvaluadorDTO.IdEncuesta).SingleOrDefault() == 1)
+                            encuestaEvaluador.Encuesta.EstadoProceso = "Completo";
                     context.SaveChanges();
                     return true;
                 }

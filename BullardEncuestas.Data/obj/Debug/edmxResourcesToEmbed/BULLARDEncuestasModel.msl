@@ -263,5 +263,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_GetEncuestaCompleta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestaCompleta" />
   </EntityContainerMapping>
 </Mapping>

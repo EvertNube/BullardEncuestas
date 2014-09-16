@@ -18,7 +18,8 @@
                     listaIdRespuestas: listaIdRespuestas,
                     listaPreguntas: listaPreguntas,
                     listaEvaluados: listaEvaluados,
-                    listaRespuestas: listaRespuestas
+                    listaRespuestas: listaRespuestas,
+                    Accion: 1
                     //EstadoEncuesta: false //Encuesta No Enviada.
                 };
                 $.ajax({
@@ -54,7 +55,8 @@
                         listaPreguntas: listaPreguntas,
                         listaEvaluados: listaEvaluados,
                         listaRespuestas: listaRespuestas,
-                        EstadoEncuesta: "Completo" //true //Encuesta enviada.
+                        Accion: 2
+                        //EstadoProceso: "Completo" //true //Encuesta enviada.
                     };
                     $.ajax({
                         url: "/Admin/SendEncuestaEvaluador",
@@ -76,9 +78,9 @@
                 }
             });
         });
-        function setActionHidden(action) {
-            $("#Accion").val(action);
-        }
+        //function setActionHidden(action) {
+        //    $("#Accion").val(action);
+        //}
     </script>
 }
 @{

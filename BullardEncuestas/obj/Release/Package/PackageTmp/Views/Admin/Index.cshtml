@@ -140,10 +140,11 @@
                                             <tr>
                                                 <th width="5%">ID</th>
                                                 <th width="35%">Encuesta</th>
-                                                <th width="15%">Periodo</th>
-                                                <th width="25%">Grupo</th>
+                                                <th width="10%">Periodo</th>
+                                                <th width="20%">Grupo</th>
+                                                <th width="20%">Estado</th>
                                                 @*<th width="15%">Resultados</th>*@
-                                                <th width="20%" style="text-align:center">Opciones</th>
+                                                <th width="10%" style="text-align:center">Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -153,18 +154,13 @@
                                                 int cont = 1;
                                                 foreach (var obj in Model)
                                                 {
-                                                    var classInactive = (ViewBag.EsAdmin && !obj.EstadoEncuesta) ? "class='inactive'" : "";
                                                     <tr>
 
-                                                        <td align="center">
-                                                            @if (ViewBag.EsAdmin && !obj.EstadoEncuesta)
-                                                            { <span class="badge bg-danger" data-toggle="tooltip" data-placement="left" data-original-title="Inactivo">@cont</span>}
-                                                            else
-                                                            {@cont}
-                                                        </td>
+                                                        <td align="center"> @cont </td>
                                                         <td>@obj.NombreEncuesta</td>
                                                         <td>@obj.Periodo.Descripcion</td>
                                                         <td>@obj.GrupoEvaluado.Nombre</td>
+                                                        <td>@obj.EstadoEncuesta</td>
                                                         @*<td><a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" data-toggle="tooltip" data-original-title="Mostrar reporte">Ver</a></td>*@
                                                         @if (ViewBag.EsAdmin)
                                                         {
@@ -172,12 +168,6 @@
                                                                 <a style="text-align: center; padding: 0 15px;" href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" data-toggle="tooltip" data-original-title="Editar encuesta">
                                                                     <i class="fa fa-pencil"></i>
                                                                 </a>
-                                                                @*<a id="btnEnviarCorreo" href="@Url.Action("SendCorreoEncuesta", new { idGrupo = obj.IdGrupoEvaluado, nombreEncuesta = obj.NombreEncuesta, periodo = obj.Periodo.Descripcion })" data-toggle="tooltip" data-original-title="Enviar encuesta">
-                                                                        <i class="fa fa-envelope"></i>
-                                                                    </a>*@
-                                                                @*<a class="btn btn-sm btn-success pull-right btn-rounded" id="btnEnviarCorreo" data-toggle="tooltip" data-original-title="Enviar encuesta" data-id="@obj.IdEncuesta" data-gevaluado="@obj.IdGrupoEvaluado" data-gevaluador="@obj.StrGrupoEvaluador" data-encuesta="@obj.NombreEncuesta" data-periodo="@obj.Periodo.Descripcion">
-                                                                    <i class="fa fa-envelope"></i>
-                                                                </a>*@
                                                                 <a class="btn btn-sm btn-success btn-rounded btnEnviarCorreo" data-toggle="tooltip" data-original-title="Enviar encuesta" data-id="@obj.IdEncuesta" data-gevaluado="@obj.IdGrupoEvaluado" data-gevaluador="@obj.StrGrupoEvaluador" data-encuesta="@obj.NombreEncuesta" data-periodo="@obj.Periodo.Descripcion">
                                                                     <i class="fa fa-envelope"></i>
                                                                 </a>

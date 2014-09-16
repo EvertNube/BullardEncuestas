@@ -18,8 +18,8 @@
                     listaIdRespuestas: listaIdRespuestas,
                     listaPreguntas: listaPreguntas,
                     listaEvaluados: listaEvaluados,
-                    listaRespuestas: listaRespuestas,
-                    EstadoEncuesta: false //Encuesta No Enviada.
+                    listaRespuestas: listaRespuestas
+                    //EstadoEncuesta: false //Encuesta No Enviada.
                 };
                 $.ajax({
                     url: "/Admin/SaveEncuestaEvaluador",
@@ -54,7 +54,7 @@
                         listaPreguntas: listaPreguntas,
                         listaEvaluados: listaEvaluados,
                         listaRespuestas: listaRespuestas,
-                        EstadoEncuesta: true //Encuesta enviada.
+                        EstadoEncuesta: "Completo" //true //Encuesta enviada.
                     };
                     $.ajax({
                         url: "/Admin/SendEncuestaEvaluador",
@@ -260,7 +260,7 @@
                                     @*<input type="hidden" id="Accion" name="Accion" />*@
                                     @*<a class="btn btn-sm btn-danger btn-rounded" href="@Url.Action("Salir")">Salir</a>*@
                                     <button type="button" id="btnGuardar" class="btn btn-sm btn-primary btn-rounded">Guardar y continuar después.</button>
-                                    <button type="button" id="btnEnviar" class="btn btn-sm btn-danger btn-rounded">Salir y enviar.</button>
+                                    <button type="button" id="btnEnviar" class="btn btn-sm btn-danger btn-rounded">Enviar y salir.</button>
                                 </div>
                             </div>
                         </footer>

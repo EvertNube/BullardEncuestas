@@ -382,6 +382,9 @@
       <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
       <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="SP_GetEncuestaCompleta" ReturnType="Collection(Int32)">
+      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SP_GetEncuestas_Result">
     <Property Type="Int32" Name="IdEncuesta" Nullable="false" />

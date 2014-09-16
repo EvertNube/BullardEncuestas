@@ -78,11 +78,11 @@
             <PropertyRef Name="IdPersona" />
           </Key>
           <Property Name="IdPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEmpresa" Type="int" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="150" />
-          <Property Name="IdEmpresa" Type="int" />
-          <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="RutaImagen" Type="nvarchar" MaxLength="100" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="PersonaGrupo">
           <Key>
@@ -387,6 +387,9 @@
         </Function>
         <Function Name="SP_EsSocio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdPersona" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_GetEncuestaCompleta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEncuesta" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_GetEncuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_GetEncuestas2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -889,6 +892,9 @@
             <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
             <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_GetEncuestaCompleta" ReturnType="Collection(Int32)">
+            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_GetEncuestas_Result">
           <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
@@ -1281,6 +1287,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetEncuestaCompleta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestaCompleta" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
