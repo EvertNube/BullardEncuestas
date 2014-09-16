@@ -227,7 +227,7 @@ namespace BullardEncuestas.Controllers
                     TempData["MensajeEncuesta"] = "La encuesta se encuentra cerrada.";
                     return RedirectToAction("MensajeEncuesta");
                 }
-                if (model.EstadoEncuesta == true)
+                if (model.EstadoEncuesta == "Completado") //if (model.EstadoEncuesta == true)
                 {
                     TempData["MensajeEncuesta"] = "Usted ya respondió la encuesta previamente.";
                     return RedirectToAction("MensajeEncuesta");
@@ -782,6 +782,7 @@ namespace BullardEncuestas.Controllers
         {
             EncuestaBL oBL = new EncuestaBL();
             var response = oBL.SendMailGrupo(grupoEvaluadores, idEncuesta, idGrupoEvaluado, nombreEncuesta, periodo);
+            if (response) response = oBL.updateEstado(idEncuesta);
             return Json(response, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]

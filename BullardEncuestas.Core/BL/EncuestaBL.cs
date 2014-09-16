@@ -22,7 +22,7 @@ namespace BullardEncuestas.Core.BL
                     IdEncuesta = r.IdEncuesta,
                     NombreEncuesta = r.NombreEncuesta,
                     Periodo = new PeriodoDTO { Descripcion = r.NombrePeriodo },
-                    EstadoEncuesta = r.Estado,
+                    EstadoProceso = r.EstadoProceso,
                     IdGrupoEvaluado = r.IdGrupoEvaluado,
                     GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.NombreGrupo },
                     StrGrupoEvaluador = r.StrGrupoEvaluador
@@ -248,6 +248,7 @@ namespace BullardEncuestas.Core.BL
                         IdPeriodo = r.IdPeriodo,
                         IdGrupoEvaluado = r.IdGrupoEvaluado,
                         EstadoEncuesta = r.Estado,
+                        EstadoProceso = r.EstadoProceso,
                         FechaInicio = r.FechaInicio,
                         FechaCierre = r.FechaCierre,
                         Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
@@ -351,7 +352,7 @@ namespace BullardEncuestas.Core.BL
                     encuesta.Leyenda = encuestaDTO.Leyenda;
                     //encuesta.IdPeriodo = encuestaDTO.IdPeriodo;
                     encuesta.IdGrupoEvaluado = encuestaDTO.IdGrupoEvaluado;
-                    encuesta.Estado = encuestaDTO.EstadoEncuesta;
+                    encuesta.EstadoProceso = "En proceso";//encuestaDTO.EstadoEncuesta;
                     encuesta.FechaInicio = encuestaDTO.FechaInicio;
                     encuesta.FechaCierre = encuestaDTO.FechaCierre;
                     var oldGrupos = encuesta.GrupoTrabajo1.Select(x => x.IdGrupoTrabajo).ToList();
@@ -374,6 +375,24 @@ namespace BullardEncuestas.Core.BL
                 catch (Exception e)
                 {
                     //throw e;
+                    return false;
+                }
+            }
+        }
+
+        public bool updateEstado(int id)
+        {
+            using (var context = getContext())
+            {
+                try
+                {
+                    var encuesta = context.Encuesta.Where(x => x.IdEncuesta == id).SingleOrDefault();
+                    if (encuesta.EstadoProceso == "Pendiente") encuesta.EstadoProceso = "En proceso";
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
                     return false;
                 }
             }

@@ -12,7 +12,7 @@ namespace BullardEncuestas.Core.DTO
         public int IdEncuesta { get; set; }
         public int IdEvaluador { get; set; }
         public string CodEvaluador { get; set; }
-        public bool EstadoEncuesta { get; set; }
+        //public bool EstadoEncuesta { get; set; }
         //public int IdEvaluado { get; set; }
         public List<RespuestasDTO> Respuestas { get; set; }
         public EncuestaDTO Encuesta { get; set; }
@@ -22,5 +22,6 @@ namespace BullardEncuestas.Core.DTO
         public List<int> listaIdRespuestas { get; set; }
         public int Accion { get; set; }
         public int IdGrupoEvaluado { get; set; }
+        public string EstadoEncuesta { get; set; }
     }
 }

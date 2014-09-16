@@ -17,7 +17,7 @@ namespace BullardEncuestas.Data
         public string NombreEncuesta { get; set; }
         public string NombrePeriodo { get; set; }
         public string NombreGrupo { get; set; }
-        public bool Estado { get; set; }
+        public string EstadoProceso { get; set; }
         public Nullable<int> IdGrupoEvaluado { get; set; }
         public string StrGrupoEvaluador { get; set; }
     }

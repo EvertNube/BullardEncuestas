@@ -30,6 +30,7 @@ namespace BullardEncuestas.Data
         public System.DateTime FechaInicio { get; set; }
         public System.DateTime FechaCierre { get; set; }
         public bool Estado { get; set; }
+        public string EstadoProceso { get; set; }
         public System.DateTime FechaCreacion { get; set; }
     
         public virtual GrupoTrabajo GrupoTrabajo { get; set; }

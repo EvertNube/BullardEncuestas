@@ -21,6 +21,7 @@
     <Property Name="FechaInicio" Type="date" Nullable="false" />
     <Property Name="FechaCierre" Type="date" Nullable="false" />
     <Property Name="Estado" Type="bit" Nullable="false" />
+    <Property Name="EstadoProceso" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="EncuestaEvaluador">

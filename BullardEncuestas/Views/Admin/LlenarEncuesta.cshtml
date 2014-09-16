@@ -18,8 +18,8 @@
                     listaIdRespuestas: listaIdRespuestas,
                     listaPreguntas: listaPreguntas,
                     listaEvaluados: listaEvaluados,
-                    listaRespuestas: listaRespuestas,
-                    EstadoEncuesta: false //Encuesta No Enviada.
+                    listaRespuestas: listaRespuestas
+                    //EstadoEncuesta: false //Encuesta No Enviada.
                 };
                 $.ajax({
                     url: "/Admin/SaveEncuestaEvaluador",
@@ -54,7 +54,7 @@
                         listaPreguntas: listaPreguntas,
                         listaEvaluados: listaEvaluados,
                         listaRespuestas: listaRespuestas,
-                        EstadoEncuesta: true //Encuesta enviada.
+                        EstadoEncuesta: "Completo" //true //Encuesta enviada.
                     };
                     $.ajax({
                         url: "/Admin/SendEncuestaEvaluador",

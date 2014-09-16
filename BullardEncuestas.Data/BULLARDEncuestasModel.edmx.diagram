@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="825bc20d32c7496e87557270329eb2c7" Name="Diagram1">
+      <Diagram DiagramId="c5fe18b58e96490e9b732a85a7863a9f" Name="Diagram1">
         <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Empresa" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Encuesta" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.Encuesta" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.EncuestaEvaluador" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.GrupoTrabajo" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="BULLARD.EncuestasDbModel.OpcionesRespuesta" Width="1.5" PointX="7.5" PointY="15.75" IsExpanded="true" />

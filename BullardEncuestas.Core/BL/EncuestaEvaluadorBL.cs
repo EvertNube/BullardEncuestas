@@ -23,7 +23,8 @@ namespace BullardEncuestas.Core.BL
                         IdEncuestaEvaluador = r.EncuestaEvaluador.Where(x => x.IdEvaluador == idEvaluador).Select(x => x.IdEncuestaEvaluador).FirstOrDefault(),
                         IdEncuesta = r.IdEncuesta,
                         IdEvaluador = idEvaluador,
-                        EstadoEncuesta = r.EncuestaEvaluador.Where(x => x.IdEvaluador == idEvaluador).Select(x => x.EstadoEncuesta).FirstOrDefault(),
+                        //EstadoEncuesta = r.EncuestaEvaluador.Where(x => x.IdEvaluador == idEvaluador).Select(x => x.EstadoEncuesta).FirstOrDefault(),
+                        EstadoEncuesta = r.EstadoProceso,
                         Encuesta = new EncuestaDTO
                         {
                             IdGrupoEvaluado = r.IdGrupoEvaluado,
@@ -34,6 +35,7 @@ namespace BullardEncuestas.Core.BL
                             FechaInicio = r.FechaInicio,
                             FechaCierre = r.FechaCierre,
                             EstadoEncuesta = r.Estado,
+                            EstadoProceso = r.EstadoProceso,
                             Periodo = new PeriodoDTO { Descripcion = r.Periodo.Descripcion },
                             GrupoEvaluado = new GrupoTrabajoDTO { Nombre = r.Nombre },
                             Secciones = r.Seccion.Where(x => x.IdSeccionPadre == null && x.Estado == true).Select(x => new SeccionDTO
@@ -123,7 +125,7 @@ namespace BullardEncuestas.Core.BL
                     encuestaEvaluador.IdEncuesta = encuestaEvaluadorDTO.IdEncuesta;
                     encuestaEvaluador.IdEvaluador = encuestaEvaluadorDTO.IdEvaluador;
                     encuestaEvaluador.CodEvaluador = "";
-                    encuestaEvaluador.EstadoEncuesta = encuestaEvaluadorDTO.EstadoEncuesta;
+                    //encuestaEvaluador.EstadoEncuesta = encuestaEvaluadorDTO.EstadoEncuesta;
                     context.EncuestaEvaluador.Add(encuestaEvaluador);
                     foreach (var item in encuestaEvaluadorDTO.Respuestas)
                     {
@@ -134,6 +136,8 @@ namespace BullardEncuestas.Core.BL
                         respuesta.Valor = item.Valor;
                         encuestaEvaluador.Respuestas.Add(respuesta);
                     }
+                    var encuesta = encuestaEvaluador.Encuesta;
+                    encuesta.EstadoProceso = encuestaEvaluadorDTO.EstadoEncuesta ?? "";
                     context.SaveChanges();
                     return true;
                 }
@@ -152,7 +156,7 @@ namespace BullardEncuestas.Core.BL
                 try
                 {
                     var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).SingleOrDefault();
-                    encuestaEvaluador.EstadoEncuesta = encuestaEvaluadorDTO.EstadoEncuesta;
+                    //encuestaEvaluador.EstadoEncuesta = encuestaEvaluadorDTO.EstadoEncuesta;
                     for (int i = 0; i < encuestaEvaluadorDTO.listaRespuestas.Count; i++)
                     {
                         var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
@@ -178,6 +182,7 @@ namespace BullardEncuestas.Core.BL
                             }
                         }
                     }
+                    encuestaEvaluador.Encuesta.EstadoProceso = encuestaEvaluadorDTO.EstadoEncuesta ?? "";
                     context.SaveChanges();
                     return true;
                 }

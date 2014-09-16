@@ -14,6 +14,6 @@ namespace BullardEncuestas.Data
     public partial class SP_GetPreguntasEnEncuesta_Result
     {
         public int IdPregunta { get; set; }
-        public string PreguntaDescrip { get; set; }
+        public string TextoPregunta { get; set; }
     }
 }
