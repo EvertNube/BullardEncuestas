@@ -164,7 +164,7 @@ namespace BullardEncuestas.Core.BL
                 {
                     for (int i = 0; i < encuestaEvaluadorDTO.listaRespuestas.Count; i++)
                     {
-                        var respuesta = context.Respuestas.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador && x.IdPregunta == encuestaEvaluadorDTO.listaPreguntas[i] && x.IdEvaluado == encuestaEvaluadorDTO.listaEvaluados[i]).SingleOrDefault();
+                        var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador && x.IdPregunta == encuestaEvaluadorDTO.listaPreguntas[i] && x.IdEvaluado == encuestaEvaluadorDTO.listaEvaluados[i]).SingleOrDefault();
                         //var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
                         if (respuesta != null)
                         {
