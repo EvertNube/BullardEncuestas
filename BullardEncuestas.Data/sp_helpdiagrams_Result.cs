@@ -10,18 +10,13 @@
 namespace BullardEncuestas.Data
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Respuestas
+    public partial class sp_helpdiagrams_Result
     {
-        public int IdRespuestas { get; set; }
-        public int IdEncuestaEvaluador { get; set; }
-        public int IdPregunta { get; set; }
-        public int IdEvaluado { get; set; }
-        public string Valor { get; set; }
-    
-        public virtual Pregunta Pregunta { get; set; }
-        public virtual Persona Persona { get; set; }
-        public virtual EncuestaEvaluador EncuestaEvaluador { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

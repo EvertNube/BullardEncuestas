@@ -16,9 +16,9 @@ namespace BullardEncuestas.Data
     {
         public Encuesta()
         {
-            this.EncuestaEvaluador = new HashSet<EncuestaEvaluador>();
             this.Seccion = new HashSet<Seccion>();
             this.GrupoTrabajo1 = new HashSet<GrupoTrabajo>();
+            this.EncuestaEvaluador = new HashSet<EncuestaEvaluador>();
         }
     
         public int IdEncuesta { get; set; }
@@ -35,8 +35,8 @@ namespace BullardEncuestas.Data
     
         public virtual GrupoTrabajo GrupoTrabajo { get; set; }
         public virtual Periodo Periodo { get; set; }
-        public virtual ICollection<EncuestaEvaluador> EncuestaEvaluador { get; set; }
         public virtual ICollection<Seccion> Seccion { get; set; }
         public virtual ICollection<GrupoTrabajo> GrupoTrabajo1 { get; set; }
+        public virtual ICollection<EncuestaEvaluador> EncuestaEvaluador { get; set; }
     }
 }

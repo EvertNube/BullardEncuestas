@@ -136,7 +136,6 @@ D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas\bin\BullardEncuestas.
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas\obj\Debug\BullardEncuestas.csprojResolveAssemblyReference.cache
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas\obj\Debug\BullardEncuestas.dll
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas\obj\Debug\BullardEncuestas.pdb
-C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas\obj\Debug\BullardEncuestas.csprojResolveAssemblyReference.cache
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas\obj\Debug\BullardEncuestas.csprojResolveAssemblyReference.cache
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas\bin\BullardEncuestas.dll.config
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas\bin\BullardEncuestas.dll
@@ -183,6 +182,7 @@ C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas\bin\BullardEncuestas.Data.pdb
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas\obj\Debug\BullardEncuestas.dll
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas\obj\Debug\BullardEncuestas.pdb
+C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas\obj\Debug\BullardEncuestas.csprojResolveAssemblyReference.cache
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas\bin\BullardEncuestas.dll.config
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas\bin\BullardEncuestas.dll
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas\bin\BullardEncuestas.pdb
