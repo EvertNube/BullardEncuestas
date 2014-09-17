@@ -856,6 +856,10 @@ namespace BullardEncuestas.Controllers
             return View(); //RedirectToAction("Procesos");
         }
 
+        public ActionResult Pdf()
+        {
+            return View((EncuestaDTO)Session["reporte"]);
+        }
 
         #region APIS
         [HttpPost]

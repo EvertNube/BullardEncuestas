@@ -1,0 +1,112 @@
+﻿@using BullardEncuestas.Helpers
+@using BullardEncuestas.Core.DTO
+@using PagedList;
+
+@model EncuestaDTO
+@section styles{
+    @Styles.Render("~/Content/themes/admin/js/fuelux/fuelux.css")
+}
+@section scripts{
+    @Scripts.Render("~/Content/themes/admin/js/fuelux/fuelux.js")
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            window.print(function () {
+                if(window.print.close())
+                {
+                    var url = "/Admin/ReportesDetalle?Id=" + @Model.Periodo.IdPeriodo;
+                    window.location.href = url;
+                }
+            });
+            setTimeout(function(){window.close();}, 1);
+        });
+    </script>
+}
+@{
+    ViewBag.Title = "Pdf";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="vbox">
+    <section class="scrollable padder">
+        <div class="row m-b">
+            <div class="col-xs-12 col-md-12">
+                <h2>Reporte - @Model.NombreEncuesta</h2>
+                <section class="panel panel-default">
+                    <header class="panel-heading"><b>Encuesta:</b> @Model.NombreEncuesta  <b>Periodo:</b> @Model.Periodo.Descripcion</header>
+
+                    <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
+                        @{
+                            var promGene = Model.PromedioGeneral != null ? Model.PromedioGeneral.ToString() : "No existen datos suficientes para obtener un promedio general";
+                            var promGeneAnt = Model.PromGeneralAnterior != null ? Model.PromGeneralAnterior.ToString() : "No existen datos suficientes para obtener un promedio general";
+                        }
+                        <p><b>Promedio General<b style="padding-left:63px;">: </b></b>@promGene</p>
+                        <p><b>Promedio General Anterior: </b>@promGeneAnt</p>
+
+                        @{var subseccion1 = "sub1enc" + Model.IdEncuesta; }
+
+                        <div class="panel-group m-b" id="accordion1">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#@subseccion1"> Promedios x Persona</a>
+                                </div>
+                                <div id="@subseccion1" class="panel-collapse collapse in">
+                                    <div class="panel-body" style="overflow:auto; overflow-x:hidden;">
+                                        @{ List<PersonaDTO> personasSort = Model.listaReportePersonas.OrderByDescending(x => x.Promedio).ToList();
+                                                double numper = Convert.ToDouble(Model.listaReportePersonas.Count);
+                                                int cols = (int)numper > 2 ? 3 : (int)numper;
+                                                int filas = (int)Math.Ceiling(numper / 3);
+                                                int nele = 0;}
+                                        @for (int i = 0; i < cols; i++)
+                                            {
+                                            <div class="col-sm-4">
+                                                <ul class="list-group alt">
+                                                    @for (int j = 0; j < filas; j++)
+                                                        {
+                                                        <li class="list-group-item">
+                                                            <div class="media">
+                                                                <span class="pull-right thumb-sm">
+                                                                    @{if (personasSort[nele].UrlImagen != null)
+                                                                        {<img src=@personasSort[nele].UrlImagen class="img-full">}
+                                                                        else
+                                                                        {<img src="~/Content/themes/admin/images/avatar_default.jpg" class="img-full" /> }
+                                                                    }
+                                                                </span>
+                                                                <div class="media-body" style="text-align:center;">
+                                                                    <div>
+                                                                        @personasSort[nele].Nombre
+                                                                    </div>
+                                                                    <div>
+                                                                        @if (nele < 3)
+                                                                            {<span class="badge bg-success text-muted">@personasSort[nele].Promedio</span>}
+                                                                            else
+                                                                            {
+                                                                                if ((int)numper - 4 < nele)
+                                                                                {<span class="badge bg-danger text-muted">@personasSort[nele].Promedio</span>}
+                                                                                else
+                                                                                {<span class="badge bg-info text-muted">@personasSort[nele].Promedio</span>}
+                                                                            }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                                            nele++;
+                                                                            if (nele == numper)
+                                                                            {
+                                                                                nele = 0;
+                                                                                break;
+                                                                            }
+                                                        }
+                                                </ul>
+                                            </div>
+                                            }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</section>

@@ -91,10 +91,13 @@
                                                 </div>
                                             }
                                         </div>
+                                        <div class="footer" style="text-align:right; vertical-align:central;">
+                                            @*<a class="btn btn-default" onclick="window.print(); window.location.reload(); return false;">Imprimir <i class="fa fa-print"></i> Exportar a PDF</a>*@
+                                            <a class="btn btn-sm btn-success pull-right btn-rounded" href="@Url.Action("Pdf")"><i class="fa fa-table"></i> Exportar Reporte</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
                             @{var subseccion2 = "sub2enc" + Model.IdEncuesta; }
                             <div class="panel-group m-b" id="accordion2">
                                 <div class="panel panel-default">
@@ -146,6 +149,7 @@
                     <div class="footer">
                         <div class="col-sm-12">
                             <a class="btn btn-sm btn-success pull-right btn-rounded" href="@Url.Action("ExportExcelDataReporte")"><i class="fa fa-table"></i> Exportar Reporte</a>
+                            @*<a class="btn btn-default" onclick="window.print(); window.location.reload(); return false;">Imprimir <i class="fa fa-print"></i> Exportar a PDF</a>*@
                         </div>
                     </div>
                 </section>
