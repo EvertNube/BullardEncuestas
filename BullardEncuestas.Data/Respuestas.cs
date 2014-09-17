@@ -20,8 +20,8 @@ namespace BullardEncuestas.Data
         public int IdEvaluado { get; set; }
         public string Valor { get; set; }
     
-        public virtual EncuestaEvaluador EncuestaEvaluador { get; set; }
         public virtual Pregunta Pregunta { get; set; }
         public virtual Persona Persona { get; set; }
+        public virtual EncuestaEvaluador EncuestaEvaluador { get; set; }
     }
 }

@@ -29,7 +29,6 @@ namespace BullardEncuestas.Data
     
         public virtual DbSet<Empresa> Empresa { get; set; }
         public virtual DbSet<Encuesta> Encuesta { get; set; }
-        public virtual DbSet<EncuestaEvaluador> EncuestaEvaluador { get; set; }
         public virtual DbSet<GrupoTrabajo> GrupoTrabajo { get; set; }
         public virtual DbSet<OpcionesRespuesta> OpcionesRespuesta { get; set; }
         public virtual DbSet<Periodo> Periodo { get; set; }
@@ -40,6 +39,7 @@ namespace BullardEncuestas.Data
         public virtual DbSet<TipoRespuesta> TipoRespuesta { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
+        public virtual DbSet<EncuestaEvaluador> EncuestaEvaluador { get; set; }
     
         public virtual ObjectResult<Nullable<int>> SP_EsSocio(Nullable<int> idPersona)
         {
