@@ -29,17 +29,17 @@ namespace BullardEncuestas.Data
     
         public virtual DbSet<Empresa> Empresa { get; set; }
         public virtual DbSet<Encuesta> Encuesta { get; set; }
+        public virtual DbSet<EncuestaEvaluador> EncuestaEvaluador { get; set; }
         public virtual DbSet<GrupoTrabajo> GrupoTrabajo { get; set; }
         public virtual DbSet<OpcionesRespuesta> OpcionesRespuesta { get; set; }
         public virtual DbSet<Periodo> Periodo { get; set; }
+        public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Pregunta> Pregunta { get; set; }
         public virtual DbSet<Respuestas> Respuestas { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Seccion> Seccion { get; set; }
         public virtual DbSet<TipoRespuesta> TipoRespuesta { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
-        public virtual DbSet<Persona> Persona { get; set; }
-        public virtual DbSet<EncuestaEvaluador> EncuestaEvaluador { get; set; }
     
         public virtual ObjectResult<Nullable<int>> SP_EsSocio(Nullable<int> idPersona)
         {
@@ -48,6 +48,15 @@ namespace BullardEncuestas.Data
                 new ObjectParameter("IdPersona", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_EsSocio", idPersonaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> SP_GetEncuestaCompleta(Nullable<int> idEncuesta)
+        {
+            var idEncuestaParameter = idEncuesta.HasValue ?
+                new ObjectParameter("IdEncuesta", idEncuesta) :
+                new ObjectParameter("IdEncuesta", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_GetEncuestaCompleta", idEncuestaParameter);
         }
     
         public virtual ObjectResult<SP_GetEncuestas_Result> SP_GetEncuestas()
@@ -95,6 +104,23 @@ namespace BullardEncuestas.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestasReportePorId_Result>("SP_GetEncuestasReportePorId", idEncuestaParameter);
         }
     
+        public virtual ObjectResult<SP_GetPersonasEnEncuesta_Result> SP_GetPersonasEnEncuesta(Nullable<int> idEncuesta, Nullable<int> idPeriodo, Nullable<int> idGrupoEvaluado)
+        {
+            var idEncuestaParameter = idEncuesta.HasValue ?
+                new ObjectParameter("IdEncuesta", idEncuesta) :
+                new ObjectParameter("IdEncuesta", typeof(int));
+    
+            var idPeriodoParameter = idPeriodo.HasValue ?
+                new ObjectParameter("IdPeriodo", idPeriodo) :
+                new ObjectParameter("IdPeriodo", typeof(int));
+    
+            var idGrupoEvaluadoParameter = idGrupoEvaluado.HasValue ?
+                new ObjectParameter("IdGrupoEvaluado", idGrupoEvaluado) :
+                new ObjectParameter("IdGrupoEvaluado", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetPersonasEnEncuesta_Result>("SP_GetPersonasEnEncuesta", idEncuestaParameter, idPeriodoParameter, idGrupoEvaluadoParameter);
+        }
+    
         public virtual ObjectResult<SP_GetPersonasPorGrupo_Result> SP_GetPersonasPorGrupo(Nullable<int> idGrupoTrabajo)
         {
             var idGrupoTrabajoParameter = idGrupoTrabajo.HasValue ?
@@ -116,6 +142,7 @@ namespace BullardEncuestas.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ReplicaEncuesta", idPeriodoParameter, idGrupoParameter);
         }
+<<<<<<< HEAD
     
         public virtual ObjectResult<SP_GetPersonasEnEncuesta_Result1> SP_GetPersonasEnEncuesta(Nullable<int> idEncuesta, Nullable<int> idPeriodo, Nullable<int> idGrupoEvaluado)
         {
@@ -159,5 +186,7 @@ namespace BullardEncuestas.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetPreguntasEnEncuesta_Result1>("SP_GetPreguntasEnEncuesta", idEncuestaParameter, idPeriodoParameter, idGrupoEvaluadoParameter);
         }
+=======
+>>>>>>> 9aad7ae42fdbd7a4cb54187bac2a863e88291856
     }
 }

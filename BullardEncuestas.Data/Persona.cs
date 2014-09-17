@@ -16,21 +16,21 @@ namespace BullardEncuestas.Data
     {
         public Persona()
         {
+            this.EncuestaEvaluador = new HashSet<EncuestaEvaluador>();
             this.Respuestas = new HashSet<Respuestas>();
             this.GrupoTrabajo = new HashSet<GrupoTrabajo>();
-            this.EncuestaEvaluador = new HashSet<EncuestaEvaluador>();
         }
     
         public int IdPersona { get; set; }
+        public Nullable<int> IdEmpresa { get; set; }
         public string Nombre { get; set; }
         public string Email { get; set; }
-        public Nullable<int> IdEmpresa { get; set; }
-        public bool Estado { get; set; }
         public string RutaImagen { get; set; }
+        public bool Estado { get; set; }
     
         public virtual Empresa Empresa { get; set; }
+        public virtual ICollection<EncuestaEvaluador> EncuestaEvaluador { get; set; }
         public virtual ICollection<Respuestas> Respuestas { get; set; }
         public virtual ICollection<GrupoTrabajo> GrupoTrabajo { get; set; }
-        public virtual ICollection<EncuestaEvaluador> EncuestaEvaluador { get; set; }
     }
 }

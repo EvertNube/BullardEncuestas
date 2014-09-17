@@ -168,7 +168,7 @@ namespace BullardEncuestas.Core.BL
                         //var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
                         if (respuesta != null)
                         {
-                            if (encuestaEvaluadorDTO.listaRespuestas[i] == "0")
+                            if (encuestaEvaluadorDTO.listaRespuestas[i] == "0" || encuestaEvaluadorDTO.listaRespuestas[i].Trim() == "")
                                 //encuestaEvaluador.Respuestas.Remove(respuesta);
                                 context.Respuestas.Remove(respuesta);
                             else if (encuestaEvaluadorDTO.listaRespuestas[i] != respuesta.Valor)
@@ -176,7 +176,7 @@ namespace BullardEncuestas.Core.BL
                         }
                         else
                         {
-                            if (encuestaEvaluadorDTO.listaRespuestas[i] != "0")
+                            if (encuestaEvaluadorDTO.listaRespuestas[i] != "0" && encuestaEvaluadorDTO.listaRespuestas[i].Trim() != "")
                             {
                                 Respuestas respuestaNew = new Respuestas();
                                 respuestaNew.IdEncuestaEvaluador = encuestaEvaluadorDTO.IdEncuestaEvaluador;
