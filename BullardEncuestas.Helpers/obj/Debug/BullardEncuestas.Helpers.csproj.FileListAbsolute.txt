@@ -22,3 +22,4 @@ C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.dll
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.pdb
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.csprojResolveAssemblyReference.cache
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.csprojResolveAssemblyReference.cache
