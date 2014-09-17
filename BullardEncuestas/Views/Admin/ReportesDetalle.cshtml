@@ -44,9 +44,10 @@
                                         <div class="panel-body" style="overflow:auto; overflow-x:hidden;">
                                             @{ List<PersonaDTO> personasSort = Model.listaReportePersonas.OrderByDescending(x => x.Promedio).ToList();
                                              double numper = Convert.ToDouble(Model.listaReportePersonas.Count);
+                                             int cols = (int)numper > 2 ? 3 : (int)numper;
                                              int filas = (int)Math.Ceiling(numper / 3);
                                              int nele = 0;}
-                                            @for (int i = 0; i < 3; i++)
+                                            @for (int i = 0; i < cols; i++)
                                             {
                                                 <div class="col-sm-4">
                                                     <ul class="list-group alt">
