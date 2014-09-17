@@ -137,12 +137,12 @@ namespace BullardEncuestas.Core.BL
                         respuesta.Valor = item.Valor;
                         encuestaEvaluador.Respuestas.Add(respuesta);
                     }
-                    if (encuestaEvaluadorDTO.Accion == 2) //Enviar
-                        if (context.SP_GetEncuestaCompleta(encuestaEvaluadorDTO.IdEncuesta).SingleOrDefault() == 1)
-                        {
-                            var encuesta = context.Encuesta.Where(x => x.IdEncuesta == encuestaEvaluadorDTO.IdEncuesta).SingleOrDefault();
-                            encuesta.EstadoProceso = "Completo";
-                        }
+                    //if (encuestaEvaluadorDTO.Accion == 2) //Enviar
+                    //    if (context.SP_GetEncuestaCompleta(encuestaEvaluadorDTO.IdEncuesta).SingleOrDefault() == 1)
+                    //    {
+                    //        var encuesta = context.Encuesta.Where(x => x.IdEncuesta == encuestaEvaluadorDTO.IdEncuesta).SingleOrDefault();
+                    //        encuesta.EstadoProceso = "Completo";
+                    //    }
                     context.SaveChanges();
                     return encuestaEvaluador.IdEncuestaEvaluador;
                     //return true;
@@ -191,9 +191,7 @@ namespace BullardEncuestas.Core.BL
                     if (encuestaEvaluadorDTO.Accion == 2) //Se ejecuta si se presiona "Enviar y Salir"
                     {
                         var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).SingleOrDefault();
-                        encuestaEvaluador.EstaCompleto = true;
-                        if (context.SP_GetEncuestaCompleta(encuestaEvaluadorDTO.IdEncuesta).SingleOrDefault() == 1)
-                            encuestaEvaluador.Encuesta.EstadoProceso = "Completo";
+                        encuestaEvaluador.EstaCompleto = true; //Encuesta terminada
                     }
                     context.SaveChanges();
                     return true;
@@ -206,24 +204,27 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
-        //public bool updateEstadoEncuesta(int idEncuestaEvaluador)
-        //{
-        //    using (var context = getContext())
-        //    {
-        //        try
-        //        {
-        //            var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == idEncuestaEvaluador).SingleOrDefault();
-        //            encuestaEvaluador.EstaCompleto = true; //Encuesta termiada.
-        //            context.SaveChanges();
-        //            return true;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            //throw e;
-        //            return false;
-        //        }
-        //    }
-        //}
+        public bool updateEstadoProcesoEncuesta(int idEncuesta)
+        {
+            using (var context = getContext())
+            {
+                try
+                {
+                    if (context.SP_GetEncuestaCompleta(idEncuesta).SingleOrDefault() == 1)
+                    {
+                        var encuesta = context.Encuesta.Where(x => x.IdEncuesta == idEncuesta).SingleOrDefault();
+                        encuesta.EstadoProceso = "Completo"; //Todas las encuestas han sido completadas.
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    //throw e;
+                    return false;
+                }
+            }
+        }
 
         //if (encuestaEvaluadorDTO.listaIdRespuestas[i] != 0)
         //{

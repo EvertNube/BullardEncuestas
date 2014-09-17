@@ -868,7 +868,8 @@ namespace BullardEncuestas.Controllers
                 EncuestaEvaluadorBL objBL = new EncuestaEvaluadorBL();
                 var dto = new JavaScriptSerializer().Deserialize<EncuestaEvaluadorDTO>(encuestaEvaluador);
                 IdEncuestaEvaluador = dto.IdEncuestaEvaluador;
-                if (dto.IdEncuestaEvaluador == 0){
+                if (dto.IdEncuestaEvaluador == 0)
+                {
                     IdEncuestaEvaluador = objBL.add(dto);
                     response = (IdEncuestaEvaluador != 0 ? true : false);
                 }
@@ -898,6 +899,7 @@ namespace BullardEncuestas.Controllers
                     }
                     else
                         response = objBL.update(dto);
+                    response = objBL.updateEstadoProcesoEncuesta(dto.IdEncuesta);
                 }
             }
             catch { response = false; }
