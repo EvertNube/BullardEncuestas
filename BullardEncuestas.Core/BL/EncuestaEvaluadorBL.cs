@@ -101,7 +101,7 @@ namespace BullardEncuestas.Core.BL
             }
         }
 
-        public bool add(EncuestaEvaluadorDTO encuestaEvaluadorDTO)
+        public int add(EncuestaEvaluadorDTO encuestaEvaluadorDTO)
         {
             using (var context = getContext())
             {
@@ -126,7 +126,7 @@ namespace BullardEncuestas.Core.BL
                     encuestaEvaluador.IdEncuesta = encuestaEvaluadorDTO.IdEncuesta;
                     encuestaEvaluador.IdEvaluador = encuestaEvaluadorDTO.IdEvaluador;
                     encuestaEvaluador.CodEvaluador = "";
-                    //encuestaEvaluador.EstadoEncuesta = encuestaEvaluadorDTO.EstadoEncuesta;
+                    encuestaEvaluador.EstaCompleto = encuestaEvaluadorDTO.EstaCompleto;
                     context.EncuestaEvaluador.Add(encuestaEvaluador);
                     foreach (var item in encuestaEvaluadorDTO.Respuestas)
                     {
@@ -144,12 +144,14 @@ namespace BullardEncuestas.Core.BL
                             encuesta.EstadoProceso = "Completo";
                         }
                     context.SaveChanges();
-                    return true;
+                    return encuestaEvaluador.IdEncuestaEvaluador;
+                    //return true;
                 }
                 catch (Exception e)
                 {
                     //throw e;
-                    return false;
+                    //return false;
+                    return 0;
                 }
             }
         }

@@ -744,23 +744,28 @@ namespace BullardEncuestas.Controllers
         [HttpPost]
         public ActionResult SaveEncuestaEvaluador(string encuestaEvaluador)
         {
-            bool response;
+            bool response = false;
+            int IdEncuestaEvaluador = 0;
             try
             {
                 EncuestaEvaluadorBL objBL = new EncuestaEvaluadorBL();
                 var dto = new JavaScriptSerializer().Deserialize<EncuestaEvaluadorDTO>(encuestaEvaluador);
-                if (dto.IdEncuestaEvaluador == 0)
-                    response = objBL.add(dto);
+                IdEncuestaEvaluador = dto.IdEncuestaEvaluador;
+                if (dto.IdEncuestaEvaluador == 0){
+                    IdEncuestaEvaluador = objBL.add(dto);
+                    response = (IdEncuestaEvaluador != 0 ? true : false);
+                }
                 else
                     response = objBL.update(dto);
             }
             catch { response = false; }
-            return Json(response, JsonRequestBehavior.AllowGet);
+            return Json(new { Response = response, Id = IdEncuestaEvaluador }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult SendEncuestaEvaluador(string encuestaEvaluador)
         {
             bool response = false;
+            int IdEncuestaEvaluador = 0;
             try
             {
                 EncuestaEvaluadorBL objBL = new EncuestaEvaluadorBL();
@@ -768,14 +773,18 @@ namespace BullardEncuestas.Controllers
                 var conta = dto.listaRespuestas.Where(x => x == "0").Count();
                 if (conta == 0)
                 {
+                    IdEncuestaEvaluador = dto.IdEncuestaEvaluador;
                     if (dto.IdEncuestaEvaluador == 0)
-                        response = objBL.add(dto);
+                    {
+                        IdEncuestaEvaluador = objBL.add(dto);
+                        response = (IdEncuestaEvaluador != 0 ? true : false);
+                    }
                     else
                         response = objBL.update(dto);
                 }
             }
             catch { response = false; }
-            return Json(response, JsonRequestBehavior.AllowGet);
+            return Json(new { Response = response, Id = IdEncuestaEvaluador }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult SendCorreoEncuesta(string grupoEvaluadores, int idEncuesta, int idGrupoEvaluado, string nombreEncuesta, string periodo)
