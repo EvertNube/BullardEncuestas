@@ -32,7 +32,7 @@
     <Property Name="IdEncuesta" Type="int" Nullable="false" />
     <Property Name="IdEvaluador" Type="int" Nullable="false" />
     <Property Name="CodEvaluador" Type="nvarchar" MaxLength="10" Nullable="false" />
-    <Property Name="EstadoEncuesta" Type="bit" Nullable="false" />
+    <Property Name="EstaCompleto" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="GrupoEvaluador">
     <Key>

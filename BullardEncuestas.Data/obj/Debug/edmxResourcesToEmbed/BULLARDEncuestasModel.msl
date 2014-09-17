@@ -27,17 +27,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="EncuestaEvaluador">
-      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.EncuestaEvaluador">
-        <MappingFragment StoreEntitySet="EncuestaEvaluador">
-          <ScalarProperty Name="IdEncuestaEvaluador" ColumnName="IdEncuestaEvaluador" />
-          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
-          <ScalarProperty Name="IdEvaluador" ColumnName="IdEvaluador" />
-          <ScalarProperty Name="CodEvaluador" ColumnName="CodEvaluador" />
-          <ScalarProperty Name="EstadoEncuesta" ColumnName="EstadoEncuesta" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="GrupoTrabajo">
       <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.GrupoTrabajo">
         <MappingFragment StoreEntitySet="GrupoTrabajo">
@@ -264,5 +253,16 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SP_GetEncuestaCompleta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetEncuestaCompleta" />
+    <EntitySetMapping Name="EncuestaEvaluador">
+      <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.EncuestaEvaluador">
+        <MappingFragment StoreEntitySet="EncuestaEvaluador">
+          <ScalarProperty Name="EstaCompleto" ColumnName="EstaCompleto" />
+          <ScalarProperty Name="CodEvaluador" ColumnName="CodEvaluador" />
+          <ScalarProperty Name="IdEvaluador" ColumnName="IdEvaluador" />
+          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+          <ScalarProperty Name="IdEncuestaEvaluador" ColumnName="IdEncuestaEvaluador" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

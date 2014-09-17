@@ -227,7 +227,7 @@ namespace BullardEncuestas.Controllers
                     TempData["MensajeEncuesta"] = "La encuesta se encuentra cerrada.";
                     return RedirectToAction("MensajeEncuesta");
                 }
-                if (model.EstadoEncuesta == "Completado") //if (model.EstadoEncuesta == true)
+                if (model.EstaCompleto) //if (model.EstadoEncuesta == true)
                 {
                     TempData["MensajeEncuesta"] = "Usted ya respondió la encuesta previamente.";
                     return RedirectToAction("MensajeEncuesta");
