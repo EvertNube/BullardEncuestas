@@ -213,14 +213,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="SP_GetPreguntasEnEncuesta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetPreguntasEnEncuesta">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetPreguntasEnEncuesta_Result">
-          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
-          <ScalarProperty Name="TextoPregunta" ColumnName="TextoPregunta" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SP_ReplicaEncuesta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_ReplicaEncuesta" />
     <EntitySetMapping Name="Persona">
       <EntityTypeMapping TypeName="BULLARD.EncuestasDbModel.Persona">
@@ -264,5 +256,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_GetPreguntasEnEncuesta" FunctionName="BULLARD.EncuestasDbModel.Store.SP_GetPreguntasEnEncuesta">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BULLARD.EncuestasDbModel.SP_GetPreguntasEnEncuesta_Result1">
+          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+          <ScalarProperty Name="TextoPregunta" ColumnName="TextoPregunta" />
+          <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
+          <ScalarProperty Name="NombreSeccion" ColumnName="NombreSeccion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -126,6 +126,9 @@
     <Compile Include="SP_GetPreguntasEnEncuesta_Result.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_GetPreguntasEnEncuesta_Result1.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TipoRespuesta.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>

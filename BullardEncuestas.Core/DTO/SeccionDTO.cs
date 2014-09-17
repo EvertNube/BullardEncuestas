@@ -15,6 +15,8 @@ namespace BullardEncuestas.Core.DTO
         public int Orden { get; set; }
         public bool EsSocio { get; set; }
         public bool Estado { get; set; }
+        //----------------------------Para Reportes---------
+        public int Valor { get; set; }
         public List<PreguntaDTO> Preguntas { get; set; }
         public List<SeccionDTO> SubSecciones { get; set; }
     }

@@ -305,11 +305,6 @@
     <FunctionImport Name="SP_GetPersonasPorGrupo" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPersonasPorGrupo_Result)">
       <Parameter Name="IdGrupoTrabajo" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="SP_GetPreguntasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPreguntasEnEncuesta_Result)">
-      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
-      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
-      <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="SP_ReplicaEncuesta">
       <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
       <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
@@ -348,6 +343,11 @@
       <End Role="EncuestaEvaluador" EntitySet="EncuestaEvaluador" />
       <End Role="Respuestas" EntitySet="Respuestas" />
     </AssociationSet>
+    <FunctionImport Name="SP_GetPreguntasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetPreguntasEnEncuesta_Result1)">
+      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+      <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SP_GetEncuestas_Result">
     <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
@@ -509,4 +509,10 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="SP_GetPreguntasEnEncuesta_Result1">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
+    <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+    <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+  </ComplexType>
 </Schema>

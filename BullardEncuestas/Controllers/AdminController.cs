@@ -12,6 +12,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using PagedList;
+using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace BullardEncuestas.Controllers
 {
@@ -736,9 +738,124 @@ namespace BullardEncuestas.Controllers
             if (id != null)
             {
                 model = encuestaBL.getEncuestaReporteDetalle((int)id);
+                Session["reporte"] = model;
             }
             return View(model);
         }
+
+        public ActionResult ExportExcelDataReporte()
+        {
+            var data = (EncuestaDTO)Session["reporte"];
+
+            System.Data.DataTable dt = new System.Data.DataTable();
+            dt.Clear();
+
+            int npre = data.listaReportePreguntas.Count;
+            int nper = data.listaReportePersonas.Count;
+            dt.Columns.Add("Preguntas");
+
+            foreach (var persona in data.listaReportePersonas)
+                dt.Columns.Add(persona.Nombre);
+
+            List<SeccionDTO> indices = new List<SeccionDTO>();
+
+            int cont = 2;
+            int numSecciones = 0;
+            int tempIdSeccion = 0;
+
+            for (int pre = 0; pre < npre; pre++)
+            {
+                if (tempIdSeccion == 0)
+                {
+                    SeccionDTO nuevaSeccion = new SeccionDTO();
+                    nuevaSeccion.Valor = cont;
+                    nuevaSeccion.Nombre = data.listaReportePreguntas[pre].NombreSeccion;
+                    indices.Add(nuevaSeccion);
+                    cont = 0;
+                }
+                else
+                {
+                    if (tempIdSeccion != 0 && tempIdSeccion != data.listaReportePreguntas[pre].IdSeccion)
+                    {
+                        //int valor = indices[indices.Count - 1] + cont + 1;
+                        SeccionDTO nuevaSeccion = new SeccionDTO();
+                        nuevaSeccion.Valor = indices[indices.Count - 1].Valor + cont + 1;
+                        nuevaSeccion.Nombre = data.listaReportePreguntas[pre].NombreSeccion;
+                        indices.Add(nuevaSeccion);
+
+                        //indices.Add(valor);
+                        cont = 0;
+                    }
+                }
+                /*
+                var adicionar = 0;
+                if (tempIdSeccion != 0 && tempIdSeccion != data.listaReportePreguntas[pre].IdSeccion)
+                {
+                    indices.Add(cont - 1);
+                    adicionar = 2;
+                }*/
+
+                tempIdSeccion = data.listaReportePreguntas[pre].IdSeccion;
+
+                System.Data.DataRow row = dt.NewRow();
+                row[0] = data.listaReportePreguntas[pre].Texto;
+                for (int per = 0; per < nper; per++)
+                {
+                    row[per + 1] = data.matrizReporteDetalle[pre, per].ValorItem;
+                }
+
+                dt.Rows.Add(row);
+                //cont = cont + adicionar;
+                cont++;
+            }
+
+
+            GridView gv = new GridView();
+            gv.DataSource = dt;
+            gv.AllowPaging = false;
+            gv.DataBind();
+
+            if (dt.Rows.Count > 0)
+            {
+                AddSuperHeader(gv, "INFORME REPORTES 2014");//if (myGridView.Controls.Count > 0)
+                //
+                foreach (var item in indices)
+                {
+                    AddHeader(gv, item.Valor, item.Nombre);
+                }
+                //
+                //Change the Header Row back to white color
+                gv.HeaderRow.Style.Add("background-color", "#FFFFFF");
+                //Applying stlye to gridview header cells
+                for (int i = 0; i < gv.HeaderRow.Cells.Count; i++)
+                {
+                    gv.HeaderRow.Cells[i].Style.Add("background-color", "#b8bbc2");
+                }
+                //This loop is used to apply stlye to cells based on particular row
+                foreach (GridViewRow gvrow in gv.Rows)
+                {
+                    gvrow.BackColor = System.Drawing.Color.White;
+                    gvrow.Style.Add("vertical-align", "middle");
+                }
+                Response.ClearContent();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", "attachment; filename=Reporte de Encuestas.xls");
+                Response.ContentType = "application/ms-excel";
+                Response.Charset = "";
+
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                gv.RenderControl(htw);
+                Response.Output.Write(sw.ToString());
+                Response.Flush();
+                Response.End();
+                htw.Close();
+                sw.Close();
+            }
+
+            return View(); //RedirectToAction("Procesos");
+        }
+
 
         #region APIS
         [HttpPost]
@@ -839,6 +956,30 @@ namespace BullardEncuestas.Controllers
             EncuestaBL objBL = new EncuestaBL();
             var model = objBL.getEncuestaEnPeriodo(idPeriodo);
             return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region
+        private static void AddSuperHeader(GridView gridView, string text = null)
+        {
+            var myTable = (Table)gridView.Controls[0];
+            var myNewRow = new GridViewRow(0, -1, DataControlRowType.Header, DataControlRowState.Normal);
+            myNewRow.Cells.Add(MakeCell(text, gridView.HeaderRow.Cells.Count));//gridView.Columns.Count
+            myNewRow.Cells[0].Style.Add("background-color", "#cbcfd6");
+            myTable.Rows.AddAt(0, myNewRow);
+            //myTable.EnableViewState = false;
+        }
+        private static void AddHeader(GridView gridView, int index, string text = null)
+        {
+            var myTable = (Table)gridView.Controls[0];
+            var myNewRow = new GridViewRow(0, -1, DataControlRowType.Header, DataControlRowState.Normal);
+            myNewRow.Cells.Add(MakeCell(text, gridView.HeaderRow.Cells.Count));//gridView.Columns.Count
+            myNewRow.Cells[0].Style.Add("background-color", "#cbcfd6");
+            myTable.Rows.AddAt(index, myNewRow);
+            //myTable.EnableViewState = false;
+        }
+        private static TableHeaderCell MakeCell(string text = null, int span = 1)
+        {
+            return new TableHeaderCell() { ColumnSpan = span, Text = text ?? string.Empty, CssClass = "table-header" };
         }
         #endregion
     }

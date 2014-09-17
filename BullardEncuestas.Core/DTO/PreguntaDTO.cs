@@ -10,6 +10,7 @@ namespace BullardEncuestas.Core.DTO
     {
         public int IdPregunta { get; set; }
         public int IdSeccion { get; set; }
+        public string NombreSeccion { get; set; }
         public int IdTipoRespuesta { get; set; }
         public string Texto { get; set; }
         public string Descripcion { get; set; }

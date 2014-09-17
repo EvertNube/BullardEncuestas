@@ -104,23 +104,6 @@ namespace BullardEncuestas.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetPersonasPorGrupo_Result>("SP_GetPersonasPorGrupo", idGrupoTrabajoParameter);
         }
     
-        public virtual ObjectResult<SP_GetPreguntasEnEncuesta_Result> SP_GetPreguntasEnEncuesta(Nullable<int> idEncuesta, Nullable<int> idPeriodo, Nullable<int> idGrupoEvaluado)
-        {
-            var idEncuestaParameter = idEncuesta.HasValue ?
-                new ObjectParameter("IdEncuesta", idEncuesta) :
-                new ObjectParameter("IdEncuesta", typeof(int));
-    
-            var idPeriodoParameter = idPeriodo.HasValue ?
-                new ObjectParameter("IdPeriodo", idPeriodo) :
-                new ObjectParameter("IdPeriodo", typeof(int));
-    
-            var idGrupoEvaluadoParameter = idGrupoEvaluado.HasValue ?
-                new ObjectParameter("IdGrupoEvaluado", idGrupoEvaluado) :
-                new ObjectParameter("IdGrupoEvaluado", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetPreguntasEnEncuesta_Result>("SP_GetPreguntasEnEncuesta", idEncuestaParameter, idPeriodoParameter, idGrupoEvaluadoParameter);
-        }
-    
         public virtual int SP_ReplicaEncuesta(Nullable<int> idPeriodo, Nullable<int> idGrupo)
         {
             var idPeriodoParameter = idPeriodo.HasValue ?
@@ -158,6 +141,23 @@ namespace BullardEncuestas.Data
                 new ObjectParameter("IdEncuesta", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_GetEncuestaCompleta", idEncuestaParameter);
+        }
+    
+        public virtual ObjectResult<SP_GetPreguntasEnEncuesta_Result1> SP_GetPreguntasEnEncuesta(Nullable<int> idEncuesta, Nullable<int> idPeriodo, Nullable<int> idGrupoEvaluado)
+        {
+            var idEncuestaParameter = idEncuesta.HasValue ?
+                new ObjectParameter("IdEncuesta", idEncuesta) :
+                new ObjectParameter("IdEncuesta", typeof(int));
+    
+            var idPeriodoParameter = idPeriodo.HasValue ?
+                new ObjectParameter("IdPeriodo", idPeriodo) :
+                new ObjectParameter("IdPeriodo", typeof(int));
+    
+            var idGrupoEvaluadoParameter = idGrupoEvaluado.HasValue ?
+                new ObjectParameter("IdGrupoEvaluado", idGrupoEvaluado) :
+                new ObjectParameter("IdGrupoEvaluado", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetPreguntasEnEncuesta_Result1>("SP_GetPreguntasEnEncuesta", idEncuestaParameter, idPeriodoParameter, idGrupoEvaluadoParameter);
         }
     }
 }

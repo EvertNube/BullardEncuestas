@@ -190,7 +190,9 @@ namespace BullardEncuestas.Core.BL
                     .Select(pre => new PreguntaDTO
                     {
                         IdPregunta = pre.IdPregunta,
-                        Texto = pre.TextoPregunta
+                        Texto = pre.TextoPregunta,
+                        IdSeccion = pre.IdSeccion,
+                        NombreSeccion = pre.NombreSeccion
                     }).ToList()
                 }).SingleOrDefault();
 
