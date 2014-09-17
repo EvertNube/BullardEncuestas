@@ -137,9 +137,8 @@ namespace BullardEncuestas.Core.BL
                         respuesta.Valor = item.Valor;
                         encuestaEvaluador.Respuestas.Add(respuesta);
                     }
-                    
                     if (encuestaEvaluadorDTO.Accion == 2) //Enviar
-                        if (context.SP_GetEncuestaCompleta(encuestaEvaluadorDTO.IdEncuesta).SingleOrDefault() == 1) 
+                        if (context.SP_GetEncuestaCompleta(encuestaEvaluadorDTO.IdEncuesta).SingleOrDefault() == 1)
                         {
                             var encuesta = context.Encuesta.Where(x => x.IdEncuesta == encuestaEvaluadorDTO.IdEncuesta).SingleOrDefault();
                             encuesta.EstadoProceso = "Completo";
@@ -161,11 +160,10 @@ namespace BullardEncuestas.Core.BL
             {
                 try
                 {
-                    var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).SingleOrDefault();
-                    //encuestaEvaluador.EstadoEncuesta = encuestaEvaluadorDTO.EstadoEncuesta;
                     for (int i = 0; i < encuestaEvaluadorDTO.listaRespuestas.Count; i++)
                     {
-                        var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
+                        var respuesta = context.Respuestas.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador && x.IdPregunta == encuestaEvaluadorDTO.listaPreguntas[i] && x.IdEvaluado == encuestaEvaluadorDTO.listaEvaluados[i]).SingleOrDefault();
+                        //var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
                         if (respuesta != null)
                         {
                             if (encuestaEvaluadorDTO.listaRespuestas[i] == "0")
@@ -188,8 +186,9 @@ namespace BullardEncuestas.Core.BL
                             }
                         }
                     }
-                    if (encuestaEvaluadorDTO.Accion == 2) //Enviar
+                    if (encuestaEvaluadorDTO.Accion == 2) //Se ejecuta si se presiona "Enviar y Salir"
                     {
+                        var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).SingleOrDefault();
                         encuestaEvaluador.EstaCompleto = true;
                         if (context.SP_GetEncuestaCompleta(encuestaEvaluadorDTO.IdEncuesta).SingleOrDefault() == 1)
                             encuestaEvaluador.Encuesta.EstadoProceso = "Completo";
@@ -224,32 +223,32 @@ namespace BullardEncuestas.Core.BL
         //    }
         //}
 
-    //if (encuestaEvaluadorDTO.listaIdRespuestas[i] != 0)
-    //{
-    //    //var respuesta = oldRespuestas.Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
-    //    var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
-    //    if (respuesta != null)
-    //    {
-    //        if (encuestaEvaluadorDTO.listaRespuestas[i] == "0")
-    //            //encuestaEvaluador.Respuestas.Remove(respuesta);
-    //            context.Respuestas.Remove(respuesta);
-    //        else if (encuestaEvaluadorDTO.listaRespuestas[i] != respuesta.Valor)
-    //            respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
-    //    }
-    //}
-    //else
-    //{
-    //    if (encuestaEvaluadorDTO.listaRespuestas[i] != "0")
-    //    {
-    //        Respuestas respuesta = new Respuestas();
-    //        respuesta.IdEncuestaEvaluador = encuestaEvaluadorDTO.IdEncuestaEvaluador;
-    //        respuesta.IdPregunta = encuestaEvaluadorDTO.listaPreguntas[i];
-    //        respuesta.IdEvaluado = encuestaEvaluadorDTO.listaEvaluados[i];
-    //        respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
-    //        //encuestaEvaluador.Respuestas.Add(respuesta);
-    //        context.Respuestas.Add(respuesta);
-    //    }
-    //}
+        //if (encuestaEvaluadorDTO.listaIdRespuestas[i] != 0)
+        //{
+        //    //var respuesta = oldRespuestas.Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
+        //    var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
+        //    if (respuesta != null)
+        //    {
+        //        if (encuestaEvaluadorDTO.listaRespuestas[i] == "0")
+        //            //encuestaEvaluador.Respuestas.Remove(respuesta);
+        //            context.Respuestas.Remove(respuesta);
+        //        else if (encuestaEvaluadorDTO.listaRespuestas[i] != respuesta.Valor)
+        //            respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
+        //    }
+        //}
+        //else
+        //{
+        //    if (encuestaEvaluadorDTO.listaRespuestas[i] != "0")
+        //    {
+        //        Respuestas respuesta = new Respuestas();
+        //        respuesta.IdEncuestaEvaluador = encuestaEvaluadorDTO.IdEncuestaEvaluador;
+        //        respuesta.IdPregunta = encuestaEvaluadorDTO.listaPreguntas[i];
+        //        respuesta.IdEvaluado = encuestaEvaluadorDTO.listaEvaluados[i];
+        //        respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
+        //        //encuestaEvaluador.Respuestas.Add(respuesta);
+        //        context.Respuestas.Add(respuesta);
+        //    }
+        //}
 
     }
 }
