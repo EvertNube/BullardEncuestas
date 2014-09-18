@@ -12,13 +12,6 @@ D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers.Razor
 D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.csprojResolveAssemblyReference.cache
 D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.dll
 D:\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.pdb
-D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.Razor.dll
-D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.Razor.pdb
-D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.dll
-D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.pdb
-D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.csprojResolveAssemblyReference.cache
-D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.dll
-D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.pdb
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.Razor.dll
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.Razor.pdb
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas_copy\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.dll
@@ -33,3 +26,10 @@ C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Help
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.csprojResolveAssemblyReference.cache
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.dll
 C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.pdb
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.Razor.dll
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.Razor.pdb
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.dll
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\bin\Debug\BullardEncuestas.Helpers.pdb
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.csprojResolveAssemblyReference.cache
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.dll
+D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers.Razor\obj\Debug\BullardEncuestas.Helpers.Razor.pdb
