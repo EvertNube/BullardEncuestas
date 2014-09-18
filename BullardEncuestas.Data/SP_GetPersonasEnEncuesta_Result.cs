@@ -15,6 +15,7 @@ namespace BullardEncuestas.Data
     {
         public int IdPersona { get; set; }
         public string NombreEvaluado { get; set; }
+        public string RutaImagenPersona { get; set; }
         public Nullable<decimal> PromedioPersona { get; set; }
     }
 }
