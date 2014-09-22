@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BULLARD.EncuestasDb2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BULLARD.EncuestasDb2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Empresa">
           <Key>
             <PropertyRef Name="IdEmpresa" />
@@ -511,7 +511,8 @@
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BULLARD.EncuestasDb2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -920,15 +921,20 @@
             <End Role="Persona" EntitySet="Persona" />
           </AssociationSet>
           <FunctionImport Name="SP_EsSocio" ReturnType="Collection(Int32)">
-          <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetCantidadEncuestasResueltas" ReturnType="Collection(Int32)">
+            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetCantidadEvaluadores" ReturnType="Collection(Int32)">
+            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetEncuestaCompleta" ReturnType="Collection(Int32)">
-          <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetEncuestas" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestas_Result)" />
-          <FunctionImport Name="SP_GetEncuestas2" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestas2_Result)" />
           <FunctionImport Name="SP_GetEncuestasPorIdPeriodo" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasPorIdPeriodo_Result)">
-          <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+            <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetEncuestasReporteDetalle2" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result)">
             <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
@@ -936,7 +942,7 @@
             <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetEncuestasReportePorId" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasReportePorId_Result)">
-          <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetPersonasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPersonasEnEncuesta_Result)">
             <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
@@ -944,7 +950,7 @@
             <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetPersonasPorGrupo" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPersonasPorGrupo_Result)">
-          <Parameter Name="IdGrupoTrabajo" Mode="In" Type="Int32" />
+            <Parameter Name="IdGrupoTrabajo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetPreguntasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPreguntasEnEncuesta_Result)">
             <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
@@ -954,12 +960,6 @@
           <FunctionImport Name="SP_ReplicaEncuesta">
             <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
             <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="SP_GetCantidadEvaluadores" ReturnType="Collection(Int32)">
-          <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="SP_GetCantidadEncuestasResueltas" ReturnType="Collection(Int32)">
-            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_GetEncuestas_Result">
@@ -971,23 +971,13 @@
           <Property Type="Int32" Name="IdGrupoEvaluado" Nullable="true" />
           <Property Type="String" Name="StrGrupoEvaluador" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="SP_GetEncuestas2_Result">
-          <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
-          <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
-          <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
-          <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-          <Property Type="Int32" Name="IdGrupoEvaluado" Nullable="true" />
-          <Property Type="Decimal" Name="PromedioGeneral" Nullable="true" Precision="18" Scale="2" />
-        </ComplexType>
         <ComplexType Name="SP_GetEncuestasPorIdPeriodo_Result">
           <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
           <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
           <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
           <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="String" Name="EstadoProceso" Nullable="false" MaxLength="10" />
           <Property Type="Int32" Name="IdGrupoEvaluado" Nullable="true" />
         </ComplexType>
         <ComplexType Name="SP_GetEncuestasReporteDetalle2_Result">
@@ -1199,6 +1189,8 @@
             </EndProperty>
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="SP_EsSocio" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_EsSocio" />
+          <FunctionImportMapping FunctionImportName="SP_GetCantidadEncuestasResueltas" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetCantidadEncuestasResueltas" />
+          <FunctionImportMapping FunctionImportName="SP_GetCantidadEvaluadores" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetCantidadEvaluadores" />
           <FunctionImportMapping FunctionImportName="SP_GetEncuestaCompleta" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetEncuestaCompleta" />
           <FunctionImportMapping FunctionImportName="SP_GetEncuestas" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetEncuestas">
             <ResultMapping>
@@ -1221,7 +1213,7 @@
                 <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
                 <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
                 <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="EstadoProceso" ColumnName="EstadoProceso" />
                 <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />
               </ComplexTypeMapping>
             </ResultMapping>
@@ -1284,8 +1276,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_ReplicaEncuesta" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_ReplicaEncuesta" />
-          <FunctionImportMapping FunctionImportName="SP_GetCantidadEvaluadores" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetCantidadEvaluadores" />
-          <FunctionImportMapping FunctionImportName="SP_GetCantidadEncuestasResueltas" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetCantidadEncuestasResueltas" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

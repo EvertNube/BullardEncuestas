@@ -167,6 +167,8 @@
       </EndProperty>
     </AssociationSetMapping>
     <FunctionImportMapping FunctionImportName="SP_EsSocio" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_EsSocio" />
+    <FunctionImportMapping FunctionImportName="SP_GetCantidadEncuestasResueltas" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetCantidadEncuestasResueltas" />
+    <FunctionImportMapping FunctionImportName="SP_GetCantidadEvaluadores" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetCantidadEvaluadores" />
     <FunctionImportMapping FunctionImportName="SP_GetEncuestaCompleta" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetEncuestaCompleta" />
     <FunctionImportMapping FunctionImportName="SP_GetEncuestas" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetEncuestas">
       <ResultMapping>
@@ -189,7 +191,7 @@
           <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
           <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
           <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="EstadoProceso" ColumnName="EstadoProceso" />
           <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />
         </ComplexTypeMapping>
       </ResultMapping>
@@ -252,7 +254,5 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SP_ReplicaEncuesta" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_ReplicaEncuesta" />
-    <FunctionImportMapping FunctionImportName="SP_GetCantidadEvaluadores" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetCantidadEvaluadores" />
-    <FunctionImportMapping FunctionImportName="SP_GetCantidadEncuestasResueltas" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetCantidadEncuestasResueltas" />
   </EntityContainerMapping>
 </Mapping>
