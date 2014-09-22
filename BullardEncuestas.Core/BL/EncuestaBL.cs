@@ -168,6 +168,7 @@ namespace BullardEncuestas.Core.BL
                     IdPeriodo = r.IdPeriodo,
                     PromedioGeneral = r.PromedioGeneral,
                     PromGeneralAnterior = r.PromedioGeneralAnterior,
+                    CantidadEvaluadores = context.SP_GetCantidadEvaluadores(id),
                     listaReporteDetalle = context.SP_GetEncuestasReporteDetalle2(r.IdEncuesta, r.IdPeriodo, r.IdGrupoTrabajo)
                     .Select(w => new ReporteDTO
                     {

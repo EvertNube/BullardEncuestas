@@ -30,8 +30,10 @@
                                 var promGene = Model.PromedioGeneral != null ? Model.PromedioGeneral.ToString() : "No existen datos suficientes para obtener un promedio general";
                                 var promGeneAnt = Model.PromGeneralAnterior != null ? Model.PromGeneralAnterior.ToString() : "No existen datos suficientes para obtener un promedio general";
                             }
-                            <p><b>Promedio General<b style="padding-left:63px;">: </b></b>@promGene</p>
-                            <p><b>Promedio General Anterior: </b>@promGeneAnt</p>
+                            <p><b>Promedio General</b><b style="padding-left:105px;"> : </b>@promGene</p>
+                            <p><b>Promedio General Anterior</b><b style="padding-left: 45px;"> : </b>@promGeneAnt</p>
+                            <p><b>Cantidad de Evaluadores</b><b style="padding-left: 55px;"> : </b></p>
+                            <p><b>Cantidad de Encuestas Resueltas : </b></p>
 
                             @{var subseccion1 = "sub1enc" + Model.IdEncuesta; }
 
