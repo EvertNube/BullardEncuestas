@@ -113,7 +113,6 @@
                         <section class="panel panel-default">
                             @*<header class="panel-heading affix" style="min-height:inherit; min-width:641%; overflow-x:auto">*@
                             <header class="panel-heading mi-head">
-                                @*min-height:50px 130 641*@
                                 <p>
                                     <div class="font-bold">Instrucciones:</div><div>@Model.Encuesta.Instrucciones</div>
                                 </p>
@@ -122,7 +121,6 @@
                                 </p>
                             </header>
                             <div class="panel-body">
-                                @*@{ var countEvaluados = ViewBag.Evaluados.Count; }*@
                                 @if (Model.Encuesta.Secciones.Count > 0)
                                 {
                                     <div class="panel-group m-b" id="accordionN1">
@@ -143,7 +141,7 @@
                                                             }
                                                         </div>
                                                     </div>
-                                                    <div id="@seccion.IdSeccion" class="panel-collapse collapse">
+                                                    <div id="@seccion.IdSeccion" class="panel-collapse">
                                                         <div class="panel-body">
                                                             @if (seccion.Preguntas.Count > 0)
                                                             {
@@ -206,7 +204,7 @@
                                                                                         </span>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div id="@subSeccion.IdSeccion" class="panel-collapse collapse">
+                                                                                <div id="@subSeccion.IdSeccion" class="panel-collapse">@*panel-collapse collapse*@
                                                                                     <div class="panel-body">
                                                                                         @if (subSeccion.Preguntas.Count > 0)
                                                                                         {
