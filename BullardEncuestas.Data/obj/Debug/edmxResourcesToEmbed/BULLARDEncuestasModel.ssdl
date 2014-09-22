@@ -383,11 +383,16 @@
   <Function Name="SP_EsSocio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
+  <Function Name="SP_GetCantidadEncuestasResueltas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEncuesta" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetCantidadEvaluadores" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEncuesta" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_GetEncuestaCompleta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IdEncuesta" Type="int" Mode="In" />
   </Function>
   <Function Name="SP_GetEncuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-  <Function Name="SP_GetEncuestas2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="SP_GetEncuestasPorIdPeriodo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IdPeriodo" Type="int" Mode="In" />
   </Function>

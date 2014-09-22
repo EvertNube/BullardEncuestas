@@ -388,6 +388,9 @@
         <Function Name="SP_EsSocio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdPersona" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_GetCantidadEncuestasResueltas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEncuesta" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_GetCantidadEvaluadores" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdEncuesta" Type="int" Mode="In" />
         </Function>
@@ -953,6 +956,9 @@
             <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetCantidadEvaluadores" ReturnType="Collection(Int32)">
+          <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetCantidadEncuestasResueltas" ReturnType="Collection(Int32)">
             <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -1279,6 +1285,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_ReplicaEncuesta" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_ReplicaEncuesta" />
           <FunctionImportMapping FunctionImportName="SP_GetCantidadEvaluadores" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetCantidadEvaluadores" />
+          <FunctionImportMapping FunctionImportName="SP_GetCantidadEncuestasResueltas" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetCantidadEncuestasResueltas" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
