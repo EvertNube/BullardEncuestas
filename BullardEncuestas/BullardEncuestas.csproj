@@ -467,6 +467,13 @@
     <Content Include="Content\themes\admin\js\nestable\nestable.css" />
     <Content Include="Content\themes\admin\js\slimscroll\jquery.slimscroll.min.js" />
     <Content Include="Content\themes\admin\js\sortable\jquery.sortable.js" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\blokk\BLOKKRegular.svg" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\codropsicons\codropsicons.svg" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\codropsicons\license.txt" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\component.css" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\demo.css" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\jquery.stickyheader.js" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\normalize.css" />
     <Content Include="Content\themes\admin\js\uploader\jquery.fileupload.js" />
     <Content Include="Content\themes\admin\js\uploader\jquery.iframe-transport.js" />
     <Content Include="Content\themes\admin\js\uploader\jquery.min.js" />
@@ -764,6 +771,12 @@
     <Content Include="Content\themes\admin\src\less\app.widgets.less" />
     <Content Include="Content\themes\admin\src\less\less.php" />
     <Content Include="Content\themes\admin\src\less\lessc.inc.php" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\blokk\BLOKKRegular.eot" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\blokk\BLOKKRegular.ttf" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\blokk\BLOKKRegular.woff" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\codropsicons\codropsicons.eot" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\codropsicons\codropsicons.ttf" />
+    <Content Include="Content\themes\admin\js\StickyTableHeaders\codropsicons\codropsicons.woff" />
     <None Include="Properties\PublishProfiles\BULLARD.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />

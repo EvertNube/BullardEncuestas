@@ -4,9 +4,14 @@
 @model EncuestaDTO
 @section styles{
     @Styles.Render("~/Content/themes/admin/js/fuelux/fuelux.css")
+    @Styles.Render("~/Content/themes/admin/js/StickyTableHeaders/normalize.css")
+    @Styles.Render("~/Content/themes/admin/js/StickyTableHeaders/demo.css")
+    @Styles.Render("~/Content/themes/admin/js/StickyTableHeaders/component.css")
 }
 @section scripts{
     @Scripts.Render("~/Content/themes/admin/js/fuelux/fuelux.js")
+    @Scripts.Render("http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js")
+    @Scripts.Render("~/Content/themes/admin/js/StickyTableHeaders/jquery.stickyheader.js")
 }
 @{
     ViewBag.Title = "ReportesDetalle";
@@ -22,131 +27,125 @@
                 <h2>Reporte</h2>
                 <section class="panel panel-default">
                     <header class="panel-heading"><b>Encuesta:</b> @Model.NombreEncuesta  <b>Periodo:</b> @Model.Periodo.Descripcion</header>
-                    <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
+                    <div class="panel-body">
+                        @{
+                            var promGene = Model.PromedioGeneral != null ? Model.PromedioGeneral.ToString() : "No existen datos suficientes para obtener un promedio general";
+                            var promGeneAnt = Model.PromGeneralAnterior != null ? Model.PromGeneralAnterior.ToString() : "No existen datos suficientes para obtener un promedio general";
+                        }
+                        <p><b>Promedio General</b><b style="padding-left:105px;"> : </b>@promGene</p>
+                        <p><b>Promedio General Anterior</b><b style="padding-left: 45px;"> : </b>@promGeneAnt</p>
+                        <p><b>Cantidad de Evaluadores</b><b style="padding-left: 55px;"> : </b>@Model.CantEvaluadores</p>
+                        <p><b>Cantidad de Encuestas Resueltas : </b>@Model.CantEncuestasResueltas</p>
 
+                        @{var subseccion1 = "sub1enc" + Model.IdEncuesta; }
 
-                        <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
-                            @{
-                                var promGene = Model.PromedioGeneral != null ? Model.PromedioGeneral.ToString() : "No existen datos suficientes para obtener un promedio general";
-                                var promGeneAnt = Model.PromGeneralAnterior != null ? Model.PromGeneralAnterior.ToString() : "No existen datos suficientes para obtener un promedio general";
-                            }
-                            <p><b>Promedio General</b><b style="padding-left:105px;"> : </b>@promGene</p>
-                            <p><b>Promedio General Anterior</b><b style="padding-left: 45px;"> : </b>@promGeneAnt</p>
-                            <p><b>Cantidad de Evaluadores</b><b style="padding-left: 55px;"> : </b>@Model.CantEvaluadores</p>
-                            <p><b>Cantidad de Encuestas Resueltas : </b>@Model.CantEncuestasResueltas</p>
-
-                            @{var subseccion1 = "sub1enc" + Model.IdEncuesta; }
-
-                            <div class="panel-group m-b" id="accordion1">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#@subseccion1"> Promedios x Persona</a>
-                                    </div>
-                                    <div id="@subseccion1" class="panel-collapse collapse in">
-                                        <div class="panel-body" style="overflow:auto; overflow-x:hidden;">
-                                            @{ List<PersonaDTO> personasSort = Model.listaReportePersonas.OrderByDescending(x => x.Promedio).ToList();
-                                             double numper = Convert.ToDouble(Model.listaReportePersonas.Count);
-                                             int cols = (int)numper > 2 ? 3 : (int)numper;
-                                             int filas = (int)Math.Ceiling(numper / 3);
-                                             int nele = 0;}
-                                            @for (int i = 0; i < cols; i++)
-                                            {
-                                                <div class="col-sm-4">
-                                                    <ul class="list-group alt">
-                                                        @for (int j = 0; j < filas; j++)
-                                                        {
-                                                            <li class="list-group-item">
-                                                                <div class="media">
-                                                                    <span class="pull-right thumb-sm">
-                                                                        @{if (personasSort[nele].UrlImagen != null)
-                                                                        {<img src=@personasSort[nele].UrlImagen class="img-full">}
+                        <div class="panel-group m-b" id="accordion1">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#@subseccion1"> Promedios x Persona</a>
+                                </div>
+                                <div id="@subseccion1" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        @{ List<PersonaDTO> personasSort = Model.listaReportePersonas.OrderByDescending(x => x.Promedio).ToList();
+                                         double numper = Convert.ToDouble(Model.listaReportePersonas.Count);
+                                         int cols = (int)numper > 2 ? 3 : (int)numper;
+                                         int filas = (int)Math.Ceiling(numper / 3);
+                                         int nele = 0;}
+                                        @for (int i = 0; i < cols; i++)
+                                        {
+                                            <div class="col-sm-4">
+                                                <ul class="list-group alt">
+                                                    @for (int j = 0; j < filas; j++)
+                                                    {
+                                                        <li class="list-group-item">
+                                                            <div class="media">
+                                                                <span class="pull-right thumb-sm">
+                                                                    @{if (personasSort[nele].UrlImagen != null)
+                                                                    {<img src=@personasSort[nele].UrlImagen class="img-full">}
+                                                                    else
+                                                                    {<img src="~/Content/themes/admin/images/avatar_default.jpg" class="img-full" /> }
+                                                                    }
+                                                                </span>
+                                                                <div class="media-body" style="text-align:center;">
+                                                                    <div>
+                                                                        @personasSort[nele].Nombre
+                                                                    </div>
+                                                                    <div>
+                                                                        @if (nele < 3)
+                                                                        {<span class="badge bg-success text-muted">@personasSort[nele].Promedio</span>}
                                                                         else
-                                                                        {<img src="~/Content/themes/admin/images/avatar_default.jpg" class="img-full" /> }
-                                                                        }
-                                                                    </span>
-                                                                    <div class="media-body" style="text-align:center;">
-                                                                        <div>
-                                                                            @personasSort[nele].Nombre
-                                                                        </div>
-                                                                        <div>
-                                                                            @if (nele < 3)
-                                                                            {<span class="badge bg-success text-muted">@personasSort[nele].Promedio</span>}
+                                                                        {
+                                                                            if ((int)numper - 4 < nele)
+                                                                            {<span class="badge bg-danger text-muted">@personasSort[nele].Promedio</span>}
                                                                             else
-                                                                            {
-                                                                                if ((int)numper - 4 < nele)
-                                                                                {<span class="badge bg-danger text-muted">@personasSort[nele].Promedio</span>}
-                                                                                else
-                                                                                {<span class="badge bg-info text-muted">@personasSort[nele].Promedio</span>}
-                                                                            }
-                                                                        </div>
+                                                                            {<span class="badge bg-info text-muted">@personasSort[nele].Promedio</span>}
+                                                                        }
                                                                     </div>
                                                                 </div>
-                                                            </li>
-                                                                            nele++;
-                                                                            if (nele == numper)
-                                                                            {
-                                                                                nele = 0;
-                                                                                break;
-                                                                            }
-                                                        }
-                                                    </ul>
-                                                </div>
-                                            }
-                                        </div>
-                                        <div class="footer" style="text-align:right; vertical-align:central;">
-                                            @*<a class="btn btn-sm btn-success pull-right btn-rounded" href="@Url.Action("Pdf")"><i class="fa fa-table"></i> Exportar Reporte</a>*@
-                                            <a class="btn btn-default" href="@Url.Action("Pdf")"><i class="fa fa-print"></i>&nbsp; Imprimir PDF</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @{var subseccion2 = "sub2enc" + Model.IdEncuesta; }
-                            <div class="panel-group m-b" id="accordion2">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#@subseccion2"> Cuadro x Pregunta</a>
-                                    </div>
-                                    <div id="@subseccion2" class="panel-collapse collapse in">
-                                        <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered">
-                                                    <tbody>
-                                                        @{int npre = Model.listaReportePreguntas.Count;}
-                                                        @{int nper = Model.listaReportePersonas.Count;}
-                                                        <tr>
-                                                            <th>&nbsp;</th>
-                                                            @for (int j = 0; j < nper; j++)
-                                                            {
-                                                                <th>
-                                                                    <div class="rotate"><div><span>@Model.listaReportePersonas[j].Nombre</span></div></div>
-                                                                </th>
-                                                            }
-                                                        </tr>
-                                                        @for (int pre = 0; pre < npre; pre++)
-                                                        {
-                                                            <tr>
-                                                                <td><div><span>@Model.listaReportePreguntas[pre].Texto</span></div></td>
-                                                                @for (int per = 0; per < nper; per++)
-                                                                {
-                                                                    if (Model.matrizReporteDetalle[pre, per].ValorItem != -1)
-                                                                    {
-                                                                        <td align="center"><div><span>@Model.matrizReporteDetalle[pre, per].ValorItem</span></div></td>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <td align="center"><div><span>NA</span></div></td>}
-                                                                }
-                                                            </tr>
-                                                        }
-                                                    </tbody>
-                                                </table>
+                                                            </div>
+                                                        </li>
+                                                                        nele++;
+                                                                        if (nele == numper)
+                                                                        {
+                                                                            nele = 0;
+                                                                            break;
+                                                                        }
+                                                    }
+                                                </ul>
                                             </div>
-                                        </div>
+                                        }
+                                    </div>
+                                    <div class="footer" style="text-align:right; vertical-align:central;">
+                                        @*<a class="btn btn-sm btn-success pull-right btn-rounded" href="@Url.Action("Pdf")"><i class="fa fa-table"></i> Exportar Reporte</a>*@
+                                        <a class="btn btn-default" href="@Url.Action("Pdf")"><i class="fa fa-print"></i>&nbsp; Imprimir PDF</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @{var subseccion2 = "sub2enc" + Model.IdEncuesta; }
+                        <div class="panel-group m-b" id="accordion2">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#@subseccion2"> Cuadro x Pregunta</a>
+                                </div>
+                                <div id="@subseccion2" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <table class="overflow-y">
+                                            <tbody>
+                                                @{int npre = Model.listaReportePreguntas.Count;}
+                                                @{int nper = Model.listaReportePersonas.Count;}
+                                                <tr>
+                                                    <th>&nbsp;</th>
+                                                    @for (int j = 0; j < nper; j++)
+                                                    {
+                                                        <th>
+                                                            <div class="rotate"><div><span>@Model.listaReportePersonas[j].Nombre</span></div></div>
+                                                        </th>
+                                                    }
+                                                </tr>
+                                                @for (int pre = 0; pre < npre; pre++)
+                                                {
+                                                    <tr>
+                                                        <td><div><span>@Model.listaReportePreguntas[pre].Texto</span></div></td>
+                                                        @for (int per = 0; per < nper; per++)
+                                                        {
+                                                            if (Model.matrizReporteDetalle[pre, per].ValorItem != -1)
+                                                            {
+                                                                <td align="center"><div><span>@Model.matrizReporteDetalle[pre, per].ValorItem</span></div></td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td align="center"><div><span>NA</span></div></td>}
+                                                        }
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="footer">
                         <div class="col-sm-12" style="text-align:right;">
