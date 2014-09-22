@@ -39,43 +39,45 @@
             });
 
             $("#btnEnviar").click(function () {
-                var listaIdRespuestas = []; $('.listaIdRespuestas').each(function (index, item) { var value = item.value; listaIdRespuestas.push(value); });
-                var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
-                var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
-                var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
+                if (confirm("¿Está seguro que desea enviar la encuesta?")) {
+                    var listaIdRespuestas = []; $('.listaIdRespuestas').each(function (index, item) { var value = item.value; listaIdRespuestas.push(value); });
+                    var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
+                    var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
+                    var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
 
-                var conta = 0;
-                if (listaRespuestas.indexOf("0") > -1) conta = 1;
+                    var conta = 0;
+                    if (listaRespuestas.indexOf("0") > -1) conta = 1;
 
-                if (conta == 0) {
-                    var encuestaEvaluadorDTO = {
-                        IdEncuestaEvaluador: $("#IdEncuestaEvaluador").val(),
-                        IdEncuesta: $("#IdEncuesta").val(),
-                        IdEvaluador: $("#IdEvaluador").val(),
-                        listaIdRespuestas: listaIdRespuestas,
-                        listaPreguntas: listaPreguntas,
-                        listaEvaluados: listaEvaluados,
-                        listaRespuestas: listaRespuestas,
-                        EstaCompleto: true, //Encuesta enviada (Completa)
-                        Accion: 2
-                    };
-                    $.ajax({
-                        url: "/Admin/SendEncuestaEvaluador",
-                        type: "POST",
-                        cache: false,
-                        data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
-                        dataType: "json"
-                    }).done(function (data) {
-                        if (data.Response) {
-                            window.location = "/Admin/MensajeEncuesta";
-                        } else {
-                            alert("Por favor verifique todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
-                        }
-                    }).fail(function () {
-                        alert('Error al intentar enviar la Encuesta. Por favor, actualice la página o presione F5.');
-                    });
-                } else {
-                    alert("Por favor verifique que todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
+                    if (conta == 0) {
+                        var encuestaEvaluadorDTO = {
+                            IdEncuestaEvaluador: $("#IdEncuestaEvaluador").val(),
+                            IdEncuesta: $("#IdEncuesta").val(),
+                            IdEvaluador: $("#IdEvaluador").val(),
+                            listaIdRespuestas: listaIdRespuestas,
+                            listaPreguntas: listaPreguntas,
+                            listaEvaluados: listaEvaluados,
+                            listaRespuestas: listaRespuestas,
+                            EstaCompleto: true, //Encuesta enviada (Completa)
+                            Accion: 2
+                        };
+                        $.ajax({
+                            url: "/Admin/SendEncuestaEvaluador",
+                            type: "POST",
+                            cache: false,
+                            data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
+                            dataType: "json"
+                        }).done(function (data) {
+                            if (data.Response) {
+                                window.location = "/Admin/MensajeEncuesta";
+                            } else {
+                                alert("Por favor verifique todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
+                            }
+                        }).fail(function () {
+                            alert('Error al intentar enviar la Encuesta. Por favor, actualice la página o presione F5.');
+                        });
+                    } else {
+                        alert("Por favor verifique que todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
+                    }
                 }
             });
 
@@ -141,7 +143,7 @@
                                                             }
                                                         </div>
                                                     </div>
-                                                    <div id="@seccion.IdSeccion" class="panel-collapse">
+                                                    <div id="@seccion.IdSeccion" class="panel-collapse collapse in">
                                                         <div class="panel-body">
                                                             @if (seccion.Preguntas.Count > 0)
                                                             {
@@ -204,7 +206,8 @@
                                                                                         </span>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div id="@subSeccion.IdSeccion" class="panel-collapse">@*panel-collapse collapse*@
+                                                                                <div id="@subSeccion.IdSeccion" class="panel-collapse collapse in">
+                                                                                    @*panel-collapse collapse*@
                                                                                     <div class="panel-body">
                                                                                         @if (subSeccion.Preguntas.Count > 0)
                                                                                         {
@@ -252,6 +255,7 @@
                                                                                     </div>
 
                                                                                 </div>
+
                                                                             </div>
                                                                         }
                                                                     }

@@ -6,29 +6,31 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.btnEnviarCorreo').click(function () {
-                $("#loading").show();
-                var id = $(this).data("id");
-                var gevaluado = $(this).data("gevaluado");
-                var encuesta = $(this).data("encuesta");
-                var periodo = $(this).data("periodo");
-                var evaluadores = $(this).data("gevaluador");
-                $.ajax({
-                    url: "/Admin/SendCorreoEncuesta",
-                    type: "POST",
-                    cache: false,
-                    data: { grupoEvaluadores: evaluadores, idEncuesta: id, idGrupoEvaluado: gevaluado, nombreEncuesta: encuesta, periodo: periodo },
-                    dataType: "json"
-                }).done(function (data) {
-                    if (data) {
+                if (confirm("¿Está seguro que desea enviar los correos?")) {
+                    $("#loading").show();
+                    var id = $(this).data("id");
+                    var gevaluado = $(this).data("gevaluado");
+                    var encuesta = $(this).data("encuesta");
+                    var periodo = $(this).data("periodo");
+                    var evaluadores = $(this).data("gevaluador");
+                    $.ajax({
+                        url: "/Admin/SendCorreoEncuesta",
+                        type: "POST",
+                        cache: false,
+                        data: { grupoEvaluadores: evaluadores, idEncuesta: id, idGrupoEvaluado: gevaluado, nombreEncuesta: encuesta, periodo: periodo },
+                        dataType: "json"
+                    }).done(function (data) {
+                        if (data) {
+                            $("#loading").hide();
+                            alert("Los correos se han enviado con éxito.");
+                            window.location = "/Admin/";
+                        } else
+                            alert('Error al intentar enviar los correos al Grupo de Evaluadores. Por favor, actualice la página o presione F5.');
+                    }).fail(function () {
                         $("#loading").hide();
-                        alert("Los correos se han enviado con éxito.");
-                        window.location = "/Admin/";
-                    } else
                         alert('Error al intentar enviar los correos al Grupo de Evaluadores. Por favor, actualice la página o presione F5.');
-                }).fail(function () {
-                    $("#loading").hide();
-                    alert('Error al intentar enviar los correos al Grupo de Evaluadores. Por favor, actualice la página o presione F5.');
-                });
+                    });
+                }
             });
 
             $('#btnNuevaEncuesta').click(function () {
