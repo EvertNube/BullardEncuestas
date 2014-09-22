@@ -53,25 +53,25 @@
                                          int nele = 0;}
                                         @for (int i = 0; i < cols; i++)
                                         {
-                                            <div class="col-sm-4">
-                                                <ul class="list-group alt">
-                                                    @for (int j = 0; j < filas; j++)
+                                        <div class="col-sm-4">
+                                            <ul class="list-group alt">
+                                                @for (int j = 0; j < filas; j++)
                                                     {
-                                                        <li class="list-group-item">
-                                                            <div class="media">
-                                                                <span class="pull-right thumb-sm">
-                                                                    @{if (personasSort[nele].UrlImagen != null)
+                                                    <li class="list-group-item">
+                                                        <div class="media">
+                                                            <span class="pull-right thumb-sm">
+                                                                @{if (personasSort[nele].UrlImagen != null)
                                                                     {<img src=@personasSort[nele].UrlImagen class="img-full">}
                                                                     else
                                                                     {<img src="~/Content/themes/admin/images/avatar_default.jpg" class="img-full" /> }
-                                                                    }
-                                                                </span>
-                                                                <div class="media-body" style="text-align:center;">
-                                                                    <div>
-                                                                        @personasSort[nele].Nombre
-                                                                    </div>
-                                                                    <div>
-                                                                        @if (nele < 3)
+                                                                }
+                                                            </span>
+                                                            <div class="media-body" style="text-align:center;">
+                                                                <div>
+                                                                    @personasSort[nele].Nombre
+                                                                </div>
+                                                                <div>
+                                                                    @if (nele < 3)
                                                                         {<span class="badge bg-success text-muted">@personasSort[nele].Promedio</span>}
                                                                         else
                                                                         {
@@ -80,10 +80,10 @@
                                                                             else
                                                                             {<span class="badge bg-info text-muted">@personasSort[nele].Promedio</span>}
                                                                         }
-                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </li>
+                                                        </div>
+                                                    </li>
                                                                         nele++;
                                                                         if (nele == numper)
                                                                         {
@@ -91,8 +91,8 @@
                                                                             break;
                                                                         }
                                                     }
-                                                </ul>
-                                            </div>
+                                            </ul>
+                                        </div>
                                         }
                                     </div>
                                     <div class="footer" style="text-align:right; vertical-align:central;">
@@ -110,38 +110,39 @@
                                 </div>
                                 <div id="@subseccion2" class="panel-collapse collapse in">
                                     <div class="panel-body">
+                                        @{int npre = Model.listaReportePreguntas.Count;}
+                                        @{int nper = Model.listaReportePersonas.Count;}
                                         <table class="overflow-y">
-                                            <tbody>
-                                                @{int npre = Model.listaReportePreguntas.Count;}
-                                                @{int nper = Model.listaReportePersonas.Count;}
+                                            <thead>
                                                 <tr>
-                                                    <th>&nbsp;</th>
+                                                    <th>Nombres X Preguntas</th>
                                                     @for (int j = 0; j < nper; j++)
                                                     {
                                                         <th>
-                                                            <div class="rotate"><div><span>@Model.listaReportePersonas[j].Nombre</span></div></div>
+                                                            @Model.listaReportePersonas[j].Nombre
                                                         </th>
                                                     }
                                                 </tr>
+                                            </thead>
+                                            <tbody>
                                                 @for (int pre = 0; pre < npre; pre++)
                                                 {
                                                     <tr>
-                                                        <td><div><span>@Model.listaReportePreguntas[pre].Texto</span></div></td>
+                                                        <th>@Model.listaReportePreguntas[pre].Texto</th>
                                                         @for (int per = 0; per < nper; per++)
                                                         {
                                                             if (Model.matrizReporteDetalle[pre, per].ValorItem != -1)
                                                             {
-                                                                <td align="center"><div><span>@Model.matrizReporteDetalle[pre, per].ValorItem</span></div></td>
+                                                                <td align="center">@Model.matrizReporteDetalle[pre, per].ValorItem</td>
                                                             }
                                                             else
                                                             {
-                                                                <td align="center"><div><span>NA</span></div></td>}
+                                                                <td align="center">NA</td>}
                                                         }
                                                     </tr>
                                                 }
                                             </tbody>
                                         </table>
-
                                     </div>
                                 </div>
                             </div>
