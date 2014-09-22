@@ -78,6 +78,12 @@
                     alert("Por favor verifique que todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
                 }
             });
+
+            $(".btnAsignar").click(function () {
+                var idSeccion = $(this).data("idseccion");
+                var idOpcion = $("#SelectMasivo_" + idSeccion).val();
+                $("#" + idSeccion + " .listaRespuestas").not('input, textarea').val(idOpcion);
+            });
         });
         //function setActionHidden(action) {
         //    $("#Accion").val(action);
@@ -126,9 +132,16 @@
                                             {
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
-                                                        <h4 class="panel-title">
+                                                        <div class="panel-title">
                                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionN1" href="#@seccion.IdSeccion"> @seccion.Nombre </a>
-                                                        </h4>
+                                                            @if (seccion.SubSecciones.Count == 0 && !seccion.Nombre.ToUpper().Contains("COMENTARIOS"))
+                                                            {
+                                                                <span class="pull-right">
+                                                                    Respuesta Masiva : @Html.DropDownList("SelectMasivo_" + seccion.IdSeccion, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", 0), new { @class = "input-sm input-s", @style = "width: auto;" })
+                                                                    <button type="button" class="btn btn-sm btn-edit btn-rounded btnAsignar" data-idseccion="@seccion.IdSeccion">Asignar</button>
+                                                                </span>
+                                                            }
+                                                        </div>
                                                     </div>
                                                     <div id="@seccion.IdSeccion" class="panel-collapse collapse">
                                                         <div class="panel-body">
@@ -185,9 +198,13 @@
                                                                         {
                                                                             <div class="panel panel-default">
                                                                                 <div class="panel-heading">
-                                                                                    <h4 class="panel-title">
+                                                                                    <div class="panel-title">
                                                                                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionN2" href="#@subSeccion.IdSeccion"> @subSeccion.Nombre </a>
-                                                                                    </h4>
+                                                                                        <span class="pull-right">
+                                                                                            Respuesta Masiva : @Html.DropDownList("SelectMasivo_" + subSeccion.IdSeccion, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", 0), new { @class = "input-sm input-s", @style = "width: auto;" })
+                                                                                            <button type="button" class="btn btn-sm btn-edit btn-rounded btnAsignar" data-idseccion="@subSeccion.IdSeccion">Asignar</button>
+                                                                                        </span>
+                                                                                    </div>
                                                                                 </div>
                                                                                 <div id="@subSeccion.IdSeccion" class="panel-collapse collapse">
                                                                                     <div class="panel-body">
