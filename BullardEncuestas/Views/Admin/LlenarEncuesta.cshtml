@@ -104,13 +104,13 @@
 <section class="vbox">
     <section class="scrollable padder">
         <div class="row m-b">
-            <div class="col-xs-12 col-md-12 col-md-offset-1">
+            <div class="col-xs-12 col-md-12">
                 <h2> @Html.LabelFor(m => m.Encuesta.Periodo.Descripcion, Model.Encuesta.Periodo.Descripcion) / @Html.LabelFor(m => m.Encuesta.NombreEncuesta, Model.Encuesta.NombreEncuesta) </h2>
 
                 @*@using (Html.BeginForm("AddEncuestaEvaluador", "Admin", FormMethod.Post)) {*@
                 @Html.ValidationSummary(true)
                 <div class="row m-b">
-                    <div class="col-xs-12 col-md-9">
+                    <div class="col-xs-12 col-md-12">
                         @Html.Partial("_showAlertMessages")
                         <section class="panel panel-default">
                             @*<header class="panel-heading affix" style="min-height:inherit; min-width:641%; overflow-x:auto">*@
