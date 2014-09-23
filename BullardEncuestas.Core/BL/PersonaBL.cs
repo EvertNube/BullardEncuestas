@@ -55,61 +55,13 @@ namespace BullardEncuestas.Core.BL
                         Email = r.Email,
                         IdEmpresa = r.IdEmpresa,
                         Estado = r.Estado,
+                        RutaImagen = r.RutaImagen,
                         GruposTrabajo = r.GrupoTrabajo.Select(w => new GrupoTrabajoDTO { IdGrupoTrabajo = w.IdGrupoTrabajo, Nombre = w.Nombre }).ToList()
                     }).SingleOrDefault();
                 return result;
             }
         }
-        //public PersonaDTO getPersonaEvaluador(int id)
-        //{
-        //    using (var context = getContext())
-        //    {
-        //        var result = context.Persona.Where(x => x.IdPersona == id)
-        //            .Select(r => new PersonaDTO
-        //            {
-        //                IdPersona = r.IdPersona,
-        //                Nombre = r.Nombre,
-        //                Email = r.Email,
-        //                IdEmpresa = (int)r.IdEmpresa,
-        //                IdGrupoTrabajo = (int)r.IdGrupoTrabajo,
-        //                Estado = r.Estado,
-        //                listaEncuestaEvaluador = r.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == id).Select(x => new EncuestaEvaluadorDTO
-        //                {
-        //                    IdEncuestaEvaluador = x.IdEncuestaEvaluador,
-        //                    IdEncuesta = x.IdEncuesta,
-        //                    IdEvaluador = x.IdEvaluador,
-        //                    CodEvaluador = x.CodEvaluador,
-        //                    EstadoEncuesta = x.EstadoEncuesta
-        //                }).ToList()
-        //            }).SingleOrDefault();
-        //        return result;
-        //    }
-        //}
-        //public PersonaDTO getPersonaEvaluada(int id)
-        //{
-        //    using (var context = getContext())
-        //    {
-        //        var result = context.Persona.Where(x => x.IdPersona == id)
-        //            .Select(r => new PersonaDTO
-        //            {
-        //                IdPersona = r.IdPersona,
-        //                Nombre = r.Nombre,
-        //                Email = r.Email,
-        //                IdEmpresa = (int)r.IdEmpresa,
-        //                IdGrupoTrabajo = (int)r.IdGrupoTrabajo,
-        //                Estado = r.Estado,
-        //                listaEncuestaEvaluado = r.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == id).Select(x => new EncuestaEvaluadorDTO
-        //                {
-        //                    IdEncuestaEvaluador = x.IdEncuestaEvaluador,
-        //                    IdEncuesta = x.IdEncuesta,
-        //                    IdEvaluador = x.IdEvaluador,
-        //                    CodEvaluador = x.CodEvaluador,
-        //                    EstadoEncuesta = x.EstadoEncuesta
-        //                }).ToList()
-        //            }).SingleOrDefault();
-        //        return result;
-        //    }
-        //}
+        
         public bool add(PersonaDTO personaDTO)
         {
             using (var context = getContext())
@@ -121,6 +73,7 @@ namespace BullardEncuestas.Core.BL
                     persona.Email = personaDTO.Email;
                     persona.Estado = personaDTO.Estado;
                     persona.IdEmpresa = personaDTO.IdEmpresa != 0 ? personaDTO.IdEmpresa : null;
+                    persona.RutaImagen = personaDTO.RutaImagen;
                     context.Persona.Add(persona);
                     foreach (var group in personaDTO.ListaGruposTrabajo)
                     {
@@ -147,6 +100,7 @@ namespace BullardEncuestas.Core.BL
                     persona.Nombre = personaDTO.Nombre;
                     persona.Email = personaDTO.Email;
                     persona.IdEmpresa = personaDTO.IdEmpresa != 0 ? personaDTO.IdEmpresa : null;
+                    persona.RutaImagen = personaDTO.RutaImagen;
                     persona.Estado = personaDTO.Estado;
                     var oldGrupo = persona.GrupoTrabajo.Select(x => x.IdGrupoTrabajo).ToList();
                     var newGrupo = personaDTO.ListaGruposTrabajo.Select(x => x).ToList();
