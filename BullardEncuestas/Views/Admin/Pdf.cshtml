@@ -105,6 +105,15 @@
                             </div>
                         </div>
                     </div>
+                    @{
+                        string miUrl;
+                        miUrl = Url.Action("ReportesDetalle", "Admin") + "?id=" + Model.IdEncuesta.ToString();
+                    }
+                    <div class="footer">
+                        <a class="btn btn-sm btn-danger pull-right" href="@miUrl">
+                            <i class="fa fa-chevron-left"></i>&nbsp;&nbsp;Regresar
+                        </a>
+                    </div>
                 </section>
             </div>
         </div>
