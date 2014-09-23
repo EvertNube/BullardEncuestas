@@ -22,4 +22,3 @@ D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\bin\Debug\Bul
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.dll
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.pdb
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.csprojResolveAssemblyReference.cache
-C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers\obj\Debug\BullardEncuestas.Helpers.csprojResolveAssemblyReference.cache

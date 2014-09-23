@@ -442,7 +442,7 @@
     <FunctionImport Name="SP_GetEncuestasReportePorId" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasReportePorId_Result1)">
       <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="SP_GetEncuestasPorIdPeriodo" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasPorIdPeriodo_Result1)">
+    <FunctionImport Name="SP_GetEncuestasPorIdPeriodo" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasPorIdPeriodo_Result2)">
       <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
@@ -519,6 +519,15 @@
     <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
     <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
     <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="IdGrupoEvaluado" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SP_GetEncuestasPorIdPeriodo_Result2">
+    <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
+    <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
+    <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="EstadoProceso" Nullable="false" MaxLength="10" />
     <Property Type="Int32" Name="IdGrupoEvaluado" Nullable="true" />
   </ComplexType>
 </Schema>

@@ -164,13 +164,13 @@ namespace BullardEncuestas.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestasReportePorId_Result1>("SP_GetEncuestasReportePorId", idEncuestaParameter);
         }
     
-        public virtual ObjectResult<SP_GetEncuestasPorIdPeriodo_Result1> SP_GetEncuestasPorIdPeriodo(Nullable<int> idPeriodo)
+        public virtual ObjectResult<SP_GetEncuestasPorIdPeriodo_Result2> SP_GetEncuestasPorIdPeriodo(Nullable<int> idPeriodo)
         {
             var idPeriodoParameter = idPeriodo.HasValue ?
                 new ObjectParameter("IdPeriodo", idPeriodo) :
                 new ObjectParameter("IdPeriodo", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestasPorIdPeriodo_Result1>("SP_GetEncuestasPorIdPeriodo", idPeriodoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestasPorIdPeriodo_Result2>("SP_GetEncuestasPorIdPeriodo", idPeriodoParameter);
         }
     }
 }
