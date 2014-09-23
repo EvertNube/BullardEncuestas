@@ -183,19 +183,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="SP_GetEncuestasPorIdPeriodo" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetEncuestasPorIdPeriodo">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetEncuestasPorIdPeriodo_Result">
-          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
-          <ScalarProperty Name="NombreEncuesta" ColumnName="NombreEncuesta" />
-          <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
-          <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
-          <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
-          <ScalarProperty Name="EstadoProceso" ColumnName="EstadoProceso" />
-          <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SP_GetEncuestasReporteDetalle2" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetEncuestasReporteDetalle2">
       <ResultMapping>
         <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result">
@@ -204,21 +191,6 @@
           <ScalarProperty Name="IdEvaluado" ColumnName="IdEvaluado" />
           <ScalarProperty Name="NombreEvaluado" ColumnName="NombreEvaluado" />
           <ScalarProperty Name="PromedioPreguntaXEvaluado" ColumnName="PromedioPreguntaXEvaluado" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="SP_GetEncuestasReportePorId" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetEncuestasReportePorId">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetEncuestasReportePorId_Result">
-          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
-          <ScalarProperty Name="NombreEncuesta" ColumnName="NombreEncuesta" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
-          <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
-          <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
-          <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
-          <ScalarProperty Name="PromedioGeneral" ColumnName="PromedioGeneral" />
-          <ScalarProperty Name="PromedioGeneralAnterior" ColumnName="PromedioGeneralAnterior" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -254,5 +226,33 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SP_ReplicaEncuesta" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_ReplicaEncuesta" />
+    <FunctionImportMapping FunctionImportName="SP_GetEncuestasReportePorId" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetEncuestasReportePorId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetEncuestasReportePorId_Result1">
+          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+          <ScalarProperty Name="NombreEncuesta" ColumnName="NombreEncuesta" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+          <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
+          <ScalarProperty Name="IdGrupoTrabajo" ColumnName="IdGrupoTrabajo" />
+          <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
+          <ScalarProperty Name="PromedioGeneral" ColumnName="PromedioGeneral" />
+          <ScalarProperty Name="PromedioGeneralAnterior" ColumnName="PromedioGeneralAnterior" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_GetEncuestasPorIdPeriodo" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetEncuestasPorIdPeriodo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetEncuestasPorIdPeriodo_Result1">
+          <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+          <ScalarProperty Name="NombreEncuesta" ColumnName="NombreEncuesta" />
+          <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+          <ScalarProperty Name="NombrePeriodo" ColumnName="NombrePeriodo" />
+          <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

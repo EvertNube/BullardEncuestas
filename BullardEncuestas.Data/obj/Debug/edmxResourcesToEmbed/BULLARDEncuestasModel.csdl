@@ -417,16 +417,10 @@
       <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="SP_GetEncuestas" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestas_Result)" />
-    <FunctionImport Name="SP_GetEncuestasPorIdPeriodo" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasPorIdPeriodo_Result)">
-      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="SP_GetEncuestasReporteDetalle2" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result)">
       <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
       <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
       <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="SP_GetEncuestasReportePorId" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasReportePorId_Result)">
-      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="SP_GetPersonasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPersonasEnEncuesta_Result)">
       <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
@@ -444,6 +438,12 @@
     <FunctionImport Name="SP_ReplicaEncuesta">
       <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
       <Parameter Name="IdGrupo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_GetEncuestasReportePorId" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasReportePorId_Result1)">
+      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_GetEncuestasPorIdPeriodo" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasPorIdPeriodo_Result1)">
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SP_GetEncuestas_Result">
@@ -500,5 +500,25 @@
     <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
     <Property Type="Int32" Name="IdSeccion" Nullable="false" />
     <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+  </ComplexType>
+  <ComplexType Name="SP_GetEncuestasReportePorId_Result1">
+    <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
+    <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
+    <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="IdGrupoTrabajo" Nullable="false" />
+    <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
+    <Property Type="Decimal" Name="PromedioGeneral" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="PromedioGeneralAnterior" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="SP_GetEncuestasPorIdPeriodo_Result1">
+    <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
+    <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
+    <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="IdGrupoEvaluado" Nullable="true" />
   </ComplexType>
 </Schema>

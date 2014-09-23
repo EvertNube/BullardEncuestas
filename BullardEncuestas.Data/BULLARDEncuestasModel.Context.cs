@@ -49,23 +49,23 @@ namespace BullardEncuestas.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_EsSocio", idPersonaParameter);
         }
-
-        public virtual ObjectResult<int> SP_GetCantidadEncuestasResueltas(Nullable<int> idEncuesta)
+    
+        public virtual ObjectResult<Nullable<int>> SP_GetCantidadEncuestasResueltas(Nullable<int> idEncuesta)
         {
             var idEncuestaParameter = idEncuesta.HasValue ?
                 new ObjectParameter("IdEncuesta", idEncuesta) :
                 new ObjectParameter("IdEncuesta", typeof(int));
-
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<int>("SP_GetCantidadEncuestasResueltas", idEncuestaParameter);
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_GetCantidadEncuestasResueltas", idEncuestaParameter);
         }
-
-        public virtual ObjectResult<int> SP_GetCantidadEvaluadores(Nullable<int> idEncuesta)
+    
+        public virtual ObjectResult<Nullable<int>> SP_GetCantidadEvaluadores(Nullable<int> idEncuesta)
         {
             var idEncuestaParameter = idEncuesta.HasValue ?
                 new ObjectParameter("IdEncuesta", idEncuesta) :
                 new ObjectParameter("IdEncuesta", typeof(int));
-
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<int>("SP_GetCantidadEvaluadores", idEncuestaParameter);
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_GetCantidadEvaluadores", idEncuestaParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> SP_GetEncuestaCompleta(Nullable<int> idEncuesta)
@@ -80,15 +80,6 @@ namespace BullardEncuestas.Data
         public virtual ObjectResult<SP_GetEncuestas_Result> SP_GetEncuestas()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestas_Result>("SP_GetEncuestas");
-        }
-    
-        public virtual ObjectResult<SP_GetEncuestasPorIdPeriodo_Result> SP_GetEncuestasPorIdPeriodo(Nullable<int> idPeriodo)
-        {
-            var idPeriodoParameter = idPeriodo.HasValue ?
-                new ObjectParameter("IdPeriodo", idPeriodo) :
-                new ObjectParameter("IdPeriodo", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestasPorIdPeriodo_Result>("SP_GetEncuestasPorIdPeriodo", idPeriodoParameter);
         }
     
         public virtual ObjectResult<SP_GetEncuestasReporteDetalle2_Result> SP_GetEncuestasReporteDetalle2(Nullable<int> idEncuesta, Nullable<int> idPeriodo, Nullable<int> idGrupoEvaluado)
@@ -106,15 +97,6 @@ namespace BullardEncuestas.Data
                 new ObjectParameter("IdGrupoEvaluado", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestasReporteDetalle2_Result>("SP_GetEncuestasReporteDetalle2", idEncuestaParameter, idPeriodoParameter, idGrupoEvaluadoParameter);
-        }
-    
-        public virtual ObjectResult<SP_GetEncuestasReportePorId_Result> SP_GetEncuestasReportePorId(Nullable<int> idEncuesta)
-        {
-            var idEncuestaParameter = idEncuesta.HasValue ?
-                new ObjectParameter("IdEncuesta", idEncuesta) :
-                new ObjectParameter("IdEncuesta", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestasReportePorId_Result>("SP_GetEncuestasReportePorId", idEncuestaParameter);
         }
     
         public virtual ObjectResult<SP_GetPersonasEnEncuesta_Result> SP_GetPersonasEnEncuesta(Nullable<int> idEncuesta, Nullable<int> idPeriodo, Nullable<int> idGrupoEvaluado)
@@ -171,6 +153,24 @@ namespace BullardEncuestas.Data
                 new ObjectParameter("IdGrupo", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ReplicaEncuesta", idPeriodoParameter, idGrupoParameter);
+        }
+    
+        public virtual ObjectResult<SP_GetEncuestasReportePorId_Result1> SP_GetEncuestasReportePorId(Nullable<int> idEncuesta)
+        {
+            var idEncuestaParameter = idEncuesta.HasValue ?
+                new ObjectParameter("IdEncuesta", idEncuesta) :
+                new ObjectParameter("IdEncuesta", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestasReportePorId_Result1>("SP_GetEncuestasReportePorId", idEncuestaParameter);
+        }
+    
+        public virtual ObjectResult<SP_GetEncuestasPorIdPeriodo_Result1> SP_GetEncuestasPorIdPeriodo(Nullable<int> idPeriodo)
+        {
+            var idPeriodoParameter = idPeriodo.HasValue ?
+                new ObjectParameter("IdPeriodo", idPeriodo) :
+                new ObjectParameter("IdPeriodo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestasPorIdPeriodo_Result1>("SP_GetEncuestasPorIdPeriodo", idPeriodoParameter);
         }
     }
 }

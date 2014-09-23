@@ -21,8 +21,8 @@ namespace BullardEncuestas.Core.DTO
 
         public decimal? PromedioGeneral { get; set; }
         public decimal? PromGeneralAnterior { get; set; }
-        public int CantEvaluadores { get; set; }
-        public int CantEncuestasResueltas { get; set; }
+        public int? CantEvaluadores { get; set; }
+        public int? CantEncuestasResueltas { get; set; }
         public PeriodoDTO Periodo { get; set; }
         public GrupoTrabajoDTO GrupoEvaluado { get; set; }
         //Reportes
