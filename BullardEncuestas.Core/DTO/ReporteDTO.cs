@@ -20,6 +20,7 @@ namespace BullardEncuestas.Core.DTO
 
         public int IdPregunta { get; set; }
         public string TextoPregunta { get; set; }
+        public int IdTipoRespuesta { get; set; }
         public int IdEvaluado { get; set; }
         public string NombreEvaluado { get; set; }
         public decimal? PromedioPreguntaXEvaluado { get; set; }

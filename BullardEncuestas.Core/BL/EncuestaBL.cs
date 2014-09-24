@@ -177,6 +177,7 @@ namespace BullardEncuestas.Core.BL
                         TextoPregunta = w.TextoPregunta,
                         IdEvaluado = w.IdEvaluado,
                         NombreEvaluado = w.NombreEvaluado,
+                        IdTipoRespuesta = w.IdTipoRespuesta,
                         PromedioPreguntaXEvaluado = w.PromedioPreguntaXEvaluado
                     }
                     ).ToList(),

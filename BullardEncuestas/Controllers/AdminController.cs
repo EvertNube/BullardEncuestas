@@ -750,65 +750,98 @@ namespace BullardEncuestas.Controllers
             System.Data.DataTable dt = new System.Data.DataTable();
             dt.Clear();
 
-            int npre = data.listaReportePreguntas.Count;
-            int nper = data.listaReportePersonas.Count;
+            //int npre = data.listaReportePreguntas.Count;
+            //int nper = data.listaReportePersonas.Count;
             dt.Columns.Add("Preguntas");
 
             foreach (var persona in data.listaReportePersonas)
                 dt.Columns.Add(persona.Nombre);
 
+            //List<SeccionDTO> indicesHead = new List<SeccionDTO>();
+
+            ////Seccion de Promedio General - Cantidad de Evaluadores - Cantidad de Encuestas Resueltas
+            //SeccionDTO secPrincipal = new SeccionDTO();
+            //secPrincipal.Valor = 1;
+            //secPrincipal.Nombre = "PROMEDIO GENERAL - " + data.PromedioGeneral.ToString();
+            //indicesHead.Add(secPrincipal);
+            //secPrincipal.Valor = 2;
+            //secPrincipal.Nombre = "CANTIDAD DE EVALUADORES - " + data.CantEvaluadores.ToString();
+            //indicesHead.Add(secPrincipal);
+            //secPrincipal.Valor = 3;
+            //secPrincipal.Nombre = "CANTIDAD DE ENCUESTAS RESUELTAS - " + data.CantEncuestasResueltas.ToString();
+            //indicesHead.Add(secPrincipal);
+
             List<SeccionDTO> indices = new List<SeccionDTO>();
 
-            int cont = 2;
-            int numSecciones = 0;
+            int cont = 7;
             int tempIdSeccion = 0;
 
-            for (int pre = 0; pre < npre; pre++)
+            //Tabla Preguntas y Evaluados Detalle
+            //for (int pre = 0; pre < npre; pre++)
+            foreach (var pregunta in data.listaReportePreguntas)
             {
                 if (tempIdSeccion == 0)
                 {
                     SeccionDTO nuevaSeccion = new SeccionDTO();
                     nuevaSeccion.Valor = cont;
-                    nuevaSeccion.Nombre = data.listaReportePreguntas[pre].NombreSeccion;
+                    //nuevaSeccion.Nombre = data.listaReportePreguntas[pre].NombreSeccion;
+                    nuevaSeccion.Nombre = pregunta.NombreSeccion;
                     indices.Add(nuevaSeccion);
                     cont = 0;
                 }
                 else
                 {
-                    if (tempIdSeccion != 0 && tempIdSeccion != data.listaReportePreguntas[pre].IdSeccion)
+                    if (tempIdSeccion != 0 && tempIdSeccion != pregunta.IdSeccion)//data.listaReportePreguntas[pre].IdSeccion)
                     {
-                        //int valor = indices[indices.Count - 1] + cont + 1;
                         SeccionDTO nuevaSeccion = new SeccionDTO();
                         nuevaSeccion.Valor = indices[indices.Count - 1].Valor + cont + 1;
-                        nuevaSeccion.Nombre = data.listaReportePreguntas[pre].NombreSeccion;
+                        //nuevaSeccion.Nombre = data.listaReportePreguntas[pre].NombreSeccion;
+                        nuevaSeccion.Nombre = pregunta.NombreSeccion;
                         indices.Add(nuevaSeccion);
 
-                        //indices.Add(valor);
                         cont = 0;
                     }
                 }
-                /*
-                var adicionar = 0;
-                if (tempIdSeccion != 0 && tempIdSeccion != data.listaReportePreguntas[pre].IdSeccion)
-                {
-                    indices.Add(cont - 1);
-                    adicionar = 2;
-                }*/
 
-                tempIdSeccion = data.listaReportePreguntas[pre].IdSeccion;
+                tempIdSeccion = pregunta.IdSeccion;
+                //tempIdSeccion = data.listaReportePreguntas[pre].IdSeccion;
 
                 System.Data.DataRow row = dt.NewRow();
-                row[0] = data.listaReportePreguntas[pre].Texto;
-                for (int per = 0; per < nper; per++)
-                {
-                    row[per + 1] = data.matrizReporteDetalle[pre, per].ValorItem;
-                }
+                //row[0] = data.listaReportePreguntas[pre].Texto;
+                row["Preguntas"] = pregunta.Texto;
 
+                //for (int j = 0; j < nper; j++)
+                foreach (var evaluado in data.listaReportePersonas)
+                {
+                    var promedio = data.listaReporteDetalle.Where(x => x.IdPregunta == pregunta.IdPregunta && x.IdEvaluado == evaluado.IdPersona).Select(x => x.PromedioPreguntaXEvaluado).SingleOrDefault();
+                    row[evaluado.Nombre] = promedio;
+                }
+                //for (int per = 0; per < nper; per++)
+                //{
+                //    if (data.matrizReporteDetalle[pre, per].ValorItem != -1)
+                //        row[per + 1] = data.matrizReporteDetalle[pre, per].ValorItem;
+                //    else
+                //        row[per + 1] = "Comentarios";
+                //}
                 dt.Rows.Add(row);
-                //cont = cont + adicionar;
                 cont++;
             }
 
+            //Seccion para los Promedios por Persona
+            SeccionDTO aux = new SeccionDTO();
+            aux.Valor = indices[indices.Count - 1].Valor + 2;
+            aux.Nombre = "Promedio por persona";
+            indices.Add(aux);
+
+            //Row de Promedios generales por persona
+            System.Data.DataRow rowPromPer = dt.NewRow();
+            rowPromPer["Preguntas"] = "Promedios Generales";
+            //for(int i=0; i<nper; i++)
+            foreach (var evaluado in data.listaReportePersonas)
+            {
+                rowPromPer[evaluado.Nombre] = evaluado.Promedio;
+            }
+            dt.Rows.Add(rowPromPer);
 
             GridView gv = new GridView();
             gv.DataSource = dt;
@@ -817,13 +850,18 @@ namespace BullardEncuestas.Controllers
 
             if (dt.Rows.Count > 0)
             {
-                AddSuperHeader(gv, "INFORME REPORTES 2014");//if (myGridView.Controls.Count > 0)
-                //
+                AddSuperHeader(gv, "INFORME REPORTES 2014");
+                //Cabecera principal
+                AddWhiteHeader(gv, 1, "");
+                AddWhiteHeader(gv, 2, "PROMEDIO GENERAL : " + data.PromedioGeneral.ToString());
+                AddWhiteHeader(gv, 3, "CANTIDAD EVALUADORES : " + data.CantEvaluadores.ToString());
+                AddWhiteHeader(gv, 4, "CANTIDAD ENCUESTAS RESUELTAS : " + data.CantEncuestasResueltas.ToString());
+                AddWhiteHeader(gv, 5, "");
+
                 foreach (var item in indices)
                 {
                     AddHeader(gv, item.Valor, item.Nombre);
                 }
-                //
                 //Change the Header Row back to white color
                 gv.HeaderRow.Style.Add("background-color", "#FFFFFF");
                 //Applying stlye to gridview header cells
@@ -837,6 +875,8 @@ namespace BullardEncuestas.Controllers
                     gvrow.BackColor = System.Drawing.Color.White;
                     gvrow.Style.Add("vertical-align", "middle");
                 }
+                //for para no mostrar el row de comentarios
+
                 Response.ClearContent();
                 Response.Buffer = true;
                 Response.AddHeader("content-disposition", "attachment; filename=Reporte de Encuestas.xls");
@@ -980,8 +1020,18 @@ namespace BullardEncuestas.Controllers
             var myNewRow = new GridViewRow(0, -1, DataControlRowType.Header, DataControlRowState.Normal);
             myNewRow.Cells.Add(MakeCell(text, gridView.HeaderRow.Cells.Count));//gridView.Columns.Count
             myNewRow.Cells[0].Style.Add("background-color", "#cbcfd6");
+            myNewRow.Cells[0].HorizontalAlign = HorizontalAlign.Left;
             myTable.Rows.AddAt(index, myNewRow);
             //myTable.EnableViewState = false;
+        }
+        private static void AddWhiteHeader(GridView gridView, int index, string text = null)
+        {
+            var myTable = (Table)gridView.Controls[0];
+            var myNewRow = new GridViewRow(0, -1, DataControlRowType.Header, DataControlRowState.Normal);
+            myNewRow.Cells.Add(MakeCell(text, gridView.HeaderRow.Cells.Count));//gridView.Columns.Count
+            myNewRow.Cells[0].Style.Add("background-color", "#ffffff");
+            myNewRow.Cells[0].HorizontalAlign = HorizontalAlign.Left;
+            myTable.Rows.AddAt(index, myNewRow);
         }
         private static TableHeaderCell MakeCell(string text = null, int span = 1)
         {

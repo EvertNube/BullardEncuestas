@@ -111,6 +111,9 @@
     <Compile Include="SP_GetEncuestasReporteDetalle2_Result.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_GetEncuestasReporteDetalle2_Result1.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_GetEncuestasReportePorId_Result.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>

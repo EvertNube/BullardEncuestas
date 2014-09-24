@@ -932,11 +932,6 @@
           <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetEncuestas" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestas_Result)" />
-          <FunctionImport Name="SP_GetEncuestasReporteDetalle2" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result)">
-            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
-            <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
-            <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="SP_GetPersonasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPersonasEnEncuesta_Result)">
             <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
             <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
@@ -958,7 +953,12 @@
           <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetEncuestasPorIdPeriodo" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasPorIdPeriodo_Result2)">
+          <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetEncuestasReporteDetalle2" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result1)">
+            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
             <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+            <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_GetEncuestas_Result">
@@ -1044,6 +1044,14 @@
           <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="EstadoProceso" Nullable="false" MaxLength="10" />
           <Property Type="Int32" Name="IdGrupoEvaluado" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_GetEncuestasReporteDetalle2_Result1">
+          <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+          <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
+          <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+          <Property Type="Int32" Name="IdEvaluado" Nullable="false" />
+          <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+          <Property Type="Decimal" Name="PromedioPreguntaXEvaluado" Nullable="true" Precision="18" Scale="2" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1233,17 +1241,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_GetEncuestasReporteDetalle2" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetEncuestasReporteDetalle2">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result">
-                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
-                <ScalarProperty Name="TextoPregunta" ColumnName="TextoPregunta" />
-                <ScalarProperty Name="IdEvaluado" ColumnName="IdEvaluado" />
-                <ScalarProperty Name="NombreEvaluado" ColumnName="NombreEvaluado" />
-                <ScalarProperty Name="PromedioPreguntaXEvaluado" ColumnName="PromedioPreguntaXEvaluado" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_GetPersonasEnEncuesta" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetPersonasEnEncuesta">
             <ResultMapping>
               <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetPersonasEnEncuesta_Result">
@@ -1301,6 +1298,18 @@
                 <ScalarProperty Name="NombreGrupo" ColumnName="NombreGrupo" />
                 <ScalarProperty Name="EstadoProceso" ColumnName="EstadoProceso" />
                 <ScalarProperty Name="IdGrupoEvaluado" ColumnName="IdGrupoEvaluado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetEncuestasReporteDetalle2" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetEncuestasReporteDetalle2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result1">
+                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+                <ScalarProperty Name="TextoPregunta" ColumnName="TextoPregunta" />
+                <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
+                <ScalarProperty Name="IdEvaluado" ColumnName="IdEvaluado" />
+                <ScalarProperty Name="NombreEvaluado" ColumnName="NombreEvaluado" />
+                <ScalarProperty Name="PromedioPreguntaXEvaluado" ColumnName="PromedioPreguntaXEvaluado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
