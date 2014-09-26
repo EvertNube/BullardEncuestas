@@ -932,18 +932,8 @@
           <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetEncuestas" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestas_Result)" />
-          <FunctionImport Name="SP_GetPersonasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPersonasEnEncuesta_Result)">
-            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
-            <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
-            <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="SP_GetPersonasPorGrupo" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPersonasPorGrupo_Result)">
           <Parameter Name="IdGrupoTrabajo" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="SP_GetPreguntasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPreguntasEnEncuesta_Result)">
-            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
-            <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
-            <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_ReplicaEncuesta">
             <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
@@ -955,7 +945,17 @@
           <FunctionImport Name="SP_GetEncuestasPorIdPeriodo" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasPorIdPeriodo_Result2)">
           <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SP_GetEncuestasReporteDetalle2" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result1)">
+          <FunctionImport Name="SP_GetEncuestasReporteDetalle2" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result3)">
+            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+            <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+            <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetPersonasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPersonasEnEncuesta_Result4)">
+            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+            <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+            <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetPreguntasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPreguntasEnEncuesta_Result6)">
             <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
             <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
             <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
@@ -1052,6 +1052,93 @@
           <Property Type="Int32" Name="IdEvaluado" Nullable="false" />
           <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
           <Property Type="Decimal" Name="PromedioPreguntaXEvaluado" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SP_GetPreguntasEnEncuesta_Result1">
+          <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+          <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
+          <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+          <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+          <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="SP_GetPreguntasEnEncuesta_Result2">
+          <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+          <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+          <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+          <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+          <Property Type="Decimal" Name="PromedioPregunta" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="SP_GetEncuestasReporteDetalle2_Result2">
+          <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+          <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
+          <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+          <Property Type="Int32" Name="IdEvaluado" Nullable="false" />
+          <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+          <Property Type="Decimal" Name="PromedioPreguntaXEvaluado" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="SP_GetPersonasEnEncuesta_Result1">
+          <Property Type="Int32" Name="IdPersona" Nullable="false" />
+          <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="RutaImagenPersona" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="PromedioPersona" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="SP_GetPreguntasEnEncuesta_Result3">
+          <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+          <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+          <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+          <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+          <Property Type="Decimal" Name="PromedioPregunta" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="SP_GetPersonasEnEncuesta_Result2">
+          <Property Type="Int32" Name="IdPersona" Nullable="false" />
+          <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="RutaImagenPersona" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="PromedioPersona" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="SP_GetPreguntasEnEncuesta_Result4">
+          <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+          <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+          <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+          <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+          <Property Type="Decimal" Name="PromedioPregunta" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="SP_GetEncuestasReporteDetalle2_Result3">
+          <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+          <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
+          <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+          <Property Type="Int32" Name="IdEvaluado" Nullable="false" />
+          <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+          <Property Type="Decimal" Name="PromedioPreguntaXEvaluado" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="SP_GetPersonasEnEncuesta_Result3">
+          <Property Type="Int32" Name="IdPersona" Nullable="false" />
+          <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="RutaImagenPersona" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="PromedioPersona" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="SP_GetPreguntasEnEncuesta_Result5">
+          <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+          <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+          <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+          <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+          <Property Type="Decimal" Name="PromedioPregunta" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="SP_GetPersonasEnEncuesta_Result4">
+          <Property Type="Int32" Name="IdPersona" Nullable="false" />
+          <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="RutaImagenPersona" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="PromedioPersona" Nullable="true" Precision="38" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="SP_GetPreguntasEnEncuesta_Result6">
+          <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+          <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+          <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+          <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+          <Property Type="Decimal" Name="PromedioPregunta" Nullable="true" Precision="38" Scale="6" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1241,16 +1328,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_GetPersonasEnEncuesta" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetPersonasEnEncuesta">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetPersonasEnEncuesta_Result">
-                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-                <ScalarProperty Name="NombreEvaluado" ColumnName="NombreEvaluado" />
-                <ScalarProperty Name="RutaImagenPersona" ColumnName="RutaImagenPersona" />
-                <ScalarProperty Name="PromedioPersona" ColumnName="PromedioPersona" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_GetPersonasPorGrupo" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetPersonasPorGrupo">
             <ResultMapping>
               <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetPersonasPorGrupo_Result">
@@ -1259,16 +1336,6 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="NombreEmpresa" ColumnName="NombreEmpresa" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_GetPreguntasEnEncuesta" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetPreguntasEnEncuesta">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetPreguntasEnEncuesta_Result">
-                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
-                <ScalarProperty Name="TextoPregunta" ColumnName="TextoPregunta" />
-                <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
-                <ScalarProperty Name="NombreSeccion" ColumnName="NombreSeccion" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1303,13 +1370,35 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_GetEncuestasReporteDetalle2" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetEncuestasReporteDetalle2">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result1">
+              <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result3">
                 <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
                 <ScalarProperty Name="TextoPregunta" ColumnName="TextoPregunta" />
                 <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
                 <ScalarProperty Name="IdEvaluado" ColumnName="IdEvaluado" />
                 <ScalarProperty Name="NombreEvaluado" ColumnName="NombreEvaluado" />
                 <ScalarProperty Name="PromedioPreguntaXEvaluado" ColumnName="PromedioPreguntaXEvaluado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetPersonasEnEncuesta" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetPersonasEnEncuesta">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetPersonasEnEncuesta_Result4">
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="NombreEvaluado" ColumnName="NombreEvaluado" />
+                <ScalarProperty Name="RutaImagenPersona" ColumnName="RutaImagenPersona" />
+                <ScalarProperty Name="PromedioPersona" ColumnName="PromedioPersona" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetPreguntasEnEncuesta" FunctionName="BULLARD.EncuestasDb2Model.Store.SP_GetPreguntasEnEncuesta">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BULLARD.EncuestasDb2Model.SP_GetPreguntasEnEncuesta_Result6">
+                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+                <ScalarProperty Name="TextoPregunta" ColumnName="TextoPregunta" />
+                <ScalarProperty Name="IdTipoRespuesta" ColumnName="IdTipoRespuesta" />
+                <ScalarProperty Name="IdSeccion" ColumnName="IdSeccion" />
+                <ScalarProperty Name="NombreSeccion" ColumnName="NombreSeccion" />
+                <ScalarProperty Name="PromedioPregunta" ColumnName="PromedioPregunta" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

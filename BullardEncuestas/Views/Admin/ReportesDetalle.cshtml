@@ -1,6 +1,7 @@
 ﻿@using BullardEncuestas.Helpers
 @using BullardEncuestas.Core.DTO
 @using PagedList;
+@using System.Globalization;
 @model EncuestaDTO
 @section styles{
     @Styles.Render("~/Content/themes/admin/js/fuelux/fuelux.css")
@@ -53,37 +54,39 @@
                                          int nele = 0;}
                                         @for (int i = 0; i < cols; i++)
                                         {
-                                        <div class="col-sm-4">
-                                            <ul class="list-group alt">
-                                                @for (int j = 0; j < filas; j++)
+                                            <div class="col-sm-4">
+                                                <ul class="list-group alt">
+                                                    @for (int j = 0; j < filas; j++)
                                                     {
-                                                    <li class="list-group-item">
-                                                        <div class="media">
-                                                            <span class="pull-right thumb-sm">
-                                                                @{if (personasSort[nele].RutaImagen != null)
+                                                        <li class="list-group-item">
+                                                            <div class="media">
+                                                                <span class="pull-right thumb-sm">
+                                                                    @{if (personasSort[nele].RutaImagen != null)
                                                                     {<img src=@personasSort[nele].RutaImagen class="img-full">}
                                                                     else
                                                                     {<img src="~/Content/themes/admin/images/avatar_default.jpg" class="img-full" /> }
-                                                                }
-                                                            </span>
-                                                            <div class="media-body" style="text-align:center;">
-                                                                <div>
-                                                                    @personasSort[nele].Nombre
-                                                                </div>
-                                                                <div>
-                                                                    @if (nele < 3)
-                                                                        {<span class="badge bg-success text-muted">@personasSort[nele].Promedio</span>}
+                                                                    }
+                                                                </span>
+                                                                <div class="media-body" style="text-align:center;">
+                                                                    <div>
+                                                                        @personasSort[nele].Nombre
+                                                                    </div>
+                                                                    <div>
+                                                                        @if (nele < 3)
+                                                                        {
+                                                                            <span class="badge bg-success text-muted">@decimal.Round(personasSort[nele].Promedio, 2).ToString(CultureInfo.InvariantCulture)</span>
+                                                                        }
                                                                         else
                                                                         {
                                                                             if ((int)numper - 4 < nele)
-                                                                            {<span class="badge bg-danger text-muted">@personasSort[nele].Promedio</span>}
+                                                                            {<span class="badge bg-danger text-muted">@decimal.Round(personasSort[nele].Promedio, 2).ToString(CultureInfo.InvariantCulture)</span>}
                                                                             else
-                                                                            {<span class="badge bg-info text-muted">@personasSort[nele].Promedio</span>}
+                                                                            {<span class="badge bg-info text-muted">@decimal.Round(personasSort[nele].Promedio, 2).ToString(CultureInfo.InvariantCulture)</span>}
                                                                         }
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </li>
+                                                        </li>
                                                                         nele++;
                                                                         if (nele == numper)
                                                                         {
@@ -91,12 +94,11 @@
                                                                             break;
                                                                         }
                                                     }
-                                            </ul>
-                                        </div>
+                                                </ul>
+                                            </div>
                                         }
                                     </div>
                                     <div class="footer" style="text-align:right; vertical-align:central;">
-                                        @*<a class="btn btn-sm btn-success pull-right btn-rounded" href="@Url.Action("Pdf")"><i class="fa fa-table"></i> Exportar Reporte</a>*@
                                         <a class="btn btn-default" href="@Url.Action("Pdf")"><i class="fa fa-print"></i>&nbsp; Imprimir PDF</a>
                                     </div>
                                 </div>
@@ -133,7 +135,7 @@
                                                         {
                                                             if (Model.matrizReporteDetalle[pre, per].ValorItem != -1)
                                                             {
-                                                                <td style="text-align:center;">@Model.matrizReporteDetalle[pre, per].ValorItem</td>
+                                                                <td style="text-align:center;">@decimal.Round(Model.matrizReporteDetalle[pre, per].ValorItem, 2).ToString(CultureInfo.InvariantCulture)</td>
                                                             }
                                                             else
                                                             {
@@ -151,8 +153,6 @@
                     <div class="footer">
                         <div class="col-sm-12" style="text-align:right;">
                             <a class="btn btn-default" href="@Url.Action("ExportExcelDataReporte")"><i class="fa fa-table"></i>&nbsp; Imprimir Excel</a>
-                            @*<a class="btn btn-sm btn-success pull-right btn-rounded" href="@Url.Action("ExportExcelDataReporte")"><i class="fa fa-table"></i> Exportar Reporte</a>*@
-                            @*<a class="btn btn-default" onclick="window.print(); window.location.reload(); return false;">Imprimir <i class="fa fa-print"></i> Exportar a PDF</a>*@
                         </div>
                     </div>
                 </section>

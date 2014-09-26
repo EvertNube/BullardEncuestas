@@ -166,8 +166,8 @@ namespace BullardEncuestas.Core.BL
                     EstadoEncuesta = r.Estado,
                     IdGrupoEvaluado = r.IdGrupoTrabajo,
                     IdPeriodo = r.IdPeriodo,
-                    PromedioGeneral = r.PromedioGeneral,
-                    PromGeneralAnterior = r.PromedioGeneralAnterior,
+                    PromedioGeneral = r.PromedioGeneral.GetValueOrDefault(),
+                    PromGeneralAnterior = r.PromedioGeneralAnterior.GetValueOrDefault(),
                     CantEvaluadores = context.SP_GetCantidadEvaluadores(id).SingleOrDefault(),
                     CantEncuestasResueltas = context.SP_GetCantidadEncuestasResueltas(id).SingleOrDefault(),
                     listaReporteDetalle = context.SP_GetEncuestasReporteDetalle2(r.IdEncuesta, r.IdPeriodo, r.IdGrupoTrabajo)
@@ -178,7 +178,7 @@ namespace BullardEncuestas.Core.BL
                         IdEvaluado = w.IdEvaluado,
                         NombreEvaluado = w.NombreEvaluado,
                         IdTipoRespuesta = w.IdTipoRespuesta,
-                        PromedioPreguntaXEvaluado = w.PromedioPreguntaXEvaluado
+                        PromedioPreguntaXEvaluado = w.PromedioPreguntaXEvaluado.GetValueOrDefault()
                     }
                     ).ToList(),
                     listaReportePersonas = context.SP_GetPersonasEnEncuesta(r.IdEncuesta, r.IdPeriodo, r.IdGrupoTrabajo)
@@ -186,7 +186,7 @@ namespace BullardEncuestas.Core.BL
                     {
                         IdPersona = p.IdPersona,
                         Nombre = p.NombreEvaluado,
-                        Promedio = p.PromedioPersona,
+                        Promedio = p.PromedioPersona.GetValueOrDefault(),
                         RutaImagen = p.RutaImagenPersona
                     }).ToList(),
                     listaReportePreguntas = context.SP_GetPreguntasEnEncuesta(r.IdEncuesta, r.IdPeriodo, r.IdGrupoTrabajo)
@@ -195,7 +195,9 @@ namespace BullardEncuestas.Core.BL
                         IdPregunta = pre.IdPregunta,
                         Texto = pre.TextoPregunta,
                         IdSeccion = pre.IdSeccion,
-                        NombreSeccion = pre.NombreSeccion
+                        NombreSeccion = pre.NombreSeccion,
+                        IdTipoRespuesta = pre.IdTipoRespuesta,
+                        Promedio = pre.PromedioPregunta.GetValueOrDefault()
                     }).ToList()
                 }).SingleOrDefault();
 

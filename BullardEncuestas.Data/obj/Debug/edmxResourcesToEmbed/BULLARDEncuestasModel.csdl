@@ -417,23 +417,8 @@
       <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="SP_GetEncuestas" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestas_Result)" />
-    <FunctionImport Name="SP_GetEncuestasReporteDetalle2" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result)">
-      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
-      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
-      <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="SP_GetPersonasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPersonasEnEncuesta_Result)">
-      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
-      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
-      <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="SP_GetPersonasPorGrupo" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPersonasPorGrupo_Result)">
       <Parameter Name="IdGrupoTrabajo" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="SP_GetPreguntasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPreguntasEnEncuesta_Result)">
-      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
-      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
-      <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="SP_ReplicaEncuesta">
       <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
@@ -444,6 +429,21 @@
     </FunctionImport>
     <FunctionImport Name="SP_GetEncuestasPorIdPeriodo" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasPorIdPeriodo_Result2)">
       <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_GetEncuestasReporteDetalle2" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetEncuestasReporteDetalle2_Result3)">
+      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+      <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_GetPersonasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPersonasEnEncuesta_Result4)">
+      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+      <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_GetPreguntasEnEncuesta" ReturnType="Collection(BULLARD.EncuestasDb2Model.SP_GetPreguntasEnEncuesta_Result6)">
+      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+      <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+      <Parameter Name="IdGrupoEvaluado" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SP_GetEncuestas_Result">
@@ -529,5 +529,100 @@
     <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
     <Property Type="String" Name="EstadoProceso" Nullable="false" MaxLength="10" />
     <Property Type="Int32" Name="IdGrupoEvaluado" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SP_GetEncuestasReporteDetalle2_Result1">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
+    <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+    <Property Type="Int32" Name="IdEvaluado" Nullable="false" />
+    <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+    <Property Type="Decimal" Name="PromedioPreguntaXEvaluado" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="SP_GetPreguntasEnEncuesta_Result1">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
+    <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+    <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+    <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+  </ComplexType>
+  <ComplexType Name="SP_GetPreguntasEnEncuesta_Result2">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="150" />
+    <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+    <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+    <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+    <Property Type="Decimal" Name="PromedioPregunta" Nullable="true" Precision="38" Scale="6" />
+  </ComplexType>
+  <ComplexType Name="SP_GetEncuestasReporteDetalle2_Result2">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
+    <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+    <Property Type="Int32" Name="IdEvaluado" Nullable="false" />
+    <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+    <Property Type="Decimal" Name="PromedioPreguntaXEvaluado" Nullable="true" Precision="38" Scale="6" />
+  </ComplexType>
+  <ComplexType Name="SP_GetPersonasEnEncuesta_Result1">
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="RutaImagenPersona" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="PromedioPersona" Nullable="true" Precision="38" Scale="6" />
+  </ComplexType>
+  <ComplexType Name="SP_GetPreguntasEnEncuesta_Result3">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="150" />
+    <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+    <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+    <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+    <Property Type="Decimal" Name="PromedioPregunta" Nullable="true" Precision="38" Scale="6" />
+  </ComplexType>
+  <ComplexType Name="SP_GetPersonasEnEncuesta_Result2">
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="RutaImagenPersona" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="PromedioPersona" Nullable="true" Precision="38" Scale="6" />
+  </ComplexType>
+  <ComplexType Name="SP_GetPreguntasEnEncuesta_Result4">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="150" />
+    <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+    <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+    <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+    <Property Type="Decimal" Name="PromedioPregunta" Nullable="true" Precision="38" Scale="6" />
+  </ComplexType>
+  <ComplexType Name="SP_GetEncuestasReporteDetalle2_Result3">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="350" />
+    <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+    <Property Type="Int32" Name="IdEvaluado" Nullable="false" />
+    <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+    <Property Type="Decimal" Name="PromedioPreguntaXEvaluado" Nullable="true" Precision="38" Scale="6" />
+  </ComplexType>
+  <ComplexType Name="SP_GetPersonasEnEncuesta_Result3">
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="RutaImagenPersona" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="PromedioPersona" Nullable="true" Precision="38" Scale="6" />
+  </ComplexType>
+  <ComplexType Name="SP_GetPreguntasEnEncuesta_Result5">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="150" />
+    <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+    <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+    <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+    <Property Type="Decimal" Name="PromedioPregunta" Nullable="true" Precision="38" Scale="6" />
+  </ComplexType>
+  <ComplexType Name="SP_GetPersonasEnEncuesta_Result4">
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="String" Name="NombreEvaluado" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="RutaImagenPersona" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="PromedioPersona" Nullable="true" Precision="38" Scale="6" />
+  </ComplexType>
+  <ComplexType Name="SP_GetPreguntasEnEncuesta_Result6">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="String" Name="TextoPregunta" Nullable="false" MaxLength="150" />
+    <Property Type="Int32" Name="IdTipoRespuesta" Nullable="false" />
+    <Property Type="Int32" Name="IdSeccion" Nullable="false" />
+    <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
+    <Property Type="Decimal" Name="PromedioPregunta" Nullable="true" Precision="38" Scale="6" />
   </ComplexType>
 </Schema>

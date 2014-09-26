@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using PagedList;
+using System.Globalization;
 using System.Web.UI.WebControls;
 using System.Web.UI;
 
@@ -757,19 +758,7 @@ namespace BullardEncuestas.Controllers
             foreach (var persona in data.listaReportePersonas)
                 dt.Columns.Add(persona.Nombre);
 
-            //List<SeccionDTO> indicesHead = new List<SeccionDTO>();
-
-            ////Seccion de Promedio General - Cantidad de Evaluadores - Cantidad de Encuestas Resueltas
-            //SeccionDTO secPrincipal = new SeccionDTO();
-            //secPrincipal.Valor = 1;
-            //secPrincipal.Nombre = "PROMEDIO GENERAL - " + data.PromedioGeneral.ToString();
-            //indicesHead.Add(secPrincipal);
-            //secPrincipal.Valor = 2;
-            //secPrincipal.Nombre = "CANTIDAD DE EVALUADORES - " + data.CantEvaluadores.ToString();
-            //indicesHead.Add(secPrincipal);
-            //secPrincipal.Valor = 3;
-            //secPrincipal.Nombre = "CANTIDAD DE ENCUESTAS RESUELTAS - " + data.CantEncuestasResueltas.ToString();
-            //indicesHead.Add(secPrincipal);
+            dt.Columns.Add("Promedio por pregunta");
 
             List<SeccionDTO> indices = new List<SeccionDTO>();
 
@@ -791,7 +780,7 @@ namespace BullardEncuestas.Controllers
                 }
                 else
                 {
-                    if (tempIdSeccion != 0 && tempIdSeccion != pregunta.IdSeccion)//data.listaReportePreguntas[pre].IdSeccion)
+                    if (tempIdSeccion != 0 && tempIdSeccion != pregunta.IdSeccion && pregunta.IdTipoRespuesta == 3)//data.listaReportePreguntas[pre].IdSeccion)
                     {
                         SeccionDTO nuevaSeccion = new SeccionDTO();
                         nuevaSeccion.Valor = indices[indices.Count - 1].Valor + cont + 1;
@@ -808,28 +797,28 @@ namespace BullardEncuestas.Controllers
 
                 System.Data.DataRow row = dt.NewRow();
                 //row[0] = data.listaReportePreguntas[pre].Texto;
-                row["Preguntas"] = pregunta.Texto;
+                if(pregunta.IdTipoRespuesta == 3)
+                    row["Preguntas"] = pregunta.Texto;
 
                 //for (int j = 0; j < nper; j++)
                 foreach (var evaluado in data.listaReportePersonas)
                 {
-                    var promedio = data.listaReporteDetalle.Where(x => x.IdPregunta == pregunta.IdPregunta && x.IdEvaluado == evaluado.IdPersona).Select(x => x.PromedioPreguntaXEvaluado).SingleOrDefault();
-                    row[evaluado.Nombre] = promedio;
+                    var promedio = data.listaReporteDetalle.Where(x => x.IdPregunta == pregunta.IdPregunta && x.IdEvaluado == evaluado.IdPersona && x.IdTipoRespuesta == 3).Select(x => x.PromedioPreguntaXEvaluado).SingleOrDefault();
+                    row[evaluado.Nombre] = promedio.ToString(CultureInfo.InvariantCulture);
                 }
-                //for (int per = 0; per < nper; per++)
-                //{
-                //    if (data.matrizReporteDetalle[pre, per].ValorItem != -1)
-                //        row[per + 1] = data.matrizReporteDetalle[pre, per].ValorItem;
-                //    else
-                //        row[per + 1] = "Comentarios";
-                //}
-                dt.Rows.Add(row);
+                if (pregunta.IdTipoRespuesta == 3)
+                { 
+                    //Agregar Promedio General x pregunta
+                    row["Promedio por pregunta"] = pregunta.Promedio.ToString(CultureInfo.InvariantCulture);
+                    dt.Rows.Add(row);
+                }
+
                 cont++;
             }
 
             //Seccion para los Promedios por Persona
             SeccionDTO aux = new SeccionDTO();
-            aux.Valor = indices[indices.Count - 1].Valor + 2;
+            aux.Valor = indices[indices.Count - 1].Valor + cont + 1;
             aux.Nombre = "Promedio por persona";
             indices.Add(aux);
 
@@ -839,7 +828,7 @@ namespace BullardEncuestas.Controllers
             //for(int i=0; i<nper; i++)
             foreach (var evaluado in data.listaReportePersonas)
             {
-                rowPromPer[evaluado.Nombre] = evaluado.Promedio;
+                rowPromPer[evaluado.Nombre] = evaluado.Promedio.ToString(CultureInfo.InvariantCulture);
             }
             dt.Rows.Add(rowPromPer);
 
@@ -853,7 +842,7 @@ namespace BullardEncuestas.Controllers
                 AddSuperHeader(gv, "INFORME REPORTES 2014");
                 //Cabecera principal
                 AddWhiteHeader(gv, 1, "");
-                AddWhiteHeader(gv, 2, "PROMEDIO GENERAL : " + data.PromedioGeneral.ToString());
+                AddWhiteHeader(gv, 2, "PROMEDIO GENERAL : " + data.PromedioGeneral.ToString(CultureInfo.InvariantCulture));
                 AddWhiteHeader(gv, 3, "CANTIDAD EVALUADORES : " + data.CantEvaluadores.ToString());
                 AddWhiteHeader(gv, 4, "CANTIDAD ENCUESTAS RESUELTAS : " + data.CantEncuestasResueltas.ToString());
                 AddWhiteHeader(gv, 5, "");

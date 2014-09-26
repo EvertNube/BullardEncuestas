@@ -114,6 +114,12 @@
     <Compile Include="SP_GetEncuestasReporteDetalle2_Result1.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_GetEncuestasReporteDetalle2_Result2.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetEncuestasReporteDetalle2_Result3.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_GetEncuestasReportePorId_Result.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
@@ -126,10 +132,40 @@
     <Compile Include="SP_GetPersonasEnEncuesta_Result.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_GetPersonasEnEncuesta_Result1.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetPersonasEnEncuesta_Result2.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetPersonasEnEncuesta_Result3.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetPersonasEnEncuesta_Result4.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_GetPersonasPorGrupo_Result.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SP_GetPreguntasEnEncuesta_Result.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetPreguntasEnEncuesta_Result1.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetPreguntasEnEncuesta_Result2.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetPreguntasEnEncuesta_Result3.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetPreguntasEnEncuesta_Result4.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetPreguntasEnEncuesta_Result5.cs">
+      <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_GetPreguntasEnEncuesta_Result6.cs">
       <DependentUpon>BULLARDEncuestasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoRespuesta.cs">

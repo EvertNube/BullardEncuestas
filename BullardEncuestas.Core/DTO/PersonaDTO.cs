@@ -16,7 +16,7 @@ namespace BullardEncuestas.Core.DTO
         //public int? IdGrupoTrabajo { get; set; }
         public bool Estado { get; set; }
         public string RutaImagen { get; set; }
-        public decimal? Promedio { get; set; }
+        public decimal Promedio { get; set; }
 
         public EmpresaDTO Empresa { get; set; }
         public GrupoTrabajoDTO GrupoTrabajo { get; set; }

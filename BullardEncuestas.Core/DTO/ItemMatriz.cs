@@ -12,6 +12,6 @@ namespace BullardEncuestas.Core.DTO
         public int IdItemRow { get; set; }
         public string NombreItemColumn { get; set; }
         public string NombreItemRow { get; set; }
-        public decimal? ValorItem { get; set; }
+        public decimal ValorItem { get; set; }
     }
 }
