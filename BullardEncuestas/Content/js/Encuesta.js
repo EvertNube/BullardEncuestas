@@ -26,6 +26,7 @@
 
     $('.dd').on('change', function () {
         /* on change event */
+        var lista = $('.dd').nestable('serialize');
     });
 
     $('.btnEditSeccion').click(function () {
