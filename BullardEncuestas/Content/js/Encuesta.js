@@ -6,10 +6,10 @@
         group: 1
     });
 
-    // activate Nestable for list 2
-    $('#nestable2').nestable({
-        group: 1
-    });
+    //// activate Nestable for list 2
+    //$('#nestable2').nestable({
+    //    group: 1
+    //});
 
     var $expand = false;
     $('#nestable-menu').on('click', function (e) {
@@ -22,7 +22,11 @@
         }
     });
 
-    $('#nestable3').nestable();
+    //$('#nestable3').nestable();
+
+    $('.dd').on('change', function () {
+        /* on change event */
+    });
 
     $('.btnEditSeccion').click(function () {
         var id = $(this).data('idseccion');
@@ -85,7 +89,7 @@
         $('#modal-Encuestaform').modal('show');
     });
 
-    $("#brnSaveEncuesta").click(function () {
+    $("#btnSaveEncuesta").click(function () {
         var values = [];
         $('#GrupoEvaluador option').each(function () {
             values.push($(this).val());
