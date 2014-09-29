@@ -330,7 +330,11 @@ namespace BullardEncuestas.Core.BL
                 return false;
             }
         }
-
+        /// <summary>
+        /// Replica varias encuestas para un periodo
+        /// </summary>
+        /// <param name="encuestaDTO"></param>
+        /// <returns></returns>
         public bool add(EncuestaDTO encuestaDTO)
         {
             using (var context = getContext())
@@ -347,7 +351,7 @@ namespace BullardEncuestas.Core.BL
                 }
             }
         }
-
+        
         public bool update(EncuestaDTO encuestaDTO)
         {
             using (var context = getContext())
