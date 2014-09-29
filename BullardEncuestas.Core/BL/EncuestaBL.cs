@@ -177,12 +177,8 @@ namespace BullardEncuestas.Core.BL
                         TextoPregunta = w.TextoPregunta,
                         IdEvaluado = w.IdEvaluado,
                         NombreEvaluado = w.NombreEvaluado,
-<<<<<<< HEAD
                         IdTipoRespuesta = w.IdTipoRespuesta,
                         PromedioPreguntaXEvaluado = w.PromedioPreguntaXEvaluado.GetValueOrDefault()
-=======
-                        PromedioPreguntaXEvaluado = w.PromedioPreguntaXEvaluado
->>>>>>> 67660e4ba4d93fae834c46be2a4636e2485da5a6
                     }
                     ).ToList(),
                     listaReportePersonas = context.SP_GetPersonasEnEncuesta(r.IdEncuesta, r.IdPeriodo, r.IdGrupoTrabajo)
