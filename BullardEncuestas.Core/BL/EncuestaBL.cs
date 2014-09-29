@@ -342,8 +342,8 @@ namespace BullardEncuestas.Core.BL
                 }
                 catch (Exception e)
                 {
-                    throw e;
-                    //return false;
+                    //throw e;
+                    return false;
                 }
             }
         }
