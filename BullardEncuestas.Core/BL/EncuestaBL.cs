@@ -337,7 +337,7 @@ namespace BullardEncuestas.Core.BL
             {
                 try
                 {
-                    context.SP_ReplicaEncuesta(encuestaDTO.IdPeriodo, encuestaDTO.IdGrupoEvaluado);
+                    context.SP_ReplicaEncuesta(encuestaDTO.IdPeriodo);
                     return true;
                 }
                 catch (Exception e)
