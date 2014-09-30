@@ -1,7 +1,7 @@
 ﻿@using BullardEncuestas.Helpers
 @using BullardEncuestas.Core.DTO
 @using PagedList;
-
+@using System.Globalization;
 @model EncuestaDTO
 @section styles{
     @Styles.Render("~/Content/themes/admin/js/fuelux/fuelux.css")
@@ -10,15 +10,9 @@
     @Scripts.Render("~/Content/themes/admin/js/fuelux/fuelux.js")
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            window.print(function () {
-                if(window.print.close())
-                {
-                    var url = "/Admin/ReportesDetalle?Id=" + @Model.Periodo.IdPeriodo;
-                    window.location.href = url;
-                }
-            });
-            setTimeout(function(){window.close();}, 1);
+        $(document).ready(function () {
+            window.print();
+            $("#btnRegresar").show(3000);
         });
     </script>
 }
@@ -32,16 +26,47 @@
         <div class="row m-b">
             <div class="col-xs-12 col-md-12">
                 <h2>Reporte - @Model.NombreEncuesta</h2>
+                @{
+                    string miUrl;
+                    miUrl = Url.Action("ReportesDetalle", "Admin") + "?id=" + Model.IdEncuesta.ToString();
+                }
                 <section class="panel panel-default">
-                    <header class="panel-heading"><b>Encuesta:</b> @Model.NombreEncuesta  <b>Periodo:</b> @Model.Periodo.Descripcion</header>
+                    <header class="panel-heading">
+                        <b>Encuesta:</b> @Model.NombreEncuesta  <b>Periodo:</b> @Model.Periodo.Descripcion
 
+                        <a id="btnRegresar" class="btn btn-sm btn-danger pull-right" href="@miUrl" style="display:none;">
+                            <i class="fa fa-chevron-left"></i>
+                            Regresar
+                        </a>
+                    </header>
+                    @{
+                        var promGene = Model.PromedioGeneral != null ? Model.PromedioGeneral.ToString() : "No existen datos suficientes para obtener un promedio general";
+                        var promGeneAnt = Model.PromGeneralAnterior != null ? Model.PromGeneralAnterior.ToString() : "No existen datos suficientes para obtener un promedio general";
+                    }
+                    <div class="panel-header">
+                        <div class="row text-center no-gutter">
+                            <div class="col-xs-3 b-r b-light">
+                                <span class="h4 font-bold m-t block">@promGene</span>
+                                <small class="text-muted m-b block">Promedio General</small>
+                            </div>
+                            <div class="col-xs-3 b-r b-light">
+                                <span class="h4 font-bold m-t block">@promGeneAnt</span>
+                                <small class="text-muted m-b block">Promedio General Anterior</small>
+                            </div>
+                            <div class="col-xs-3 b-r b-light">
+                                <span class="h4 font-bold m-t block">@Model.CantEvaluadores</span>
+                                <small class="text-muted m-b block">Cantidad de Evaluadores</small>
+                            </div>
+                            <div class="col-xs-3">
+                                <span class="h4 font-bold m-t block">@Model.CantEncuestasResueltas</span>
+                                <small class="text-muted m-b block">Cantidad de Encuestas Resueltas</small>
+                            </div>
+                        </div>
+                    </div>
                     <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
-                        @{
-                            var promGene = Model.PromedioGeneral != null ? Model.PromedioGeneral.ToString() : "No existen datos suficientes para obtener un promedio general";
-                            var promGeneAnt = Model.PromGeneralAnterior != null ? Model.PromGeneralAnterior.ToString() : "No existen datos suficientes para obtener un promedio general";
-                        }
-                        <p><b>Promedio General<b style="padding-left:63px;">: </b></b>@promGene</p>
-                        <p><b>Promedio General Anterior: </b>@promGeneAnt</p>
+
+                        @*<p><b>Promedio General<b style="padding-left:63px;">: </b></b>@promGene</p>
+                            <p><b>Promedio General Anterior: </b>@promGeneAnt</p>*@
 
                         @{var subseccion1 = "sub1enc" + Model.IdEncuesta; }
 
@@ -53,67 +78,30 @@
                                 <div id="@subseccion1" class="panel-collapse collapse in">
                                     <div class="panel-body" style="overflow:auto; overflow-x:hidden;">
                                         @{ List<PersonaDTO> personasSort = Model.listaReportePersonas.OrderByDescending(x => x.Promedio).ToList();
-                                                double numper = Convert.ToDouble(Model.listaReportePersonas.Count);
-                                                int cols = (int)numper > 2 ? 3 : (int)numper;
-                                                int filas = (int)Math.Ceiling(numper / 3);
-                                                int nele = 0;}
-                                        @for (int i = 0; i < cols; i++)
+                                         int numper = Model.listaReportePersonas.Count;}
+                                        <div class="list-group bg-white">
+                                            @for (int i = 0; i < numper; i++)
                                             {
-                                            <div class="col-sm-4">
-                                                <ul class="list-group alt">
-                                                    @for (int j = 0; j < filas; j++)
-                                                        {
-                                                        <li class="list-group-item">
-                                                            <div class="media">
-                                                                @*<span class="pull-right thumb-sm">
-                                                                    @{if (personasSort[nele].UrlImagen != null)
-                                                                        {<img src=@personasSort[nele].UrlImagen class="img-full">}
-                                                                        else
-                                                                        {<img src="~/Content/themes/admin/images/avatar_default.jpg" class="img-full" /> }
-                                                                    }
-                                                                </span>*@
-                                                                <div class="media-body" style="text-align:center;">
-                                                                    <div>
-                                                                        @personasSort[nele].Nombre
-                                                                    </div>
-                                                                    <div>
-                                                                        @if (nele < 3)
-                                                                            {<span class="badge bg-success text-muted">@personasSort[nele].Promedio</span>}
-                                                                            else
-                                                                            {
-                                                                                if ((int)numper - 4 < nele)
-                                                                                {<span class="badge bg-danger text-muted">@personasSort[nele].Promedio</span>}
-                                                                                else
-                                                                                {<span class="badge bg-info text-muted">@personasSort[nele].Promedio</span>}
-                                                                            }
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                                            nele++;
-                                                                            if (nele == numper)
-                                                                            {
-                                                                                nele = 0;
-                                                                                break;
-                                                                            }
-                                                        }
-                                                </ul>
-                                            </div>
+                                                <a href="#" class="list-group-item">
+                                                    @if (i < 3)
+                                                    {<span class="badge bg-success text-white">@decimal.Round(personasSort[i].Promedio, 2).ToString(CultureInfo.InvariantCulture)</span>}
+                                                    else
+                                                    {
+                                                        if ((int)numper - 4 < i)
+                                                        {<span class="badge bg-danger text-white">@decimal.Round(personasSort[i].Promedio, 2).ToString(CultureInfo.InvariantCulture)</span>}
+                                                        else
+                                                        {<span class="badge bg-info text-white">@decimal.Round(personasSort[i].Promedio, 2).ToString(CultureInfo.InvariantCulture)</span>}
+                                                    }
+                                                    <i class="fa fa-envelope icon-muted fa-fw"></i>
+                                                    @personasSort[i].Nombre
+                                                </a>
                                             }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @{
-                        string miUrl;
-                        miUrl = Url.Action("ReportesDetalle", "Admin") + "?id=" + Model.IdEncuesta.ToString();
-                    }
-                    @*<div class="footer">
-                        <a class="btn btn-sm btn-danger pull-right" href="@miUrl">
-                            <i class="fa fa-chevron-left"></i>&nbsp;&nbsp;Regresar
-                        </a>
-                    </div>*@
                 </section>
             </div>
         </div>
