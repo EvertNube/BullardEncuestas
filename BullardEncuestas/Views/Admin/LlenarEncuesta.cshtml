@@ -17,6 +17,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#btnGuardar").click(function () {
+                $("#loading").show();
                 var listaIdRespuestas = []; $('.listaIdRespuestas').each(function (index, item) { var value = item.value; listaIdRespuestas.push(value); });
                 var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
                 var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
@@ -39,6 +40,7 @@
                     data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
                     dataType: "json"
                 }).done(function (data) {
+                    $("#loading").hide();
                     if (data.Response) {
                         $("#IdEncuestaEvaluador").val(data.Id);
                         alert("La encuesta se ha guardado correctamente.");
