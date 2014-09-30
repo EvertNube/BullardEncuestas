@@ -50,14 +50,13 @@
 
             $("#btnEnviar").click(function () {
                 if (confirm("¿Está seguro que desea enviar la encuesta?")) {
+                    $("#loading").show();
                     var listaIdRespuestas = []; $('.listaIdRespuestas').each(function (index, item) { var value = item.value; listaIdRespuestas.push(value); });
                     var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
                     var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
                     var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
-
                     var conta = 0;
                     if (listaRespuestas.indexOf("0") > -1) conta = 1;
-
                     if (conta == 0) {
                         var encuestaEvaluadorDTO = {
                             IdEncuestaEvaluador: $("#IdEncuestaEvaluador").val(),
@@ -77,6 +76,7 @@
                             data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
                             dataType: "json"
                         }).done(function (data) {
+                            $("#loading").hide();
                             if (data.Response) {
                                 window.location = "/Admin/MensajeEncuesta";
                             } else {
@@ -87,13 +87,11 @@
                         });
                     } else {
                         //$(".listaRespuestas option:selected[value=0]").addClass("selectedItem");
-                        //$(".listaRespuestas").find("option:selected[value=0]").addClass("selectedItem");
-
+                        $("#loading").hide();
                         $('.listaRespuestas').not('input, textarea').each(function (index, element) {
                             var val = $(element).val();
                             AddRemoveValidation(val, $(element));
                         });
-
                         alert("Por favor verifique que todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
                     }
                 }
