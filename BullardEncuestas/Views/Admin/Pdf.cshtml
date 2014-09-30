@@ -12,7 +12,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             window.print();
-            $("#btnRegresar").show(3000);
+            $("#btnRegresar").show(6000);
         });
     </script>
 }
@@ -22,7 +22,7 @@
 }
 
 <section class="vbox">
-    <section class="scrollable padder">
+    <section class="padder">
         <div class="row m-b">
             <div class="col-xs-12 col-md-12">
                 <h2>Reporte - @Model.NombreEncuesta</h2>
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-body" style="overflow:auto; overflow-y:hidden;">
+                    <div class="panel-body">
 
                         @*<p><b>Promedio General<b style="padding-left:63px;">: </b></b>@promGene</p>
                             <p><b>Promedio General Anterior: </b>@promGeneAnt</p>*@
@@ -76,7 +76,7 @@
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#@subseccion1"> Promedios x Persona</a>
                                 </div>
                                 <div id="@subseccion1" class="panel-collapse collapse in">
-                                    <div class="panel-body" style="overflow:auto; overflow-x:hidden;">
+                                    <div class="panel-body">
                                         @{ List<PersonaDTO> personasSort = Model.listaReportePersonas.OrderByDescending(x => x.Promedio).ToList();
                                          int numper = Model.listaReportePersonas.Count;}
                                         <div class="list-group bg-white">
