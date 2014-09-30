@@ -48,7 +48,7 @@
                                             @foreach (var seccion in Model.Secciones)
                                             {
                                                 estadoSec = (seccion.Estado ? "" : "red");
-                                                <li class="dd-item" data-id="@seccion.IdSeccion">
+                                                <li class="dd-item" data-id="s_@seccion.IdSeccion">
                                                     <div class="dd-handle">@seccion.Nombre <b class='badge bg-warning dot @estadoSec'></b></div>
                                                     <a class='btn-edit btnEditSeccion' href='#' data-idseccion="@seccion.IdSeccion" data-nombre="@seccion.Nombre" data-orden="@seccion.Orden" data-essocio="@seccion.EsSocio" data-estado="@seccion.Estado" data-count="@countSec">
                                                         <i class='fa fa-pencil'></i>
@@ -316,7 +316,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" id="brnSaveEncuesta">Guardar</button>
+                    <button type="submit" class="btn btn-primary" id="btnSaveEncuesta">Guardar</button>
                 </div>
             }
         </div>
