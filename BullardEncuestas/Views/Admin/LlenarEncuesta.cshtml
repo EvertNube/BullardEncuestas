@@ -4,6 +4,11 @@
     @Styles.Render("~/Content/themes/admin/js/StickyTableHeaders/normalize.css")
     @Styles.Render("~/Content/themes/admin/js/StickyTableHeaders/demo.css")
     @Styles.Render("~/Content/themes/admin/js/StickyTableHeaders/component.css")
+<style>
+    .selectedItem {
+        border: 2px dashed #ff0000;
+    }
+</style>
 }
 @section scripts{
     @Scripts.Render("http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js")
@@ -81,6 +86,14 @@
                             alert('Error al intentar enviar la Encuesta. Por favor, actualice la página o presione F5.');
                         });
                     } else {
+                        //$(".listaRespuestas option:selected[value=0]").addClass("selectedItem");
+                        //$(".listaRespuestas").find("option:selected[value=0]").addClass("selectedItem");
+
+                        $('.listaRespuestas').not('input, textarea').each(function (index, element) {
+                            var val = $(element).val();
+                            AddRemoveValidation(val, $(element));
+                        });
+
                         alert("Por favor verifique que todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
                     }
                 }
@@ -89,9 +102,23 @@
             $(".btnAsignar").click(function () {
                 var idSeccion = $(this).data("idseccion");
                 var idOpcion = $("#SelectMasivo_" + idSeccion).val();
-                $("#" + idSeccion + " .listaRespuestas").not('input, textarea').val(idOpcion);
+                var elements = $("#" + idSeccion + " .listaRespuestas").not('input, textarea');
+                elements.val(idOpcion);
+                elements.each(function (index, element) {
+                    var val = $(element).val();
+                    AddRemoveValidation(val, $(element));
+                });
+            });
+
+            $(".listaRespuestas").change(function () {
+                var val = $(this).val();
+                AddRemoveValidation(val, $(this));
             });
         });
+        function AddRemoveValidation(value, element) {
+            if (value === '0') element.addClass("selectedItem");
+            else element.removeClass("selectedItem");
+        }
         //function setActionHidden(action) {
         //    $("#Accion").val(action);
         //}

@@ -1,4 +1,5 @@
-﻿@section scripts{
+﻿
+@section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
             $("#add-grupo").click(function () {
@@ -43,6 +44,9 @@
                 });
                 $("#ListaGruposTrabajo").val(values);
             });
+
+            
+            $("#btnSavePersona").addClass("selectedItem");
         });
     </script>
 }
@@ -125,7 +129,9 @@
                                     </div>
                                     <div class="line line-dashed line-lg pull-in"></div>
                                     @Html.TextBoxFor(u => u.IdPersona, new { @value = Model != null ? Model.IdPersona.ToString() : "", @type = "hidden" })
+                                    
                                     @{var btnName = (Model != null && Model.IdPersona > 0) ? "Guardar Cambios" : "Crear";}
+
                                     <button type="submit" id="btnSavePersona" class="btn btn-sm btn-primary">@btnName</button>
                                     @if (ViewBag.EsAdmin)
                                     {
