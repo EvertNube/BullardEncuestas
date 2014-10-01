@@ -168,5 +168,10 @@ namespace BullardEncuestas.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ReplicaEncuesta", idPeriodoNEWParameter);
         }
+    
+        public virtual ObjectResult<SP_GetEncuestas2_Result> SP_GetEncuestas2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestas2_Result>("SP_GetEncuestas2");
+        }
     }
 }

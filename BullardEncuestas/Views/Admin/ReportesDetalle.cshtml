@@ -110,8 +110,8 @@
                                                         <li class="list-group-item">
                                                             <div class="media">
                                                                 <span class="pull-right thumb-sm">
-                                                                    @{if (personasSort[nele].RutaImagen != null)
-                                                                    {<img src=@personasSort[nele].RutaImagen class="img-full">}
+                                                                    @{if (!string.IsNullOrEmpty(personasSort[nele].RutaImagen))
+                                                                    {<img src="@personasSort[nele].RutaImagen" class="img-full">}
                                                                     else
                                                                     {<img src="~/Content/themes/admin/images/avatar_default.jpg" class="img-full" /> }
                                                                     }

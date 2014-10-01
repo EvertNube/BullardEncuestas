@@ -444,6 +444,7 @@
     <FunctionImport Name="SP_ReplicaEncuesta">
       <Parameter Name="IdPeriodoNEW" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="SP_GetEncuestas2" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestas2_Result)" />
   </EntityContainer>
   <ComplexType Name="SP_GetEncuestas_Result">
     <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
@@ -502,5 +503,15 @@
     <Property Type="Int32" Name="IdSeccion" Nullable="false" />
     <Property Type="String" Name="NombreSeccion" Nullable="false" MaxLength="150" />
     <Property Type="Decimal" Name="PromedioPregunta" Nullable="true" Precision="38" Scale="6" />
+  </ComplexType>
+  <ComplexType Name="SP_GetEncuestas2_Result">
+    <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
+    <Property Type="String" Name="NombreEncuesta" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="IdPeriodo" Nullable="false" />
+    <Property Type="String" Name="NombrePeriodo" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="NombreGrupo" Nullable="false" MaxLength="200" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="IdGrupoEvaluado" Nullable="true" />
+    <Property Type="Decimal" Name="PromedioGeneral" Nullable="true" Precision="18" Scale="2" />
   </ComplexType>
 </Schema>

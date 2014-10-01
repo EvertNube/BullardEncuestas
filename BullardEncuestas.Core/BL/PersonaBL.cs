@@ -75,10 +75,13 @@ namespace BullardEncuestas.Core.BL
                     persona.IdEmpresa = personaDTO.IdEmpresa != 0 ? personaDTO.IdEmpresa : null;
                     persona.RutaImagen = personaDTO.RutaImagen;
                     context.Persona.Add(persona);
-                    foreach (var group in personaDTO.ListaGruposTrabajo)
-                    {
-                        var grupo = context.GrupoTrabajo.Where(x => x.IdGrupoTrabajo == group).SingleOrDefault();
-                        persona.GrupoTrabajo.Add(grupo);
+                    if (personaDTO.ListaGruposTrabajo != null)
+                    { 
+                        foreach (var group in personaDTO.ListaGruposTrabajo)
+                        {
+                            var grupo = context.GrupoTrabajo.Where(x => x.IdGrupoTrabajo == group).SingleOrDefault();
+                            persona.GrupoTrabajo.Add(grupo);
+                        }
                     }
                     context.SaveChanges();
                     return true;
@@ -103,18 +106,27 @@ namespace BullardEncuestas.Core.BL
                     persona.RutaImagen = personaDTO.RutaImagen;
                     persona.Estado = personaDTO.Estado;
                     var oldGrupo = persona.GrupoTrabajo.Select(x => x.IdGrupoTrabajo).ToList();
-                    var newGrupo = personaDTO.ListaGruposTrabajo.Select(x => x).ToList();
-                    var gruposToRemove = oldGrupo.Except(newGrupo).ToList();
-                    var gruposToAdd = newGrupo.Except(oldGrupo).ToList();
-                    foreach (var group in gruposToRemove)
-                    {
-                        var grupo = context.GrupoTrabajo.Where(x => x.IdGrupoTrabajo == group).SingleOrDefault();
-                        persona.GrupoTrabajo.Remove(grupo);
-                    }
-                    foreach (var group in gruposToAdd)
-                    {
-                        var grupo = context.GrupoTrabajo.Where(x => x.IdGrupoTrabajo == group).SingleOrDefault();
-                        persona.GrupoTrabajo.Add(grupo);
+                    if(personaDTO.ListaGruposTrabajo != null)
+                    { 
+                        var newGrupo = personaDTO.ListaGruposTrabajo.Select(x => x).ToList();
+                        var gruposToRemove = oldGrupo.Except(newGrupo).ToList();
+                        var gruposToAdd = newGrupo.Except(oldGrupo).ToList();
+                        if (gruposToRemove != null)
+                        { 
+                            foreach (var group in gruposToRemove)
+                            {
+                                var grupo = context.GrupoTrabajo.Where(x => x.IdGrupoTrabajo == group).SingleOrDefault();
+                                persona.GrupoTrabajo.Remove(grupo);
+                            }
+                        }
+                        if (gruposToAdd != null)
+                        { 
+                            foreach (var group in gruposToAdd)
+                            {
+                                var grupo = context.GrupoTrabajo.Where(x => x.IdGrupoTrabajo == group).SingleOrDefault();
+                                persona.GrupoTrabajo.Add(grupo);
+                            }
+                        }
                     }
                     context.SaveChanges();
                     return true;
