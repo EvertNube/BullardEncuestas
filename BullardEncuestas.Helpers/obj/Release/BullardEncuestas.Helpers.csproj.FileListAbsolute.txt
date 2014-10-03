@@ -3,3 +3,8 @@ D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\bin\Release\B
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Release\BullardEncuestas.Helpers.csprojResolveAssemblyReference.cache
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Release\BullardEncuestas.Helpers.dll
 D:\Proyectos\Repositorio\BullardEncuestas\BullardEncuestas.Helpers\obj\Release\BullardEncuestas.Helpers.pdb
+C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers\bin\Release\BullardEncuestas.Helpers.dll
+C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers\bin\Release\BullardEncuestas.Helpers.pdb
+C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers\obj\Release\BullardEncuestas.Helpers.csprojResolveAssemblyReference.cache
+C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers\obj\Release\BullardEncuestas.Helpers.dll
+C:\Archivos\Personal_Pro\NubeLabs\Bullard\BullardEncuestas\BullardEncuestas.Helpers\obj\Release\BullardEncuestas.Helpers.pdb

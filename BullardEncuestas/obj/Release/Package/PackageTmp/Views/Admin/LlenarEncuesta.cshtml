@@ -1,12 +1,23 @@
 ﻿@model BullardEncuestas.Core.DTO.EncuestaEvaluadorDTO
 @section styles{
     @Styles.Render("~/Content/themes/admin/js/fuelux/fuelux.css")
+    @Styles.Render("~/Content/themes/admin/js/StickyTableHeaders/normalize.css")
+    @Styles.Render("~/Content/themes/admin/js/StickyTableHeaders/demo.css")
+    @Styles.Render("~/Content/themes/admin/js/StickyTableHeaders/component.css")
+    <style>
+        .selectedItem {
+            border: 2px dashed #ff0000;
+        }
+    </style>
 }
 @section scripts{
+    @Scripts.Render("http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js")
+    @Scripts.Render("~/Content/themes/admin/js/StickyTableHeaders/jquery.stickyheader.js")
     @Scripts.Render("~/Content/themes/admin/js/fuelux/fuelux.js")
     <script type="text/javascript">
         $(document).ready(function () {
             $("#btnGuardar").click(function () {
+                $("#loading").show();
                 var listaIdRespuestas = []; $('.listaIdRespuestas').each(function (index, item) { var value = item.value; listaIdRespuestas.push(value); });
                 var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
                 var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
@@ -18,8 +29,9 @@
                     listaIdRespuestas: listaIdRespuestas,
                     listaPreguntas: listaPreguntas,
                     listaEvaluados: listaEvaluados,
-                    listaRespuestas: listaRespuestas
-                    //EstadoEncuesta: false //Encuesta No Enviada.
+                    listaRespuestas: listaRespuestas,
+                    EstaCompleto: false, //Encuesta No Enviada (Incompleta)
+                    Accion: 1,
                 };
                 $.ajax({
                     url: "/Admin/SaveEncuestaEvaluador",
@@ -28,7 +40,9 @@
                     data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
                     dataType: "json"
                 }).done(function (data) {
-                    if (data) {
+                    $("#loading").hide();
+                    if (data.Response) {
+                        $("#IdEncuestaEvaluador").val(data.Id);
                         alert("La encuesta se ha guardado correctamente.");
                     }
                 }).fail(function () {
@@ -37,48 +51,77 @@
             });
 
             $("#btnEnviar").click(function () {
-                var listaIdRespuestas = []; $('.listaIdRespuestas').each(function (index, item) { var value = item.value; listaIdRespuestas.push(value); });
-                var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
-                var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
-                var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
-
-                var conta = 0;
-                if (listaRespuestas.indexOf("0") > -1) conta = 1;
-
-                if (conta == 0) {
-                    var encuestaEvaluadorDTO = {
-                        IdEncuestaEvaluador: $("#IdEncuestaEvaluador").val(),
-                        IdEncuesta: $("#IdEncuesta").val(),
-                        IdEvaluador: $("#IdEvaluador").val(),
-                        listaIdRespuestas: listaIdRespuestas,
-                        listaPreguntas: listaPreguntas,
-                        listaEvaluados: listaEvaluados,
-                        listaRespuestas: listaRespuestas,
-                        EstadoEncuesta: "Completo" //true //Encuesta enviada.
-                    };
-                    $.ajax({
-                        url: "/Admin/SendEncuestaEvaluador",
-                        type: "POST",
-                        cache: false,
-                        data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
-                        dataType: "json"
-                    }).done(function (data) {
-                        if (data) {
-                            window.location = "/Admin/MensajeEncuesta";
-                        } else {
-                            alert("Por favor verifique todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
-                        }
-                    }).fail(function () {
-                        alert('Error al intentar enviar la Encuesta. Por favor, actualice la página o presione F5.');
-                    });
-                } else {
-                    alert("Por favor verifique que todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
+                if (confirm("¿Está seguro que desea enviar la encuesta?")) {
+                    $("#loading").show();
+                    var listaIdRespuestas = []; $('.listaIdRespuestas').each(function (index, item) { var value = item.value; listaIdRespuestas.push(value); });
+                    var listaPreguntas = []; $('.listaPreguntas').each(function (index, item) { var value = item.value; listaPreguntas.push(value); });
+                    var listaEvaluados = []; $('.listaEvaluados').each(function (index, item) { var value = item.value; listaEvaluados.push(value); });
+                    var listaRespuestas = []; $('.listaRespuestas').each(function (index, item) { var value = item.value; listaRespuestas.push(value); });
+                    var conta = 0;
+                    if (listaRespuestas.indexOf("0") > -1) conta = 1;
+                    if (conta == 0) {
+                        var encuestaEvaluadorDTO = {
+                            IdEncuestaEvaluador: $("#IdEncuestaEvaluador").val(),
+                            IdEncuesta: $("#IdEncuesta").val(),
+                            IdEvaluador: $("#IdEvaluador").val(),
+                            listaIdRespuestas: listaIdRespuestas,
+                            listaPreguntas: listaPreguntas,
+                            listaEvaluados: listaEvaluados,
+                            listaRespuestas: listaRespuestas,
+                            EstaCompleto: true, //Encuesta enviada (Completa)
+                            Accion: 2
+                        };
+                        $.ajax({
+                            url: "/Admin/SendEncuestaEvaluador",
+                            type: "POST",
+                            cache: false,
+                            data: { encuestaEvaluador: JSON.stringify(encuestaEvaluadorDTO) },
+                            dataType: "json"
+                        }).done(function (data) {
+                            $("#loading").hide();
+                            if (data.Response) {
+                                window.location = "/Admin/MensajeEncuesta";
+                            } else {
+                                alert("Por favor verifique todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
+                            }
+                        }).fail(function () {
+                            alert('Error al intentar enviar la Encuesta. Por favor, actualice la página o presione F5.');
+                        });
+                    } else {
+                        //$(".listaRespuestas option:selected[value=0]").addClass("selectedItem");
+                        $("#loading").hide();
+                        $('.listaRespuestas').not('input, textarea').each(function (index, element) {
+                            var val = $(element).val();
+                            AddRemoveValidation(val, $(element));
+                        });
+                        alert("Por favor verifique que todas las respuesta estén marcadas.\nSi el problema continúa actualice la página o presione F5.");
+                    }
                 }
             });
+
+            $(".btnAsignar").click(function () {
+                var idSeccion = $(this).data("idseccion");
+                var idOpcion = $("#SelectMasivo_" + idSeccion).val();
+                var elements = $("#" + idSeccion + " .listaRespuestas").not('input, textarea');
+                elements.val(idOpcion);
+                elements.each(function (index, element) {
+                    var val = $(element).val();
+                    AddRemoveValidation(val, $(element));
+                });
+            });
+
+            $(".listaRespuestas").change(function () {
+                var val = $(this).val();
+                AddRemoveValidation(val, $(this));
+            });
         });
-        function setActionHidden(action) {
-            $("#Accion").val(action);
+        function AddRemoveValidation(value, element) {
+            if (value === '0') element.addClass("selectedItem");
+            else element.removeClass("selectedItem");
         }
+        //function setActionHidden(action) {
+        //    $("#Accion").val(action);
+        //}
     </script>
 }
 @{
@@ -93,18 +136,17 @@
 <section class="vbox">
     <section class="scrollable padder">
         <div class="row m-b">
-            <div class="col-xs-12 col-md-12 col-md-offset-1">
+            <div class="col-xs-12 col-md-12">
                 <h2> @Html.LabelFor(m => m.Encuesta.Periodo.Descripcion, Model.Encuesta.Periodo.Descripcion) / @Html.LabelFor(m => m.Encuesta.NombreEncuesta, Model.Encuesta.NombreEncuesta) </h2>
 
                 @*@using (Html.BeginForm("AddEncuestaEvaluador", "Admin", FormMethod.Post)) {*@
                 @Html.ValidationSummary(true)
                 <div class="row m-b">
-                    <div class="col-xs-12 col-md-9">
+                    <div class="col-xs-12 col-md-12">
                         @Html.Partial("_showAlertMessages")
                         <section class="panel panel-default">
                             @*<header class="panel-heading affix" style="min-height:inherit; min-width:641%; overflow-x:auto">*@
                             <header class="panel-heading mi-head">
-                                @*min-height:50px 130 641*@
                                 <p>
                                     <div class="font-bold">Instrucciones:</div><div>@Model.Encuesta.Instrucciones</div>
                                 </p>
@@ -113,7 +155,6 @@
                                 </p>
                             </header>
                             <div class="panel-body">
-                                @*@{ var countEvaluados = ViewBag.Evaluados.Count; }*@
                                 @if (Model.Encuesta.Secciones.Count > 0)
                                 {
                                     <div class="panel-group m-b" id="accordionN1">
@@ -123,89 +164,103 @@
                                             {
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
-                                                        <h4 class="panel-title">
+                                                        <div class="panel-title">
                                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionN1" href="#@seccion.IdSeccion"> @seccion.Nombre </a>
-                                                        </h4>
+                                                            @if (seccion.SubSecciones.Count == 0 && !seccion.Nombre.ToUpper().Contains("COMENTARIOS"))
+                                                            {
+                                                                <span class="pull-right">
+                                                                    Respuesta Masiva : @Html.DropDownList("SelectMasivo_" + seccion.IdSeccion, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", 0), new { @class = "input-sm input-s", @style = "width: auto;" })
+                                                                    <button type="button" class="btn btn-sm btn-edit btn-rounded btnAsignar" data-idseccion="@seccion.IdSeccion">Asignar</button>
+                                                                </span>
+                                                            }
+                                                        </div>
                                                     </div>
-                                                    <div id="@seccion.IdSeccion" class="panel-collapse collapse">
+                                                    <div id="@seccion.IdSeccion" class="panel-collapse collapse in">
                                                         <div class="panel-body">
                                                             @if (seccion.Preguntas.Count > 0)
                                                             {
-                                                                <div class="table-responsive" style="overflow:scroll;">
-                                                                    <table class="table table-bordered">
-                                                                        <tbody>
+                                                                <table class="overflow-y">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Nombres X Preguntas</th>
+                                                                            @foreach (var evaluado in ViewBag.Evaluados)
+                                                                            {
+                                                                                <th>
+                                                                                    @evaluado.Nombre
+                                                                                </th>
+                                                                            }
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach (var pregunta in seccion.Preguntas)
+                                                                        {
                                                                             <tr>
-                                                                                <th>&nbsp;</th>
+                                                                                <th>@pregunta.Texto</th>
                                                                                 @foreach (var evaluado in ViewBag.Evaluados)
                                                                                 {
-                                                                                    <th>
-                                                                                        <div class="rotate"><div><span>@evaluado.Nombre</span></div></div>
-                                                                                    </th>
+                                                                                    var respuesta = pregunta.Respuestas.Where(p => p.IdEvaluado == evaluado.IdPersona).Select(p => new BullardEncuestas.Core.DTO.RespuestasDTO { IdRespuestas = p.IdRespuestas, Valor = p.Valor }).FirstOrDefault();
+                                                                                    <td>
+                                                                                        @switch (pregunta.IdTipoRespuesta)
+                                                                                        {
+                                                                                            case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @value = (respuesta != null ? respuesta.Valor.Trim() : ""), @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
+                                                                                                break;
+                                                                                            case 2: @Html.TextArea("listaRespuestas", respuesta != null ? respuesta.Valor.Trim() : "", new { @class = "form-control input-sm listaRespuestas" })
+                                                                                                break;
+                                                                                            case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", respuesta != null ? Convert.ToInt32(respuesta.Valor) : 0), new { @class = "input-sm listaRespuestas", @style = "width: auto;" })
+                                                                                                break;
+                                                                                            default: break;
+                                                                                        }
+                                                                                        @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0), @class = "listaIdRespuestas" })
+                                                                                        @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta, @class = "listaPreguntas" })
+                                                                                        @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona, @class = "listaEvaluados" })
+                                                                                    </td>
                                                                                 }
                                                                             </tr>
-                                                                            @foreach (var pregunta in seccion.Preguntas)
-                                                                            {
-                                                                                <tr>
-                                                                                    <td>@pregunta.Texto</td>
-                                                                                    @foreach (var evaluado in ViewBag.Evaluados)
-                                                                                    {
-                                                                                        var respuesta = pregunta.Respuestas.Where(p => p.IdEvaluado == evaluado.IdPersona).Select(p => new BullardEncuestas.Core.DTO.RespuestasDTO { IdRespuestas = p.IdRespuestas, Valor = p.Valor }).FirstOrDefault();
-                                                                                        <td>
-                                                                                            @switch (pregunta.IdTipoRespuesta)
-                                                                                            {
-                                                                                                case 1: @Html.TextBoxFor(u => u.listaRespuestas, new { @value = (respuesta != null ? respuesta.Valor.Trim() : ""), @class = "form-control input-sm listaRespuestas", @placeholder = "", @type = "text" })
-                                                                                                    break;
-                                                                                                case 2: @Html.TextArea("listaRespuestas", respuesta != null ? respuesta.Valor.Trim() : "", new { @class = "form-control input-sm listaRespuestas" })
-                                                                                                    break;
-                                                                                                case 3: @Html.DropDownListFor(u => u.listaRespuestas, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", respuesta != null ? Convert.ToInt32(respuesta.Valor) : 0), new { @class = "input-sm listaRespuestas", @style = "width: auto;" })
-                                                                                                    break;
-                                                                                                default: break;
-                                                                                            }
-                                                                                            @Html.HiddenFor(u => u.listaIdRespuestas, new { @Value = (respuesta != null ? respuesta.IdRespuestas : 0), @class = "listaIdRespuestas" })
-                                                                                            @Html.HiddenFor(u => u.listaPreguntas, new { @Value = pregunta.IdPregunta, @class = "listaPreguntas" })
-                                                                                            @Html.HiddenFor(u => u.listaEvaluados, new { @Value = evaluado.IdPersona, @class = "listaEvaluados" })
-                                                                                        </td>
-                                                                                    }
-                                                                                </tr>
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+
                                                             }
                                                             @if (seccion.SubSecciones.Count > 0)
                                                             {
-
-                                                                <div class="panel-group m-b" id="accordionN2">
-                                                                    @foreach (var subSeccion in seccion.SubSecciones)
-                                                                    {
-                                                                        if ((subSeccion.EsSocio && ViewBag.EsSocio) || !subSeccion.EsSocio)
+                                                                <div class="panel-body">
+                                                                    <div class="panel-group m-b" id="accordionN2">
+                                                                        @foreach (var subSeccion in seccion.SubSecciones)
                                                                         {
-                                                                            <div class="panel panel-default">
-                                                                                <div class="panel-heading">
-                                                                                    <h4 class="panel-title">
-                                                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionN2" href="#@subSeccion.IdSeccion"> @subSeccion.Nombre </a>
-                                                                                    </h4>
-                                                                                </div>
-                                                                                <div id="@subSeccion.IdSeccion" class="panel-collapse collapse">
-                                                                                    <div class="panel-body">
-                                                                                        @if (subSeccion.Preguntas.Count > 0)
-                                                                                        {
-                                                                                            <div class="table-responsive" style="overflow:scroll;">
-                                                                                                <table class="table table-bordered">
-                                                                                                    <tbody>
+                                                                            if ((subSeccion.EsSocio && ViewBag.EsSocio) || !subSeccion.EsSocio)
+                                                                            {
+                                                                                <div class="panel panel-default">
+                                                                                    <div class="panel-heading">
+                                                                                        <div class="panel-title">
+                                                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionN2" href="#@subSeccion.IdSeccion"> @subSeccion.Nombre </a>
+                                                                                            <span class="pull-right">
+                                                                                                Respuesta Masiva : @Html.DropDownList("SelectMasivo_" + subSeccion.IdSeccion, new SelectList(ViewBag.Items_SelectSINO, "IdOpcion", "Nombre", 0), new { @class = "input-sm input-s", @style = "width: auto;" })
+                                                                                                <button type="button" class="btn btn-sm btn-edit btn-rounded btnAsignar" data-idseccion="@subSeccion.IdSeccion">Asignar</button>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div id="@subSeccion.IdSeccion" class="panel-collapse collapse in">
+                                                                                        @*panel-collapse collapse*@
+                                                                                        <div class="panel-body">
+                                                                                            @if (subSeccion.Preguntas.Count > 0)
+                                                                                            {
+                                                                                                <table class="overflow-y">
+                                                                                                    <thead>
                                                                                                         <tr>
-                                                                                                            <th>&nbsp;</th>
+                                                                                                            <th>Nombres X Preguntas</th>
                                                                                                             @foreach (var evaluado in ViewBag.Evaluados)
                                                                                                             {
                                                                                                                 <th>
-                                                                                                                    <div class="rotate"><div><span>@evaluado.Nombre</span></div></div>
+                                                                                                                    @evaluado.Nombre
                                                                                                                 </th>
                                                                                                             }
                                                                                                         </tr>
+                                                                                                    </thead>
+                                                                                                    <tbody>
                                                                                                         @foreach (var pregunta in subSeccion.Preguntas)
                                                                                                         {
                                                                                                             <tr>
-                                                                                                                <td>@pregunta.Texto</td>
+                                                                                                                <th>@pregunta.Texto</th>
                                                                                                                 @foreach (var evaluado in ViewBag.Evaluados)
                                                                                                                 {
                                                                                                                     var respuesta = pregunta.Respuestas.Where(p => p.IdEvaluado == evaluado.IdPersona).Select(p => new BullardEncuestas.Core.DTO.RespuestasDTO { IdRespuestas = p.IdRespuestas, Valor = p.Valor }).FirstOrDefault();
@@ -229,16 +284,14 @@
                                                                                                         }
                                                                                                     </tbody>
                                                                                                 </table>
-                                                                                            </div>
-                                                                                        }
+                                                                                            }
+                                                                                        </div>
                                                                                     </div>
-
                                                                                 </div>
-                                                                            </div>
+                                                                            }
                                                                         }
-                                                                    }
+                                                                    </div>
                                                                 </div>
-
                                                             }
                                                         </div>
                                                     </div>
@@ -266,8 +319,10 @@
                         </footer>
                     </div>
                 </div>
-                @*}*@
             </div>
         </div>
     </section>
 </section>
+<div id="loading" style="display:none;">
+    <img id="loading-image" src="../../Content/images/loading.gif" alt="Loading..." />
+</div>

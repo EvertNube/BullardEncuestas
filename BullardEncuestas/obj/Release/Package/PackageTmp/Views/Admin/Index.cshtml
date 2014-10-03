@@ -6,27 +6,31 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.btnEnviarCorreo').click(function () {
-                $("#loading").show();
-                var id = $(this).data("id");
-                var gevaluado = $(this).data("gevaluado");
-                var encuesta = $(this).data("encuesta");
-                var periodo = $(this).data("periodo");
-                var evaluadores = $(this).data("gevaluador");
-                $.ajax({
-                    url: "/Admin/SendCorreoEncuesta",
-                    type: "POST",
-                    cache: false,
-                    data: { grupoEvaluadores: evaluadores, idEncuesta: id, idGrupoEvaluado: gevaluado, nombreEncuesta: encuesta, periodo: periodo },
-                    dataType: "json"
-                }).done(function (data) {
-                    if (data) {
+                if (confirm("¿Está seguro que desea enviar los correos?")) {
+                    $("#loading").show();
+                    var id = $(this).data("id");
+                    var gevaluado = $(this).data("gevaluado");
+                    var encuesta = $(this).data("encuesta");
+                    var periodo = $(this).data("periodo");
+                    var evaluadores = $(this).data("gevaluador");
+                    $.ajax({
+                        url: "/Admin/SendCorreoEncuesta",
+                        type: "POST",
+                        cache: false,
+                        data: { grupoEvaluadores: evaluadores, idEncuesta: id, idGrupoEvaluado: gevaluado, nombreEncuesta: encuesta, periodo: periodo },
+                        dataType: "json"
+                    }).done(function (data) {
+                        if (data) {
+                            $("#loading").hide();
+                            alert("Los correos se han enviado con éxito.");
+                            window.location = "/Admin/";
+                        } else
+                            alert('Error al intentar enviar los correos al Grupo de Evaluadores. Por favor, actualice la página o presione F5.');
+                    }).fail(function () {
                         $("#loading").hide();
-                        alert("Los correos se han enviado con éxito.")
-                    }
-                }).fail(function () {
-                    $("#loading").hide();
-                    alert('Error al intentar enviar los correos al Grupo de Evaluadores. Por favor, actualice la página o presione F5.');
-                });
+                        alert('Error al intentar enviar los correos al Grupo de Evaluadores. Por favor, actualice la página o presione F5.');
+                    });
+                }
             });
 
             $('#btnNuevaEncuesta').click(function () {
@@ -160,7 +164,7 @@
                                                         <td>@obj.NombreEncuesta</td>
                                                         <td>@obj.Periodo.Descripcion</td>
                                                         <td>@obj.GrupoEvaluado.Nombre</td>
-                                                        <td>@obj.EstadoEncuesta</td>
+                                                        <td>@obj.EstadoProceso</td>
                                                         @*<td><a href="@Url.Action("Encuesta", new { id = obj.IdEncuesta })" data-toggle="tooltip" data-original-title="Mostrar reporte">Ver</a></td>*@
                                                         @if (ViewBag.EsAdmin)
                                                         {
@@ -237,7 +241,7 @@
                         <div id="registro" class="col-sm-12 form-horizontal">
                             <input type="hidden" id="IdEncuesta" name="IdEncuesta" />
                             <div class="form-group">
-                                <label class="col-lg-2 control-label">Periodo</label>
+                                <label class="col-lg-2 control-label">Periodo Nuevo :</label>
                                 <div class="col-lg-10 input-group">
                                     <select id="IdPeriodo" name="IdPeriodo" class="form-control input-s"></select>
                                     <div class="input-group-btn">
@@ -245,19 +249,16 @@
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </div>
+                                </div>
+                                <div class="col-lg-2"></div>
+                                <div class="col-lg-10">
                                     <input type="text" id="NombrePeriodo" name="NombrePeriodo" class="form-control input-s" style="display:none;" />
                                     <button type="button" class="btn btn-dark btn-icon btn-rounded" style="display:none;" id="save-Descripcion" data-toggle="tooltip" data-placement="right" title="" data-original-title="Guardar">
                                         <i class="fa fa-save"></i>
                                     </button>
                                     <button type="button" class="btn btn-dark btn-icon btn-rounded" style="display:none;" id="close-Descripcion" data-toggle="tooltip" data-placement="right" title="" data-original-title="Cancelar">
-                                        <i class="fa fa-close"></i>
+                                        <i class="fa fa-times"></i>
                                     </button>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">Grupo</label>
-                                <div class="col-lg-10">
-                                    <select id="IdGrupoEvaluado" name="IdGrupoEvaluado" class="form-control"></select>
                                 </div>
                             </div>
                         </div>
@@ -265,7 +266,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" id="brnSaveEncuesta">Guardar</button>
+                    <button type="submit" class="btn btn-primary" id="brnSaveEncuesta">Crear</button>
                 </div>
             }
         </div>

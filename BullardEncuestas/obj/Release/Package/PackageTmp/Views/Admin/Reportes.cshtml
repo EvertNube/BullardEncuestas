@@ -20,7 +20,7 @@
                 var url = '@Url.Action("ReportesDetalle", "Admin")?id=' + itemData.IdEncuesta;
                 $('#tableEncuestas > tbody:last').append(
                     '<tr><td>' + itemData.NombreEncuesta + '</td>' +
-                    '<td>' + itemData.EstadoEncuesta + '</td>' +
+                    '<td>' + itemData.EstadoProceso + '</td>' +
                     '<td>' + '<a href="' + url + '" >Ver</a>' +
                     '</td></tr>');
             });

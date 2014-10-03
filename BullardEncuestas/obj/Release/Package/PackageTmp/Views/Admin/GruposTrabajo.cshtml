@@ -137,7 +137,7 @@
                                 @foreach (EmpresaDTO empresa in ViewBag.Empresas)
                                 {
                                     var classInactive = (ViewBag.EsAdmin && !empresa.Estado) ? "class='inactive'" : "";
-                                    <tr @Html.Raw(classInactive)>
+                                    <tr>
                                         <td>@empresa.Nombre</td>
                                         @{if (empresa.Estado)
                                         {

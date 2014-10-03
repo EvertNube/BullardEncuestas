@@ -1,7 +1,7 @@
 ﻿@using BullardEncuestas.Helpers
 @using BullardEncuestas.Core.DTO
 @using PagedList;
-@model IPagedList<EncuestaDTO>
+@model IList<EncuestaDTO>
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
@@ -139,7 +139,7 @@
                                     </div>
                                 </header>
                                 <div class="table-responsive">
-                                    <table class="table table-striped b-t b-light" id="tableEncuestas">
+                                    <table class="table table-striped b-t b-light overflow-y" id="tableEncuestas">
                                         <thead>
                                             <tr>
                                                 <th width="5%">ID</th>
@@ -215,6 +215,17 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                @*<footer class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-4 text-center">
+                                            <small class="text-muted inline m-t-sm m-b-sm">Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</small>
+                                        </div>
+                                        <div class="col-sm-4 text-right text-center-xs">
+                                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions { UlElementClasses = new[] { "m-b-none", "m-t-none", "pagination-sm", "pagination" }, ContainerDivClasses = new[] { "" } })
+                                        </div>
+                                    </div>
+                                </footer>*@
                             </section>
                         </div>
                     </div>

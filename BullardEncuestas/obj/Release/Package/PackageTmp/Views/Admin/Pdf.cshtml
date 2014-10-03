@@ -1,0 +1,109 @@
+﻿@using BullardEncuestas.Helpers
+@using BullardEncuestas.Core.DTO
+@using PagedList;
+@using System.Globalization;
+@model EncuestaDTO
+@section styles{
+    @Styles.Render("~/Content/themes/admin/js/fuelux/fuelux.css")
+}
+@section scripts{
+    @Scripts.Render("~/Content/themes/admin/js/fuelux/fuelux.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.print();
+            $("#btnRegresar").show(6000);
+        });
+    </script>
+}
+@{
+    ViewBag.Title = "Pdf";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="vbox">
+    <section class="scrollable padder">
+        <div class="row m-b">
+            <div class="col-xs-12 col-md-12">
+                <h2>Reporte - @Model.NombreEncuesta</h2>
+                @{
+                    string miUrl;
+                    miUrl = Url.Action("ReportesDetalle", "Admin") + "?id=" + Model.IdEncuesta.ToString();
+                }
+                <section class="panel panel-default">
+                    <header class="panel-heading">
+                        <b>Encuesta:</b> @Model.NombreEncuesta  <b>Periodo:</b> @Model.Periodo.Descripcion
+
+                        <a id="btnRegresar" class="btn btn-sm btn-danger pull-right" href="@miUrl" style="display:none;">
+                            <i class="fa fa-chevron-left"></i>
+                            Regresar
+                        </a>
+                    </header>
+                    @{
+                        var promGene = Model.PromedioGeneral != null ? Model.PromedioGeneral.ToString() : "No existen datos suficientes para obtener un promedio general";
+                        var promGeneAnt = Model.PromGeneralAnterior != null ? Model.PromGeneralAnterior.ToString() : "No existen datos suficientes para obtener un promedio general";
+                    }
+                    <div class="panel-header">
+                        <div class="row text-center no-gutter">
+                            <div class="col-xs-3 b-r b-light">
+                                <span class="h4 font-bold m-t block">@promGene</span>
+                                <small class="text-muted m-b block">Promedio General</small>
+                            </div>
+                            <div class="col-xs-3 b-r b-light">
+                                <span class="h4 font-bold m-t block">@promGeneAnt</span>
+                                <small class="text-muted m-b block">Promedio General Anterior</small>
+                            </div>
+                            <div class="col-xs-3 b-r b-light">
+                                <span class="h4 font-bold m-t block">@Model.CantEvaluadores</span>
+                                <small class="text-muted m-b block">Cantidad de Evaluadores</small>
+                            </div>
+                            <div class="col-xs-3">
+                                <span class="h4 font-bold m-t block">@Model.CantEncuestasResueltas</span>
+                                <small class="text-muted m-b block">Cantidad de Encuestas Resueltas</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+
+                        @*<p><b>Promedio General<b style="padding-left:63px;">: </b></b>@promGene</p>
+                            <p><b>Promedio General Anterior: </b>@promGeneAnt</p>*@
+
+                        @{var subseccion1 = "sub1enc" + Model.IdEncuesta; }
+
+                        <div class="panel-group m-b" id="accordion1">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#@subseccion1"> Promedios x Persona</a>
+                                </div>
+                                <div id="@subseccion1" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        @{ List<PersonaDTO> personasSort = Model.listaReportePersonas.OrderByDescending(x => x.Promedio).ToList();
+                                         int numper = Model.listaReportePersonas.Count;}
+                                        <div class="list-group bg-white">
+                                            @for (int i = 0; i < numper; i++)
+                                            {
+                                                <a href="#" class="list-group-item">
+                                                    @if (i < 3)
+                                                    {<span class="badge bg-success text-white">@decimal.Round(personasSort[i].Promedio, 2).ToString(CultureInfo.InvariantCulture)</span>}
+                                                    else
+                                                    {
+                                                        if ((int)numper - 4 < i)
+                                                        {<span class="badge bg-danger text-white">@decimal.Round(personasSort[i].Promedio, 2).ToString(CultureInfo.InvariantCulture)</span>}
+                                                        else
+                                                        {<span class="badge bg-info text-white">@decimal.Round(personasSort[i].Promedio, 2).ToString(CultureInfo.InvariantCulture)</span>}
+                                                    }
+                                                    <i class="fa fa-envelope icon-muted fa-fw"></i>
+                                                    @personasSort[i].Nombre
+                                                </a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</section>

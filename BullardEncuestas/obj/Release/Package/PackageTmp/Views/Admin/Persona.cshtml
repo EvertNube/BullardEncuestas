@@ -1,4 +1,5 @@
-﻿@section scripts{
+﻿
+@section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
             $("#add-grupo").click(function () {
@@ -43,6 +44,9 @@
                 });
                 $("#ListaGruposTrabajo").val(values);
             });
+
+            
+            $("#btnSavePersona").addClass("selectedItem");
         });
     </script>
 }
@@ -113,6 +117,11 @@
                                         @Html.ValidationMessageFor(u => u.IdEmpresa)
                                     </div>
                                     <div class="form-group">
+                                        <label>Ruta Imagen</label>
+                                        @Html.TextBoxFor(u => u.RutaImagen, new { @class = "form-control", @placeholder = "Ingrese la ruta de imagen de la persona", @type = "text" })
+                                        @Html.ValidationMessageFor(u => u.RutaImagen)
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-lg-3 control-label">Estado</label>
                                         <div class="col-lg-9">
                                             @Html.CheckBox("Estado", true)
@@ -120,7 +129,9 @@
                                     </div>
                                     <div class="line line-dashed line-lg pull-in"></div>
                                     @Html.TextBoxFor(u => u.IdPersona, new { @value = Model != null ? Model.IdPersona.ToString() : "", @type = "hidden" })
+                                    
                                     @{var btnName = (Model != null && Model.IdPersona > 0) ? "Guardar Cambios" : "Crear";}
+
                                     <button type="submit" id="btnSavePersona" class="btn btn-sm btn-primary">@btnName</button>
                                     @if (ViewBag.EsAdmin)
                                     {

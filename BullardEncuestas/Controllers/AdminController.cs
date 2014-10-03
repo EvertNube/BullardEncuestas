@@ -87,9 +87,10 @@ namespace BullardEncuestas.Controllers
             EncuestaBL oBL = new EncuestaBL();
             var model = oBL.getEncuestas();
 
-            int pageSize = 10;
+            /*int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(model.ToPagedList(pageNumber, pageSize));
+            return View(model.ToPagedList(pageNumber, pageSize));*/
+            return View(model);
         }
 
         public ActionResult Encuesta(int? id = null)
