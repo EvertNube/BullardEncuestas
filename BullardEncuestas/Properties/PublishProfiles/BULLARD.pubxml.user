@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Apps\Deploy\BULLARD</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Archivos\Apps</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -19,7 +19,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/02/2014 13:05:46</publishTime>
     </File>
     <File Include="bin/BullardEncuestas.dll">
-      <publishTime>10/02/2014 13:05:47</publishTime>
+      <publishTime>10/02/2014 19:45:21</publishTime>
     </File>
     <File Include="bin/BullardEncuestas.Helpers.dll">
       <publishTime>10/02/2014 13:05:46</publishTime>
@@ -2050,7 +2050,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/22/2014 17:49:30</publishTime>
     </File>
     <File Include="Views/Admin/Index.cshtml">
-      <publishTime>09/29/2014 19:05:13</publishTime>
+      <publishTime>10/02/2014 19:42:00</publishTime>
     </File>
     <File Include="Views/Admin/Ingresar.cshtml">
       <publishTime>09/22/2014 17:49:30</publishTime>

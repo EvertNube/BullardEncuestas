@@ -362,6 +362,7 @@ namespace BullardEncuestas.Core.BL
                     encuesta.Nombre = encuestaDTO.NombreEncuesta;
                     encuesta.Instrucciones = encuestaDTO.Instrucciones;
                     encuesta.Leyenda = encuestaDTO.Leyenda;
+                    encuesta.Estado = encuestaDTO.EstadoEncuesta;
                     //encuesta.IdPeriodo = encuestaDTO.IdPeriodo;
                     encuesta.IdGrupoEvaluado = encuestaDTO.IdGrupoEvaluado;
                     encuesta.EstadoProceso = "En proceso";//encuestaDTO.EstadoEncuesta;
