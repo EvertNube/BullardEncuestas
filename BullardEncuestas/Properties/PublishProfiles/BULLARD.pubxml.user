@@ -13,13 +13,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/22/2014 17:49:36</publishTime>
     </File>
     <File Include="bin/BullardEncuestas.Core.dll">
-      <publishTime>10/02/2014 13:05:46</publishTime>
+      <publishTime>10/02/2014 23:27:38</publishTime>
     </File>
     <File Include="bin/BullardEncuestas.Data.dll">
       <publishTime>10/02/2014 13:05:46</publishTime>
     </File>
     <File Include="bin/BullardEncuestas.dll">
-      <publishTime>10/02/2014 19:45:21</publishTime>
+      <publishTime>10/02/2014 23:27:39</publishTime>
     </File>
     <File Include="bin/BullardEncuestas.Helpers.dll">
       <publishTime>10/02/2014 13:05:46</publishTime>
