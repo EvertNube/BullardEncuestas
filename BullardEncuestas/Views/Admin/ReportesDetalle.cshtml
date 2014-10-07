@@ -5,14 +5,21 @@
 @model EncuestaDTO
 @section styles{
     @Styles.Render("~/Content/themes/admin/js/fuelux/fuelux.css")
-    @Styles.Render("~/Content/themes/admin/js/StickyTableHeaders/normalize.css")
-    @Styles.Render("~/Content/themes/admin/js/StickyTableHeaders/demo.css")
-    @Styles.Render("~/Content/themes/admin/js/StickyTableHeaders/component.css")
+    @Styles.Render("~/Content/themes/admin/js/FixedHeaderTable/css/defaultTheme.css")
+    @Styles.Render("~/Content/themes/admin/js/FixedHeaderTable/demo/css/myTheme.css")
 }
 @section scripts{
     @Scripts.Render("~/Content/themes/admin/js/fuelux/fuelux.js")
-    @Scripts.Render("http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js")
-    @Scripts.Render("~/Content/themes/admin/js/StickyTableHeaders/jquery.stickyheader.js")
+    @Scripts.Render("~/Content/themes/admin/js/FixedHeaderTable/jquery.fixedheadertable.js")
+    @Scripts.Render("~/Content/themes/admin/js/FixedHeaderTable/demo/js/demo.js")
+    
+    <script type="text/javascript">
+        $('#myTableFixed').fixedHeaderTable({
+            altClass: 'odd',
+            footer: true,
+            fixedColumns: 1,
+        });
+    </script>
 }
 @{
     ViewBag.Title = "ReportesDetalle";
@@ -81,12 +88,6 @@
                         </div>
                     </div>
                     <div class="panel-body">
-
-                        @*<p><b>Promedio General</b><b style="padding-left:105px;"> : </b>@promGene</p>
-                            <p><b>Promedio General Anterior</b><b style="padding-left: 48px;"> : </b>@promGeneAnt</p>
-                            <p><b>Cantidad de Evaluadores</b><b style="padding-left: 64px;"> : </b>@Model.CantEvaluadores</p>
-                            <p><b>Cantidad de Encuestas Resueltas</b><b style="padding-left: 14px;"> : </b>@Model.CantEncuestasResueltas</p>*@
-
                         @{var subseccion1 = "sub1enc" + Model.IdEncuesta; }
 
                         <div class="panel-group m-b" id="accordion1">
@@ -161,39 +162,41 @@
                                 </div>
                                 <div id="@subseccion2" class="panel-collapse collapse in">
                                     <div class="panel-body">
-                                        @{int npre = Model.listaReportePreguntas.Count;}
-                                        @{int nper = Model.listaReportePersonas.Count;}
-                                        <table class="overflow-y">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nombres X Preguntas</th>
-                                                    @for (int j = 0; j < nper; j++)
-                                                    {
-                                                        <th>
-                                                            @Model.listaReportePersonas[j].Nombre
-                                                        </th>
-                                                    }
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @for (int pre = 0; pre < npre; pre++)
-                                                {
+                                        <div class="grid_4 height400">
+                                            @{int npre = Model.listaReportePreguntas.Count;}
+                                            @{int nper = Model.listaReportePersonas.Count;}
+                                            <table id="myTableFixed" class="fancyTable">
+                                                <thead>
                                                     <tr>
-                                                        <th>@Model.listaReportePreguntas[pre].Texto</th>
-                                                        @for (int per = 0; per < nper; per++)
+                                                        <th>Nombres X Preguntas</th>
+                                                        @for (int j = 0; j < nper; j++)
                                                         {
-                                                            if (Model.matrizReporteDetalle[pre, per].ValorItem != -1)
-                                                            {
-                                                                <td style="text-align:center;">@decimal.Round(Model.matrizReporteDetalle[pre, per].ValorItem, 2).ToString(CultureInfo.InvariantCulture)</td>
-                                                            }
-                                                            else
-                                                            {
-                                                                <td style="text-align:center;">NA</td>}
+                                                            <th>
+                                                                @Model.listaReportePersonas[j].Nombre
+                                                            </th>
                                                         }
                                                     </tr>
-                                                }
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @for (int pre = 0; pre < npre; pre++)
+                                                    {
+                                                        <tr>
+                                                            <th style="background-color:#e8e8e8;">@Model.listaReportePreguntas[pre].Texto</th>
+                                                            @for (int per = 0; per < nper; per++)
+                                                            {
+                                                                if (Model.matrizReporteDetalle[pre, per].ValorItem != -1)
+                                                                {
+                                                                    <td style="text-align:center;">@decimal.Round(Model.matrizReporteDetalle[pre, per].ValorItem, 2).ToString(CultureInfo.InvariantCulture)</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td style="text-align:center;">NA</td>}
+                                                            }
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
