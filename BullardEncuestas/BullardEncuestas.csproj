@@ -440,15 +440,11 @@
     <Content Include="Content\themes\admin\js\datepicker\bootstrap-datepicker.js" />
     <Content Include="Content\themes\admin\js\datepicker\datepicker.css" />
     <Content Include="Content\themes\admin\js\FixedHeaderTable\css\defaultTheme.css" />
-    <Content Include="Content\themes\admin\js\FixedHeaderTable\demo\css\960.css" />
     <Content Include="Content\themes\admin\js\FixedHeaderTable\demo\css\demo.css" />
     <Content Include="Content\themes\admin\js\FixedHeaderTable\demo\css\myTheme.css" />
     <Content Include="Content\themes\admin\js\FixedHeaderTable\demo\css\reset.css" />
-    <Content Include="Content\themes\admin\js\FixedHeaderTable\demo\demo.html" />
     <Content Include="Content\themes\admin\js\FixedHeaderTable\demo\demo.js" />
-    <Content Include="Content\themes\admin\js\FixedHeaderTable\demo\images\bg.png" />
     <Content Include="Content\themes\admin\js\FixedHeaderTable\demo\js\demo.js" />
-    <Content Include="Content\themes\admin\js\FixedHeaderTable\demo\test.html" />
     <Content Include="Content\themes\admin\js\FixedHeaderTable\jquery.fixedheadertable.js" />
     <Content Include="Content\themes\admin\js\FixedHeaderTable\jquery.fixedheadertable.min.js" />
     <Content Include="Content\themes\admin\js\FixedHeaderTable\lib\jquery.mousewheel.js" />
