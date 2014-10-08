@@ -385,6 +385,13 @@
           <Parameter Name="IdGrupo" Type="int" Mode="In" />
           <Parameter Name="IdPersona" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_AddRespuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEncuesta" Type="int" Mode="In" />
+          <Parameter Name="IdEvaluador" Type="int" Mode="In" />
+          <Parameter Name="CodEvaluador" Type="nvarchar" Mode="In" />
+          <Parameter Name="EstaCompleto" Type="bit" Mode="In" />
+          <Parameter Name="IdEncuestaEvaluador" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="SP_EsSocio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdPersona" Type="int" Mode="In" />
         </Function>
@@ -425,6 +432,10 @@
         </Function>
         <Function Name="SP_ReplicaEncuesta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdPeriodoNEW" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_UpdateRespuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Accion" Type="int" Mode="In" />
+          <Parameter Name="IdEncuestaEvaluador" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="BULLARDEncuestasDbModelStoreContainer">
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
@@ -960,6 +971,17 @@
           <Parameter Name="IdPeriodoNEW" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_GetEncuestas2" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestas2_Result)" />
+          <FunctionImport Name="SP_UpdateRespuestas">
+            <Parameter Name="Accion" Mode="In" Type="Int32" />
+            <Parameter Name="IdEncuestaEvaluador" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_AddRespuestas">
+            <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+            <Parameter Name="IdEvaluador" Mode="In" Type="Int32" />
+            <Parameter Name="CodEvaluador" Mode="In" Type="String" />
+            <Parameter Name="EstaCompleto" Mode="In" Type="Boolean" />
+            <Parameter Name="IdEncuestaEvaluador" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_GetEncuestas_Result">
           <Property Type="Int32" Name="IdEncuesta" Nullable="false" />
@@ -1305,6 +1327,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UpdateRespuestas" FunctionName="BULLARD.EncuestasDbModel.Store.SP_UpdateRespuestas" />
+          <FunctionImportMapping FunctionImportName="SP_AddRespuestas" FunctionName="BULLARD.EncuestasDbModel.Store.SP_AddRespuestas" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

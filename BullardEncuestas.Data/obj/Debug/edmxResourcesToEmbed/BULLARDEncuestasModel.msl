@@ -271,5 +271,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UpdateRespuestas" FunctionName="BULLARD.EncuestasDbModel.Store.SP_UpdateRespuestas" />
+    <FunctionImportMapping FunctionImportName="SP_AddRespuestas" FunctionName="BULLARD.EncuestasDbModel.Store.SP_AddRespuestas" />
   </EntityContainerMapping>
 </Mapping>

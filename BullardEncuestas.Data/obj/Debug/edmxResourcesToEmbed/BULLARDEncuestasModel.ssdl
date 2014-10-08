@@ -380,6 +380,13 @@
     <Parameter Name="IdGrupo" Type="int" Mode="In" />
     <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
+  <Function Name="SP_AddRespuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEncuesta" Type="int" Mode="In" />
+    <Parameter Name="IdEvaluador" Type="int" Mode="In" />
+    <Parameter Name="CodEvaluador" Type="nvarchar" Mode="In" />
+    <Parameter Name="EstaCompleto" Type="bit" Mode="In" />
+    <Parameter Name="IdEncuestaEvaluador" Type="int" Mode="InOut" />
+  </Function>
   <Function Name="SP_EsSocio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
@@ -420,6 +427,10 @@
   </Function>
   <Function Name="SP_ReplicaEncuesta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IdPeriodoNEW" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UpdateRespuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Accion" Type="int" Mode="In" />
+    <Parameter Name="IdEncuestaEvaluador" Type="int" Mode="In" />
   </Function>
   <EntityContainer Name="BULLARDEncuestasDbModelStoreContainer">
     <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />

@@ -4,7 +4,9 @@ using BullardEncuestas.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Objects.SqlClient;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -121,30 +123,47 @@ namespace BullardEncuestas.Core.BL
                             encuestaEvaluadorDTO.Respuestas.Add(respuesta);
                         }
                     }
-                    //Agrego la respuesta
-                    EncuestaEvaluador encuestaEvaluador = new EncuestaEvaluador();
-                    encuestaEvaluador.IdEncuesta = encuestaEvaluadorDTO.IdEncuesta;
-                    encuestaEvaluador.IdEvaluador = encuestaEvaluadorDTO.IdEvaluador;
-                    encuestaEvaluador.CodEvaluador = "";
-                    encuestaEvaluador.EstaCompleto = encuestaEvaluadorDTO.EstaCompleto;
-                    context.EncuestaEvaluador.Add(encuestaEvaluador);
-                    foreach (var item in encuestaEvaluadorDTO.Respuestas)
-                    {
-                        Respuestas respuesta = new Respuestas();
-                        respuesta.IdEncuestaEvaluador = encuestaEvaluador.IdEncuestaEvaluador;
-                        respuesta.IdPregunta = item.IdPregunta;
-                        respuesta.IdEvaluado = item.IdEvaluado;
-                        respuesta.Valor = item.Valor;
-                        encuestaEvaluador.Respuestas.Add(respuesta);
-                    }
-                    context.SaveChanges();
-                    return encuestaEvaluador.IdEncuestaEvaluador;
-                    //return true;
+                    //// convert source data to DataTable
+                    DataTable table = encuestaEvaluadorDTO.Respuestas.ToDataTable();
+                    //// create parameters
+                    var IdEncuesta = new SqlParameter("@IdEncuesta", SqlDbType.Int);
+                    IdEncuesta.Value = encuestaEvaluadorDTO.IdEncuesta;
+                    var IdEvaluador = new SqlParameter("@IdEvaluador", SqlDbType.Int);
+                    IdEvaluador.Value = encuestaEvaluadorDTO.IdEvaluador;
+                    var CodEvaluador = new SqlParameter("@CodEvaluador", SqlDbType.NVarChar);
+                    CodEvaluador.Value = "";
+                    var EstaCompleto = new SqlParameter("@EstaCompleto", SqlDbType.Bit);
+                    EstaCompleto.Value = encuestaEvaluadorDTO.EstaCompleto;
+                    var tvpRespuestas = new SqlParameter("@tvpRespuestas", table);
+                    tvpRespuestas.SqlDbType = SqlDbType.Structured;
+                    tvpRespuestas.TypeName = "TVP_Respuestas";
+                    var output = new SqlParameter("@IdEncuestaEvaluador", SqlDbType.Int);
+                    output.Direction = ParameterDirection.Output;
+                    //// save using procedure with table value parameter
+                    var totalCountParam = new SqlParameter("TotalCount", 0) { Direction = ParameterDirection.Output };
+                    context.ExecuteTableValueProcedure("SP_AddRespuestas", "@IdEncuesta,@IdEvaluador,@CodEvaluador,@EstaCompleto,@tvpRespuestas,@IdEncuestaEvaluador OUTPUT", new object[] { IdEncuesta, IdEvaluador, CodEvaluador, EstaCompleto, tvpRespuestas, output });
+                    return (int)output.Value;
+                    ////Agrego la respuesta
+                    //EncuestaEvaluador encuestaEvaluador = new EncuestaEvaluador();
+                    //encuestaEvaluador.IdEncuesta = encuestaEvaluadorDTO.IdEncuesta;
+                    //encuestaEvaluador.IdEvaluador = encuestaEvaluadorDTO.IdEvaluador;
+                    //encuestaEvaluador.CodEvaluador = "";
+                    //encuestaEvaluador.EstaCompleto = encuestaEvaluadorDTO.EstaCompleto;
+                    //context.EncuestaEvaluador.Add(encuestaEvaluador);
+                    //foreach (var item in encuestaEvaluadorDTO.Respuestas)
+                    //{
+                    //    Respuestas respuesta = new Respuestas();
+                    //    respuesta.IdEncuestaEvaluador = encuestaEvaluador.IdEncuestaEvaluador;
+                    //    respuesta.IdPregunta = item.IdPregunta;
+                    //    respuesta.IdEvaluado = item.IdEvaluado;
+                    //    respuesta.Valor = item.Valor;
+                    //    encuestaEvaluador.Respuestas.Add(respuesta);
+                    //}
+                    //context.SaveChanges();
+                    //return encuestaEvaluador.IdEncuestaEvaluador;
                 }
                 catch (Exception e)
                 {
-                    //throw e;
-                    //return false;
                     return 0;
                 }
             }
@@ -166,35 +185,35 @@ namespace BullardEncuestas.Core.BL
                         respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
                         encuestaEvaluadorDTO.Respuestas.Add(respuesta);
                     }
-                    for (int i = 0; i < encuestaEvaluadorDTO.listaRespuestas.Count; i++)
-                    {
-                        var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador && x.IdPregunta == encuestaEvaluadorDTO.listaPreguntas[i] && x.IdEvaluado == encuestaEvaluadorDTO.listaEvaluados[i]).SingleOrDefault();
-                        if (respuesta != null)
-                        {
-                            if (encuestaEvaluadorDTO.listaRespuestas[i] == "0" || encuestaEvaluadorDTO.listaRespuestas[i].Trim() == "")
-                                //encuestaEvaluador.Respuestas.Remove(respuesta);
-                                context.Respuestas.Remove(respuesta);
-                            else if (encuestaEvaluadorDTO.listaRespuestas[i] != respuesta.Valor)
-                                respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
-                        }
-                        else
-                        {
-                            if (encuestaEvaluadorDTO.listaRespuestas[i] != "0" && encuestaEvaluadorDTO.listaRespuestas[i].Trim() != "")
-                            {
-                                Respuestas respuestaNew = new Respuestas();
-                                respuestaNew.IdEncuestaEvaluador = encuestaEvaluadorDTO.IdEncuestaEvaluador;
-                                respuestaNew.IdPregunta = encuestaEvaluadorDTO.listaPreguntas[i];
-                                respuestaNew.IdEvaluado = encuestaEvaluadorDTO.listaEvaluados[i];
-                                respuestaNew.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
-                                context.Respuestas.Add(respuestaNew);
-                            }
-                        }
-                    }
-                    if (encuestaEvaluadorDTO.Accion == 2) //Se ejecuta si se presiona "Enviar y Salir"
-                    {
-                        var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).SingleOrDefault();
-                        encuestaEvaluador.EstaCompleto = true; //Encuesta terminada
-                    }
+
+                    //for (int i = 0; i < encuestaEvaluadorDTO.listaRespuestas.Count; i++)
+                    //{
+                    //    var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador && x.IdPregunta == encuestaEvaluadorDTO.listaPreguntas[i] && x.IdEvaluado == encuestaEvaluadorDTO.listaEvaluados[i]).SingleOrDefault();
+                    //    if (respuesta != null)
+                    //    {
+                    //        if (encuestaEvaluadorDTO.listaRespuestas[i] == "0" || encuestaEvaluadorDTO.listaRespuestas[i].Trim() == "")
+                    //            context.Respuestas.Remove(respuesta);
+                    //        else if (encuestaEvaluadorDTO.listaRespuestas[i] != respuesta.Valor)
+                    //            respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
+                    //    }
+                    //    else
+                    //    {
+                    //        if (encuestaEvaluadorDTO.listaRespuestas[i] != "0" && encuestaEvaluadorDTO.listaRespuestas[i].Trim() != "")
+                    //        {
+                    //            Respuestas respuestaNew = new Respuestas();
+                    //            respuestaNew.IdEncuestaEvaluador = encuestaEvaluadorDTO.IdEncuestaEvaluador;
+                    //            respuestaNew.IdPregunta = encuestaEvaluadorDTO.listaPreguntas[i];
+                    //            respuestaNew.IdEvaluado = encuestaEvaluadorDTO.listaEvaluados[i];
+                    //            respuestaNew.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
+                    //            context.Respuestas.Add(respuestaNew);
+                    //        }
+                    //    }
+                    //}
+                    //if (encuestaEvaluadorDTO.Accion == 2) //Se ejecuta si se presiona "Enviar y Salir"
+                    //{
+                    //    var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).SingleOrDefault();
+                    //    encuestaEvaluador.EstaCompleto = true; //Encuesta terminada
+                    //}
                     context.SaveChanges();
                     return true;
                 }

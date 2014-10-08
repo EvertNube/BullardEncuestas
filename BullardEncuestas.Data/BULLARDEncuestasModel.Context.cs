@@ -173,5 +173,39 @@ namespace BullardEncuestas.Data
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEncuestas2_Result>("SP_GetEncuestas2");
         }
+    
+        public virtual int SP_UpdateRespuestas(Nullable<int> accion, Nullable<int> idEncuestaEvaluador)
+        {
+            var accionParameter = accion.HasValue ?
+                new ObjectParameter("Accion", accion) :
+                new ObjectParameter("Accion", typeof(int));
+    
+            var idEncuestaEvaluadorParameter = idEncuestaEvaluador.HasValue ?
+                new ObjectParameter("IdEncuestaEvaluador", idEncuestaEvaluador) :
+                new ObjectParameter("IdEncuestaEvaluador", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UpdateRespuestas", accionParameter, idEncuestaEvaluadorParameter);
+        }
+    
+        public virtual int SP_AddRespuestas(Nullable<int> idEncuesta, Nullable<int> idEvaluador, string codEvaluador, Nullable<bool> estaCompleto, ObjectParameter idEncuestaEvaluador)
+        {
+            var idEncuestaParameter = idEncuesta.HasValue ?
+                new ObjectParameter("IdEncuesta", idEncuesta) :
+                new ObjectParameter("IdEncuesta", typeof(int));
+    
+            var idEvaluadorParameter = idEvaluador.HasValue ?
+                new ObjectParameter("IdEvaluador", idEvaluador) :
+                new ObjectParameter("IdEvaluador", typeof(int));
+    
+            var codEvaluadorParameter = codEvaluador != null ?
+                new ObjectParameter("CodEvaluador", codEvaluador) :
+                new ObjectParameter("CodEvaluador", typeof(string));
+    
+            var estaCompletoParameter = estaCompleto.HasValue ?
+                new ObjectParameter("EstaCompleto", estaCompleto) :
+                new ObjectParameter("EstaCompleto", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_AddRespuestas", idEncuestaParameter, idEvaluadorParameter, codEvaluadorParameter, estaCompletoParameter, idEncuestaEvaluador);
+        }
     }
 }
