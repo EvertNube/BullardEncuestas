@@ -185,7 +185,22 @@ namespace BullardEncuestas.Core.BL
                         respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
                         encuestaEvaluadorDTO.Respuestas.Add(respuesta);
                     }
-
+                    //// convert source data to DataTable
+                    DataTable table = encuestaEvaluadorDTO.Respuestas.ToDataTable();
+                    //// create parameters
+                    var Accion = new SqlParameter("@Accion", SqlDbType.Int);
+                    Accion.Value = encuestaEvaluadorDTO.Accion;
+                    var IdEncuestaEvaluador = new SqlParameter("@IdEncuestaEvaluador", SqlDbType.Int);
+                    IdEncuestaEvaluador.Value = encuestaEvaluadorDTO.IdEncuestaEvaluador;
+                    var tvpRespuestas = new SqlParameter("@tvpRespuestas", table);
+                    tvpRespuestas.SqlDbType = SqlDbType.Structured;
+                    tvpRespuestas.TypeName = "TVP_Respuestas";
+                    var intOutput = new SqlParameter("@intOutput", SqlDbType.Bit); //var totalCountParam = new SqlParameter("TotalCount", 0) { Direction = ParameterDirection.Output };
+                    intOutput.Value = false;
+                    intOutput.Direction = ParameterDirection.Output;
+                    //// save using procedure with table value parameter
+                    context.ExecuteTableValueProcedure("SP_UpdateRespuestas", "@Accion,@IdEncuestaEvaluador,@tvpRespuestas,@intOutput OUTPUT", new object[] { Accion, IdEncuestaEvaluador, tvpRespuestas, intOutput });
+                    return (bool)intOutput.Value;
                     //for (int i = 0; i < encuestaEvaluadorDTO.listaRespuestas.Count; i++)
                     //{
                     //    var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador && x.IdPregunta == encuestaEvaluadorDTO.listaPreguntas[i] && x.IdEvaluado == encuestaEvaluadorDTO.listaEvaluados[i]).SingleOrDefault();
@@ -214,12 +229,11 @@ namespace BullardEncuestas.Core.BL
                     //    var encuestaEvaluador = context.EncuestaEvaluador.Where(x => x.IdEncuestaEvaluador == encuestaEvaluadorDTO.IdEncuestaEvaluador).SingleOrDefault();
                     //    encuestaEvaluador.EstaCompleto = true; //Encuesta terminada
                     //}
-                    context.SaveChanges();
-                    return true;
+                    //context.SaveChanges();
+                    //return true;
                 }
                 catch (Exception e)
                 {
-                    //throw e;
                     return false;
                 }
             }
@@ -246,33 +260,6 @@ namespace BullardEncuestas.Core.BL
                 }
             }
         }
-
-        //if (encuestaEvaluadorDTO.listaIdRespuestas[i] != 0)
-        //{
-        //    //var respuesta = oldRespuestas.Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
-        //    var respuesta = context.Respuestas.AsEnumerable().Where(x => x.IdRespuestas == encuestaEvaluadorDTO.listaIdRespuestas[i]).SingleOrDefault();
-        //    if (respuesta != null)
-        //    {
-        //        if (encuestaEvaluadorDTO.listaRespuestas[i] == "0")
-        //            //encuestaEvaluador.Respuestas.Remove(respuesta);
-        //            context.Respuestas.Remove(respuesta);
-        //        else if (encuestaEvaluadorDTO.listaRespuestas[i] != respuesta.Valor)
-        //            respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
-        //    }
-        //}
-        //else
-        //{
-        //    if (encuestaEvaluadorDTO.listaRespuestas[i] != "0")
-        //    {
-        //        Respuestas respuesta = new Respuestas();
-        //        respuesta.IdEncuestaEvaluador = encuestaEvaluadorDTO.IdEncuestaEvaluador;
-        //        respuesta.IdPregunta = encuestaEvaluadorDTO.listaPreguntas[i];
-        //        respuesta.IdEvaluado = encuestaEvaluadorDTO.listaEvaluados[i];
-        //        respuesta.Valor = encuestaEvaluadorDTO.listaRespuestas[i];
-        //        //encuestaEvaluador.Respuestas.Add(respuesta);
-        //        context.Respuestas.Add(respuesta);
-        //    }
-        //}
 
     }
 }

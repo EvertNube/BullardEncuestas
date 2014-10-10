@@ -23,11 +23,7 @@ namespace BullardEncuestas.Core
         {
             //// execute sp sql
             string sql = String.Format("EXEC {0} {1};", procedureName, paramsName);
-            
-            //// execute sql
-            //ObjectParameter name = new ObjectParameter("IdEncuestaEvaluador", typeof(int));
             //var data = context.Database.SqlQuery<String>("exec @ReturnCode = spItemData @Code, @StatusLog OUT", returnCode, code, outParam);
-            //context.Database.ExecuteSqlCommand("exec prc_SitePartVrsn_CanLock @spvId, @editMode OUTPUT", parameters);
             return context.Database.ExecuteSqlCommand(sql, parameters);
         }
     }
