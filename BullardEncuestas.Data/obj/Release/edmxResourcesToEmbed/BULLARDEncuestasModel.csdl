@@ -445,6 +445,17 @@
       <Parameter Name="IdPeriodoNEW" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="SP_GetEncuestas2" ReturnType="Collection(BULLARD.EncuestasDbModel.SP_GetEncuestas2_Result)" />
+    <FunctionImport Name="SP_UpdateRespuestas">
+      <Parameter Name="Accion" Mode="In" Type="Int32" />
+      <Parameter Name="IdEncuestaEvaluador" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_AddRespuestas">
+      <Parameter Name="IdEncuesta" Mode="In" Type="Int32" />
+      <Parameter Name="IdEvaluador" Mode="In" Type="Int32" />
+      <Parameter Name="CodEvaluador" Mode="In" Type="String" />
+      <Parameter Name="EstaCompleto" Mode="In" Type="Boolean" />
+      <Parameter Name="IdEncuestaEvaluador" Mode="InOut" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SP_GetEncuestas_Result">
     <Property Type="Int32" Name="IdEncuesta" Nullable="false" />

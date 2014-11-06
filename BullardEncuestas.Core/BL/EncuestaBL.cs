@@ -525,7 +525,7 @@ namespace BullardEncuestas.Core.BL
                                     "<div style='font-size:0pt; line-height:0pt; height:30px'><img src='http://54.186.226.155:75/Content/images/empty.gif' width='1' height='30' style='height:30px' alt='' /></div>" +
                                     "<div class='footer' style='color:#a9aaa9; font-family:Arial; font-size:11px; line-height:20px; text-align:center'>" +
                                         "<div>" +
-                                            "Copyright &copy; <span>2014</span> <span>Estudio Bulard Falla Ezcurra +</span>.<br />" +
+                                            "Copyright &copy; <span>2014</span> <span>Estudio Bullard Falla Ezcurra +</span>.<br />" +
                                             "Diseñado por <a href='www.nube.la'>Nube Labs</a>" +
                                         "</div>" +
                                     "</div>" +

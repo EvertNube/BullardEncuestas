@@ -44,6 +44,8 @@
                     if (data.Response) {
                         $("#IdEncuestaEvaluador").val(data.Id);
                         alert("La encuesta se ha guardado correctamente.");
+                    } else {
+                        alert('Error al intentar guardar la Encuesta. Por favor, actualice la página o presione F5.');
                     }
                 }).fail(function () {
                     alert('Error al intentar guardar la Encuesta. Por favor, actualice la página o presione F5.');
